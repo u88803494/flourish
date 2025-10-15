@@ -96,6 +96,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 - [02-nestjs-quick-ref.md](./docs/02-nestjs-quick-ref.md) - NestJS quick reference
 - [05-dev-tooling-plan.md](./docs/05-dev-tooling-plan.md) - Development tooling plan
 - [06-complete-sprint-plan.md](./docs/06-complete-sprint-plan.md) - Complete sprint planning
+- [07-git-workflow-and-commit-guidelines.md](./docs/07-git-workflow-and-commit-guidelines.md) - Git workflow and commit message guidelines
 
 ## 🗂️ Project Structure
 
