@@ -13,9 +13,19 @@ Welcome to the Flourish project documentation. This documentation follows a spec
 Development guides and workflows:
 - [Git Workflow](./guides/git-workflow.md) - Git workflow and commit message guidelines
 - [Development Setup](./guides/development-setup.md) - How to set up and develop the project
+- [Deployment Guide](./guides/deployment.md) - Deployment strategies and configurations
+
+### 🏗️ Architecture
+System design and architecture documentation:
+- [Authentication Flow](./architecture/authentication-flow.md) - Authentication system design
+- [Database Design](./architecture/database-design.md) - Database schema and data models
+- [Curves Integration](./architecture/curves-integration.md) - Curves tool integration approach
 
 ### 📚 References
 Technical references and quick guides:
+- [Discussion Summary](./references/discussion-summary.md) - Complete project discussion history
+- [Tech Comparison](./references/tech-comparison.md) - Technology selection analysis and comparison
+- [Naming Decisions](./references/naming-decisions.md) - Naming conventions and rationale
 - [NestJS Quick Reference](./references/nestjs-quick-ref.md) - NestJS patterns and best practices
 - [Prisma Guide](./references/prisma-guide.md) - Prisma usage and tips
 - [Development Tooling](./references/dev-tooling.md) - Development tools and configurations
