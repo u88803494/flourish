@@ -1,135 +1,146 @@
-# Turborepo starter
+# Flourish 🌱
 
-This Turborepo starter is maintained by the Turborepo core team.
+> Tools for prosperity and growth
 
-## Using this example
+**Flourish** is an integrated personal growth platform designed to help you achieve true prosperity in finance and performance. Based on Scientology management principles, we believe that through proper data tracking and analysis, everyone can find their path to success.
 
-Run the following command:
+## 🎯 Vision
 
-```sh
-npx create-turbo@latest
+When money flows and statistics rise, everything will **flourish**.
+
+## 📦 What's Inside?
+
+This monorepo includes:
+
+### Applications
+
+- **`flow`** 💰 - Financial tracking application (Next.js)
+  - Track and manage your finances
+  - Let money flow healthily and create abundance
+
+- **`apex`** 📈 - Statistics curve tracking tool (Next.js)
+  - Plot statistical curves
+  - Track performance peaks
+  - Continuously climb upward
+  - _(Coming soon)_
+
+- **`api`** 🔧 - Backend API service (NestJS)
+  - Business logic processing
+  - Database operations
+  - Authentication and authorization
+  - _(Coming soon)_
+
+### Shared Packages
+
+- **`@repo/ui`** - Shared React component library
+- **`@repo/database`** - Prisma schema and client _(Coming soon)_
+- **`@repo/chart-engine`** - Curve chart core logic _(Coming soon)_
+- **`@repo/eslint-config`** - ESLint configurations
+- **`@repo/typescript-config`** - TypeScript configurations
+
+All packages and applications are 100% [TypeScript](https://www.typescriptlang.org/).
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15 (App Router) + React 19 + TypeScript
+- **Backend**: NestJS + TypeScript _(Coming soon)_
+- **Database**: Supabase PostgreSQL + Prisma _(Coming soon)_
+- **Auth**: Supabase Auth _(Coming soon)_
+- **Monorepo**: Turborepo + pnpm
+- **Styling**: Tailwind CSS
+- **Linting**: ESLint + Prettier _(To be configured)_
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm 9+
+
+### Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start all applications in development mode
+pnpm dev
+
+# Start a specific application
+pnpm dev --filter=flow
 ```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
 
 ### Build
 
-To build all apps and packages, run the following command:
+```bash
+# Build all applications
+pnpm build
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# Build a specific application
+pnpm build --filter=flow
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Lint
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+# Lint all applications
+pnpm lint
 ```
 
-### Develop
+## 📖 Documentation
 
-To develop all apps and packages, run the following command:
+Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 
-```
-cd my-turborepo
+- [00-discussion-summary.md](./docs/00-discussion-summary.md) - Complete project discussion and decisions
+- [01-tech-comparison.md](./docs/01-tech-comparison.md) - Technology selection analysis
+- [02-nestjs-quick-ref.md](./docs/02-nestjs-quick-ref.md) - NestJS quick reference
+- [05-dev-tooling-plan.md](./docs/05-dev-tooling-plan.md) - Development tooling plan
+- [06-complete-sprint-plan.md](./docs/06-complete-sprint-plan.md) - Complete sprint planning
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🗂️ Project Structure
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+flourish/
+├── apps/
+│   ├── flow/              # 💰 Financial tracking app
+│   ├── apex/              # 📈 Statistics curve tool (placeholder)
+│   └── api/               # 🔧 Backend API (placeholder)
+├── packages/
+│   ├── ui/                # 🎨 Shared UI components
+│   ├── database/          # 🗄️ Prisma schema (placeholder)
+│   ├── chart-engine/      # 📊 Chart core logic (placeholder)
+│   ├── typescript-config/ # ⚙️ Shared TypeScript config
+│   └── eslint-config/     # ⚙️ Shared ESLint config
+├── docs/                  # 📚 Project documentation
+├── turbo.json             # Turborepo configuration
+└── package.json           # Workspace configuration
 ```
 
-### Remote Caching
+## 📅 Development Roadmap
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+### Phase 0: Foundation (Current)
+- [x] Sprint 0.1: Basic monorepo structure
+- [ ] Sprint 0.2: Prettier setup
+- [ ] Sprint 0.3: Husky + lint-staged
+- [ ] Sprint 0.4: commitlint
+- [ ] Sprint 0.5: Prisma setup
+- [ ] Sprint 0.6: NestJS application
+- [ ] Sprint 0.7: Apex application
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Phase 1: Core Features
+- [ ] Sprint 1: Authentication system
+- [ ] Sprint 2: Transaction CRUD
+- [ ] Sprint 3: Categories and statistics
+- [ ] Sprint 4: Chart integration
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+## 🤝 Contributing
 
-```
-cd my-turborepo
+This is a personal learning project, but suggestions and feedback are welcome!
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
+## 📄 License
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
+Private project for personal use.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+---
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+**Built with ❤️ to learn modern full-stack architecture**
