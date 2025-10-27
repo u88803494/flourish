@@ -13,6 +13,7 @@ Welcome to the Flourish project documentation. This documentation follows a spec
 Development guides and workflows:
 - [Git Workflow](./guides/git-workflow.md) - Git workflow and commit message guidelines
 - [Development Setup](./guides/development-setup.md) - How to set up and develop the project
+- [Versioning Strategy](./guides/versioning-strategy.md) - Version management and release strategy
 - [Deployment Guide](./guides/deployment.md) - Deployment strategies and configurations
 
 ### 🏗️ Architecture
