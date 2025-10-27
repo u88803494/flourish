@@ -74,6 +74,7 @@
 **位置**：`/Users/henry_lee/Developer/Personal/curves_tool`
 
 **技術棧**：
+
 - Next.js 14+ (App Router)
 - TypeScript
 - Supabase（認證 + 資料庫）
@@ -160,7 +161,7 @@ export interface TimeSeries {
   id: string;
   name: string;
   data: DataPoint[];
-  unit?: string;  // 單位（如：元、筆）
+  unit?: string; // 單位（如：元、筆）
 }
 
 // packages/chart-engine/src/types/condition.ts
@@ -177,17 +178,17 @@ export enum ConditionLevel {
 export interface ConditionResult {
   level: ConditionLevel;
   trend: 'up' | 'down' | 'flat';
-  changeRate: number;  // 變化率（%）
-  recommendation: string[];  // 建議行動
+  changeRate: number; // 變化率（%）
+  recommendation: string[]; // 建議行動
 }
 
 // packages/chart-engine/src/types/trend.ts
 export interface TrendAnalysis {
   trend: 'up' | 'down' | 'flat';
-  slope: number;  // 斜率
-  changeRate: number;  // 變化率
-  average: number;  // 平均值
-  volatility: number;  // 波動性
+  slope: number; // 斜率
+  changeRate: number; // 變化率
+  average: number; // 平均值
+  volatility: number; // 波動性
 }
 ```
 
@@ -201,22 +202,22 @@ export class TrendAnalyzer {
    */
   analyze(timeSeries: TimeSeries): TrendAnalysis {
     const data = timeSeries.data;
-    
+
     // 計算平均值
     const average = this.calculateAverage(data);
-    
+
     // 計算趨勢（線性回歸）
     const slope = this.calculateSlope(data);
-    
+
     // 判定趨勢方向
     const trend = this.determineTrend(slope);
-    
+
     // 計算變化率
     const changeRate = this.calculateChangeRate(data);
-    
+
     // 計算波動性（標準差）
     const volatility = this.calculateVolatility(data, average);
-    
+
     return {
       trend,
       slope,
@@ -238,7 +239,7 @@ export class TrendAnalyzer {
     if (n < 2) return 0;
 
     const xValues = data.map((_, i) => i);
-    const yValues = data.map(point => point.value);
+    const yValues = data.map((point) => point.value);
 
     const sumX = xValues.reduce((a, b) => a + b, 0);
     const sumY = yValues.reduce((a, b) => a + b, 0);
@@ -250,7 +251,7 @@ export class TrendAnalyzer {
   }
 
   private determineTrend(slope: number): 'up' | 'down' | 'flat' {
-    const threshold = 0.01;  // 可調整的閾值
+    const threshold = 0.01; // 可調整的閾值
     if (slope > threshold) return 'up';
     if (slope < -threshold) return 'down';
     return 'flat';
@@ -258,21 +259,22 @@ export class TrendAnalyzer {
 
   private calculateChangeRate(data: DataPoint[]): number {
     if (data.length < 2) return 0;
-    
+
     const firstValue = data[0].value;
     const lastValue = data[data.length - 1].value;
-    
+
     if (firstValue === 0) return 0;
-    
+
     return ((lastValue - firstValue) / firstValue) * 100;
   }
 
   private calculateVolatility(data: DataPoint[], average: number): number {
-    const variance = data.reduce((sum, point) => {
-      const diff = point.value - average;
-      return sum + diff * diff;
-    }, 0) / data.length;
-    
+    const variance =
+      data.reduce((sum, point) => {
+        const diff = point.value - average;
+        return sum + diff * diff;
+      }, 0) / data.length;
+
     return Math.sqrt(variance);
   }
 }
@@ -286,7 +288,7 @@ export class ConditionDetector {
    */
   detect(analysis: TrendAnalysis, previousAnalysis?: TrendAnalysis): ConditionResult {
     const { trend, changeRate } = analysis;
-    
+
     let level: ConditionLevel;
     let recommendation: string[] = [];
 
@@ -303,18 +305,11 @@ export class ConditionDetector {
     } else if (trend === 'up' && changeRate > 10) {
       // 穩定上升
       level = ConditionLevel.NORMAL;
-      recommendation = [
-        '財務狀況正常運作',
-        '繼續保持當前的收支模式',
-        '可以考慮增加儲蓄或投資',
-      ];
+      recommendation = ['財務狀況正常運作', '繼續保持當前的收支模式', '可以考慮增加儲蓄或投資'];
     } else if (trend === 'flat') {
       // 持平
       level = ConditionLevel.NORMAL;
-      recommendation = [
-        '財務狀況穩定',
-        '考慮尋找增加收入的機會',
-      ];
+      recommendation = ['財務狀況穩定', '考慮尋找增加收入的機會'];
     } else if (trend === 'down' && changeRate > -10) {
       // 開始下降
       level = ConditionLevel.EMERGENCY;
@@ -336,10 +331,7 @@ export class ConditionDetector {
       ];
     } else {
       level = ConditionLevel.NON_EXISTENCE;
-      recommendation = [
-        '開始記錄你的財務數據',
-        '設定清晰的財務目標',
-      ];
+      recommendation = ['開始記錄你的財務數據', '設定清晰的財務目標'];
     }
 
     return {
@@ -398,12 +390,7 @@ export class ConditionDetector {
 
 ```typescript
 // apps/ledger/src/lib/financial-analyzer.ts
-import { 
-  TrendAnalyzer, 
-  ConditionDetector, 
-  TimeSeries, 
-  DataPoint 
-} from '@workspace/chart-engine';
+import { TrendAnalyzer, ConditionDetector, TimeSeries, DataPoint } from '@workspace/chart-engine';
 import { Transaction } from '@workspace/database';
 
 export class FinancialAnalyzer {
@@ -419,14 +406,13 @@ export class FinancialAnalyzer {
     groupBy: 'day' | 'week' | 'month' = 'month'
   ): TimeSeries {
     // 過濾和分組
-    const filtered = type === 'net' 
-      ? transactions 
-      : transactions.filter(t => t.type === type.toUpperCase());
+    const filtered =
+      type === 'net' ? transactions : transactions.filter((t) => t.type === type.toUpperCase());
 
     // 按時間分組並計算總額
     const grouped = this.groupByPeriod(filtered, groupBy);
 
-    const data: DataPoint[] = grouped.map(group => ({
+    const data: DataPoint[] = grouped.map((group) => ({
       date: group.date,
       value: group.total,
     }));
@@ -459,10 +445,7 @@ export class FinancialAnalyzer {
     };
   }
 
-  private groupByPeriod(
-    transactions: Transaction[],
-    period: 'day' | 'week' | 'month'
-  ) {
+  private groupByPeriod(transactions: Transaction[], period: 'day' | 'week' | 'month') {
     // 實作分組邏輯
     // ...
     return [];
@@ -482,7 +465,9 @@ export class DataImporter {
    */
   async importFromLedger(userId: string, dateRange: DateRange): Promise<TimeSeries[]> {
     // 呼叫記帳 API 取得數據
-    const response = await fetch(`/api/ledger/export?userId=${userId}&from=${dateRange.from}&to=${dateRange.to}`);
+    const response = await fetch(
+      `/api/ledger/export?userId=${userId}&from=${dateRange.from}&to=${dateRange.to}`
+    );
     const data = await response.json();
 
     // 轉換為 TimeSeries 格式
@@ -611,22 +596,22 @@ import { FinancialAnalyzer } from '@/lib/financial-analyzer';
 export default async function Dashboard() {
   const transactions = await getTransactions();
   const analyzer = new FinancialAnalyzer();
-  
+
   const { analysis, condition, series } = analyzer.analyzeFinancialCondition(transactions);
 
   return (
     <div>
       <h1>財務儀表板</h1>
-      
+
       {/* 狀況卡片 */}
       <ConditionCard condition={condition} />
-      
+
       {/* 曲線圖 */}
       <ChartRenderer data={series} />
-      
+
       {/* 建議行動 */}
       <RecommendationList items={condition.recommendation} />
-      
+
       {/* 進階分析連結 */}
       <Link href="/curves">
         <Button>查看進階曲線分析</Button>

@@ -9,6 +9,7 @@
 ## 系統組件
 
 ### 1. Supabase Auth
+
 - **角色**：身份認證服務（Identity Provider）
 - **職責**：
   - 使用者註冊和登入
@@ -17,6 +18,7 @@
   - 密碼重設、Email 驗證等
 
 ### 2. Next.js 前端
+
 - **角色**：客戶端應用
 - **職責**：
   - 提供使用者介面
@@ -25,6 +27,7 @@
   - 呼叫 NestJS API
 
 ### 3. NestJS 後端
+
 - **角色**：資源伺服器（Resource Server）
 - **職責**：
   - 驗證 JWT token 有效性
@@ -33,6 +36,7 @@
   - **不負責簽發 token**
 
 ### 4. Prisma + PostgreSQL
+
 - **角色**：資料持久化
 - **職責**：
   - 儲存業務資料（交易、分類等）
@@ -266,7 +270,7 @@ export default function TransactionsPage() {
   const fetchTransactions = async () => {
     // 1. 取得 token
     const { data: { session } } = await supabase.auth.getSession();
-    
+
     if (!session) {
       router.push('/login');
       return;
@@ -311,11 +315,11 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Get()
-  @UseGuards(SupabaseAuthGuard)  // 🔒 保護此路由
+  @UseGuards(SupabaseAuthGuard) // 🔒 保護此路由
   async findAll(@Request() req) {
     // req.user 已經由 Guard 自動填充
     const userId = req.user.id;
-    
+
     // 只回傳該使用者的交易
     return this.transactionsService.findAll(userId);
   }
@@ -401,7 +405,7 @@ Supabase 簽發的 JWT token 解碼後的 payload 範例：
   "exp": 1697625600,
   "iat": 1697622000,
   "iss": "https://xxx.supabase.co/auth/v1",
-  "sub": "550e8400-e29b-41d4-a716-446655440000",  // user ID
+  "sub": "550e8400-e29b-41d4-a716-446655440000", // user ID
   "email": "user@example.com",
   "phone": "",
   "app_metadata": {
@@ -414,6 +418,7 @@ Supabase 簽發的 JWT token 解碼後的 payload 範例：
 ```
 
 **關鍵欄位**：
+
 - `sub`：Subject，即使用者的唯一 ID
 - `email`：使用者的 email
 - `exp`：過期時間（Unix timestamp）
@@ -464,10 +469,12 @@ JWT token 有有效期限（通常 1 小時），需要定期刷新。
 // lib/api-client.ts
 export async function apiClient(url: string, options: RequestInit = {}) {
   const supabase = createClientComponentClient();
-  
+
   // 取得 session
-  const { data: { session } } = await supabase.auth.getSession();
-  
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   if (!session) {
     throw new Error('Not authenticated');
   }
@@ -477,14 +484,14 @@ export async function apiClient(url: string, options: RequestInit = {}) {
     ...options,
     headers: {
       ...options.headers,
-      'Authorization': `Bearer ${session.access_token}`,
+      Authorization: `Bearer ${session.access_token}`,
     },
   });
 
   // 如果 401，嘗試刷新 token
   if (response.status === 401) {
     const { data, error } = await supabase.auth.refreshSession();
-    
+
     if (error || !data.session) {
       // 刷新失敗，需要重新登入
       router.push('/login');
@@ -496,7 +503,7 @@ export async function apiClient(url: string, options: RequestInit = {}) {
       ...options,
       headers: {
         ...options.headers,
-        'Authorization': `Bearer ${data.session.access_token}`,
+        Authorization: `Bearer ${data.session.access_token}`,
       },
     });
   }
@@ -564,10 +571,12 @@ export function LogoutButton() {
 ## 🔒 安全性考量
 
 ### 1. HTTPS Only
+
 - ✅ 生產環境必須使用 HTTPS
 - ✅ 防止 token 在傳輸中被攔截
 
 ### 2. Token 儲存
+
 ```typescript
 // ✅ 好的做法：使用 httpOnly cookie（由 Supabase Auth Helpers 自動處理）
 // ✅ 可接受：localStorage（開發階段）
@@ -575,6 +584,7 @@ export function LogoutButton() {
 ```
 
 ### 3. CORS 設定
+
 ```typescript
 // NestJS main.ts
 app.enableCors({
@@ -584,12 +594,14 @@ app.enableCors({
 ```
 
 ### 4. Token 驗證
+
 - ✅ 每次請求都驗證 token
 - ✅ 檢查 token 有效期限
 - ✅ 檢查簽章
 - ✅ 使用正確的 JWT Secret
 
 ### 5. 使用者權限檢查
+
 ```typescript
 // ✅ 確保使用者只能存取自己的資料
 async findAll(userId: string) {
@@ -609,12 +621,14 @@ async findAll() {
 ## 🛠️ 實作檢查清單
 
 ### Supabase 設定
+
 - [ ] 建立 Supabase 專案
 - [ ] 取得 API URL 和 anon key
 - [ ] 取得 JWT Secret（在 Settings → API）
 - [ ] 設定 Email templates（可選）
 
 ### Next.js 前端
+
 - [ ] 安裝 `@supabase/auth-helpers-nextjs`
 - [ ] 設定環境變數（`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`）
 - [ ] 建立 Supabase client
@@ -624,6 +638,7 @@ async findAll() {
 - [ ] 實作 Protected Routes
 
 ### NestJS 後端
+
 - [ ] 安裝 `@nestjs/passport`, `passport`, `passport-jwt`
 - [ ] 設定環境變數（`SUPABASE_JWT_SECRET`）
 - [ ] 建立 `SupabaseJwtStrategy`
@@ -633,6 +648,7 @@ async findAll() {
 - [ ] 設定 CORS
 
 ### 測試
+
 - [ ] 測試註冊流程
 - [ ] 測試登入流程
 - [ ] 測試 token 驗證

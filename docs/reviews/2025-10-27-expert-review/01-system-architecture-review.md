@@ -19,16 +19,19 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 **選擇：Turborepo + pnpm**
 
 ✅ **優點：**
+
 - Turborepo 提供智慧快取和並行任務執行，適合中小型 monorepo
 - pnpm 工作區管理高效，節省磁碟空間
 - 配置簡潔（僅需 turbo.json），學習曲線平緩
 - 與 Vercel 整合良好，支援增量構建
 
 ⚠️ **考量：**
+
 - 當前專案規模（2 個應用 + 4 個共享包）尚未完全發揮 Turborepo 優勢
 - 隨著應用增長，可能需要更細緻的任務依賴配置
 
 **建議：**
+
 - 當前配置合理，適合專案規模
 - 建議在 turbo.json 中明確定義任務間依賴關係
 
@@ -37,12 +40,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 **選擇：Next.js 15 + React 19 + TypeScript**
 
 ✅ **優點：**
+
 - Next.js App Router 提供 Server Components 和 Server Actions
 - React 19 支援最新特性（如 use hook、Compiler）
 - 完整的 TypeScript 支援，型別安全
 - 內建效能優化（Image、Font、Route Prefetching）
 
 ⚠️ **風險：**
+
 - React 19 和 Next.js 15 為最新版本，生態系統可能存在兼容性問題
 - App Router 學習曲線較陡，需要理解 Server/Client Components 邊界
 
@@ -51,12 +56,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 **選擇：NestJS + Prisma + Supabase PostgreSQL**
 
 ✅ **優點：**
+
 - NestJS 提供企業級架構（DI、模組化、裝飾器）
 - Prisma 提供優秀的 TypeScript 型別生成和遷移工具
 - Supabase 整合 PostgreSQL + Auth，降低開發成本
 - 完整的型別安全從資料庫到 API
 
 ⚠️ **考量：**
+
 - NestJS 對小型專案可能過重
 - Prisma 在複雜查詢場景可能需要原始 SQL
 - Supabase 存在一定程度的 vendor lock-in
@@ -66,12 +73,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 **選擇：Supabase Auth (前端) + NestJS JWT 驗證 (後端)**
 
 ✅ **優點：**
+
 - 關注點分離：Supabase 處理認證，NestJS 專注業務邏輯
 - 避免自建認證系統的安全風險
 - 支援 OAuth、Email 驗證、密碼重置等完整功能
 - JWT 驗證機制成熟可靠
 
 ⚠️ **潛在問題：**
+
 - 需要在 NestJS 中同步 Supabase User 到 Prisma User 表
 - Token 刷新機制需要前端正確實作
 - RLS（Row Level Security）與 NestJS 權限控制可能重複
@@ -103,12 +112,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ```
 
 ✅ **優點：**
+
 - 清晰的職責分離
 - 前後端完全解耦
 - 認證層獨立，易於替換
 - 使用標準 HTTP/REST 通訊
 
 ⚠️ **改進空間：**
+
 - 缺少明確的 API Gateway 層
 - 沒有統一的錯誤處理和日誌策略
 - 缺少快取層設計
@@ -116,12 +127,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 2.2 資料模型設計
 
 ✅ **優點：**
+
 - 使用 Decimal 處理金額，避免浮點數精度問題
 - 合理的索引策略（userId, date, categoryId）
 - 支援軟刪除（可選）和階層式分類
 - 完整的關聯關係定義
 
 ⚠️ **潛在問題：**
+
 - User 表與 Supabase auth.users 重複，需要同步機制
 - Tags 使用 PostgreSQL 陣列，缺乏標籤統計能力
 - 缺少審計欄位（createdBy, updatedBy）
@@ -130,10 +143,12 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 2.3 共享包設計
 
 ✅ **優點：**
+
 - 配置統一管理
 - 促進程式碼復用
 
 ⚠️ **缺少：**
+
 - `@repo/types` - 共享型別定義
 - `@repo/utils` - 共享工具函式
 - `@repo/constants` - 共享常量
@@ -146,11 +161,13 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 3.1 水平擴展能力
 
 **當前架構：**
+
 - 前端：Next.js 部署於 Vercel，自動水平擴展 ✅
 - 後端：NestJS 無狀態設計，支援水平擴展 ✅
 - 資料庫：Supabase PostgreSQL，單一實例 ⚠️
 
 **瓶頸分析：**
+
 1. **資料庫單點**：Supabase 免費版無讀寫分離
 2. **Session 管理**：JWT 為無狀態，擴展友善 ✅
 3. **檔案儲存**：未規劃，建議使用 Supabase Storage
@@ -158,6 +175,7 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 3.2 功能擴展能力
 
 **模組化設計：**
+
 - ✅ Monorepo 支援新增應用（Apex）
 - ✅ NestJS 模組化架構
 - ⚠️ 缺少功能開關（Feature Flags）機制
@@ -165,10 +183,12 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 3.3 第三方整合
 
 **當前整合：**
+
 - Supabase (Auth + Database) ✅
 - 計劃：Vercel (部署) + Railway (後端)
 
 **缺少但可能需要：**
+
 - 支付網關（Stripe / PayPal）
 - 郵件服務（SendGrid / Resend）
 - 監控服務（Sentry / DataDog）
@@ -180,17 +200,18 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 
 ### 4.1 技術風險
 
-| 風險 | 嚴重性 | 可能性 | 影響 | 緩解策略 |
-|------|--------|--------|------|----------|
-| React 19 生態兼容性 | 中 | 中 | 第三方套件不兼容 | 鎖定版本，建立兼容性清單 |
-| Supabase Vendor Lock-in | 中 | 低 | 遷移成本高 | 使用 Prisma 抽象資料層 |
-| NestJS 學習曲線 | 低 | 高 | 開發速度慢 | 完善文檔，建立範本 |
-| 資料庫效能 | 高 | 中 | 查詢變慢 | 建立索引，引入快取 |
-| 認證 Token 過期處理 | 中 | 中 | 使用者體驗差 | 實作自動刷新機制 |
+| 風險                    | 嚴重性 | 可能性 | 影響             | 緩解策略                 |
+| ----------------------- | ------ | ------ | ---------------- | ------------------------ |
+| React 19 生態兼容性     | 中     | 中     | 第三方套件不兼容 | 鎖定版本，建立兼容性清單 |
+| Supabase Vendor Lock-in | 中     | 低     | 遷移成本高       | 使用 Prisma 抽象資料層   |
+| NestJS 學習曲線         | 低     | 高     | 開發速度慢       | 完善文檔，建立範本       |
+| 資料庫效能              | 高     | 中     | 查詢變慢         | 建立索引，引入快取       |
+| 認證 Token 過期處理     | 中     | 中     | 使用者體驗差     | 實作自動刷新機制         |
 
 ### 4.2 架構債務
 
 **識別出的技術債務：**
+
 1. 缺少統一錯誤處理
 2. 缺少 API 版本控制
 3. 缺少資料驗證層
@@ -198,11 +219,13 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 4.3 安全風險
 
 ✅ **已處理：**
+
 - JWT 驗證機制
 - Prisma 防止 SQL 注入
 - CORS 配置（計劃中）
 
 ⚠️ **需加強：**
+
 1. Rate Limiting
 2. 輸入驗證
 3. HTTPS 強制
@@ -215,12 +238,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 5.1 程式碼組織
 
 ✅ **符合的最佳實踐：**
+
 - Monorepo 結構清晰
 - 前後端完全分離
 - 型別安全（全 TypeScript）
 - 配置集中管理
 
 ⚠️ **可改進：**
+
 - 缺少程式碼風格檢查（Prettier 配置存在但未啟用）
 - 缺少 Git Hooks（Husky + lint-staged）
 - 缺少 Commit 訊息規範（commitlint）
@@ -230,6 +255,7 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ⚠️ **當前狀態：缺少測試**
 
 **建議測試金字塔：**
+
 - Unit Tests (70%)：Jest + Testing Library
 - Integration Tests (20%)：Jest + Supertest
 - E2E Tests (10%)：Playwright
@@ -237,11 +263,13 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 ### 5.3 文檔化
 
 ✅ **優點：**
+
 - 完整的架構文檔（architecture/）
 - 清晰的 Sprint 規劃（sprints/）
 - 技術決策記錄（references/）
 
 ⚠️ **缺少：**
+
 - API 文檔（建議使用 Swagger/OpenAPI）
 - 元件文檔（建議使用 Storybook）
 - 部署流程文檔（deployment.md 存在但內容不足）
@@ -321,14 +349,14 @@ Flourish 是一個個人財務和統計追蹤平台，採用現代化的 TypeScr
 
 ### 評分明細
 
-| 評估維度 | 評分 | 說明 |
-|---------|------|------|
-| 技術選型 | 9/10 | 現代化、型別安全、生態成熟 |
-| 架構設計 | 8/10 | 清晰分層、職責分離，缺少部分中間層 |
-| 可擴展性 | 7.5/10 | 基礎良好，需加強快取和功能開關 |
-| 風險管理 | 7/10 | 識別風險，需加強安全和錯誤處理 |
-| 最佳實踐 | 8.5/10 | 文檔完善，缺少測試和 CI/CD |
-| **總分** | **8/10** | **適合學習，具備生產潛力** |
+| 評估維度 | 評分     | 說明                               |
+| -------- | -------- | ---------------------------------- |
+| 技術選型 | 9/10     | 現代化、型別安全、生態成熟         |
+| 架構設計 | 8/10     | 清晰分層、職責分離，缺少部分中間層 |
+| 可擴展性 | 7.5/10   | 基礎良好，需加強快取和功能開關     |
+| 風險管理 | 7/10     | 識別風險，需加強安全和錯誤處理     |
+| 最佳實踐 | 8.5/10   | 文檔完善，缺少測試和 CI/CD         |
+| **總分** | **8/10** | **適合學習，具備生產潛力**         |
 
 ### 核心優勢
 

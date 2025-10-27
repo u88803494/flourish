@@ -9,12 +9,13 @@ Prisma 是一個現代化的 **TypeScript/JavaScript 資料庫工具套件（ORM
 傳統上，如果你要從資料庫讀取資料，你需要寫原生 SQL：
 
 ```sql
-SELECT * FROM transactions 
-WHERE userId = '123' 
+SELECT * FROM transactions
+WHERE userId = '123'
 ORDER BY date DESC;
 ```
 
 這有幾個問題：
+
 - ❌ 容易出錯（拼字錯誤、SQL 注入風險）
 - ❌ 沒有型別檢查
 - ❌ 需要手動解析結果
@@ -25,11 +26,12 @@ ORDER BY date DESC;
 ```typescript
 const transactions = await prisma.transaction.findMany({
   where: { userId: '123' },
-  orderBy: { date: 'desc' }
+  orderBy: { date: 'desc' },
 });
 ```
 
 優點：
+
 - ✅ 類型安全，開發時就能發現錯誤
 - ✅ IDE 自動補全
 - ✅ 自動解析成 TypeScript 物件
@@ -88,6 +90,7 @@ enum TransactionType {
 ```
 
 **關鍵特性**：
+
 - 清晰易讀的語法
 - 定義資料模型、關聯關係、索引等
 - 支援列舉（enums）
@@ -104,6 +107,7 @@ npx prisma generate
 ```
 
 執行後，Prisma 會：
+
 1. 讀取 `schema.prisma`
 2. 生成完整的型別安全的客戶端
 3. 放在 `node_modules/.prisma/client` 或 `node_modules/@prisma/client`
@@ -118,12 +122,12 @@ const prisma = new PrismaClient();
 // 新增
 const newTransaction = await prisma.transaction.create({
   data: {
-    amount: 100.50,
+    amount: 100.5,
     type: 'EXPENSE',
     description: '午餐',
     userId: user.id,
-    date: new Date()
-  }
+    date: new Date(),
+  },
 });
 
 // 查詢
@@ -132,28 +136,28 @@ const transactions = await prisma.transaction.findMany({
     userId: user.id,
     type: 'EXPENSE',
     date: {
-      gte: new Date('2025-01-01'),  // 大於等於
-      lte: new Date('2025-12-31')   // 小於等於
-    }
+      gte: new Date('2025-01-01'), // 大於等於
+      lte: new Date('2025-12-31'), // 小於等於
+    },
   },
   include: {
-    category: true  // 包含關聯的 category
+    category: true, // 包含關聯的 category
   },
   orderBy: {
-    date: 'desc'
+    date: 'desc',
   },
-  take: 10  // 限制 10 筆
+  take: 10, // 限制 10 筆
 });
 
 // 更新
 const updated = await prisma.transaction.update({
   where: { id: transactionId },
-  data: { amount: 150.00 }
+  data: { amount: 150.0 },
 });
 
 // 刪除
 await prisma.transaction.delete({
-  where: { id: transactionId }
+  where: { id: transactionId },
 });
 
 // 聚合查詢
@@ -161,13 +165,14 @@ const stats = await prisma.transaction.aggregate({
   where: { userId: user.id },
   _sum: { amount: true },
   _avg: { amount: true },
-  _count: true
+  _count: true,
 });
 ```
 
 **自動補全範例**：
 
 當你輸入 `prisma.transaction.` 時，IDE 會自動提示：
+
 - `create()`
 - `findMany()`
 - `findUnique()`
@@ -191,6 +196,7 @@ npx prisma migrate dev --name add_category_model
 ```
 
 這個指令會：
+
 1. 比較 schema 和資料庫的差異
 2. 生成 SQL migration 檔案
 3. 執行 migration
@@ -251,11 +257,13 @@ npx prisma migrate dev --create-only
 你會看到兩種連接字串：
 
 **Direct Connection**（開發環境）：
+
 ```
 postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
 ```
 
 **Connection Pooling**（生產環境，建議用於 serverless）：
+
 ```
 postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true
 ```
@@ -312,6 +320,7 @@ Supabase 有內建的 `auth.users` 表（在 `auth` schema 中）。
 你的選擇：
 
 **選項 A：不在 Prisma 中定義 User 表**
+
 - 只在其他表中使用 `userId: String`
 - 不建立外鍵關係到 `auth.users`
 - 簡單，但缺少資料完整性檢查
@@ -325,6 +334,7 @@ model Transaction {
 ```
 
 **選項 B：在 Prisma 中同步 User 表（推薦）**
+
 - 在 `public` schema 建立自己的 `User` 表
 - 使用 Supabase Auth 的 user ID 作為主鍵
 - 可以加入額外的使用者資料（profile, settings 等）
@@ -334,7 +344,7 @@ model User {
   id        String   @id  // 使用 Supabase Auth 的 user ID
   email     String   @unique
   createdAt DateTime @default(now())
-  
+
   transactions Transaction[]
 }
 
@@ -359,7 +369,7 @@ async create(@User() user, @Body() dto: CreateTransactionDto) {
     create: { id: user.id, email: user.email },
     update: {}
   });
-  
+
   // 2. 建立 transaction
   return this.prisma.transaction.create({
     data: {
@@ -400,7 +410,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 import { Module, Global } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 
-@Global()  // 讓 PrismaService 在整個應用中可用
+@Global() // 讓 PrismaService 在整個應用中可用
 @Module({
   providers: [PrismaService],
   exports: [PrismaService],
@@ -438,7 +448,7 @@ export class TransactionsService {
 
   async findOne(id: string, userId: string) {
     return this.prisma.transaction.findFirst({
-      where: { id, userId },  // 確保使用者只能存取自己的資料
+      where: { id, userId }, // 確保使用者只能存取自己的資料
     });
   }
 
@@ -576,54 +586,54 @@ import { PrismaClient } from '@workspace/database';
 
 ```typescript
 // 查詢所有
-await prisma.transaction.findMany()
+await prisma.transaction.findMany();
 
 // 條件查詢
 await prisma.transaction.findMany({
   where: {
     userId: 'xxx',
-    amount: { gte: 100 },  // 大於等於
+    amount: { gte: 100 }, // 大於等於
     type: 'EXPENSE',
     date: {
       gte: startDate,
-      lte: endDate
-    }
-  }
-})
+      lte: endDate,
+    },
+  },
+});
 
 // 查詢單筆（如果沒找到回傳 null）
 await prisma.transaction.findUnique({
-  where: { id: 'xxx' }
-})
+  where: { id: 'xxx' },
+});
 
 // 查詢第一筆符合的（findFirst）
 await prisma.transaction.findFirst({
   where: { userId: 'xxx' },
-  orderBy: { date: 'desc' }
-})
+  orderBy: { date: 'desc' },
+});
 
 // 包含關聯資料
 await prisma.transaction.findMany({
   include: {
     category: true,
-    user: true
-  }
-})
+    user: true,
+  },
+});
 
 // 選擇特定欄位
 await prisma.transaction.findMany({
   select: {
     id: true,
     amount: true,
-    date: true
-  }
-})
+    date: true,
+  },
+});
 
 // 分頁
 await prisma.transaction.findMany({
   skip: 10,
-  take: 10
-})
+  take: 10,
+});
 ```
 
 ### 建立操作
@@ -634,17 +644,17 @@ await prisma.transaction.create({
   data: {
     amount: 100,
     type: 'EXPENSE',
-    userId: 'xxx'
-  }
-})
+    userId: 'xxx',
+  },
+});
 
 // 建立多筆
 await prisma.transaction.createMany({
   data: [
     { amount: 100, type: 'EXPENSE', userId: 'xxx' },
-    { amount: 200, type: 'INCOME', userId: 'xxx' }
-  ]
-})
+    { amount: 200, type: 'INCOME', userId: 'xxx' },
+  ],
+});
 
 // 建立並包含關聯
 await prisma.transaction.create({
@@ -652,10 +662,10 @@ await prisma.transaction.create({
     amount: 100,
     type: 'EXPENSE',
     category: {
-      connect: { id: 'category-id' }  // 連接現有的
-    }
-  }
-})
+      connect: { id: 'category-id' }, // 連接現有的
+    },
+  },
+});
 
 // 或同時建立關聯
 await prisma.transaction.create({
@@ -663,10 +673,10 @@ await prisma.transaction.create({
     amount: 100,
     type: 'EXPENSE',
     category: {
-      create: { name: '食物', type: 'EXPENSE' }  // 建立新的
-    }
-  }
-})
+      create: { name: '食物', type: 'EXPENSE' }, // 建立新的
+    },
+  },
+});
 ```
 
 ### 更新操作
@@ -675,21 +685,21 @@ await prisma.transaction.create({
 // 更新單筆
 await prisma.transaction.update({
   where: { id: 'xxx' },
-  data: { amount: 150 }
-})
+  data: { amount: 150 },
+});
 
 // 更新多筆
 await prisma.transaction.updateMany({
   where: { userId: 'xxx' },
-  data: { description: 'Updated' }
-})
+  data: { description: 'Updated' },
+});
 
 // Upsert (如果存在就更新，不存在就建立)
 await prisma.user.upsert({
   where: { id: 'xxx' },
   create: { id: 'xxx', email: 'user@example.com' },
-  update: { email: 'newemail@example.com' }
-})
+  update: { email: 'newemail@example.com' },
+});
 ```
 
 ### 刪除操作
@@ -697,13 +707,13 @@ await prisma.user.upsert({
 ```typescript
 // 刪除單筆
 await prisma.transaction.delete({
-  where: { id: 'xxx' }
-})
+  where: { id: 'xxx' },
+});
 
 // 刪除多筆
 await prisma.transaction.deleteMany({
-  where: { userId: 'xxx' }
-})
+  where: { userId: 'xxx' },
+});
 ```
 
 ### 聚合查詢
@@ -711,8 +721,8 @@ await prisma.transaction.deleteMany({
 ```typescript
 // 計數
 const count = await prisma.transaction.count({
-  where: { userId: 'xxx' }
-})
+  where: { userId: 'xxx' },
+});
 
 // 聚合
 const result = await prisma.transaction.aggregate({
@@ -721,15 +731,15 @@ const result = await prisma.transaction.aggregate({
   _avg: { amount: true },
   _min: { amount: true },
   _max: { amount: true },
-  _count: true
-})
+  _count: true,
+});
 
 // 分組聚合
 const groupBy = await prisma.transaction.groupBy({
   by: ['type'],
   _sum: { amount: true },
-  _count: true
-})
+  _count: true,
+});
 ```
 
 ---
@@ -744,15 +754,15 @@ await prisma.$transaction(async (tx) => {
   // 扣除餘額
   await tx.account.update({
     where: { id: 'account-1' },
-    data: { balance: { decrement: 100 } }
+    data: { balance: { decrement: 100 } },
   });
 
   // 建立交易記錄
   await tx.transaction.create({
     data: {
       amount: -100,
-      accountId: 'account-1'
-    }
+      accountId: 'account-1',
+    },
   });
 });
 ```
@@ -790,7 +800,7 @@ for (const t of transactions) {
 
 // ✅ 使用 include 一次查詢
 const transactions = await prisma.transaction.findMany({
-  include: { category: true }
+  include: { category: true },
 });
 ```
 
@@ -829,6 +839,7 @@ npx prisma studio
 ```
 
 會開啟 `http://localhost:5555`，可以直接在瀏覽器中：
+
 - 查看資料
 - 編輯資料
 - 建立新記錄
@@ -849,6 +860,7 @@ npx prisma format
 ## 📚 總結
 
 **Prisma 的優勢**：
+
 - ✅ 類型安全的資料庫操作
 - ✅ 自動補全和 IDE 支援
 - ✅ 清晰的 schema 定義
@@ -857,12 +869,14 @@ npx prisma format
 - ✅ 與 Supabase PostgreSQL 無縫整合
 
 **在本專案中的角色**：
+
 - 放置在 `packages/database/` 作為共享套件
 - NestJS 透過 PrismaService 使用
 - 提供完整的型別定義給整個 monorepo
 - 管理資料庫 schema 和 migrations
 
 **學習資源**：
+
 - [Prisma 官方文檔](https://www.prisma.io/docs)
 - [Prisma Examples](https://github.com/prisma/prisma-examples)
 - [Prisma + NestJS](https://docs.nestjs.com/recipes/prisma)

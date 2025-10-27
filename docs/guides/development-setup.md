@@ -7,16 +7,19 @@ This guide will help you set up the Flourish development environment.
 ## 📋 Prerequisites
 
 ### Required Software
+
 - **Node.js**: v20.x or higher ([Download](https://nodejs.org/))
 - **pnpm**: v9.x or higher
 - **Git**: Latest version
 
 ### Install pnpm
+
 ```bash
 npm install -g pnpm
 ```
 
 ### Verify Installation
+
 ```bash
 node --version  # Should be v20.x or higher
 pnpm --version  # Should be v9.x or higher
@@ -28,6 +31,7 @@ git --version
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository
+
 ```bash
 cd /path/to/your/workspace
 git clone [repository-url] flourish
@@ -35,6 +39,7 @@ cd flourish
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 pnpm install
 ```
@@ -42,6 +47,7 @@ pnpm install
 This will install dependencies for all apps and packages in the monorepo.
 
 ### 3. Set Up Environment Variables
+
 ```bash
 # Copy example env files (when they exist)
 cp .env.example .env
@@ -54,6 +60,7 @@ cp apps/api/.env.example apps/api/.env
 Configure the environment variables with your values.
 
 ### 4. Start Development Servers
+
 ```bash
 # Start all applications
 pnpm dev
@@ -65,6 +72,7 @@ pnpm dev --filter=apex
 ```
 
 ### 5. Access Applications
+
 - **Flow** (財務追蹤): http://localhost:3000
 - **API** (後端): http://localhost:3001
 - **Apex** (統計曲線): http://localhost:3002
@@ -96,6 +104,7 @@ flourish/
 ### Working on a Feature
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/sprint-X-feature-name
    ```
@@ -106,10 +115,12 @@ flourish/
    - Follow coding standards
 
 3. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "feat(scope): description"
    ```
+
    See [Git Workflow](./git-workflow.md) for commit conventions.
 
 4. **Push your branch**
@@ -122,6 +133,7 @@ flourish/
 ## 📦 Common Commands
 
 ### Build Commands
+
 ```bash
 # Build all apps and packages
 pnpm build
@@ -131,6 +143,7 @@ pnpm build --filter=flow
 ```
 
 ### Lint and Format
+
 ```bash
 # Lint all code
 pnpm lint
@@ -143,12 +156,14 @@ pnpm format:check
 ```
 
 ### Type Checking
+
 ```bash
 # Type check all packages
 pnpm check-types
 ```
 
 ### Database Commands
+
 ```bash
 # Generate Prisma client
 pnpm db:generate
@@ -170,14 +185,18 @@ pnpm db:studio
 ### Recommended: Visual Studio Code
 
 #### Extensions
+
 Install these extensions for the best development experience:
+
 - **ESLint** - `dbaeumer.vscode-eslint`
 - **Prettier** - `esbenp.prettier-vscode`
 - **Prisma** - `Prisma.prisma`
 - **Tailwind CSS IntelliSense** - `bradlc.vscode-tailwindcss`
 
 #### Settings
+
 Create `.vscode/settings.json` (if not exists):
+
 ```json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -194,7 +213,9 @@ Create `.vscode/settings.json` (if not exists):
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 If you get a port conflict:
+
 ```bash
 # Find process using port 3000
 lsof -ti:3000
@@ -204,6 +225,7 @@ kill -9 [PID]
 ```
 
 Or change the port in the app's `package.json`:
+
 ```json
 {
   "scripts": {
@@ -213,12 +235,14 @@ Or change the port in the app's `package.json`:
 ```
 
 ### Turbo Command Not Found
+
 ```bash
 # Reinstall dependencies
 pnpm install
 ```
 
 ### NODE_ENV Issues
+
 ```bash
 # Unset NODE_ENV
 unset NODE_ENV
@@ -228,6 +252,7 @@ pnpm install
 ```
 
 ### Prisma Client Not Generated
+
 ```bash
 # Navigate to database package
 cd packages/database
@@ -237,6 +262,7 @@ pnpm db:generate
 ```
 
 ### Type Errors
+
 ```bash
 # Rebuild all packages
 pnpm build
@@ -252,6 +278,7 @@ pnpm build
 ## 🔐 Environment Variables
 
 ### Supabase
+
 ```env
 DATABASE_URL="postgresql://..."
 SUPABASE_URL="https://..."
@@ -260,6 +287,7 @@ SUPABASE_JWT_SECRET="..."
 ```
 
 ### Application
+
 ```env
 NODE_ENV="development"
 PORT=3001
@@ -271,6 +299,7 @@ FRONTEND_URL="http://localhost:3000"
 ## 🧪 Testing
 
 ### Run Tests
+
 ```bash
 # Run all tests
 pnpm test
@@ -296,6 +325,7 @@ pnpm test:watch
 ## 🆘 Getting Help
 
 If you encounter issues:
+
 1. Check the [Troubleshooting](#troubleshooting) section
 2. Review the [Implementation docs](../sprints/sprint-0-foundation/implementation.md)
 3. Check Git commit history for recent changes

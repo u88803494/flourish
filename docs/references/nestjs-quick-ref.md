@@ -18,15 +18,16 @@ import { TransactionsService } from './transactions.service';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-  imports: [PrismaModule],           // 匯入其他模組
+  imports: [PrismaModule], // 匯入其他模組
   controllers: [TransactionsController], // 註冊 controllers
-  providers: [TransactionsService],      // 註冊 providers (services)
-  exports: [TransactionsService],        // 匯出給其他模組使用
+  providers: [TransactionsService], // 註冊 providers (services)
+  exports: [TransactionsService], // 匯出給其他模組使用
 })
 export class TransactionsModule {}
 ```
 
 **關鍵點**:
+
 - 每個功能一個模組
 - `imports`: 需要使用的其他模組
 - `controllers`: HTTP 請求處理器
@@ -41,49 +42,40 @@ export class TransactionsModule {}
 
 ```typescript
 // transactions.controller.ts
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Patch, 
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
   Delete,
-  Body, 
-  Param, 
+  Body,
+  Param,
   Query,
-  UseGuards 
+  UseGuards,
 } from '@nestjs/common';
 
-@Controller('transactions')  // 路由前綴: /transactions
+@Controller('transactions') // 路由前綴: /transactions
 export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   // GET /transactions
   @Get()
   @UseGuards(AuthGuard)
-  async findAll(
-    @User() user: UserPayload,
-    @Query() query: PaginationDto
-  ) {
+  async findAll(@User() user: UserPayload, @Query() query: PaginationDto) {
     return this.transactionsService.findAll(user.id, query);
   }
 
   // GET /transactions/:id
   @Get(':id')
   @UseGuards(AuthGuard)
-  async findOne(
-    @Param('id') id: string,
-    @User() user: UserPayload
-  ) {
+  async findOne(@Param('id') id: string, @User() user: UserPayload) {
     return this.transactionsService.findOne(id, user.id);
   }
 
   // POST /transactions
   @Post()
   @UseGuards(AuthGuard)
-  async create(
-    @Body() dto: CreateTransactionDto,
-    @User() user: UserPayload
-  ) {
+  async create(@Body() dto: CreateTransactionDto, @User() user: UserPayload) {
     return this.transactionsService.create(dto, user.id);
   }
 
@@ -101,16 +93,14 @@ export class TransactionsController {
   // DELETE /transactions/:id
   @Delete(':id')
   @UseGuards(AuthGuard)
-  async remove(
-    @Param('id') id: string,
-    @User() user: UserPayload
-  ) {
+  async remove(@Param('id') id: string, @User() user: UserPayload) {
     return this.transactionsService.remove(id, user.id);
   }
 }
 ```
 
 **常用裝飾器**:
+
 - `@Controller(prefix)`: 定義控制器和路由前綴
 - `@Get()`, `@Post()`, `@Patch()`, `@Delete()`: HTTP 方法
 - `@Body()`: 取得請求 body
@@ -130,7 +120,7 @@ export class TransactionsController {
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
-@Injectable()  // 標記為可注入
+@Injectable() // 標記為可注入
 export class TransactionsService {
   // 依賴注入
   constructor(private prisma: PrismaService) {}
@@ -139,21 +129,21 @@ export class TransactionsService {
     const { limit = 10, offset = 0, type } = query;
 
     return this.prisma.transaction.findMany({
-      where: { 
+      where: {
         userId,
-        ...(type && { type })  // 條件性篩選
+        ...(type && { type }), // 條件性篩選
       },
       take: limit,
       skip: offset,
       orderBy: { date: 'desc' },
-      include: { category: true }  // 包含關聯資料
+      include: { category: true }, // 包含關聯資料
     });
   }
 
   async findOne(id: string, userId: string) {
     const transaction = await this.prisma.transaction.findUnique({
       where: { id },
-      include: { category: true }
+      include: { category: true },
     });
 
     // 驗證資料存在
@@ -175,7 +165,7 @@ export class TransactionsService {
         ...dto,
         userId,
       },
-      include: { category: true }
+      include: { category: true },
     });
   }
 
@@ -186,7 +176,7 @@ export class TransactionsService {
     return this.prisma.transaction.update({
       where: { id },
       data: dto,
-      include: { category: true }
+      include: { category: true },
     });
   }
 
@@ -195,7 +185,7 @@ export class TransactionsService {
     await this.findOne(id, userId);
 
     return this.prisma.transaction.delete({
-      where: { id }
+      where: { id },
     });
   }
 
@@ -206,24 +196,24 @@ export class TransactionsService {
         userId,
         date: {
           gte: startDate,
-          lte: endDate
-        }
-      }
+          lte: endDate,
+        },
+      },
     });
 
     const totalIncome = transactions
-      .filter(t => t.type === 'INCOME')
+      .filter((t) => t.type === 'INCOME')
       .reduce((sum, t) => sum + Number(t.amount), 0);
 
     const totalExpense = transactions
-      .filter(t => t.type === 'EXPENSE')
+      .filter((t) => t.type === 'EXPENSE')
       .reduce((sum, t) => sum + Number(t.amount), 0);
 
     return {
       totalIncome,
       totalExpense,
       netIncome: totalIncome - totalExpense,
-      transactionCount: transactions.length
+      transactionCount: transactions.length,
     };
   }
 }
@@ -237,15 +227,7 @@ export class TransactionsService {
 
 ```typescript
 // dto/create-transaction.dto.ts
-import { 
-  IsNumber, 
-  IsString, 
-  IsEnum, 
-  IsOptional,
-  IsDateString,
-  Min,
-  Max
-} from 'class-validator';
+import { IsNumber, IsString, IsEnum, IsOptional, IsDateString, Min, Max } from 'class-validator';
 
 export class CreateTransactionDto {
   @IsNumber({ maxDecimalPlaces: 2 })
@@ -293,6 +275,7 @@ export class PaginationDto {
 ```
 
 **常用驗證裝飾器**:
+
 - `@IsString()`, `@IsNumber()`, `@IsBoolean()`
 - `@IsEmail()`, `@IsUrl()`, `@IsUUID()`
 - `@IsEnum(enum)`: 枚舉值
@@ -302,15 +285,18 @@ export class PaginationDto {
 - `@IsDateString()`: ISO 日期字串
 
 **啟用全域驗證**:
+
 ```typescript
 // main.ts
 import { ValidationPipe } from '@nestjs/common';
 
-app.useGlobalPipes(new ValidationPipe({
-  whitelist: true,        // 移除未在 DTO 定義的欄位
-  forbidNonWhitelisted: true,  // 有多餘欄位時拋錯
-  transform: true,        // 自動轉換型別
-}));
+app.useGlobalPipes(
+  new ValidationPipe({
+    whitelist: true, // 移除未在 DTO 定義的欄位
+    forbidNonWhitelisted: true, // 有多餘欄位時拋錯
+    transform: true, // 自動轉換型別
+  })
+);
 ```
 
 ---
@@ -321,12 +307,7 @@ app.useGlobalPipes(new ValidationPipe({
 
 ```typescript
 // guards/supabase-auth.guard.ts
-import { 
-  Injectable, 
-  CanActivate, 
-  ExecutionContext,
-  UnauthorizedException 
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -335,7 +316,7 @@ export class SupabaseAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    
+
     // 提取 token
     const token = this.extractToken(request);
     if (!token) {
@@ -345,13 +326,13 @@ export class SupabaseAuthGuard implements CanActivate {
     try {
       // 驗證 token
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: process.env.SUPABASE_JWT_SECRET
+        secret: process.env.SUPABASE_JWT_SECRET,
       });
 
       // 將 user 資訊附加到 request
       request.user = {
         id: payload.sub,
-        email: payload.email
+        email: payload.email,
       };
 
       return true;
@@ -371,6 +352,7 @@ export class SupabaseAuthGuard implements CanActivate {
 ```
 
 **使用 Guard**:
+
 ```typescript
 // 單一方法
 @Get()
@@ -403,7 +385,7 @@ export const User = createParamDecorator(
 
     // 如果指定欄位，只回傳該欄位
     return data ? user?.[data] : user;
-  },
+  }
 );
 
 // decorators/public.decorator.ts
@@ -414,6 +396,7 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 ```
 
 **使用自訂裝飾器**:
+
 ```typescript
 @Get()
 @UseGuards(SupabaseAuthGuard)
@@ -452,11 +435,11 @@ import {
 // 使用範例
 async findOne(id: string) {
   const item = await this.prisma.item.findUnique({ where: { id } });
-  
+
   if (!item) {
     throw new NotFoundException(`Item ${id} not found`);
   }
-  
+
   return item;
 }
 
@@ -473,14 +456,10 @@ async create(dto: CreateDto) {
 ```
 
 **自訂異常過濾器**:
+
 ```typescript
 // filters/http-exception.filter.ts
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpException,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -526,9 +505,7 @@ export class LoggerMiddleware implements NestMiddleware {
 @Module({})
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes('*');  // 所有路由
+    consumer.apply(LoggerMiddleware).forRoutes('*'); // 所有路由
   }
 }
 ```
@@ -583,6 +560,7 @@ async findAll() {
 ## Supabase JWT 驗證完整範例
 
 ### 1. 安裝依賴
+
 ```bash
 npm install @nestjs/passport passport passport-jwt
 npm install @nestjs/jwt
@@ -633,7 +611,7 @@ import { SupabaseJwtStrategy } from './strategies/supabase-jwt.strategy';
 @Module({
   imports: [
     PassportModule,
-    JwtModule.register({}),  // 不需要設定，因為我們只驗證不簽發
+    JwtModule.register({}), // 不需要設定，因為我們只驗證不簽發
   ],
   providers: [SupabaseJwtStrategy],
   exports: [PassportModule],
@@ -661,10 +639,7 @@ import { AuthModule } from './auth/auth.module';
 import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    TransactionsModule,
-  ],
+  imports: [AuthModule, TransactionsModule],
 })
 export class AppModule {}
 
@@ -676,9 +651,9 @@ import { User } from '../auth/decorators/user.decorator';
 @Controller('transactions')
 export class TransactionsController {
   @Get()
-  @UseGuards(SupabaseAuthGuard)  // 就這麼簡單！
+  @UseGuards(SupabaseAuthGuard) // 就這麼簡單！
   async findAll(@User() user) {
-    console.log(user);  // { id: '...', email: '...', role: '...' }
+    console.log(user); // { id: '...', email: '...', role: '...' }
     return [];
   }
 }
@@ -797,7 +772,7 @@ app.enableCors({
 
 ```typescript
 // main.ts
-app.setGlobalPrefix('api');  // 所有路由變成 /api/xxx
+app.setGlobalPrefix('api'); // 所有路由變成 /api/xxx
 ```
 
 ### 4. Swagger API 文檔

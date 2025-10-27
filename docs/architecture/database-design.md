@@ -273,11 +273,13 @@ enum StatSource {
 **答案**：是的，建議建立。
 
 **理由**：
+
 1. **關聯完整性**：Prisma 需要外鍵關係才能有完整的類型推導
 2. **擴展性**：可以儲存額外的使用者資料（profile, preferences 等）
 3. **資料一致性**：使用 `onDelete: Cascade` 確保刪除使用者時清除所有相關資料
 
 **實作方式**：
+
 ```typescript
 // 在第一次認證後，自動建立 User 記錄
 @Post('transactions')
@@ -302,27 +304,26 @@ async create(@User() user, @Body() dto: CreateTransactionDto) {
 **決策**：使用 `Decimal` 而非 `Float`
 
 **理由**：
+
 - Float 有精度問題（0.1 + 0.2 ≠ 0.3）
 - Decimal 精確儲存金額
 - PostgreSQL 的 `DECIMAL(12, 2)` 支援到 9,999,999,999.99（百億級）
 
 **範例**：
+
 ```typescript
 // ✅ 正確
 const transaction = await prisma.transaction.create({
   data: {
-    amount: new Prisma.Decimal(100.50),
+    amount: new Prisma.Decimal(100.5),
     // 或
-    amount: 100.50,  // Prisma 會自動轉換
-  }
+    amount: 100.5, // Prisma 會自動轉換
+  },
 });
 
 // 計算時使用 Decimal
 import { Decimal } from '@prisma/client/runtime';
-const total = transactions.reduce(
-  (sum, t) => sum.add(t.amount),
-  new Decimal(0)
-);
+const total = transactions.reduce((sum, t) => sum.add(t.amount), new Decimal(0));
 ```
 
 ### 3. 軟刪除 vs 硬刪除
@@ -330,11 +331,13 @@ const total = transactions.reduce(
 **決策**：硬刪除（onDelete: Cascade）
 
 **理由**：
+
 - 記帳應用通常不需要恢復已刪除的資料
 - 簡化程式碼邏輯
 - 符合 GDPR（使用者要求刪除資料時真的刪除）
 
 **如果需要軟刪除**：
+
 ```prisma
 model Transaction {
   id        String    @id @default(uuid())
@@ -350,14 +353,14 @@ model Transaction {
 await prisma.transaction.findMany({
   where: {
     userId: user.id,
-    deletedAt: null,  // 只取未刪除的
-  }
+    deletedAt: null, // 只取未刪除的
+  },
 });
 
 // 軟刪除
 await prisma.transaction.update({
   where: { id },
-  data: { deletedAt: new Date() }
+  data: { deletedAt: new Date() },
 });
 ```
 
@@ -366,12 +369,14 @@ await prisma.transaction.update({
 **原則**：為常見查詢建立索引
 
 **已建立的索引**：
+
 1. `[userId, date]`：使用者查詢自己的交易，按日期排序（最常見）
 2. `[userId, type]`：查詢某類型的交易（收入或支出）
 3. `[categoryId]`：查詢某分類的所有交易
 4. `[userId, name, type]` (unique)：防止重複分類名稱
 
 **何時需要更多索引**：
+
 - 如果查詢速度慢（> 100ms）
 - 如果資料量大（> 10萬筆）
 - 使用 `EXPLAIN ANALYZE` 檢查查詢計畫
@@ -381,34 +386,38 @@ await prisma.transaction.update({
 **決策**：使用 PostgreSQL 陣列（`String[]`）
 
 **優點**：
+
 - 簡單直觀
 - 適合標籤數量不多的情況
 - 查詢方便
 
 **缺點**：
+
 - 無法統計每個標籤的使用次數（需要額外處理）
 - 無法為標籤加 metadata
 
 **查詢範例**：
+
 ```typescript
 // 查詢包含特定標籤的交易
 await prisma.transaction.findMany({
   where: {
     userId: user.id,
-    tags: { has: '食物' }  // PostgreSQL 陣列查詢
-  }
+    tags: { has: '食物' }, // PostgreSQL 陣列查詢
+  },
 });
 
 // 查詢包含任一標籤
 await prisma.transaction.findMany({
   where: {
     userId: user.id,
-    tags: { hasSome: ['食物', '娛樂'] }
-  }
+    tags: { hasSome: ['食物', '娛樂'] },
+  },
 });
 ```
 
 **如果需要複雜的標籤管理**，使用關聯表：
+
 ```prisma
 model Tag {
   id           String @id @default(uuid())
@@ -461,6 +470,7 @@ npx prisma migrate deploy
 假設要新增 `tags` 欄位到 Transaction：
 
 1. 修改 schema.prisma：
+
 ```prisma
 model Transaction {
   // ...
@@ -469,11 +479,13 @@ model Transaction {
 ```
 
 2. 建立 migration：
+
 ```bash
 npx prisma migrate dev --name add_tags_to_transactions
 ```
 
 3. 生成的 SQL：
+
 ```sql
 -- migrations/20251015120000_add_tags_to_transactions/migration.sql
 ALTER TABLE "transactions" ADD COLUMN "tags" TEXT[] NOT NULL DEFAULT '{}';
@@ -641,6 +653,7 @@ CREATE POLICY "Users can delete their own transactions"
 ```
 
 **注意**：
+
 - 如果使用 Prisma 連接（service role key），會繞過 RLS
 - RLS 主要用於前端直接存取資料庫的情況
 - 在我們的架構中，NestJS 已經做了權限控制，RLS 是額外的保險
@@ -683,7 +696,7 @@ const transactions = await prisma.transaction.findMany({
     amount: true,
     date: true,
     description: true,
-  }
+  },
 });
 ```
 
@@ -694,22 +707,28 @@ const transactions = await prisma.transaction.findMany({
 await prisma.$transaction(async (tx) => {
   // 建立交易記錄
   const transaction = await tx.transaction.create({
-    data: { ...transactionData }
+    data: { ...transactionData },
   });
 
   // 更新帳戶餘額
   await tx.account.update({
     where: { id: accountId },
     data: {
-      balance: { increment: transaction.amount }
-    }
+      balance: { increment: transaction.amount },
+    },
   });
 
   // 更新統計數據
   await tx.statistic.upsert({
-    where: { /* ... */ },
-    create: { /* ... */ },
-    update: { /* ... */ }
+    where: {
+      /* ... */
+    },
+    create: {
+      /* ... */
+    },
+    update: {
+      /* ... */
+    },
   });
 });
 ```
@@ -735,6 +754,7 @@ await prisma.$transaction(async (tx) => {
 ## 🎯 總結
 
 **資料庫設計的核心原則**：
+
 1. ✅ 使用 Decimal 處理金額
 2. ✅ 為常見查詢建立索引
 3. ✅ 使用外鍵確保資料完整性
@@ -743,6 +763,7 @@ await prisma.$transaction(async (tx) => {
 6. ✅ 為擴展性預留空間（如：tags, metadata）
 
 **在本專案中**：
+
 - User 表同步 Supabase Auth
 - Transaction 是核心表
 - Category 支援階層結構

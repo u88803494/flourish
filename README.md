@@ -120,6 +120,7 @@ flourish/
 ## 📅 Development Roadmap
 
 ### Phase 0: Foundation (Current)
+
 - [x] Sprint 0.1: Basic monorepo structure
 - [ ] Sprint 0.2: Prettier setup
 - [ ] Sprint 0.3: Husky + lint-staged
@@ -129,6 +130,7 @@ flourish/
 - [ ] Sprint 0.7: Apex application
 
 ### Phase 1: Core Features
+
 - [ ] Sprint 1: Authentication system
 - [ ] Sprint 2: Transaction CRUD
 - [ ] Sprint 3: Categories and statistics

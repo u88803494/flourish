@@ -8,6 +8,7 @@
 ## 最終選擇：flourish
 
 ### 含義
+
 **Flourish** (v.) - 繁榮、興盛、蓬勃發展
 
 ### 選擇理由
@@ -38,25 +39,30 @@
 **完整名稱**: Flourish
 
 **標語候選**:
+
 - "Tools for prosperity and growth"
 - "Track, Analyze, Prosper"
 - "Where your metrics flourish"
 - "Empowering your journey to flourish"
 
 **視覺意象**:
+
 - 🌱 成長的植物
 - 📈 向上的曲線
 - ✨ 閃耀、綻放
 
 **色彩方向**:
+
 - 主色：綠色系（成長、生命力）
 - 輔色：藍色系（專業、信賴）
 - 強調色：金色/黃色（繁榮、成功）
 
 ### GitHub Repository
+
 `henry_lee/flourish`
 
 ### 專案結構
+
 ```
 flourish/
 ├── apps/
@@ -75,12 +81,14 @@ flourish/
 ## 其他候選名稱（供參考）
 
 ### 次要選擇
+
 1. **upstat** - 更技術化，直接對應「向上統計」
 2. **prospera** - 品牌感強，優雅
 3. **trackwise** - 平衡的選擇
 4. **thrive** - 與 flourish 意思相近但更簡短
 
 ### 為什麼最終選擇 flourish
+
 相比其他選項，`flourish` 最能體現專案的核心價值和哲學基礎。它不只是一個工具集合，而是一個幫助人們在各方面興盛發展的平台。
 
 ---

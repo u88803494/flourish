@@ -11,11 +11,13 @@
 #### Express.js + TypeScript (之前的痛苦經驗)
 
 **優點**:
+
 - 輕量級，學習曲線平緩
 - 社群龐大，資源豐富
 - 靈活性高，可以自由組織程式碼
 
 **缺點**:
+
 - 不是為 TypeScript 原生設計，型別定義不完善
 - 缺乏結構化，容易變成義大利麵條式程式碼
 - 需要手動處理大量重複邏輯：
@@ -26,6 +28,7 @@
 - 維護困難，尤其是大型專案
 
 **程式碼對比**:
+
 ```typescript
 // Express.js - 需要大量手動處理
 app.get('/transactions', async (req: Request, res: Response) => {
@@ -35,7 +38,7 @@ app.get('/transactions', async (req: Request, res: Response) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ error: 'No token' });
     }
-    
+
     const token = authHeader.split(' ')[1];
     let decoded;
     try {
@@ -43,22 +46,22 @@ app.get('/transactions', async (req: Request, res: Response) => {
     } catch (err) {
       return res.status(401).json({ error: 'Invalid token' });
     }
-    
+
     const userId = decoded.sub;
-    
+
     // 手動驗證請求參數
     const { limit, offset } = req.query;
     if (limit && (typeof limit !== 'string' || isNaN(Number(limit)))) {
       return res.status(400).json({ error: 'Invalid limit' });
     }
-    
+
     // 終於可以寫商業邏輯
     const transactions = await prisma.transaction.findMany({
       where: { userId },
       take: limit ? Number(limit) : 10,
-      skip: offset ? Number(offset) : 0
+      skip: offset ? Number(offset) : 0,
     });
-    
+
     res.json(transactions);
   } catch (error) {
     console.error(error);
@@ -70,6 +73,7 @@ app.get('/transactions', async (req: Request, res: Response) => {
 #### NestJS (選用方案)
 
 **優點**:
+
 - 原生 TypeScript 支援，型別安全
 - 內建依賴注入（DI），程式碼解耦
 - 裝飾器語法清晰易讀
@@ -80,11 +84,13 @@ app.get('/transactions', async (req: Request, res: Response) => {
 - 企業級應用標準
 
 **缺點**:
+
 - 學習曲線較陡峭（需要理解 DI、裝飾器、模組系統）
 - 較重量級，初期設定較複雜
 - 對小型專案可能過度設計
 
 **程式碼對比**:
+
 ```typescript
 // NestJS - 優雅且簡潔
 @Controller('transactions')
@@ -92,10 +98,10 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Get()
-  @UseGuards(AuthGuard)  // 一行搞定驗證
+  @UseGuards(AuthGuard) // 一行搞定驗證
   async findAll(
-    @User() user: UserPayload,  // 自動提取 user
-    @Query() query: PaginationDto  // 自動驗證查詢參數
+    @User() user: UserPayload, // 自動提取 user
+    @Query() query: PaginationDto // 自動驗證查詢參數
   ) {
     return this.transactionsService.findAll(user.id, query);
   }
@@ -117,6 +123,7 @@ class PaginationDto {
 ```
 
 **結論**: 雖然學習曲線較陡，但 NestJS 的優勢遠超過缺點，特別適合：
+
 - 想學習正確全端架構的開發者
 - 有過 Express 痛苦經驗的人
 - 想要長期可維護的程式碼
@@ -131,11 +138,13 @@ class PaginationDto {
 #### TypeORM
 
 **優點**:
+
 - 功能完整，支援多種資料庫
 - Active Record 和 Data Mapper 兩種模式
 - 社群成熟
 
 **缺點**:
+
 - TypeScript 型別支援不夠好
 - 需要手動維護 Entity 和資料庫的同步
 - Migration 系統較複雜
@@ -158,13 +167,14 @@ class Transaction {
 // 查詢
 const transactions = await transactionRepo.find({
   where: { user: { id: userId } },
-  relations: ['user', 'category']
+  relations: ['user', 'category'],
 });
 ```
 
 #### Prisma (選用方案)
 
 **優點**:
+
 - 完整的 TypeScript 型別生成
 - 直觀的 schema 定義
 - 強大的 migration 系統
@@ -173,6 +183,7 @@ const transactions = await transactionRepo.find({
 - 效能優異
 
 **缺點**:
+
 - 較新的工具，某些進階功能可能受限
 - 必須透過 Prisma Client，無法直接寫 SQL（雖然有 raw query）
 
@@ -204,11 +215,13 @@ const transactions = await prisma.transaction.findMany({
 #### 自己實作 JWT
 
 **優點**:
+
 - 完全掌控
 - 無外部依賴
 - 學習價值高
 
 **缺點**:
+
 - 需要處理大量安全細節：
   - 密碼加密（bcrypt）
   - Token 刷新機制
@@ -221,12 +234,14 @@ const transactions = await prisma.transaction.findMany({
 #### Auth0
 
 **優點**:
+
 - 功能非常完整
 - 企業級安全標準
 - 支援多種認證方式（OAuth, SAML 等）
 - 詳細的使用者分析
 
 **缺點**:
+
 - 免費方案限制多
 - 設定較複雜
 - 對學習專案來說可能過度
@@ -234,6 +249,7 @@ const transactions = await prisma.transaction.findMany({
 #### Supabase Auth (選用方案)
 
 **優點**:
+
 - 免費方案慷慨
 - 與 Supabase 資料庫整合良好
 - 簡單易用的 API
@@ -242,16 +258,19 @@ const transactions = await prisma.transaction.findMany({
 - 開源，可自部署
 
 **缺點**:
+
 - 功能不如 Auth0 完整
 - 某種程度的 vendor lock-in
 
 **架構優勢**:
+
 ```
 前端 → Supabase Auth (處理登入/註冊) → 簽發 JWT
 前端 → 後端 API (帶 JWT) → 驗證 JWT → 商業邏輯
 ```
 
 這種架構實現了關注點分離：
+
 - Supabase 專門處理認證
 - 後端專注於商業邏輯
 - 減少開發時間和維護成本
@@ -267,10 +286,12 @@ const transactions = await prisma.transaction.findMany({
 #### 純 React (Create React App / Vite)
 
 **優點**:
+
 - 純前端，簡單
 - 完全的 SPA 體驗
 
 **缺點**:
+
 - 沒有 SSR/SSG
 - SEO 不友善
 - 需要額外設定路由（React Router）
@@ -279,18 +300,21 @@ const transactions = await prisma.transaction.findMany({
 #### Next.js Pages Router
 
 **優點**:
+
 - SSR/SSG 支援
 - 檔案系統路由
 - API Routes
 - 成熟穩定
 
 **缺點**:
+
 - 舊架構，逐漸被 App Router 取代
 - 缺少新功能（Server Components, Server Actions）
 
 #### Next.js App Router (選用方案)
 
 **優點**:
+
 - React Server Components
 - Server Actions（可以減少或取代傳統 API）
 - 改進的路由系統
@@ -300,11 +324,13 @@ const transactions = await prisma.transaction.findMany({
 - 未來的標準
 
 **缺點**:
+
 - 較新，某些第三方套件可能不完全支援
 - 學習曲線較陡
 - 心智模型轉換（Server vs Client Components）
 
 **為什麼選擇 App Router**:
+
 1. 未來的標準，值得投資學習
 2. Server Actions 可以簡化某些場景的開發
 3. 更好的開發體驗
@@ -321,10 +347,12 @@ const transactions = await prisma.transaction.findMany({
 #### Lerna
 
 **優點**:
+
 - 老牌工具，社群大
 - 功能成熟
 
 **缺點**:
+
 - 維護活躍度降低
 - 效能不如新工具
 - 配置較複雜
@@ -332,11 +360,13 @@ const transactions = await prisma.transaction.findMany({
 #### pnpm workspaces
 
 **優點**:
+
 - 內建於 pnpm
 - 節省磁碟空間
 - 快速
 
 **缺點**:
+
 - 只處理依賴管理
 - 沒有建置快取和編排功能
 - 需要手動管理建置順序
@@ -344,6 +374,7 @@ const transactions = await prisma.transaction.findMany({
 #### Nx
 
 **優點**:
+
 - 功能最強大
 - 完整的建置快取和分散式任務執行
 - 內建程式碼生成器
@@ -351,6 +382,7 @@ const transactions = await prisma.transaction.findMany({
 - 支援多種框架
 
 **缺點**:
+
 - 學習曲線陡峭
 - 配置複雜
 - 對簡單專案來說過度設計
@@ -358,6 +390,7 @@ const transactions = await prisma.transaction.findMany({
 #### Turborepo (選用方案)
 
 **優點**:
+
 - 簡單易用
 - 智慧快取（本地和遠端）
 - 並行任務執行
@@ -366,10 +399,12 @@ const transactions = await prisma.transaction.findMany({
 - Vercel 支援
 
 **缺點**:
+
 - 功能不如 Nx 完整
 - 較新的工具
 
 **為什麼選擇 Turborepo**:
+
 1. 簡單夠用，不過度複雜
 2. 配置清晰
 3. 效能好
@@ -386,14 +421,14 @@ const transactions = await prisma.transaction.findMany({
 
 #### Vercel vs Netlify vs AWS Amplify
 
-| 特性 | Vercel | Netlify | AWS Amplify |
-|------|--------|---------|-------------|
-| Next.js 支援 | ⭐⭐⭐⭐⭐ (原生) | ⭐⭐⭐⭐ | ⭐⭐⭐ |
-| 免費額度 | 慷慨 | 慷慨 | 有限 |
-| 自動部署 | ✅ | ✅ | ✅ |
-| Edge Functions | ✅ | ✅ | ✅ |
-| 學習曲線 | 簡單 | 簡單 | 中等 |
-| 價格 | 合理 | 合理 | 較貴 |
+| 特性           | Vercel            | Netlify  | AWS Amplify |
+| -------------- | ----------------- | -------- | ----------- |
+| Next.js 支援   | ⭐⭐⭐⭐⭐ (原生) | ⭐⭐⭐⭐ | ⭐⭐⭐      |
+| 免費額度       | 慷慨              | 慷慨     | 有限        |
+| 自動部署       | ✅                | ✅       | ✅          |
+| Edge Functions | ✅                | ✅       | ✅          |
+| 學習曲線       | 簡單              | 簡單     | 中等        |
+| 價格           | 合理              | 合理     | 較貴        |
 
 **結論**: Vercel 是 Next.js 的最佳選擇（Vercel 就是 Next.js 的開發公司）。
 
@@ -403,14 +438,14 @@ const transactions = await prisma.transaction.findMany({
 
 #### Railway vs Render vs Fly.io vs Heroku vs VPS
 
-| 特性 | Railway | Render | Fly.io | Heroku | VPS |
-|------|---------|--------|---------|--------|-----|
-| 免費額度 | $5 credit | 750h/月（會睡眠） | 有限 | ❌ 已取消 | ❌ |
-| 部署難度 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐ |
-| 冷啟動 | 無 | 有（免費版） | 無 | - | 無 |
-| 資料庫 | 內建 | 內建 | 需額外設定 | 附加元件 | 自己安裝 |
-| 學習曲線 | 簡單 | 簡單 | 中等 | 簡單 | 困難 |
-| 適合小專案 | ✅ | ✅ | ✅ | ✅ | ❌ |
+| 特性       | Railway    | Render            | Fly.io     | Heroku    | VPS      |
+| ---------- | ---------- | ----------------- | ---------- | --------- | -------- |
+| 免費額度   | $5 credit  | 750h/月（會睡眠） | 有限       | ❌ 已取消 | ❌       |
+| 部署難度   | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐        | ⭐⭐⭐     | ⭐⭐⭐⭐  | ⭐       |
+| 冷啟動     | 無         | 有（免費版）      | 無         | -         | 無       |
+| 資料庫     | 內建       | 內建              | 需額外設定 | 附加元件  | 自己安裝 |
+| 學習曲線   | 簡單       | 簡單              | 中等       | 簡單      | 困難     |
+| 適合小專案 | ✅         | ✅                | ✅         | ✅        | ❌       |
 
 **結論**: Railway 提供最佳的開發體驗和免費額度平衡。
 
@@ -470,14 +505,14 @@ Deploy:    Vercel (前端) + Railway (後端)
 
 ### 複雜度 vs 價值
 
-| 技術 | 學習成本 | 開發效率 | 維護性 | 職涯價值 | 推薦度 |
-|------|---------|---------|--------|---------|--------|
-| NestJS | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| Express | ⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| Prisma | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| TypeORM | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
-| Supabase Auth | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| 自建 Auth | ⭐⭐⭐⭐⭐ | ⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐ |
+| 技術          | 學習成本   | 開發效率   | 維護性     | 職涯價值   | 推薦度     |
+| ------------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| NestJS        | ⭐⭐⭐⭐   | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Express       | ⭐⭐       | ⭐⭐⭐     | ⭐⭐       | ⭐⭐⭐     | ⭐⭐       |
+| Prisma        | ⭐⭐       | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐   | ⭐⭐⭐⭐⭐ |
+| TypeORM       | ⭐⭐⭐     | ⭐⭐⭐     | ⭐⭐⭐     | ⭐⭐⭐     | ⭐⭐⭐     |
+| Supabase Auth | ⭐⭐       | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐   | ⭐⭐⭐     | ⭐⭐⭐⭐⭐ |
+| 自建 Auth     | ⭐⭐⭐⭐⭐ | ⭐         | ⭐⭐       | ⭐⭐⭐     | ⭐         |
 
 ---
 

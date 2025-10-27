@@ -7,6 +7,7 @@ This document describes the technical implementation approach for Sprint 0.
 ## 🏗️ Architecture Overview
 
 ### Monorepo Structure
+
 ```
 flourish/
 ├── apps/
@@ -31,6 +32,7 @@ flourish/
 ### Implementation Steps
 
 1. **Create Turborepo**
+
    ```bash
    pnpm dlx create-turbo@latest flourish
    ```
@@ -41,6 +43,7 @@ flourish/
    - Create placeholder directories
 
 3. **Documentation Structure**
+
    ```
    docs/
    ├── README.md
@@ -58,10 +61,12 @@ flourish/
 ### Technical Decisions
 
 **Decision**: Use Turborepo `basic` template
+
 - **Rationale**: Learn from ground up, understand each piece
 - **Alternative**: `with-prisma` template (faster but less educational)
 
 **Decision**: pnpm as package manager
+
 - **Rationale**: Fast, efficient, good monorepo support
 - **Alternative**: npm, yarn
 
@@ -72,6 +77,7 @@ flourish/
 ### Configuration
 
 **`.prettierrc`**:
+
 ```json
 {
   "semi": true,
@@ -86,6 +92,7 @@ flourish/
 ```
 
 ### Scripts
+
 ```json
 {
   "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
@@ -107,15 +114,11 @@ flourish/
 ### Configuration
 
 **`.lintstagedrc`**:
+
 ```json
 {
-  "*.{js,jsx,ts,tsx}": [
-    "prettier --write",
-    "eslint --fix"
-  ],
-  "*.{json,md,yml,yaml}": [
-    "prettier --write"
-  ]
+  "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint --fix"],
+  "*.{json,md,yml,yaml}": ["prettier --write"]
 }
 ```
 
@@ -126,6 +129,7 @@ flourish/
 ### Configuration
 
 **`commitlint.config.js`**:
+
 ```javascript
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -133,16 +137,14 @@ module.exports = {
     'type-enum': [
       2,
       'always',
-      [
-        'feat', 'fix', 'docs', 'style', 'refactor',
-        'perf', 'test', 'chore', 'revert', 'wip'
-      ]
-    ]
-  }
+      ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore', 'revert', 'wip'],
+    ],
+  },
 };
 ```
 
 ### Git Hook
+
 ```bash
 npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 ```
@@ -152,6 +154,7 @@ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 ## 🗄️ Sprint 0.5: Prisma Setup
 
 ### Package Structure
+
 ```
 packages/database/
 ├── prisma/
@@ -163,6 +166,7 @@ packages/database/
 ```
 
 ### Basic Schema
+
 ```prisma
 generator client {
   provider = "prisma-client-js"
@@ -182,7 +186,9 @@ model User {
 ```
 
 ### Turbo Configuration
+
 Update `turbo.json` to include Prisma generate in the pipeline:
+
 ```json
 {
   "pipeline": {
@@ -201,12 +207,14 @@ Update `turbo.json` to include Prisma generate in the pipeline:
 ## 🔧 Sprint 0.6: NestJS Application
 
 ### Setup
+
 ```bash
 cd apps
 npx @nestjs/cli new api
 ```
 
 ### Module Structure
+
 ```
 apps/api/
 ├── src/
@@ -220,6 +228,7 @@ apps/api/
 ```
 
 ### Key Integrations
+
 - Prisma integration via `@repo/database`
 - ConfigModule for environment variables
 - CORS configuration for frontend
@@ -229,12 +238,14 @@ apps/api/
 ## 📈 Sprint 0.7: Apex Application
 
 ### Setup
+
 ```bash
 cd apps
 pnpm create next-app@latest apex
 ```
 
 ### Configuration
+
 - Port 3002 (to avoid conflict with flow)
 - Shared packages: `@repo/ui`, `@repo/chart-engine`
 - Basic page structure
@@ -244,11 +255,13 @@ pnpm create next-app@latest apex
 ## 🧪 Testing Strategy
 
 ### Development Testing
+
 - Manual testing: `pnpm dev` for each app
 - Verify hot reload works
 - Check error handling
 
 ### Integration Testing
+
 - All apps run concurrently
 - Database connections work
 - API endpoints respond
@@ -258,10 +271,12 @@ pnpm create next-app@latest apex
 ## 🚀 Deployment Considerations
 
 ### Development Environment
+
 - Local: All apps on localhost with different ports
 - Database: Supabase (cloud) or local PostgreSQL
 
 ### Production (Future)
+
 - Flow & Apex: Vercel
 - API: Railway
 - Database: Supabase (production instance)
@@ -271,11 +286,13 @@ pnpm create next-app@latest apex
 ## 🔐 Security Considerations
 
 ### Environment Variables
+
 - Never commit `.env` files
 - Use `.env.example` for documentation
 - Separate dev and production configs
 
 ### Authentication
+
 - Supabase Auth handles user management
 - NestJS validates JWT tokens
 - No passwords stored in our database
@@ -285,11 +302,13 @@ pnpm create next-app@latest apex
 ## 📊 Performance Considerations
 
 ### Turborepo Caching
+
 - Build artifacts cached
 - Speeds up subsequent builds
 - Remote caching available (Vercel)
 
 ### Development
+
 - Turbopack for Next.js (faster than Webpack)
 - Hot reload for all apps
 - Incremental type checking
@@ -299,12 +318,15 @@ pnpm create next-app@latest apex
 ## 🐛 Common Issues and Solutions
 
 ### Issue: NODE_ENV conflicts
+
 **Solution**: Unset NODE_ENV before running `pnpm install`
 
 ### Issue: Port already in use
+
 **Solution**: Check which apps are running, configure different ports
 
 ### Issue: Turbo command not found
+
 **Solution**: Ensure devDependencies are installed: `pnpm install`
 
 ---

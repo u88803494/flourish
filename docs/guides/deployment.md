@@ -4,11 +4,11 @@
 
 本專案採用「服務分離」的部署策略：
 
-| 服務 | 平台 | 成本 | 特性 |
-|------|------|------|------|
-| **Next.js 前端** | Vercel | $0 | 自動部署、全球 CDN、最佳化 |
-| **NestJS 後端** | Railway | $0-10/月 | Long-running、不睡眠、簡單設定 |
-| **資料庫** | Supabase | $0 | 500MB、認證、API、Dashboard |
+| 服務             | 平台     | 成本     | 特性                           |
+| ---------------- | -------- | -------- | ------------------------------ |
+| **Next.js 前端** | Vercel   | $0       | 自動部署、全球 CDN、最佳化     |
+| **NestJS 後端**  | Railway  | $0-10/月 | Long-running、不睡眠、簡單設定 |
+| **資料庫**       | Supabase | $0       | 500MB、認證、API、Dashboard    |
 
 **總成本**：開發階段 $0/月，上線後 $5-35/月
 
@@ -81,6 +81,7 @@ Thumbs.db
 前往專案的 **Settings → API**
 
 需要記錄的資訊：
+
 ```
 Project URL:
 https://xxxxxxxxxxxxx.supabase.co
@@ -209,6 +210,7 @@ curl https://your-app-production.up.railway.app/api/version
 Railway 預設會在 Git push 時自動部署。
 
 如果想要手動控制：
+
 1. Settings → Deployments
 2. 關閉「Auto Deploy」
 3. 需要部署時手動點擊「Deploy」
@@ -252,6 +254,7 @@ Railway 預設會在 Git push 時自動部署。
 加入以下變數：
 
 **Production**：
+
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
@@ -259,6 +262,7 @@ NEXT_PUBLIC_API_URL=https://your-app-production.up.railway.app
 ```
 
 **Preview & Development**（可選）：
+
 - 可以設定不同的值給 preview 和 development 環境
 
 ### Step 5: 部署
@@ -285,6 +289,7 @@ NEXT_PUBLIC_API_URL=https://your-app-production.up.railway.app
 ### Vercel 自動部署
 
 Vercel 會自動：
+
 - `main` 分支 → Production
 - 其他分支 → Preview deployment（每個 PR 都有獨立的預覽 URL）
 
@@ -305,10 +310,10 @@ async function bootstrap() {
   // CORS 設定
   app.enableCors({
     origin: [
-      'http://localhost:3000',                    // 本地開發
-      'https://your-app.vercel.app',             // Vercel Production
-      'https://*.vercel.app',                     // Vercel Preview
-      'https://yourdomain.com',                   // 自訂網域
+      'http://localhost:3000', // 本地開發
+      'https://your-app.vercel.app', // Vercel Production
+      'https://*.vercel.app', // Vercel Preview
+      'https://yourdomain.com', // 自訂網域
       'https://www.yourdomain.com',
     ],
     credentials: true,
@@ -344,22 +349,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run linter
         run: npm run lint
-      
+
       - name: Run tests
         run: npm run test
-      
+
       - name: Build
         run: npm run build
 
@@ -369,15 +374,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run Prisma migrations
         run: |
           cd packages/database
@@ -387,6 +392,7 @@ jobs:
 ```
 
 **設定 GitHub Secrets**：
+
 1. GitHub repo → Settings → Secrets and variables → Actions
 2. 新增 `DATABASE_URL`
 
@@ -432,12 +438,14 @@ export class TransactionsController {
 ### 問題 1：API 回傳 CORS 錯誤
 
 **症狀**：
+
 ```
-Access to fetch at 'https://api.railway.app/transactions' from origin 'https://app.vercel.app' 
+Access to fetch at 'https://api.railway.app/transactions' from origin 'https://app.vercel.app'
 has been blocked by CORS policy
 ```
 
 **解決方案**：
+
 1. 確認 NestJS 的 CORS origin 包含前端的 URL
 2. 確認 Railway 的環境變數已設定
 3. 重新部署 Railway
@@ -445,17 +453,20 @@ has been blocked by CORS policy
 ### 問題 2：Prisma 連接資料庫失敗
 
 **症狀**：
+
 ```
 PrismaClientInitializationError: Can't reach database server
 ```
 
 **檢查清單**：
+
 - [ ] DATABASE_URL 是否正確？
 - [ ] 使用 Connection Pooling URL（port 6543）？
 - [ ] Supabase 專案是否正常運行？
 - [ ] Railway 的環境變數是否已設定？
 
 **測試連接**：
+
 ```bash
 # 本地測試
 DATABASE_URL="..." npx prisma db pull
@@ -464,16 +475,19 @@ DATABASE_URL="..." npx prisma db pull
 ### 問題 3：JWT 驗證失敗
 
 **症狀**：
+
 ```
 401 Unauthorized
 ```
 
 **檢查清單**：
+
 - [ ] SUPABASE_JWT_SECRET 是否正確？
 - [ ] 前端是否正確傳送 Authorization header？
 - [ ] Token 是否已過期？
 
 **除錯方法**：
+
 ```typescript
 // 在 SupabaseJwtStrategy 加入日誌
 async validate(payload: any) {
@@ -485,10 +499,12 @@ async validate(payload: any) {
 ### 問題 4：環境變數沒有生效
 
 **Railway**：
+
 - 修改環境變數後需要重新部署
 - 點擊「Redeploy」
 
 **Vercel**：
+
 - 修改環境變數後自動重新部署
 - 或手動觸發「Redeploy」
 
@@ -563,22 +579,26 @@ async validate(payload: any) {
 部署完成後，可以考慮的優化：
 
 ### 效能優化
+
 - [ ] 啟用 Vercel 的 Analytics
 - [ ] 設定 CDN caching
 - [ ] 壓縮圖片
 - [ ] 使用 Next.js Image Optimization
 
 ### 監控
+
 - [ ] 設定 Sentry 錯誤追蹤
 - [ ] 設定 Uptime 監控（如 UptimeRobot）
 - [ ] 設定 Performance 監控
 
 ### 自動化
+
 - [ ] 設定 GitHub Actions CI/CD
 - [ ] 自動化測試
 - [ ] 自動化備份
 
 ### 擴展
+
 - [ ] 設定 Railway 的 Auto-scaling
 - [ ] 考慮使用 Redis 快取
 - [ ] 考慮使用 Queue（如 Bull）處理背景任務
@@ -590,16 +610,19 @@ async validate(payload: any) {
 ### 免費額度
 
 **Supabase 免費方案**：
+
 - 500MB 資料庫
 - 無限 API 請求
 - 50,000 月活躍使用者
 - 50GB bandwidth
 
 **Railway 免費額度**：
+
 - $5/月 credit
 - 足夠小型應用使用
 
 **Vercel 免費方案**：
+
 - 100GB bandwidth
 - 無限部署
 - 自動 HTTPS
@@ -607,16 +630,19 @@ async validate(payload: any) {
 ### 付費升級時機
 
 **Supabase Pro ($25/月)**：
+
 - 當資料庫超過 8GB
 - 需要每日自動備份
 - 需要更多並發連接
 
 **Railway ($5-20/月)**：
+
 - 當免費額度用完
 - 需要更多 CPU/RAM
 - 需要更多 bandwidth
 
 **Vercel Pro ($20/月)**：
+
 - 當 bandwidth 超過 100GB
 - 需要團隊協作功能
 - 需要密碼保護的預覽
@@ -626,6 +652,7 @@ async validate(payload: any) {
 ## 🎯 總結
 
 **部署流程回顧**：
+
 1. ✅ Supabase：資料庫 + 認證（2 分鐘設定）
 2. ✅ Railway：NestJS 後端（5 分鐘設定）
 3. ✅ Vercel：Next.js 前端（3 分鐘設定）
@@ -633,10 +660,12 @@ async validate(payload: any) {
 **總設定時間**：約 10-15 分鐘
 
 **維護成本**：
+
 - 時間：自動部署，幾乎零維護
 - 金錢：開發階段免費，上線後 $5-35/月
 
 **部署的好處**：
+
 - ✅ 真實環境測試
 - ✅ 可以展示給別人看
 - ✅ 學習 DevOps 經驗

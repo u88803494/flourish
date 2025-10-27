@@ -32,31 +32,33 @@
 
 定義 commit 的類型：
 
-| Type | 用途 | 範例 |
-|------|------|------|
-| `feat` | 新功能 | `feat(flow): add transaction list page` |
-| `fix` | 修復 bug | `fix(apex): resolve chart rendering issue` |
-| `docs` | 文檔變更 | `docs: update README with setup guide` |
-| `style` | 格式調整（不影響程式碼運作） | `style(flow): format with prettier` |
+| Type       | 用途                           | 範例                                           |
+| ---------- | ------------------------------ | ---------------------------------------------- |
+| `feat`     | 新功能                         | `feat(flow): add transaction list page`        |
+| `fix`      | 修復 bug                       | `fix(apex): resolve chart rendering issue`     |
+| `docs`     | 文檔變更                       | `docs: update README with setup guide`         |
+| `style`    | 格式調整（不影響程式碼運作）   | `style(flow): format with prettier`            |
 | `refactor` | 重構（不是新功能也不是修 bug） | `refactor(api): extract auth logic to service` |
-| `perf` | 效能優化 | `perf(flow): optimize transaction query` |
-| `test` | 測試相關 | `test(api): add unit tests for auth service` |
-| `chore` | 建置或工具變更 | `chore(deps): upgrade next.js to 15.1.0` |
-| `build` | 建置系統變更 | `build: update turbo pipeline config` |
-| `ci` | CI 配置變更 | `ci: add github actions workflow` |
-| `revert` | 撤銷之前的 commit | `revert: revert "feat: add payment feature"` |
+| `perf`     | 效能優化                       | `perf(flow): optimize transaction query`       |
+| `test`     | 測試相關                       | `test(api): add unit tests for auth service`   |
+| `chore`    | 建置或工具變更                 | `chore(deps): upgrade next.js to 15.1.0`       |
+| `build`    | 建置系統變更                   | `build: update turbo pipeline config`          |
+| `ci`       | CI 配置變更                    | `ci: add github actions workflow`              |
+| `revert`   | 撤銷之前的 commit              | `revert: revert "feat: add payment feature"`   |
 
 #### 2. Scope（選填但推薦）
 
 定義變更的範圍：
 
 **應用層級**:
+
 - `flow` - 記帳應用
 - `apex` - 曲線圖工具
 - `api` - 後端 API
 - `docs` - 文檔網站
 
 **套件層級**:
+
 - `database` - Prisma package
 - `chart-engine` - 圖表邏輯 package
 - `ui` - UI 元件 package
@@ -64,12 +66,14 @@
 - `typescript-config` - TypeScript 設定
 
 **功能層級**:
+
 - `auth` - 認證功能
 - `transactions` - 交易功能
 - `categories` - 分類功能
 - `stats` - 統計功能
 
 **工具層級**:
+
 - `deps` - 依賴管理
 - `config` - 配置檔案
 
@@ -78,6 +82,7 @@
 簡短描述變更內容：
 
 **規則**:
+
 - 使用祈使句（imperative mood）：`add` 而非 `added` 或 `adds`
 - 不要大寫開頭
 - 不要句號結尾
@@ -85,6 +90,7 @@
 - 要清楚描述「做了什麼」
 
 **好的範例**:
+
 ```
 feat(flow): add transaction creation form
 fix(api): resolve database connection timeout
@@ -93,6 +99,7 @@ refactor(auth): simplify token validation logic
 ```
 
 **不好的範例**:
+
 ```
 feat: updates              // 太籠統
 fix: bug fix               // 沒說明修了什麼 bug
@@ -105,18 +112,21 @@ refactor: change stuff     // 不清楚
 詳細描述變更內容：
 
 **何時需要**:
+
 - 變更複雜時
 - 需要說明「為什麼」這樣做
 - 有重要的技術決策
 - 有破壞性變更（BREAKING CHANGE）
 
 **格式**:
+
 - 與 subject 空一行
 - 每行限制在 72 字元內
 - 可以多段落
 - 可以使用項目符號（-）
 
 **範例**:
+
 ```
 feat(flow): add transaction filtering by date range
 
@@ -135,6 +145,7 @@ Implementation details:
 記錄特殊資訊：
 
 **Breaking Changes**:
+
 ```
 feat(api): change authentication token format
 
@@ -143,6 +154,7 @@ All clients must update to the new token format.
 ```
 
 **關聯 Issue**:
+
 ```
 fix(flow): resolve transaction deletion error
 
@@ -151,6 +163,7 @@ Closes #124, #125
 ```
 
 **相關 Commit**:
+
 ```
 revert: revert "feat(flow): add export feature"
 
@@ -166,6 +179,7 @@ This reverts commit abc123def456.
 **原則**: 一個 commit 只做一件邏輯上的事情
 
 **好的做法** ✅:
+
 ```bash
 # Commit 1: 重新命名
 git add apps/flow
@@ -181,6 +195,7 @@ git commit -m "docs: update README with project structure"
 ```
 
 **不好的做法** ❌:
+
 ```bash
 # 一次 commit 做太多事
 git add .
@@ -190,6 +205,7 @@ git commit -m "feat: add everything"
 ### 2. 分次 Commit 的時機
 
 **應該分開 commit 的情況**:
+
 - ✅ 功能開發 vs 文檔更新
 - ✅ 新功能 vs bug 修復
 - ✅ 重構 vs 新功能
@@ -197,6 +213,7 @@ git commit -m "feat: add everything"
 - ✅ 依賴更新 vs 程式碼變更
 
 **可以合併的情況**:
+
 - ✅ 同一個功能的多個檔案
 - ✅ 相關的測試和實作程式碼
 - ✅ 格式調整（如果很小）
@@ -204,6 +221,7 @@ git commit -m "feat: add everything"
 ### 3. Commit 頻率
 
 **建議頻率**:
+
 - 完成一個小功能：commit
 - 修復一個 bug：commit
 - 重構一段程式碼：commit
@@ -211,6 +229,7 @@ git commit -m "feat: add everything"
 - 一天至少 commit 1-3 次
 
 **太頻繁** ❌:
+
 ```bash
 git commit -m "fix: typo"
 git commit -m "fix: another typo"
@@ -218,6 +237,7 @@ git commit -m "fix: one more typo"
 ```
 
 **太少** ❌:
+
 ```bash
 # 一週才 commit 一次，包含 20 個檔案的變更
 git commit -m "feat: add lots of features"
@@ -230,22 +250,26 @@ git commit -m "feat: add lots of features"
 ### 分支策略
 
 **主分支**:
+
 - `main` - 穩定版本，隨時可部署
 - `develop` - 開發分支（如果需要）
 
 **功能分支**:
+
 ```
 feature/<sprint>-<feature-name>
 例如: feature/sprint-1-auth-system
 ```
 
 **修復分支**:
+
 ```
 fix/<bug-description>
 例如: fix/transaction-deletion-error
 ```
 
 **重構分支**:
+
 ```
 refactor/<component-name>
 例如: refactor/auth-service
@@ -370,6 +394,7 @@ git commit -m "build: optimize turbo pipeline for faster builds
 ### 錯誤 1: Commit Message 太籠統
 
 ❌ **錯誤**:
+
 ```
 git commit -m "fix: bug fix"
 git commit -m "update: changes"
@@ -377,6 +402,7 @@ git commit -m "feat: improvements"
 ```
 
 ✅ **正確**:
+
 ```
 git commit -m "fix(flow): resolve transaction form validation error"
 git commit -m "refactor(api): optimize database query performance"
@@ -386,6 +412,7 @@ git commit -m "feat(apex): add trend line calculation"
 ### 錯誤 2: 一次 Commit 太多
 
 ❌ **錯誤**:
+
 ```bash
 # 修改了 20 個檔案
 git add .
@@ -393,6 +420,7 @@ git commit -m "feat: add multiple features and fix bugs"
 ```
 
 ✅ **正確**:
+
 ```bash
 # 分成多次邏輯清晰的 commits
 git add apps/flow/src/features/auth/
@@ -408,12 +436,14 @@ git commit -m "docs: add authentication flow documentation"
 ### 錯誤 3: Commit Message 使用過去式
 
 ❌ **錯誤**:
+
 ```
 git commit -m "feat(flow): added login form"
 git commit -m "fix(api): fixed bug"
 ```
 
 ✅ **正確**:
+
 ```
 git commit -m "feat(flow): add login form"
 git commit -m "fix(api): resolve connection timeout"
@@ -422,12 +452,14 @@ git commit -m "fix(api): resolve connection timeout"
 ### 錯誤 4: 沒有使用 Scope
 
 ❌ **錯誤**:
+
 ```
 git commit -m "feat: add form"  // 哪個 app 的 form？
 git commit -m "fix: bug"        // 哪裡的 bug？
 ```
 
 ✅ **正確**:
+
 ```
 git commit -m "feat(flow): add transaction form"
 git commit -m "fix(api): resolve auth token expiration"

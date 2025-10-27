@@ -9,6 +9,7 @@
 ## 🎯 Sprint Goal
 
 Set up a professional-grade development environment with:
+
 - Turborepo monorepo structure
 - Development tooling (Prettier, Husky, lint-staged, commitlint)
 - Core infrastructure (Prisma, NestJS, Apex app)
@@ -19,10 +20,12 @@ Set up a professional-grade development environment with:
 ## 📋 Sub-Sprints
 
 ### Sprint 0.1: Basic Monorepo Structure ✅ COMPLETED
+
 **Time**: 20 minutes  
 **Completed**: 2025-01-15
 
 **What was done**:
+
 - Created Turborepo monorepo with pnpm
 - Renamed `web` app to `flow` (financial tracking)
 - Created placeholder directories for `apex` and `api` apps
@@ -30,6 +33,7 @@ Set up a professional-grade development environment with:
 - Set up Git repository with proper commit conventions
 
 **Key Achievements**:
+
 - ✅ Flow app runs successfully at http://localhost:3000
 - ✅ 13 documentation files organized
 - ✅ 7 clean Git commits following Conventional Commits
@@ -38,10 +42,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.2: Prettier Setup
+
 **Time**: ~15 minutes  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Install and configure Prettier
 - Add format scripts
 - Format existing codebase
@@ -50,10 +56,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.3: Husky + lint-staged
+
 **Time**: ~20 minutes  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Install Husky for Git hooks
 - Configure lint-staged for pre-commit checks
 - Test automation workflow
@@ -62,10 +70,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.4: commitlint
+
 **Time**: ~15 minutes  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Install commitlint
 - Configure Conventional Commits enforcement
 - Add commit-msg hook
@@ -74,10 +84,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.5: Prisma Setup
+
 **Time**: ~30 minutes  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Create `@repo/database` package
 - Initialize Prisma with Supabase
 - Define basic schema
@@ -86,10 +98,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.6: NestJS Application
+
 **Time**: ~1 hour  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Create NestJS app in `apps/api`
 - Integrate Prisma
 - Set up basic modules
@@ -98,10 +112,12 @@ Set up a professional-grade development environment with:
 ---
 
 ### Sprint 0.7: Apex Application
+
 **Time**: ~30 minutes  
 **Status**: 📦 Planned
 
 **Objectives**:
+
 - Create Next.js app for Apex
 - Configure on port 3002
 - Basic structure setup
@@ -126,6 +142,7 @@ Set up a professional-grade development environment with:
 ## 🎓 What We're Learning
 
 ### Technical Skills
+
 - Turborepo monorepo management
 - pnpm workspace configuration
 - Modern Git workflows
@@ -133,6 +150,7 @@ Set up a professional-grade development environment with:
 - TypeScript project organization
 
 ### Process Skills
+
 - Sprint planning and execution
 - Specification-driven development
 - Documentation as code
@@ -143,6 +161,7 @@ Set up a professional-grade development environment with:
 ## 🚀 Success Criteria
 
 Sprint 0 is complete when:
+
 - ✅ All apps can run concurrently (`pnpm dev`)
 - ✅ Code quality tools are automated (pre-commit hooks)
 - ✅ Database access is configured (Prisma + Supabase)
@@ -155,6 +174,7 @@ Sprint 0 is complete when:
 ## 📝 Lessons Learned
 
 ### Sprint 0.1 Lessons
+
 1. **Turborepo Setup**: Using the official template saves time
 2. **Git Commits**: Following Conventional Commits from day one creates clean history
 3. **Documentation**: Organizing docs by purpose (guides, references, sprints) makes them easier to use
