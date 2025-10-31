@@ -1,48 +1,48 @@
-# Vision and Workflow
+# 願景與工作流程
 
-**Last Updated**: 2025-10-30
-**Status**: Living Document
+**最後更新**: 2025-10-30
+**狀態**: 持續更新文檔
 
-## Overview
+## 概述
 
-Flourish is a personal finance management system designed for credit card power users who need efficient monthly statement processing and intelligent budget management with pre-deduction capabilities.
-
----
-
-## User Profile and Context
-
-### Target User
-
-**Power Credit Card User**
-
-- Owns 20+ credit cards for various rewards and benefits
-- Actively uses 2-5 cards per month depending on promotions
-- Processes statements monthly (not daily transaction entry)
-- Values efficiency and automation over manual data entry
-- Needs clear visibility of actual available budget after pre-deductions
-
-### Historical Context
-
-**Previous Solution**: Google Sheets (2019-2025)
-
-- **Pain Points**:
-  - Complex formulas for annual fee amortization (divide by 12)
-  - Manual pre-deduction tracking for subscriptions
-  - Difficult to maintain and rebuild annually
-  - Unclear data purpose after several years
-  - Time-consuming monthly reconciliation
-
-**Data Volume**:
-
-- 6 years of historical transaction data (2019-2025)
-- Priority: Recent data (2024-2025) for immediate import
-- Full history: Import when time permits
+Flourish 是一個個人財務管理系統，專為需要高效處理每月帳單和智慧預算管理（含預扣功能）的信用卡重度使用者設計。
 
 ---
 
-## Primary Workflow: PDF Statement Processing
+## 使用者輪廓與情境
 
-### Monthly Cadence
+### 目標使用者
+
+**信用卡重度使用者**
+
+- 擁有 20+ 張信用卡以獲取各種回饋與優惠
+- 根據促銷活動每月積極使用 2-5 張卡片
+- 以月為單位處理帳單（非每日記錄交易）
+- 重視效率與自動化，而非手動輸入資料
+- 需要清楚了解扣除預扣項目後的實際可用預算
+
+### 歷史背景
+
+**先前解決方案**: Google Sheets (2019-2025)
+
+- **痛點**:
+  - 年費分攤的複雜公式（除以 12）
+  - 訂閱服務的手動預扣追蹤
+  - 維護困難，每年需要重建
+  - 經過數年後資料用途不明確
+  - 每月對帳耗時
+
+**資料量**:
+
+- 6 年的歷史交易資料 (2019-2025)
+- 優先級：近期資料 (2024-2025) 供立即匯入
+- 完整歷史：時間允許時匯入
+
+---
+
+## 主要工作流程：PDF 帳單處理
+
+### 每月週期
 
 ```
 每月固定流程：
@@ -54,176 +54,176 @@ Flourish is a personal finance management system designed for credit card power 
 6. 檢視當月預算使用狀況
 ```
 
-### Workflow Details
+### 工作流程細節
 
-#### Step 1: Statement Download
+#### 步驟 1：下載帳單
 
-- Source: Online banking portals
-- Format: PDF files (各家銀行格式不同)
-- Frequency: Monthly, after statement date
-- Cards: Only download for actively used cards (2-5 cards/month)
+- 來源：網路銀行入口網站
+- 格式：PDF 檔案（各家銀行格式不同）
+- 頻率：每月帳單日期後
+- 卡片：僅下載當月使用的卡片（2-5 張/月）
 
-#### Step 2: PDF Upload
+#### 步驟 2：上傳 PDF
 
-- **User Action**: Select card, upload PDF file
-- **System Action**: Store PDF in cloud storage, create Statement record
-- **UI Requirements**:
-  - Card selection dropdown (show active cards first)
-  - File upload with progress indicator
-  - Support drag-and-drop
-  - File size limit: 10MB per PDF
+- **使用者操作**：選擇卡片、上傳 PDF 檔案
+- **系統操作**：將 PDF 儲存至雲端儲存、建立 Statement 記錄
+- **UI 需求**:
+  - 卡片選擇下拉選單（優先顯示使用中的卡片）
+  - 檔案上傳進度指示器
+  - 支援拖放上傳
+  - 檔案大小限制：每個 PDF 10MB
 
-#### Step 3: AI Transaction Recognition
+#### 步驟 3：AI 交易辨識
 
-- **System Action**:
-  - Extract transaction data using OCR/AI
-  - Parse: date, merchant name, amount, transaction type
-  - Calculate confidence score for each transaction
-  - Link transactions to statement
-- **Technology**: OpenAI Vision API (proposed)
-- **Data Quality**: Store raw OCR text for verification
+- **系統操作**:
+  - 使用 OCR/AI 提取交易資料
+  - 解析：日期、商家名稱、金額、交易類型
+  - 為每筆交易計算信心分數
+  - 將交易連結至帳單
+- **技術方案**：OpenAI Vision API（提議）
+- **資料品質**：儲存原始 OCR 文字供驗證
 
-#### Step 4: Review and Validation
+#### 步驟 4：檢視與驗證
 
-- **User Action**:
-  - Review extracted transactions in table view
-  - Edit merchant names (standardize naming)
-  - Assign categories
-  - Remove incorrect extractions
-  - Flag suspicious transactions
-- **UI Requirements**:
-  - Editable table with inline editing
-  - Show confidence score indicator
-  - Bulk category assignment
-  - Quick delete for incorrect items
+- **使用者操作**:
+  - 在表格視圖中檢視提取的交易
+  - 編輯商家名稱（標準化命名）
+  - 指定分類
+  - 移除錯誤的提取結果
+  - 標記可疑交易
+- **UI 需求**:
+  - 可內嵌編輯的表格
+  - 顯示信心分數指示器
+  - 批次分類指定
+  - 快速刪除錯誤項目
 
-#### Step 5: Batch Import
+#### 步驟 5：批次匯入
 
-- **User Action**: Click "Confirm Import" button
-- **System Action**:
-  - Save all validated transactions to database
-  - Mark statement as processed
-  - Update monthly budget calculations
-  - Trigger category statistics update
-- **Validation**: Ensure no duplicate transactions
+- **使用者操作**：點擊「確認匯入」按鈕
+- **系統操作**:
+  - 將所有已驗證的交易儲存到資料庫
+  - 標記帳單為已處理
+  - 更新月度預算計算
+  - 觸發分類統計更新
+- **驗證**：確保沒有重複交易
 
-#### Step 6: Budget Review
+#### 步驟 6：預算檢視
 
-- **User Action**: View monthly budget dashboard
-- **Display Requirements**:
-  - Total income for the month
-  - Pre-deducted amounts (subscriptions, amortized fees, auto-savings)
-  - Total spending from statements
-  - **Actual available balance** (most important metric)
-  - Category breakdown
-  - Comparison with previous months
-
----
-
-## Multi-Card Management
-
-### Card Inventory
-
-**Total Cards**: 20+ credit cards
-**Active Cards**: 2-5 cards used per month
-**Rotation Strategy**: Use different cards based on:
-
-- Current promotions (cashback, points)
-- Spending category bonuses
-- Annual fee justification
-
-### Card Management Requirements
-
-#### Card Information
-
-- Card name (user-defined, e.g., "國泰世華 CUBE")
-- Bank name
-- Last 4 digits
-- Card color (for visual identification)
-- Active/Inactive status
-
-#### Active Card Management
-
-- **Mark as Active**: Cards currently in wallet/use
-- **Mark as Inactive**: Cards stored away, not in current rotation
-- **Display Priority**: Show active cards first in all dropdowns
-
-#### Statement Organization
-
-- Link each statement to specific card
-- Filter statements by card
-- View card usage history
-- Track spending patterns per card
+- **使用者操作**：查看月度預算儀表板
+- **顯示需求**:
+  - 本月總收入
+  - 預扣金額（訂閱、分攤費用、自動儲蓄）
+  - 帳單總支出
+  - **實際可用餘額**（最重要的指標）
+  - 分類明細
+  - 與前幾個月的比較
 
 ---
 
-## Pre-Deduction System
+## 多卡管理
 
-### Purpose
+### 卡片庫存
 
-**Calculate actual available money** by pre-deducting expected future expenses from current income.
+**總卡片數**：20+ 張信用卡
+**使用中卡片**：每月使用 2-5 張卡片
+**輪換策略**：根據以下條件使用不同卡片：
 
-### Formula
+- 當前促銷活動（現金回饋、點數）
+- 消費分類加碼
+- 年費合理性
+
+### 卡片管理需求
+
+#### 卡片資訊
+
+- 卡片名稱（使用者自訂，例如「國泰世華 CUBE」）
+- 銀行名稱
+- 卡號末 4 碼
+- 卡片顏色（用於視覺識別）
+- 啟用/停用狀態
+
+#### 使用中卡片管理
+
+- **標記為使用中**：目前在錢包/使用中的卡片
+- **標記為停用**：已收起、不在當前輪換中的卡片
+- **顯示優先級**：在所有下拉選單中優先顯示使用中的卡片
+
+#### 帳單組織
+
+- 將每份帳單連結至特定卡片
+- 依卡片篩選帳單
+- 查看卡片使用歷史
+- 追蹤每張卡片的消費模式
+
+---
+
+## 預扣系統
+
+### 目的
+
+**計算實際可用金額**，從當前收入中預先扣除預期的未來支出。
+
+### 公式
 
 ```
 實際可用金額 = 總收入 - 自動儲蓄 - 固定月費 - 分攤年費
 ```
 
-### Pre-Deduction Categories
+### 預扣分類
 
-#### 1. Fixed Monthly Subscriptions
+#### 1. 固定月費訂閱
 
-**Examples**:
+**範例**:
 
 - YouTube Premium: NT$179/月
 - Netflix: NT$390/月
 - iCloud Storage: NT$90/月
 
-**Behavior**:
+**行為**:
 
-- Auto-deduct from available budget
-- Track actual vs expected transactions
-- Alert if subscription amount changes
-- Show in monthly budget projection
+- 從可用預算自動扣除
+- 追蹤實際 vs 預期交易
+- 訂閱金額變更時發出警告
+- 顯示在月度預算預測中
 
-#### 2. Annual Fee Amortization
+#### 2. 年費分攤
 
-**Purpose**: Avoid budget shock from large annual charges
+**目的**：避免大額年度扣款造成預算衝擊
 
-**Examples**:
+**範例**:
 
-- Credit card annual fee: NT$10,000/年 → NT$833/月
-- Domain renewal: NT$500/年 → NT$42/月
-- Professional membership: NT$5,000/年 → NT$417/月
+- 信用卡年費：NT$10,000/年 → NT$833/月
+- 網域續約：NT$500/年 → NT$42/月
+- 專業會員：NT$5,000/年 → NT$417/月
 
-**Calculation**:
+**計算**:
 
 ```
 每月分攤金額 = 年度費用總額 ÷ 12
 ```
 
-**Behavior**:
+**行為**:
 
-- Display as monthly "reserved amount"
-- When actual annual charge occurs, match against reserved amount
-- Prevent double-counting (reserve vs actual)
+- 顯示為每月「保留金額」
+- 當實際年度扣款發生時，與保留金額進行匹配
+- 防止重複計算（保留 vs 實際）
 
-#### 3. Automatic Savings Rules
+#### 3. 自動儲蓄規則
 
-**Purpose**: Enforce consistent saving behavior
+**目的**：強制執行持續的儲蓄行為
 
-**Examples**:
+**範例**:
 
-- Emergency fund: 5% of monthly income
-- Investment fund: NT$5,000 fixed amount
-- Retirement savings: 10% of income
+- 緊急基金：月收入的 5%
+- 投資基金：固定 NT$5,000
+- 退休儲蓄：收入的 10%
 
-**Types**:
+**類型**:
 
-- **Percentage-based**: % of income
-- **Fixed amount**: Specific NT$ amount
+- **百分比制**：收入的 %
+- **固定金額**：特定 NT$ 金額
 
-**Calculation**:
+**計算**:
 
 ```
 儲蓄金額 =
@@ -232,9 +232,9 @@ Flourish is a personal finance management system designed for credit card power 
 
 ---
 
-## Budget Calculation and Display
+## 預算計算與顯示
 
-### Monthly Budget Formula
+### 月度預算公式
 
 ```typescript
 // 步驟 1: 計算總收入
@@ -259,43 +259,43 @@ const totalSpent = sumOfActualTransactions;
 const remainingBudget = availableBudget - totalSpent;
 ```
 
-### Display Requirements
+### 顯示需求
 
-**Budget Dashboard Must Show**:
+**預算儀表板必須顯示**:
 
-1. **Income Section**
+1. **收入區塊**
    - 💰 本月收入：NT$50,000
    - 📊 收入明細：薪資、獎金、其他
 
-2. **Pre-Deduction Section** (Most Important)
+2. **預扣區塊**（最重要）
    - 💾 自動儲蓄：NT$2,500 (5%)
    - 📱 固定月費：NT$659
    - 📅 分攤年費：NT$1,664
    - ➖ 預扣總額：NT$4,823
 
-3. **Available Budget** (Key Metric)
+3. **可用預算**（關鍵指標）
    - ✅ **實際可用：NT$45,177**
    - 這是使用者最關心的數字
 
-4. **Spending Section**
+4. **支出區塊**
    - 💳 已消費：NT$32,450
    - 📊 分類明細：餐飲、交通、購物等
    - 🎯 剩餘額度：NT$12,727
 
-5. **Comparison**
+5. **比較**
    - 📈 較上月：+5% / -5%
    - 🎯 預算達成率：72%
 
 ---
 
-## Historical Data Import
+## 歷史資料匯入
 
-### Source: Google Sheets (2019-2025)
+### 來源：Google Sheets (2019-2025)
 
-#### Data Structure
+#### 資料結構
 
 ```
-Columns:
+欄位：
 - Date: 交易日期
 - Card: 信用卡名稱
 - Merchant: 商家名稱
@@ -304,161 +304,161 @@ Columns:
 - Note: 備註
 ```
 
-#### Import Strategy
+#### 匯入策略
 
-**Phase 1: Recent Data (Priority)**
+**階段 1：近期資料（優先）**
 
-- Focus: 2024-2025 data
-- Reason: Most relevant for current budget analysis
-- Approach: Manual CSV upload via admin interface
+- 重點：2024-2025 資料
+- 理由：與當前預算分析最相關
+- 方法：透過管理介面手動上傳 CSV
 
-**Phase 2: Complete History (Optional)**
+**階段 2：完整歷史（選用）**
 
-- Timeframe: 2019-2023 data
-- Approach: Bulk import script
-- Purpose: Historical trend analysis
+- 時間範圍：2019-2023 資料
+- 方法：批次匯入腳本
+- 目的：歷史趨勢分析
 
-#### Data Validation
+#### 資料驗證
 
-- ✅ Check for duplicate transactions (by date + amount + merchant)
-- ✅ Validate card names against existing cards
-- ✅ Auto-create categories if missing
-- ✅ Flag large amounts for review (>NT$10,000)
-- ✅ Mark all imported data as "Manual Entry" source
+- ✅ 檢查重複交易（依日期 + 金額 + 商家）
+- ✅ 驗證卡片名稱是否與現有卡片匹配
+- ✅ 缺少分類時自動建立
+- ✅ 標記大額交易供檢視（>NT$10,000）
+- ✅ 將所有匯入資料標記為「手動輸入」來源
 
-#### Import UI Requirements
+#### 匯入 UI 需求
 
-- CSV file upload
-- Column mapping interface (map CSV columns to database fields)
-- Preview before import (show first 10 rows)
-- Progress indicator for large files
-- Import summary report (success/error counts)
-- Error log for failed rows
+- CSV 檔案上傳
+- 欄位對應介面（將 CSV 欄位對應到資料庫欄位）
+- 匯入前預覽（顯示前 10 筆）
+- 大檔案進度指示器
+- 匯入摘要報告（成功/錯誤計數）
+- 失敗列的錯誤日誌
 
 ---
 
-## Future Enhancements (Sprint 2+)
+## 未來增強功能（Sprint 2+）
 
-### Transaction Matching
+### 交易匹配
 
-**Purpose**: Match expected recurring expenses with actual transactions
+**目的**：匹配預期的週期性支出與實際交易
 
-**Workflow**:
+**工作流程**:
 
-1. System detects transaction similar to recurring expense
-2. Suggest automatic matching
-3. User confirms or adjusts
-4. Link transaction to recurring expense
-5. Remove from "unexpected spending" calculation
+1. 系統偵測到與週期性支出類似的交易
+2. 建議自動匹配
+3. 使用者確認或調整
+4. 將交易連結至週期性支出
+5. 從「意外支出」計算中移除
 
-### Budget Forecasting
+### 預算預測
 
-**Purpose**: Predict next month's budget based on patterns
+**目的**：根據模式預測下個月的預算
 
-**Features**:
+**功能**:
 
-- Seasonal spending patterns
-- Recurring expense predictions
-- Income stability analysis
-- Savings goal tracking
+- 季節性消費模式
+- 週期性支出預測
+- 收入穩定性分析
+- 儲蓄目標追蹤
 
-### Multi-Currency Support
+### 多幣別支援
 
-**Purpose**: Handle foreign transaction fees and exchange rates
+**目的**：處理外幣交易手續費和匯率
 
-**Requirements**:
+**需求**:
 
-- Store original currency and amount
-- Track exchange rate at transaction time
-- Calculate TWD equivalent
-- Display both currencies
+- 儲存原始幣別和金額
+- 追蹤交易時的匯率
+- 計算新台幣等值
+- 同時顯示兩種貨幣
 
-### Receipt Attachment
+### 收據附件
 
-**Purpose**: Store receipt images for tax and warranty purposes
+**目的**：儲存收據影像供報稅和保固用途
 
-**Features**:
+**功能**:
 
-- Attach multiple images per transaction
-- OCR receipt data
-- Search by receipt content
-- Export receipts for tax filing
+- 每筆交易可附加多張影像
+- OCR 收據資料
+- 以收據內容搜尋
+- 匯出收據供報稅使用
 
-### Apex Integration
+### Apex 整合
 
-**Purpose**: Export transaction data for statistical analysis
+**目的**：匯出交易資料供統計分析
 
-**Data Flow**:
+**資料流**:
 
 ```
 Flourish (transactions) → Apex (condition formulas) → Charts/Insights
 ```
 
-**Use Cases**:
+**使用案例**:
 
-- Financial health scoring
-- Spending trend analysis
-- Category optimization suggestions
-- Savings goal progress tracking
-
----
-
-## Key Differences from Original Plan
-
-### Original Assumption
-
-- ❌ Daily manual transaction entry
-- ❌ Real-time categorization
-- ❌ Simple income/expense tracking
-
-### Actual Requirements
-
-- ✅ Monthly PDF statement batch processing
-- ✅ AI-powered transaction recognition
-- ✅ Pre-deduction budget calculation
-- ✅ Multi-card power user workflow
-- ✅ Historical data migration
-
-### Architecture Impact
-
-- **Database**: Statement-centric model (not transaction-centric)
-- **UI Flow**: Upload → Review → Import (not Add Transaction form)
-- **Budget Calculation**: Pre-deduction system (not simple sum)
-- **Card Management**: Active/Inactive states (not single card assumption)
+- 財務健康評分
+- 消費趨勢分析
+- 分類最佳化建議
+- 儲蓄目標進度追蹤
 
 ---
 
-## Success Metrics
+## 與原始計畫的主要差異
 
-### Sprint 0.5 MVP Success
+### 原始假設
 
-- ✅ Upload PDF statement
-- ✅ Extract basic transaction data (date, amount, merchant)
-- ✅ Review and edit extracted data
-- ✅ Import transactions to database
-- ✅ Link transactions to statements
-- ✅ Manage multiple credit cards
+- ❌ 每日手動輸入交易
+- ❌ 即時分類
+- ❌ 簡單的收支追蹤
 
-### Sprint 2+ Success
+### 實際需求
 
-- ✅ Pre-deduction budget calculation
-- ✅ Recurring expense management
-- ✅ Auto-savings rules
-- ✅ Historical data imported
-- ✅ Transaction matching
-- ✅ Budget forecasting
+- ✅ 每月 PDF 帳單批次處理
+- ✅ AI 驅動的交易辨識
+- ✅ 預扣預算計算
+- ✅ 多卡重度使用者工作流程
+- ✅ 歷史資料遷移
 
-### Long-term Success
+### 架構影響
 
-- ⏱️ **Time Savings**: 30 minutes/month → 5 minutes/month
-- 📊 **Accuracy**: 95%+ transaction recognition
-- 💰 **Budget Clarity**: Always know actual available money
-- 📈 **Financial Insights**: Clear spending patterns and trends
-- 🎯 **Savings Goals**: Automatic enforcement of savings rules
+- **資料庫**：以帳單為中心的模型（非以交易為中心）
+- **UI 流程**：上傳 → 檢視 → 匯入（非新增交易表單）
+- **預算計算**：預扣系統（非簡單加總）
+- **卡片管理**：使用中/停用狀態（非單一卡片假設）
 
 ---
 
-## Related Documents
+## 成功指標
+
+### Sprint 0.5 MVP 成功
+
+- ✅ 上傳 PDF 帳單
+- ✅ 提取基本交易資料（日期、金額、商家）
+- ✅ 檢視並編輯提取的資料
+- ✅ 匯入交易到資料庫
+- ✅ 將交易連結至帳單
+- ✅ 管理多張信用卡
+
+### Sprint 2+ 成功
+
+- ✅ 預扣預算計算
+- ✅ 週期性支出管理
+- ✅ 自動儲蓄規則
+- ✅ 匯入歷史資料
+- ✅ 交易匹配
+- ✅ 預算預測
+
+### 長期成功
+
+- ⏱️ **節省時間**：30 分鐘/月 → 5 分鐘/月
+- 📊 **準確度**：95%+ 交易辨識率
+- 💰 **預算清晰度**：隨時知道實際可用金額
+- 📈 **財務洞察**：清楚的消費模式和趨勢
+- 🎯 **儲蓄目標**：自動執行儲蓄規則
+
+---
+
+## 相關文件
 
 - [Database Design](../architecture/database-design.md)
 - [Workflow Pivot Analysis](workflow-pivot-analysis.md)

@@ -1,35 +1,35 @@
-# Functional Requirements
+# 功能需求
 
-**Last Updated**: 2025-10-30
-**Status**: Living Document
-
----
-
-## Document Purpose
-
-This document lists all functional requirements for Flourish, organized by feature area and prioritized by implementation sprint.
-
-**Priority Levels**:
-
-- **P0 (Must Have)**: Core features for MVP (Sprint 0.5)
-- **P1 (Should Have)**: Important features for Sprint 2
-- **P2 (Nice to Have)**: Future enhancements (Sprint 3+)
+**最後更新**: 2025-10-30
+**狀態**: 持續更新文檔
 
 ---
 
-## FR-001: PDF Statement Upload Workflow
+## 文件目的
 
-**Priority**: P0 (Must Have)
+本文件列出 Flourish 的所有功能需求，按功能領域組織並按實作 sprint 排定優先級。
+
+**優先級**:
+
+- **P0 (Must Have)**：MVP 核心功能 (Sprint 0.5)
+- **P1 (Should Have)**：Sprint 2 重要功能
+- **P2 (Nice to Have)**：未來增強功能 (Sprint 3+)
+
+---
+
+## FR-001: PDF 帳單上傳工作流程
+
+**優先級**: P0 (Must Have)
 **Sprint**: 0.5
-**Epic**: Statement Processing
+**Epic**: 帳單處理
 
-### Description
+### 描述
 
-Enable users to upload monthly credit card PDF statements for batch transaction processing.
+讓使用者能夠上傳每月信用卡 PDF 帳單進行批次交易處理。
 
-### User Stories
+### 使用者故事
 
-**US-001.1**: Upload PDF Statement
+**US-001.1**: 上傳 PDF 帳單
 
 ```
 身為使用者
@@ -37,18 +37,18 @@ Enable users to upload monthly credit card PDF statements for batch transaction 
 以便系統自動辨識交易明細，省去手動輸入時間
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can select a credit card from dropdown
-- [ ] User can upload PDF file via file picker or drag-and-drop
-- [ ] System validates file format (PDF only)
-- [ ] System validates file size (max 10MB)
-- [ ] System shows upload progress indicator
-- [ ] System stores PDF in Supabase Storage
-- [ ] System creates Statement record with status "PENDING"
-- [ ] User sees confirmation message with statement ID
+- [ ] 使用者可從下拉選單選擇信用卡
+- [ ] 使用者可透過檔案選擇器或拖放上傳 PDF 檔案
+- [ ] 系統驗證檔案格式（僅限 PDF）
+- [ ] 系統驗證檔案大小（最大 10MB）
+- [ ] 系統顯示上傳進度指示器
+- [ ] 系統將 PDF 儲存至 Supabase Storage
+- [ ] 系統建立狀態為 "PENDING" 的 Statement 記錄
+- [ ] 使用者看到包含帳單 ID 的確認訊息
 
-**US-001.2**: View Statement History
+**US-001.2**: 查看帳單歷史
 
 ```
 身為使用者
@@ -56,16 +56,16 @@ Enable users to upload monthly credit card PDF statements for batch transaction 
 以便追蹤哪些月份已經處理完成
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User sees list of all uploaded statements
-- [ ] List shows: Card name, Statement date, Upload date, Status
-- [ ] User can filter by card
-- [ ] User can filter by status (PENDING, PROCESSED, ARCHIVED)
-- [ ] User can download original PDF
-- [ ] User can delete statement (with confirmation dialog)
+- [ ] 使用者看到所有已上傳帳單的清單
+- [ ] 清單顯示：卡片名稱、帳單日期、上傳日期、狀態
+- [ ] 使用者可依卡片篩選
+- [ ] 使用者可依狀態篩選（PENDING、PROCESSED、ARCHIVED）
+- [ ] 使用者可下載原始 PDF
+- [ ] 使用者可刪除帳單（含確認對話框）
 
-### Technical Requirements
+### 技術需求
 
 **API Endpoints**:
 
@@ -111,28 +111,28 @@ enum StatementStatus {
 }
 ```
 
-**Validation Rules**:
+**驗證規則**:
 
-- File format: PDF only
-- File size: 1KB - 10MB
-- Statement date: Must be within last 12 months
-- Duplicate check: Same card + same statement date
+- 檔案格式：僅限 PDF
+- 檔案大小：1KB - 10MB
+- 帳單日期：必須在過去 12 個月內
+- 重複檢查：相同卡片 + 相同帳單日期
 
 ---
 
-## FR-002: AI Transaction Extraction
+## FR-002: AI 交易提取
 
-**Priority**: P0 (Must Have)
+**優先級**: P0 (Must Have)
 **Sprint**: 0.5
-**Epic**: Statement Processing
+**Epic**: 帳單處理
 
-### Description
+### 描述
 
-Automatically extract transaction data from uploaded PDF statements using AI/OCR.
+使用 AI/OCR 從上傳的 PDF 帳單自動提取交易資料。
 
-### User Stories
+### 使用者故事
 
-**US-002.1**: Automatic Transaction Extraction
+**US-002.1**: 自動交易提取
 
 ```
 身為使用者
@@ -140,17 +140,17 @@ Automatically extract transaction data from uploaded PDF statements using AI/OCR
 以便快速檢視而不需手動打字
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] System processes PDF after upload
-- [ ] System extracts: Transaction date, Merchant name, Amount
-- [ ] System calculates confidence score for each field (0-1)
-- [ ] System stores raw OCR text for debugging
-- [ ] System handles multiple PDF formats (different banks)
-- [ ] Processing completes within 30 seconds
-- [ ] User sees processing status indicator
+- [ ] 系統在上傳後處理 PDF
+- [ ] 系統提取：交易日期、商家名稱、金額
+- [ ] 系統為每個欄位計算信心分數（0-1）
+- [ ] 系統儲存原始 OCR 文字供除錯
+- [ ] 系統處理多種 PDF 格式（不同銀行）
+- [ ] 處理在 30 秒內完成
+- [ ] 使用者看到處理狀態指示器
 
-**US-002.2**: Review Extracted Transactions
+**US-002.2**: 檢視提取的交易
 
 ```
 身為使用者
@@ -158,20 +158,20 @@ Automatically extract transaction data from uploaded PDF statements using AI/OCR
 以確保資料正確性
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User sees table of extracted transactions
-- [ ] Table shows: Date, Merchant, Amount, Confidence Score
-- [ ] Low confidence items (<0.7) highlighted in yellow
-- [ ] User can edit any field inline
-- [ ] User can delete incorrect extractions
-- [ ] User can add missing transactions manually
-- [ ] Changes saved as draft
-- [ ] User can return later to continue editing
+- [ ] 使用者看到提取交易的表格
+- [ ] 表格顯示：日期、商家、金額、信心分數
+- [ ] 低信心項目（<0.7）以黃色強調顯示
+- [ ] 使用者可內嵌編輯任何欄位
+- [ ] 使用者可刪除錯誤的提取結果
+- [ ] 使用者可手動新增遺漏的交易
+- [ ] 變更儲存為草稿
+- [ ] 使用者可稍後返回繼續編輯
 
-### Technical Requirements
+### 技術需求
 
-**AI Integration**:
+**AI 整合**:
 
 ```typescript
 // Option 1: OpenAI Vision API
@@ -251,19 +251,19 @@ model Transaction {
 
 ---
 
-## FR-003: Batch Transaction Import
+## FR-003: 批次交易匯入
 
-**Priority**: P0 (Must Have)
+**優先級**: P0 (Must Have)
 **Sprint**: 0.5
-**Epic**: Statement Processing
+**Epic**: 帳單處理
 
-### Description
+### 描述
 
-Allow users to review and confirm batch import of extracted transactions.
+允許使用者檢視並確認批次匯入提取的交易。
 
-### User Stories
+### 使用者故事
 
-**US-003.1**: Confirm and Import Transactions
+**US-003.1**: 確認並匯入交易
 
 ```
 身為使用者
@@ -271,19 +271,19 @@ Allow users to review and confirm batch import of extracted transactions.
 以便快速完成本月對帳單處理
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User sees "Import All" button after review
-- [ ] Button shows transaction count (e.g., "Import 127 transactions")
-- [ ] Clicking shows confirmation dialog with summary
-- [ ] System validates no duplicate transactions
-- [ ] Import happens in background (async)
-- [ ] User sees progress indicator during import
-- [ ] Success message shows imported count
-- [ ] Statement status updates to "IMPORTED"
-- [ ] Budget dashboard auto-updates
+- [ ] 使用者在檢視後看到「全部匯入」按鈕
+- [ ] 按鈕顯示交易數量（例如「匯入 127 筆交易」）
+- [ ] 點擊後顯示包含摘要的確認對話框
+- [ ] 系統驗證無重複交易
+- [ ] 匯入在背景執行（非同步）
+- [ ] 使用者在匯入期間看到進度指示器
+- [ ] 成功訊息顯示匯入數量
+- [ ] 帳單狀態更新為 "IMPORTED"
+- [ ] 預算儀表板自動更新
 
-### Technical Requirements
+### 技術需求
 
 **API Endpoints**:
 
@@ -305,7 +305,7 @@ GET    /api/import-jobs/:jobId
   }
 ```
 
-**Duplicate Detection**:
+**重複偵測**:
 
 ```typescript
 // Check for duplicates before import
@@ -325,19 +325,19 @@ async function findDuplicates(transaction: Transaction): Promise<boolean> {
 
 ---
 
-## FR-004: Multi-Card Management
+## FR-004: 多卡管理
 
-**Priority**: P0 (Must Have)
+**優先級**: P0 (Must Have)
 **Sprint**: 0.5
-**Epic**: Card Management
+**Epic**: 卡片管理
 
-### Description
+### 描述
 
-Manage multiple credit cards with active/inactive status.
+管理多張信用卡及其使用中/停用狀態。
 
-### User Stories
+### 使用者故事
 
-**US-004.1**: Add Credit Card
+**US-004.1**: 新增信用卡
 
 ```
 身為使用者
@@ -345,16 +345,16 @@ Manage multiple credit cards with active/inactive status.
 以便追蹤各張卡片的消費記錄
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can add new card via form
-- [ ] Form fields: Card name, Bank name, Last 4 digits
-- [ ] Optional fields: Card color, Display order
-- [ ] Default status: Active
-- [ ] Validation: No duplicate last 4 digits for same bank
-- [ ] Success message shows card added
+- [ ] 使用者可透過表單新增卡片
+- [ ] 表單欄位：卡片名稱、銀行名稱、卡號末 4 碼
+- [ ] 選填欄位：卡片顏色、顯示順序
+- [ ] 預設狀態：使用中
+- [ ] 驗證：同一銀行不可有重複的末 4 碼
+- [ ] 成功訊息顯示卡片已新增
 
-**US-004.2**: Manage Active Cards
+**US-004.2**: 管理使用中卡片
 
 ```
 身為使用者
@@ -362,16 +362,16 @@ Manage multiple credit cards with active/inactive status.
 以便在上傳對帳單時優先顯示這些卡片
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User sees list of all cards
-- [ ] Each card shows: Name, Bank, Last 4, Active status
-- [ ] User can toggle active status with switch
-- [ ] Active cards appear first in all dropdowns
-- [ ] Inactive cards shown in collapsed section
-- [ ] User can reorder cards (drag and drop)
+- [ ] 使用者看到所有卡片清單
+- [ ] 每張卡片顯示：名稱、銀行、末 4 碼、使用中狀態
+- [ ] 使用者可用開關切換使用中狀態
+- [ ] 使用中卡片在所有下拉選單中優先顯示
+- [ ] 停用卡片顯示在收合區塊
+- [ ] 使用者可重新排序卡片（拖放）
 
-### Technical Requirements
+### 技術需求
 
 **API Endpoints**:
 
@@ -414,19 +414,19 @@ model Card {
 
 ---
 
-## FR-005: Pre-Deduction Budget System
+## FR-005: 預扣預算系統
 
-**Priority**: P1 (Should Have)
+**優先級**: P1 (Should Have)
 **Sprint**: 2
-**Epic**: Budget Management
+**Epic**: 預算管理
 
-### Description
+### 描述
 
-Calculate actual available budget by pre-deducting recurring expenses and savings.
+透過預先扣除週期性支出和儲蓄來計算實際可用預算。
 
-### User Stories
+### 使用者故事
 
-**US-005.1**: Define Recurring Monthly Expenses
+**US-005.1**: 定義每月週期性支出
 
 ```
 身為使用者
@@ -434,17 +434,17 @@ Calculate actual available budget by pre-deducting recurring expenses and saving
 以便系統自動從預算中扣除這些費用
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can add recurring expense
-- [ ] Fields: Name, Amount, Start date
-- [ ] Frequency: Monthly
-- [ ] Optional: End date, Category
-- [ ] User sees list of all recurring expenses
-- [ ] Total monthly recurring shown at top
-- [ ] User can edit/delete expenses
+- [ ] 使用者可新增週期性支出
+- [ ] 欄位：名稱、金額、開始日期
+- [ ] 頻率：每月
+- [ ] 選填：結束日期、分類
+- [ ] 使用者看到所有週期性支出清單
+- [ ] 頂部顯示每月週期性總額
+- [ ] 使用者可編輯/刪除支出
 
-**US-005.2**: Define Annual Fee Amortization
+**US-005.2**: 定義年費分攤
 
 ```
 身為使用者
@@ -452,16 +452,16 @@ Calculate actual available budget by pre-deducting recurring expenses and saving
 以避免某個月突然被扣大筆費用造成預算混亂
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can add annual expense
-- [ ] Fields: Name, Annual amount, Due date
-- [ ] System calculates: Monthly amortized = Amount / 12
-- [ ] Shows both annual and monthly amounts
-- [ ] User sees list of all annual expenses
-- [ ] Total monthly amortized shown at top
+- [ ] 使用者可新增年度支出
+- [ ] 欄位：名稱、年度金額、到期日
+- [ ] 系統計算：每月分攤 = 金額 / 12
+- [ ] 同時顯示年度和每月金額
+- [ ] 使用者看到所有年度支出清單
+- [ ] 頂部顯示每月分攤總額
 
-**US-005.3**: Define Auto-Savings Rules
+**US-005.3**: 定義自動儲蓄規則
 
 ```
 身為使用者
@@ -469,16 +469,16 @@ Calculate actual available budget by pre-deducting recurring expenses and saving
 以便系統自動計算並扣除儲蓄金額
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can add saving rule
-- [ ] Types: Percentage of income, Fixed amount
-- [ ] Fields: Name, Type, Value, Target account
-- [ ] User sees list of all saving rules
-- [ ] Total monthly saving shown at top
-- [ ] Preview: "Next month savings: NT$2,500 (5% of NT$50,000)"
+- [ ] 使用者可新增儲蓄規則
+- [ ] 類型：收入百分比、固定金額
+- [ ] 欄位：名稱、類型、數值、目標帳戶
+- [ ] 使用者看到所有儲蓄規則清單
+- [ ] 頂部顯示每月儲蓄總額
+- [ ] 預覽：「下個月儲蓄：NT$2,500（5% of NT$50,000）」
 
-**US-005.4**: View Pre-Deduction Budget
+**US-005.4**: 查看預扣預算
 
 ```
 身為使用者
@@ -486,19 +486,19 @@ Calculate actual available budget by pre-deducting recurring expenses and saving
 以便知道真正能花多少錢
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] Budget dashboard shows breakdown:
-  - 💰 Total Income: NT$50,000
-  - 💾 Auto Savings: -NT$2,500 (5%)
-  - 📱 Recurring Monthly: -NT$659
-  - 📅 Amortized Annual: -NT$1,664
-  - ✅ **Available Budget: NT$45,177**
-- [ ] Available budget is most prominent number
-- [ ] Each section expandable to show details
-- [ ] Comparison with previous month
+- [ ] 預算儀表板顯示明細：
+  - 💰 總收入：NT$50,000
+  - 💾 自動儲蓄：-NT$2,500 (5%)
+  - 📱 每月週期性：-NT$659
+  - 📅 分攤年費：-NT$1,664
+  - ✅ **可用預算：NT$45,177**
+- [ ] 可用預算是最顯眼的數字
+- [ ] 每個區塊可展開顯示細節
+- [ ] 與上個月的比較
 
-### Technical Requirements
+### 技術需求
 
 **Database Schema**:
 
@@ -563,7 +563,7 @@ model MonthlyBudget {
 }
 ```
 
-**Budget Calculation Logic**:
+**預算計算邏輯**:
 
 ```typescript
 async function calculateMonthlyBudget(userId: string, month: Date): Promise<MonthlyBudget> {
@@ -632,19 +632,19 @@ async function calculateMonthlyBudget(userId: string, month: Date): Promise<Mont
 
 ---
 
-## FR-006: Transaction Matching
+## FR-006: 交易匹配
 
-**Priority**: P1 (Should Have)
+**優先級**: P1 (Should Have)
 **Sprint**: 2
-**Epic**: Budget Management
+**Epic**: 預算管理
 
-### Description
+### 描述
 
-Match expected recurring expenses with actual imported transactions.
+將預期的週期性支出與實際匯入的交易進行匹配。
 
-### User Stories
+### 使用者故事
 
-**US-006.1**: Automatic Transaction Matching
+**US-006.1**: 自動交易匹配
 
 ```
 身為使用者
@@ -652,16 +652,16 @@ Match expected recurring expenses with actual imported transactions.
 以便清楚知道哪些是預期內、哪些是額外消費
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] System suggests matches for recurring expenses
-- [ ] Matching criteria: Similar merchant name + expected amount ±10%
-- [ ] User sees "Match Suggestion" badge on transactions
-- [ ] User can confirm or reject match
-- [ ] Matched transactions marked as "Expected"
-- [ ] Unmatched transactions marked as "Unexpected"
+- [ ] 系統為週期性支出建議匹配
+- [ ] 匹配條件：類似商家名稱 + 預期金額 ±10%
+- [ ] 使用者在交易上看到「匹配建議」標記
+- [ ] 使用者可確認或拒絕匹配
+- [ ] 已匹配的交易標記為「預期內」
+- [ ] 未匹配的交易標記為「意外」
 
-### Technical Requirements
+### 技術需求
 
 **Database Schema**:
 
@@ -686,19 +686,19 @@ enum MatchType {
 
 ---
 
-## FR-007: Historical Data Import
+## FR-007: 歷史資料匯入
 
-**Priority**: P1 (Should Have)
+**優先級**: P1 (Should Have)
 **Sprint**: 2
-**Epic**: Data Migration
+**Epic**: 資料遷移
 
-### Description
+### 描述
 
-Import historical transaction data from Google Sheets CSV export.
+從 Google Sheets CSV 匯出檔匯入歷史交易資料。
 
-### User Stories
+### 使用者故事
 
-**US-007.1**: Import CSV File
+**US-007.1**: 匯入 CSV 檔案
 
 ```
 身為使用者
@@ -706,18 +706,18 @@ Import historical transaction data from Google Sheets CSV export.
 以便將過去的交易記錄轉移到新系統
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can upload CSV file
-- [ ] System shows column mapping interface
-- [ ] User maps CSV columns to database fields
-- [ ] System validates data before import
-- [ ] System shows preview of first 10 rows
-- [ ] User can fix errors and retry
-- [ ] Import runs in background
-- [ ] User receives email when complete
+- [ ] 使用者可上傳 CSV 檔案
+- [ ] 系統顯示欄位對應介面
+- [ ] 使用者將 CSV 欄位對應到資料庫欄位
+- [ ] 系統在匯入前驗證資料
+- [ ] 系統顯示前 10 列的預覽
+- [ ] 使用者可修正錯誤並重試
+- [ ] 匯入在背景執行
+- [ ] 完成時使用者收到電子郵件
 
-### Technical Requirements
+### 技術需求
 
 **API Endpoints**:
 
@@ -729,19 +729,19 @@ POST   /api/import/historical
 
 ---
 
-## FR-008: Category Management
+## FR-008: 分類管理
 
-**Priority**: P0 (Must Have)
+**優先級**: P0 (Must Have)
 **Sprint**: 0.5
-**Epic**: Transaction Organization
+**Epic**: 交易組織
 
-### Description
+### 描述
 
-Create and manage transaction categories for spending analysis.
+建立並管理交易分類以進行支出分析。
 
-### User Stories
+### 使用者故事
 
-**US-008.1**: Manage Categories
+**US-008.1**: 管理分類
 
 ```
 身為使用者
@@ -749,15 +749,15 @@ Create and manage transaction categories for spending analysis.
 以便追蹤各類別的支出狀況
 ```
 
-**Acceptance Criteria**:
+**驗收標準**:
 
-- [ ] User can create category with name and color
-- [ ] User can edit category
-- [ ] User can delete category (if no transactions linked)
-- [ ] System provides default categories
-- [ ] User can set category icon
+- [ ] 使用者可建立帶名稱和顏色的分類
+- [ ] 使用者可編輯分類
+- [ ] 使用者可刪除分類（如無交易連結）
+- [ ] 系統提供預設分類
+- [ ] 使用者可設定分類圖示
 
-### Technical Requirements
+### 技術需求
 
 **Database Schema**:
 
@@ -778,22 +778,22 @@ model Category {
 
 ---
 
-## Summary Table
+## 摘要表格
 
-| Req ID | Feature              | Priority | Sprint | Complexity |
-| ------ | -------------------- | -------- | ------ | ---------- |
-| FR-001 | PDF Upload           | P0       | 0.5    | Medium     |
-| FR-002 | AI Extraction        | P0       | 0.5    | High       |
-| FR-003 | Batch Import         | P0       | 0.5    | Medium     |
-| FR-004 | Multi-Card Mgmt      | P0       | 0.5    | Low        |
-| FR-005 | Pre-Deduction Budget | P1       | 2      | High       |
-| FR-006 | Transaction Matching | P1       | 2      | Medium     |
-| FR-007 | Historical Import    | P1       | 2      | Medium     |
-| FR-008 | Category Mgmt        | P0       | 0.5    | Low        |
+| Req ID | 功能     | 優先級 | Sprint | 複雜度 |
+| ------ | -------- | ------ | ------ | ------ |
+| FR-001 | PDF 上傳 | P0     | 0.5    | 中     |
+| FR-002 | AI 提取  | P0     | 0.5    | 高     |
+| FR-003 | 批次匯入 | P0     | 0.5    | 中     |
+| FR-004 | 多卡管理 | P0     | 0.5    | 低     |
+| FR-005 | 預扣預算 | P1     | 2      | 高     |
+| FR-006 | 交易匹配 | P1     | 2      | 中     |
+| FR-007 | 歷史匯入 | P1     | 2      | 中     |
+| FR-008 | 分類管理 | P0     | 0.5    | 低     |
 
 ---
 
-## Related Documents
+## 相關文件
 
 - [Vision and Workflow](vision-and-workflow.md)
 - [Workflow Pivot Analysis](workflow-pivot-analysis.md)
