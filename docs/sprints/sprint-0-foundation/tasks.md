@@ -41,115 +41,120 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ## 🎨 Sprint 0.2: Prettier Setup
 
-**Status**: 📦 Planned  
-**Estimated Time**: 15 minutes
+**Status**: ✅ COMPLETED
+**Completed**: 2025-10-30
 
-- [ ] Install Prettier
+- [x] Install Prettier
   - `pnpm add -D -w prettier`
-- [ ] Create `.prettierrc` configuration
+- [x] Create `.prettierrc` configuration
   - Define formatting rules
   - Set consistent style (semi, quotes, etc.)
-- [ ] Create `.prettierignore`
+- [x] Create `.prettierignore`
   - Ignore `node_modules`, `.next`, etc.
-- [ ] Add format scripts to root `package.json`
+- [x] Add format scripts to root `package.json`
   - `format`: Format all files
   - `format:check`: Check formatting (for CI)
-- [ ] Format existing codebase
+- [x] Format existing codebase
   - Run `pnpm format`
   - Review changes
-- [ ] Test formatting
+- [x] Test formatting
   - Make a small change
   - Run format
   - Verify auto-formatting works
-- [ ] Git commit
+- [x] Git commit
   - `chore: add prettier for code formatting`
 
 ---
 
 ## 🪝 Sprint 0.3: Husky + lint-staged
 
-**Status**: 📦 Planned  
-**Estimated Time**: 20 minutes
+**Status**: ✅ COMPLETED
+**Completed**: 2025-10-30
 
-- [ ] Install packages
+- [x] Install packages
   - `pnpm add -D -w husky lint-staged`
-- [ ] Initialize Husky
+- [x] Initialize Husky
   - Run `npx husky install`
   - Add `prepare` script to `package.json`
-- [ ] Create `.lintstagedrc` configuration
+- [x] Create `.lintstagedrc` configuration
   - Configure for TypeScript files
   - Configure for JSON/MD files
-- [ ] Create pre-commit hook
+- [x] Create pre-commit hook
   - `npx husky add .husky/pre-commit "npx lint-staged"`
-- [ ] Test pre-commit hook
+- [x] Test pre-commit hook
   - Make a change
   - Stage files
   - Attempt commit
   - Verify auto-format and lint runs
-- [ ] Document the workflow
+- [x] Document the workflow
   - Update development guide if needed
-- [ ] Git commit
+- [x] Git commit
   - `chore: add husky and lint-staged for pre-commit checks`
 
 ---
 
 ## 📝 Sprint 0.4: commitlint Setup
 
-**Status**: 📦 Planned  
-**Estimated Time**: 15 minutes
+**Status**: ✅ COMPLETED
+**Completed**: 2025-10-30
 
-- [ ] Install commitlint
+- [x] Install commitlint
   - `pnpm add -D -w @commitlint/cli @commitlint/config-conventional`
-- [ ] Create `commitlint.config.js`
+- [x] Create `commitlint.config.js`
   - Extend conventional config
   - Customize type-enum if needed
-- [ ] Create commit-msg hook
+- [x] Create commit-msg hook
   - `npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'`
-- [ ] Test commit message validation
+- [x] Test commit message validation
   - Try invalid commit (should fail)
   - Try valid commit (should pass)
-- [ ] Verify with team conventions
+- [x] Verify with team conventions
   - Ensure types match our workflow
-- [ ] Git commit
+- [x] Git commit
   - `chore: add commitlint for commit message validation`
 
 ---
 
 ## 🗄️ Sprint 0.5: Prisma Setup
 
-**Status**: 📦 Planned  
-**Estimated Time**: 30 minutes
+**Status**: ✅ COMPLETED
+**Completed**: 2025-10-31
 
-- [ ] Initialize database package
+- [x] Initialize database package
   - Create `packages/database/` structure
   - Create `package.json`
-- [ ] Install Prisma
+- [x] Install Prisma
   - `pnpm add @prisma/client`
   - `pnpm add -D prisma`
-- [ ] Initialize Prisma
+- [x] Initialize Prisma
   - Run `npx prisma init`
   - Configure datasource for PostgreSQL
-- [ ] Create basic schema
+- [x] Create basic schema
   - Define User model
-  - Add necessary fields
-- [ ] Set up Supabase project
-  - Create project on supabase.com
-  - Get connection string
+  - Add necessary fields (users, cards, statements, transactions, categories, etc.)
+- [x] Set up Supabase project
+  - Create project on supabase.com (Tokyo region)
+  - Get connection string (Session Pooler)
   - Add to `.env`
-- [ ] Create database package index
+- [x] Create database package index
   - Export PrismaClient
   - Export types
-- [ ] Update Turbo pipeline
+- [x] Update Turbo pipeline
   - Add `db:generate` task
   - Add dependency in `dev` and `build`
-- [ ] Test Prisma client
+- [x] Test Prisma client
   - Run `pnpm db:generate`
   - Verify types are generated
-- [ ] Integrate with flow app
+- [x] Integrate with flow app
   - Add `@repo/database` dependency
   - Test import
-- [ ] Git commit
-  - `feat(database): set up prisma with shared database package`
+- [x] Run first migration
+  - Successfully executed `npx prisma migrate dev --name init`
+  - Created 8 tables (7 core + 1 migrations tracking)
+  - Verified in Supabase Dashboard
+- [x] Git commits
+  - Created comprehensive database setup documentation
+  - Added troubleshooting reference guide
 
 ---
 
@@ -226,12 +231,12 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ## 📊 Overall Progress
 
-**Sprint 0 Completion**: 1/7 sub-sprints (14%)
+**Sprint 0 Completion**: 5/7 sub-sprints (71%)
 
-**Time Spent**: ~25 minutes  
-**Time Remaining**: ~3.5 hours
+**Time Spent**: ~2.5 hours
+**Time Remaining**: ~1.5 hours
 
-**Blockers**: None  
+**Blockers**: None
 **Risks**: None identified
 
 ---
@@ -241,13 +246,13 @@ Track the implementation progress of Sprint 0 sub-sprints.
 Sprint 0 is complete when:
 
 - [x] Sprint 0.1: Basic monorepo ✅
-- [ ] Sprint 0.2: Prettier configured
-- [ ] Sprint 0.3: Git hooks working
-- [ ] Sprint 0.4: Commit validation active
-- [ ] Sprint 0.5: Database accessible
+- [x] Sprint 0.2: Prettier configured ✅
+- [x] Sprint 0.3: Git hooks working ✅
+- [x] Sprint 0.4: Commit validation active ✅
+- [x] Sprint 0.5: Database accessible ✅
 - [ ] Sprint 0.6: API server running
 - [ ] Sprint 0.7: All apps running together
-- [ ] All documentation updated
+- [x] Documentation updated (Database, Troubleshooting, Architecture)
 - [ ] Ready to start Sprint 1
 
 ---
@@ -262,7 +267,41 @@ Sprint 0 is complete when:
 - Git workflow established with 7 clean commits
 - NODE_ENV issue resolved during setup
 
+### 2025-10-30
+
+- Completed Sprint 0.2 (Prettier Setup)
+  - Prettier configuration added with sensible defaults
+  - Format scripts added to package.json
+  - All files formatted with `pnpm format`
+- Completed Sprint 0.3 (Husky + lint-staged)
+  - Husky hooks configured successfully
+  - Pre-commit hook runs lint-staged automatically
+  - `.lintstagedrc.json` configured for TypeScript and markdown files
+- Completed Sprint 0.4 (commitlint)
+  - commitlint configured with conventional commits
+  - Commit message validation working via commit-msg hook
+  - Custom type-enum configured in commitlint.config.js
+- Development tooling phase complete (Sprint 0.1-0.4)
+- Ready to proceed with infrastructure setup (Sprint 0.5-0.7)
+
+### 2025-10-31
+
+- Completed Sprint 0.5 (Prisma Setup + Database Migration)
+  - Successfully created Supabase project in Tokyo region
+  - Resolved IPv4/IPv6 connection issue by using Session Pooler connection method
+  - Created comprehensive database schema with 7 core tables
+  - Executed first Prisma migration successfully
+  - Tables created: users, cards, statements, transactions, categories, recurring_expenses, saving_rules
+  - Created detailed documentation:
+    - `/docs/guides/database-setup.md` - Complete setup guide with troubleshooting
+    - `/docs/references/database-troubleshooting.md` - Error reference guide
+    - Updated `/docs/architecture/database-design.md` with connection architecture decisions
+    - Updated `/docs/guides/development-setup.md` with database setup steps
+    - Updated `/docs/README.md` navigation structure
+  - Key learning: Session Pooler (not Direct Connection) required for IPv4 networks in Supabase
+  - Ready to proceed with Sprint 0.6 (NestJS Setup)
+
 ---
 
-**Last Updated**: 2025-01-15  
-**Next Update**: After completing Sprint 0.2
+**Last Updated**: 2025-10-31
+**Next Update**: After completing Sprint 0.6

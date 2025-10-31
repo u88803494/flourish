@@ -59,6 +59,23 @@ cp apps/api/.env.example apps/api/.env
 
 Configure the environment variables with your values.
 
+### 3.5. Set Up Database
+
+> 📚 **詳細步驟**：見 [Database Setup Guide](./database-setup.md)
+
+```bash
+# 1. Ensure DATABASE_URL is in .env
+# Should use Session Pooler: postgresql://postgres.PROJECT_ID:PASSWORD@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
+
+# 2. Run Prisma migrations
+npx prisma migrate dev --name init --schema=packages/database/prisma/schema.prisma
+
+# 3. Verify database setup
+npx prisma generate --schema=packages/database/prisma/schema.prisma
+```
+
+Your database is now ready!
+
 ### 4. Start Development Servers
 
 ```bash

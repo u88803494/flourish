@@ -1,8 +1,575 @@
 # 資料庫設計文檔
 
+## 🔌 連接架構決策
+
+### 為什麼選擇 Session Pooler？
+
+本專案使用 **Supabase PostgreSQL** 搭配 **Session Pooler** 連接方式，原因如下：
+
+| 考量因素                | Direct Connection | Session Pooler | Transaction Pooler |
+| ----------------------- | ----------------- | -------------- | ------------------ |
+| **IPv4 支援**           | ⚠️ 不穩定         | ✅ 完整支援    | ✅ 完整支援        |
+| **Prepared Statements** | ✅ 支援           | ✅ 支援        | ❌ 不支援          |
+| **連接複用**            | ❌ 無             | ✅ Session 級  | ✅ Transaction 級  |
+| **適合場景**            | 長期服務          | 一般開發/生產  | Serverless 函數    |
+| **本地開發**            | ⚠️ 常失敗         | ✅ 推薦        | ⚠️ 遷移會失敗      |
+
+### IPv4/IPv6 連接問題根因分析
+
+**發現時間**: 2025-10-31（首次 Migration 時）
+
+**問題描述**:
+
+```
+Error: P1001: Can't reach database server at `db.fstcioczrehqtcbdzuij.supabase.co:5432`
+```
+
+**根本原因**:
+
+- Tokyo 區域 Supabase 默認使用 IPv6（`db.xxx.supabase.co`）
+- 本地開發機環境是 IPv4
+- Direct Connection 無法跨越 IPv4/IPv6 路由邊界
+
+**解決方案**:
+
+- Supabase 提供 Session Pooler URL（`aws-1-ap-northeast-1.pooler.supabase.com`）
+- Pooler 本身支援 IPv4/IPv6 代理
+- Prisma 遷移引擎依賴 Prepared Statements，所以必須用 Session 或 Direct（不能用 Transaction）
+
+### 連接字符串格式
+
+**不要用**（Direct Connection，容易失敗）:
+
+```env
+DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:5432/postgres
+```
+
+**應該用**（Session Pooler，推薦）:
+
+```env
+DATABASE_URL=postgresql://postgres.fstcioczrehqtcbdzuij:password@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
+```
+
+**不要用**（Transaction Pooler，Prisma Migration 會失敗）:
+
+```env
+DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:6543/postgres?pgbouncer=true
+```
+
+### 區域選擇影響
+
+選擇 **Tokyo (ap-northeast-1)** 而不是其他區域的原因：
+
+- ✅ 最接近開發者地理位置（低延遲）
+- ✅ 足夠的冷備份和可靠性（企業級 SLA）
+- ✅ Supabase Session Pooler 可用
+
+更多資訊見：[Database Setup Guide - Step 1.2](../guides/database-setup.md#12-建立新專案)
+
+---
+
 ## 📊 資料模型概覽
 
 本專案使用 PostgreSQL（透過 Supabase）作為資料庫，Prisma 作為 ORM。
+
+**重要更新 (2025-10-30)**: 基於實際使用者工作流程（PDF 對帳單批次處理），資料庫架構已調整為 **Statement-Centric Model**（對帳單為中心）。本文件包含階段式開發的完整設計，Sprint 0.5 將實作核心 MVP 模型。
+
+---
+
+## 🎯 架構演進與階段式設計
+
+### 需求轉變
+
+**原始假設** (Sprint 0.1-0.4):
+
+- 使用者每日手動輸入交易
+- Transaction 為核心實體
+- 簡單的收支追蹤
+
+**實際需求** (2025-10-30 發現):
+
+- 使用者每月上傳信用卡 PDF 對帳單
+- AI 自動辨識交易明細
+- 批次匯入工作流程
+- 20+ 張信用卡管理
+- 預扣系統（固定月費、年費分攤、自動儲蓄）
+
+詳細分析見：[Workflow Pivot Analysis](../requirements/workflow-pivot-analysis.md)
+
+### 階段式實作策略
+
+為了在 4-5 週內快速啟動，同時保留未來擴展能力，我們採用階段式設計：
+
+#### Sprint 0.5 - MVP Models (Must Have)
+
+核心對帳單處理流程
+
+- ✅ **Statement** (對帳單) - 核心實體
+- ✅ **Card** (信用卡) - 多卡管理
+- ✅ **Transaction** (交易) - 連結到 Statement
+- ✅ **Category** (分類) - 基礎分類
+- ✅ **User** (使用者) - Supabase Auth 同步
+
+#### Sprint 2 - Budget Enhancement Models (Should Have)
+
+進階預算功能
+
+- 📅 **RecurringExpense** (固定支出) - 月費 + 年費分攤
+- 💰 **Income** (收入) - 薪資追蹤
+- 💾 **SavingRule** (儲蓄規則) - 自動儲蓄
+- 🔗 **TransactionMatch** (交易配對) - 預期 vs 實際
+- 📊 **MonthlyBudget** (月度預算) - 計算後總覽
+
+#### Sprint 3+ - Advanced Features (Nice to Have)
+
+優化與分析
+
+- Historical data import tools
+- Advanced statistics
+- Multi-currency support
+- Receipt attachment
+
+---
+
+## 🗂️ Sprint 0.5 MVP Schema
+
+### Statement-Centric Architecture
+
+**核心概念**: 交易來自對帳單，對帳單來自信用卡
+
+```
+User → Cards → Statements → Transactions
+```
+
+### 完整 MVP Prisma Schema
+
+```prisma
+// packages/database/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// Sprint 0.5 MVP Models
+// ============================================
+
+// 使用者（同步 Supabase Auth）
+model User {
+  id        String   @id  // Supabase Auth UUID
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // MVP Relations
+  cards        Card[]
+  statements   Statement[]
+  transactions Transaction[]
+  categories   Category[]
+
+  @@map("users")
+}
+
+// 信用卡管理
+model Card {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String   // User-defined, e.g., "國泰世華 CUBE"
+  bank         String   // Bank name
+  last4        String   // Last 4 digits
+  color        String?  // Hex color for UI
+  isActive     Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  statements Statement[]
+
+  @@unique([userId, bank, last4])
+  @@index([userId, isActive])
+  @@map("cards")
+}
+
+// 對帳單（核心實體）
+model Statement {
+  id            String          @id @default(uuid())
+  userId        String
+  cardId        String
+  pdfUrl        String          // Supabase Storage URL
+  uploadDate    DateTime        @default(now())
+  statementDate DateTime        @db.Date  // 帳單月份
+  status        StatementStatus @default(PENDING)
+  totalAmount   Decimal?        @db.Decimal(12, 2)
+  metadata      Json?           // Extra info (e.g., billing cycle)
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card         Card          @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@unique([userId, cardId, statementDate])
+  @@index([userId, status])
+  @@index([cardId, statementDate(sort: Desc)])
+  @@map("statements")
+}
+
+enum StatementStatus {
+  PENDING    // Uploaded, not extracted
+  EXTRACTED  // AI extraction complete
+  CONFIRMED  // User confirmed, ready to import
+  IMPORTED   // Transactions imported
+  ARCHIVED   // Archived
+
+  @@map("statement_status")
+}
+
+// 交易記錄
+model Transaction {
+  id              String          @id @default(uuid())
+  userId          String
+  statementId     String?         // 🔑 Link to source statement!
+  merchantName    String
+  amount          Decimal         @db.Decimal(12, 2)
+  type            TransactionType @default(DEBIT)
+  transactionDate DateTime        @db.Date
+  categoryId      String?
+  description     String?         @db.Text
+
+  // AI Extraction Metadata
+  confidence      Float?          // AI confidence score 0-1
+  rawText         String?         @db.Text // Original OCR text
+  isManualEntry   Boolean         @default(false)
+
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  statement Statement?  @relation(fields: [statementId], references: [id], onDelete: SetNull)
+  category  Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([userId, transactionDate(sort: Desc)])
+  @@index([statementId])
+  @@index([categoryId])
+  @@map("transactions")
+}
+
+enum TransactionType {
+  DEBIT   // 支出
+  CREDIT  // 收入/退款
+
+  @@map("transaction_type")
+}
+
+// 分類管理
+model Category {
+  id        String          @id @default(uuid())
+  userId    String?         // null = system default
+  name      String
+  type      TransactionType
+  icon      String?
+  color     String?
+  parentId  String?         // Support sub-categories
+  isDefault Boolean         @default(false)
+  createdAt DateTime        @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent       Category?     @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children     Category[]    @relation("CategoryHierarchy")
+  transactions Transaction[]
+
+  @@unique([userId, name, type])
+  @@index([userId, type])
+  @@map("categories")
+}
+```
+
+### MVP 設計決策
+
+**1. Statement 為何是核心？**
+
+- 使用者工作流程：每月上傳 PDF → 批次處理
+- 追溯性：每筆交易都知道來源
+- AI 信心度：保留 rawText 供除錯
+- 批次操作：一次處理整份對帳單
+
+**2. 為何 Transaction 不直接連 Card？**
+
+```
+❌ Transaction → Card (錯誤)
+✅ Transaction → Statement → Card (正確)
+```
+
+理由：
+
+- Transaction 來自 Statement，不是直接來自 Card
+- 可追溯：知道這筆交易出現在哪份對帳單
+- 支援手動輸入：statementId 可為 null
+
+**3. isManualEntry 的用途**
+
+- `false`: AI 從 PDF 提取（預設）
+- `true`: 使用者手動新增（例外情況）
+- 用於後續分析準確度
+
+**4. StatementStatus 生命週期**
+
+```
+PENDING → EXTRACTED → CONFIRMED → IMPORTED → ARCHIVED
+   ↓          ↓            ↓            ↓         ↓
+上傳PDF   AI辨識完成   使用者確認   匯入資料庫   歸檔
+```
+
+---
+
+## 🚀 Sprint 2+ Enhancement Models
+
+以下模型會在 Sprint 2 實作，用於支援預扣系統和進階預算功能。
+
+### 完整 Sprint 2+ Schema
+
+```prisma
+// ============================================
+// Sprint 2 - Budget Enhancement Models
+// ============================================
+
+// 固定支出（月費 + 年費分攤）
+model RecurringExpense {
+  id              String    @id @default(uuid())
+  userId          String
+  name            String    // "Netflix", "信用卡年費"
+  amount          Decimal   @db.Decimal(10, 2)
+  frequency       Frequency @default(MONTHLY)
+  startDate       DateTime  @db.Date
+  endDate         DateTime? @db.Date
+  categoryId      String?
+
+  // 年費分攤設定
+  shouldAmortize  Boolean   @default(false)
+  amortizeMonths  Int?      @default(12)
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  category         Category?          @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  transactionMatches TransactionMatch[]
+
+  @@index([userId, frequency])
+  @@map("recurring_expenses")
+}
+
+enum Frequency {
+  MONTHLY
+  YEARLY
+
+  @@map("frequency")
+}
+
+// 收入管理
+model Income {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String    // "月薪", "獎金", "被動收入"
+  amount      Decimal   @db.Decimal(10, 2)
+  frequency   Frequency @default(MONTHLY)
+  receiveDate DateTime  @db.Date
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId, isActive])
+  @@map("incomes")
+}
+
+// 儲蓄規則
+model SavingRule {
+  id        String     @id @default(uuid())
+  userId    String
+  name      String     // "緊急預備金 5%", "投資基金"
+  type      SavingType
+  value     Decimal    @db.Decimal(10, 2) // 5 (%) or 5000 (NT$)
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([userId, isActive])
+  @@map("saving_rules")
+}
+
+enum SavingType {
+  PERCENTAGE    // % of income
+  FIXED_AMOUNT  // Fixed amount
+
+  @@map("saving_type")
+}
+
+// 交易配對（預期 vs 實際）
+model TransactionMatch {
+  id                  String            @id @default(uuid())
+  transactionId       String            @unique
+  recurringExpenseId  String
+  matchedAt           DateTime          @default(now())
+  matchType           MatchType         @default(AUTOMATIC)
+
+  transaction         Transaction       @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  recurringExpense    RecurringExpense  @relation(fields: [recurringExpenseId], references: [id], onDelete: Cascade)
+
+  @@index([recurringExpenseId])
+  @@map("transaction_matches")
+}
+
+enum MatchType {
+  AUTOMATIC  // System suggested, user confirmed
+  MANUAL     // User manually linked
+  SUGGESTED  // System suggested, awaiting confirmation
+
+  @@map("match_type")
+}
+
+// 月度預算總覽（計算後的結果）
+model MonthlyBudget {
+  id                  String   @id @default(uuid())
+  userId              String
+  month               DateTime @db.Date // 2025-10-01
+
+  // Income
+  totalIncome         Decimal  @db.Decimal(12, 2)
+
+  // Pre-deductions
+  autoSaving          Decimal  @db.Decimal(12, 2)
+  recurringExpenses   Decimal  @db.Decimal(12, 2)
+  amortizedExpenses   Decimal  @db.Decimal(12, 2)
+
+  // Available Budget
+  availableBudget     Decimal  @db.Decimal(12, 2)
+
+  // Actual Spending
+  totalSpent          Decimal  @db.Decimal(12, 2)
+  remainingBudget     Decimal  @db.Decimal(12, 2)
+
+  calculatedAt        DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@unique([userId, month])
+  @@index([userId, month(sort: Desc)])
+  @@map("monthly_budgets")
+}
+```
+
+### Sprint 2 預算計算邏輯
+
+```typescript
+async function calculateMonthlyBudget(userId: string, month: Date): Promise<MonthlyBudget> {
+  // Step 1: Calculate total income
+  const incomes = await prisma.income.findMany({
+    where: { userId, isActive: true, frequency: 'MONTHLY' },
+  });
+  const totalIncome = incomes.reduce((sum, inc) => sum + inc.amount, 0);
+
+  // Step 2: Calculate auto-savings
+  const savingRules = await prisma.savingRule.findMany({
+    where: { userId, isActive: true },
+  });
+  const percentageSaving = savingRules
+    .filter((r) => r.type === 'PERCENTAGE')
+    .reduce((sum, r) => sum + (totalIncome * r.value) / 100, 0);
+  const fixedSaving = savingRules
+    .filter((r) => r.type === 'FIXED_AMOUNT')
+    .reduce((sum, r) => sum + r.value, 0);
+  const autoSaving = percentageSaving + fixedSaving;
+
+  // Step 3: Calculate recurring monthly expenses
+  const recurring = await prisma.recurringExpense.findMany({
+    where: {
+      userId,
+      frequency: 'MONTHLY',
+      shouldAmortize: false,
+      startDate: { lte: month },
+      OR: [{ endDate: null }, { endDate: { gte: month } }],
+    },
+  });
+  const recurringExpenses = recurring.reduce((sum, exp) => sum + exp.amount, 0);
+
+  // Step 4: Calculate amortized annual expenses
+  const annual = await prisma.recurringExpense.findMany({
+    where: {
+      userId,
+      frequency: 'YEARLY',
+      shouldAmortize: true,
+      startDate: { lte: month },
+      OR: [{ endDate: null }, { endDate: { gte: month } }],
+    },
+  });
+  const amortizedExpenses = annual.reduce(
+    (sum, exp) => sum + exp.amount / (exp.amortizeMonths || 12),
+    0
+  );
+
+  // Step 5: Calculate available budget
+  const availableBudget = totalIncome - autoSaving - recurringExpenses - amortizedExpenses;
+
+  // Step 6: Get actual spending
+  const startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+  const endOfMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+
+  const transactions = await prisma.transaction.findMany({
+    where: {
+      userId,
+      type: 'DEBIT',
+      transactionDate: { gte: startOfMonth, lte: endOfMonth },
+    },
+  });
+  const totalSpent = transactions.reduce((sum, txn) => sum + txn.amount, 0);
+
+  // Step 7: Calculate remaining
+  const remainingBudget = availableBudget - totalSpent;
+
+  return {
+    userId,
+    month,
+    totalIncome,
+    autoSaving,
+    recurringExpenses,
+    amortizedExpenses,
+    availableBudget,
+    totalSpent,
+    remainingBudget,
+  };
+}
+```
+
+### 使用範例
+
+```typescript
+// 計算本月預算
+const budget = await calculateMonthlyBudget(
+  userId,
+  new Date(2025, 9, 1) // 2025-10-01
+);
+
+console.log(`
+💰 總收入：NT$${budget.totalIncome}
+💾 自動儲蓄：-NT$${budget.autoSaving}
+📱 固定月費：-NT$${budget.recurringExpenses}
+📅 分攤年費：-NT$${budget.amortizedExpenses}
+✅ 實際可用：NT$${budget.availableBudget}
+💳 已消費：-NT$${budget.totalSpent}
+🎯 剩餘額度：NT$${budget.remainingBudget}
+`);
+
+// Output:
+// 💰 總收入：NT$50,000
+// 💾 自動儲蓄：-NT$2,500
+// 📱 固定月費：-NT$659
+// 📅 分攤年費：-NT$1,664
+// ✅ 實際可用：NT$45,177
+// 💳 已消費：-NT$32,450
+// 🎯 剩餘額度：NT$12,727
+```
 
 ---
 
