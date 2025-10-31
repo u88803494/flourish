@@ -9,7 +9,8 @@
       "Read(//Users/henry_lee/Developer/Personal/my-website/**)",
       "Bash(pnpm lint:*)",
       "Bash(cat:*)",
-      "Bash(pnpm turbo run lint:*)"
+      "Bash(pnpm turbo run lint:*)",
+      "WebFetch(domain:supabase.com)"
     ],
     "deny": [],
     "ask": []
