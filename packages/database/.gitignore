@@ -1,0 +1,7 @@
+# Prisma
+/migrations/
+/.env
+/.env.*.local
+
+# Build output
+/dist
