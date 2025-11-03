@@ -728,12 +728,77 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
+---
+
+## 🔧 Phase 0+: Infrastructure Hardening (Optional)
+
+### Sprint 0.8: CI/CD & Testing Infrastructure
+
+**時間**: 2-3 週
+**目標**: 建立自動化測試和部署流程
+**優先級**: P1（建議在 Phase 1 之前完成）
+**前置需求**: Sprint 0.6 完成
+
+**主要任務**:
+
+- GitHub Actions CI/CD 設定（`.github/workflows/`）
+- 自動化測試流程（每次 PR）
+- 測試覆蓋率追蹤（目標 >70%）
+- 自動部署到 Staging/Production
+
+**輸出**:
+
+- ✅ CI pipeline 自動執行測試
+- ✅ CD pipeline 自動部署
+- ✅ 測試報告整合到 PR
+
+---
+
+### Sprint 0.9: Security Foundations
+
+**時間**: 2-3 週
+**目標**: 建立安全性和驗證框架基礎
+**優先級**: P1（建議在 Sprint 1 認證之前完成）
+**前置需求**: Sprint 0.6 完成
+
+**主要任務**:
+
+**1. 輸入驗證框架** (4-5 小時)
+
+- 整合 class-validator + class-transformer
+- 全域驗證管道 (Global Validation Pipe)
+- 自訂驗證器實作
+- DTO 類別標準化
+
+**2. 例外處理系統** (3-4 小時)
+
+- HTTP 例外篩選器
+- Prisma 錯誤轉換
+- 統一的錯誤回應格式
+- 敏感資訊保護
+
+**3. 安全性中介軟體** (3-4 小時)
+
+- Helmet (HTTP headers)
+- Rate Limiting
+- CSRF 保護
+- CORS 強化
+
+**輸出**:
+
+- ✅ 所有端點都有輸入驗證
+- ✅ 錯誤回應格式一致
+- ✅ 安全性 headers 啟用
+- ✅ 為 Sprint 1 認證系統打好基礎
+
+---
+
 ## 🔐 Sprint 1: 認證系統
 
-**時間**: 1-2 週  
-**目標**: 實現完整的使用者認證流程（Supabase Auth + NestJS JWT 驗證）  
-**優先級**: P0（最高優先，功能基礎）  
-**前置需求**: Sprint 0.1-0.7 完成
+**時間**: 1-2 週
+**目標**: 實現完整的使用者認證流程（Supabase Auth + NestJS JWT 驗證）
+**優先級**: P0（最高優先，功能基礎）
+**前置需求**: Sprint 0.1-0.7 完成 + 建議完成 Sprint 0.9
 
 ### 主要任務
 
@@ -933,6 +998,33 @@ chore(deps): upgrade next.js to 15.0.0
 3. **循序漸進**: 一次只專注一個 Sprint
 4. **測試驗證**: 每個階段都要測試，確保功能正常
 5. **享受過程**: 這是學習之旅，不是趕工
+
+---
+
+## 📊 Phase 2: Production Readiness (Optional)
+
+**時間**: 2 週
+**目標**: 建立生產環境的可觀測性和運營準備
+**優先級**: P1（建議在上線前完成）
+**前置需求**: Sprint 4 完成
+
+**主要任務**:
+
+### Observability & Operations
+
+- **結構化日誌** (Winston): JSON 格式、環境適配、效能追蹤
+- **錯誤追蹤** (Sentry): 自動錯誤報告、Source maps、Alert 規則
+- **效能監控** (Prometheus): Metrics 端點、業務指標、Dashboard 設定
+- **資料庫優化**: Index 策略、查詢分析、連線池調優
+- **健康檢查增強**: 資料庫狀態、外部服務檢查
+- **營運文檔**: 部署指南、監控指南、Troubleshooting
+
+**輸出**:
+
+- ✅ 生產環境可見性
+- ✅ 問題追蹤自動化
+- ✅ 效能基準建立
+- ✅ 營運文檔完整
 
 ---
 

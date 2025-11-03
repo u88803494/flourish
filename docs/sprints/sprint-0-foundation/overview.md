@@ -97,23 +97,28 @@ Set up a professional-grade development environment with:
 
 ---
 
-### Sprint 0.6: NestJS Application
+### Sprint 0.6: NestJS Application & Polish
 
-**Time**: ~1 hour  
-**Status**: 📦 Planned
+**Time**: ~1.5 hours
+**Status**: ✅ COMPLETED
 
 **Objectives**:
 
-- Create NestJS app in `apps/api`
-- Integrate Prisma
-- Set up basic modules
-- Test API server startup
+- ✅ Create NestJS app in `apps/api`
+- ✅ Integrate Prisma
+- ✅ Set up basic modules
+- ✅ Test API server startup
+- ✅ Fix unit and E2E tests
+- ✅ Enable TypeScript strict mode
+- ✅ Add ESLint configuration
+- ✅ Implement health check endpoints
+- ✅ Add response compression
 
 ---
 
 ### Sprint 0.7: Apex Application
 
-**Time**: ~30 minutes  
+**Time**: ~30 minutes
 **Status**: 📦 Planned
 
 **Objectives**:
@@ -122,6 +127,38 @@ Set up a professional-grade development environment with:
 - Configure on port 3002
 - Basic structure setup
 - Test multi-app dev environment
+
+---
+
+## 🚀 Next Steps After Sprint 0
+
+Sprint 0 完成後，建議的發展路徑：
+
+**Phase 0+: Infrastructure Hardening** (Optional, 建議在 Sprint 1 之前完成)
+
+- **Sprint 0.8**: CI/CD & Testing Infrastructure
+  - GitHub Actions 設定
+  - 自動化測試與覆蓋率追蹤
+  - 自動部署流程
+
+- **Sprint 0.9**: Security Foundations
+  - 輸入驗證框架
+  - 例外處理系統
+  - 安全性中介軟體
+  - 為 Sprint 1 認證系統打基礎
+
+**Phase 1: Core Features**
+
+- Sprint 1: Authentication (基於 Sprint 0.9 的 validation framework)
+- Sprint 2-4: Feature development (記帳、分類、圖表)
+
+**Phase 2: Production Readiness** (Sprint 4 之後)
+
+- Observability & Operations
+- 結構化日誌、錯誤追蹤、效能監控
+- 營運文檔與部署準備
+
+詳細規劃請參考 [requirements.md](./requirements.md)
 
 ---
 

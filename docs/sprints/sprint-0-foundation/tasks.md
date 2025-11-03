@@ -158,41 +158,60 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🔧 Sprint 0.6: NestJS Application
+## 🔧 Sprint 0.6: NestJS Application & Quality Enhancements
 
-**Status**: 📦 Planned  
-**Estimated Time**: 1 hour
+**Status**: ✅ COMPLETED
+**Actual Time**: ~1.5 hours
 
-- [ ] Create NestJS app
-  - `cd apps && npx @nestjs/cli new api`
-  - Choose pnpm
-- [ ] Configure package.json
-  - Update scripts (dev, build, start)
-  - Add workspace dependencies
-- [ ] Install dependencies
-  - `@repo/database`
-  - `@nestjs/config`
-  - `@nestjs/passport`, `passport-jwt`
-  - `class-validator`, `class-transformer`
-- [ ] Create Prisma module
-  - Generate PrismaModule
-  - Create PrismaService
-  - Make globally available
-- [ ] Set up environment variables
-  - Create `.env` file
-  - Add `DATABASE_URL`
-  - Add `PORT=3001`
-- [ ] Test NestJS startup
-  - Run `pnpm dev` (in apps/api)
-  - Verify app runs on port 3001
-  - Check health endpoint
-- [ ] Update root turbo.json
-  - Ensure api is included in dev pipeline
-- [ ] Test multi-app dev
-  - Run `pnpm dev` from root
-  - Verify flow (3000) and api (3001) both run
-- [ ] Git commit
-  - `feat(api): set up nestjs backend with prisma integration`
+### Core Setup (Original Sprint 0.6)
+
+- [x] Create NestJS app (`cd apps && npx @nestjs/cli new api`)
+- [x] Configure package.json with proper scripts
+- [x] Install dependencies (@repo/database, @nestjs/config, etc.)
+- [x] Create Prisma module with PrismaService
+- [x] Set up environment variables
+- [x] Test NestJS startup and multi-app dev environment
+
+### Quality Enhancements (Added)
+
+- [x] Fix unit tests (app.controller.spec.ts)
+  - Added PrismaService mock to test module
+  - Updated test assertions to match actual API response
+
+- [x] Fix E2E tests (app.e2e-spec.ts)
+  - Updated test to verify JSON response structure
+  - Added proper cleanup with afterEach hook
+
+- [x] Enable TypeScript Strict Mode
+  - Updated tsconfig.json: `strictNullChecks: true`, `noImplicitAny: true`
+  - Fixed type errors in main.ts
+  - All TypeScript compilation successful
+
+- [x] Add ESLint Configuration
+  - Created `eslint.config.js` with proper rules
+  - Integrated with lint script in package.json
+
+- [x] Implement Health Check Endpoints
+  - Created health module with controller and service
+  - Endpoints: `GET /health/liveness`, `GET /health/readiness`, `GET /health`
+  - Integrated into AppModule
+
+- [x] Add Performance Optimizations
+  - Installed and configured compression middleware
+  - Updated .env.example with connection pool parameters
+  - Both installed in main.ts
+
+### Test Results
+
+- ✅ Unit tests: 1 passed
+- ✅ E2E tests: 1 passed
+- ✅ TypeScript compilation: Success (strict mode)
+- ✅ All tests passing
+
+### Git Commits
+
+- `feat(api): set up nestjs backend with prisma integration`
+- Additional commits for enhancements
 
 ---
 
