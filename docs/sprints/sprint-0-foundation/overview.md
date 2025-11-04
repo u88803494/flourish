@@ -124,7 +124,7 @@ Set up a professional-grade development environment with:
 **Objectives**:
 
 - Create Next.js app for Apex
-- Configure on port 3002
+- Configure on port 3100
 - Basic structure setup
 - Test multi-app dev environment
 

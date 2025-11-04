@@ -29,7 +29,7 @@ This monorepo includes:
   - Database operations with Prisma
   - Health check endpoints (liveness, readiness)
   - TypeScript strict mode enabled
-  - Runs on `http://localhost:3001`
+  - Runs on `http://localhost:6888`
 
 ### Shared Packages
 
@@ -66,7 +66,7 @@ pnpm install
 
 # Start all applications in development mode
 pnpm dev
-# flow (3000), apex (3002), api (3001)
+# flow (3000), apex (3100), api (6888)
 
 # Start a specific application
 pnpm dev --filter=flow        # Financial tracking app
@@ -74,7 +74,7 @@ pnpm dev --filter=api         # Backend API
 pnpm dev --filter=apex        # Statistics tracking (coming soon)
 
 # Check API health
-curl http://localhost:3001/health
+curl http://localhost:6888/health
 ```
 
 ### Build
@@ -112,7 +112,7 @@ flourish/
 ├── apps/
 │   ├── flow/              # 💰 Financial tracking app (Next.js)
 │   ├── apex/              # 📈 Statistics curve tool (placeholder)
-│   └── api/               # 🔧 Backend API (NestJS, port 3001) ✅
+│   └── api/               # 🔧 Backend API (NestJS, port 6888) ✅
 ├── packages/
 │   ├── ui/                # 🎨 Shared UI components
 │   ├── database/          # 🗄️ Prisma + Supabase client ✅

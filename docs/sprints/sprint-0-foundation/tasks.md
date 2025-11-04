@@ -227,8 +227,8 @@ Track the implementation progress of Sprint 0 sub-sprints.
   - App Router: Yes
   - Tailwind: Yes
 - [ ] Configure port
-  - Update dev script to use port 3002
-  - `"dev": "next dev -p 3002"`
+  - Update dev script to use port 3100
+  - `"dev": "next dev -p 3100"`
 - [ ] Add workspace dependencies
   - `@repo/ui`
   - `@repo/chart-engine` (when created)
@@ -237,10 +237,10 @@ Track the implementation progress of Sprint 0 sub-sprints.
   - Add navigation if needed
 - [ ] Test apex startup
   - Run `pnpm dev --filter=apex`
-  - Verify app runs on port 3002
+  - Verify app runs on port 3100
 - [ ] Test all apps concurrently
   - Run `pnpm dev` from root
-  - Verify flow (3000), apex (3002), api (3001)
+  - Verify flow (3000), apex (3100), api (6888)
 - [ ] Update documentation
   - Add apex to README
   - Update project overview
