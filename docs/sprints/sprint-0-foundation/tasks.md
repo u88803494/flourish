@@ -461,3 +461,7 @@ Sprint 0 is complete when:
 
 **Last Updated**: 2025-11-04
 **Next Update**: After completing Sprint 0.7 (Apex Application)
+
+## 📚 相關規劃文檔
+
+- [UML 和文檔規劃](./uml-and-documentation-plan.md) - 系統設計文檔化計劃（Sprint 0.8+ 實施）
