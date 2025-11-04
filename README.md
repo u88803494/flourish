@@ -66,7 +66,7 @@ pnpm install
 
 # Start all applications in development mode
 pnpm dev
-# flow (3000), apex (3100), api (6888)
+# flow (3100), apex (3200), api (6888)
 
 # Start a specific application
 pnpm dev --filter=flow        # Financial tracking app
@@ -143,7 +143,7 @@ flourish/
 - [x] Sprint 0.7: Apex application ✅ (2025-11-04)
   - Next.js 16 statistics tracking tool
   - Beautiful landing page with "Coming soon" features preview
-  - Port 3100 configuration complete
+  - Port 3200 configuration complete
   - Ready for feature development in Phase 1
 
 ### Phase 0+: Infrastructure Hardening (Planned)
