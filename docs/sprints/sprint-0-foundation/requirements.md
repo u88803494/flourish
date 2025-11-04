@@ -784,11 +784,20 @@ chore(deps): upgrade next.js to 15.0.0
 - CSRF 保護
 - CORS 強化
 
+**4. HTTP Request Logging** (2-3 小時)
+
+- 建立 LoggerMiddleware
+- 整合結構化日誌（可選：winston 或 pino）
+- 請求追蹤 ID 生成
+- 敏感資料遮罩（密碼、token）
+- 效能監控（response time）
+
 **輸出**:
 
 - ✅ 所有端點都有輸入驗證
 - ✅ 錯誤回應格式一致
 - ✅ 安全性 headers 啟用
+- ✅ HTTP 請求日誌完整
 - ✅ 為 Sprint 1 認證系統打好基礎
 
 ---
