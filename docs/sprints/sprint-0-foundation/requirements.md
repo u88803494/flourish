@@ -728,12 +728,363 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
+---
+
+## 📊 Sprint 0.6 專家審查總結
+
+**審查日期**: 2025-11-04
+**審查範圍**: NestJS API 應用整合 Prisma 與基礎設施
+
+### 專家評分與建議
+
+#### Backend Architect 評分：8.2/10 ⭐ Excellent
+
+**優點**:
+
+- ✅ 架構設計合理，模組化結構清晰
+- ✅ Prisma 整合完美，PrismaService 實作正確
+- ✅ 健康檢查端點完整（liveness, readiness, full health）
+- ✅ TypeScript strict mode 啟用，類型安全強
+- ✅ 環境變數驗證完整（Zod）
+- ✅ 連接池配置優化
+
+**建議改進** (可在後續 Sprint 實施):
+
+1. 全局日誌系統（Winston 或 Pino）
+2. 結構化錯誤處理和統一回應格式
+3. 跨切面關注點（logging, metrics, tracing）
+4. API 文檔化（Swagger）
+
+---
+
+#### Security Engineer 評分：5.8/10 ⚠️ Medium with Critical Issues
+
+**識別的問題**:
+
+**🔴 Critical (必須修復)**:
+
+1. **C1: 缺失全局輸入驗證管道** - 沒有 ValidationPipe，端點無驗證
+2. **C2: 敏感錯誤資訊外洩** - 錯誤回應洩露系統細節
+3. **C3: 缺失認證機制** - 端點完全開放，無 JWT 守衛
+
+**🟠 High Priority**:
+
+1. **H1: 安全 headers 不足** - 建議加入 Helmet
+2. **H2: CORS 設定過寬** - `credentials: true` 配合 `*` origin
+3. **H3: 依賴套件漏洞** - tar@7.5.1 有已知漏洞（CVE）
+
+**✅ 優點**:
+
+- 環境變數驗證良好（使用 Zod）
+- Prisma 連接字串管理適當
+- 基礎的健康檢查端點存在
+
+**改進時程** (建議 Sprint 0.9):
+
+- 整合 class-validator 和全局 ValidationPipe
+- 實作統一錯誤回應格式
+- 加入 Helmet、Rate Limiting
+- 強化 CORS 設定
+
+---
+
+#### Quality Engineer 評分：3.6/10 🚨 Critical - Test Coverage Inadequate
+
+**發現的問題**:
+
+**📊 測試覆蓋率統計**:
+
+- **當前**: 18.96%（遠低於標準）
+- **目標**: 70%+ (業界標準)
+- **缺口**: ~51% 需要補充
+
+**❌ 缺失的測試檔案**:
+
+1. `health.controller.spec.ts` - 健康檢查 controller 單元測試
+2. `health.service.spec.ts` - 健康檢查 service 單元測試
+3. `prisma.service.spec.ts` - Prisma 服務單元測試
+4. 整合測試 - API 端點與資料庫交互測試
+
+**測試建議** (Sprint 0.8):
+
+- [ ] 補齊 4 個單元測試檔案（~8-10 小時）
+- [ ] 建立 Integration 測試框架（~6-8 小時）
+- [ ] 設定 Jest 覆蓋率收集（~2 小時）
+- [ ] 建立 CI/CD 測試流程（~4 小時）
+
+---
+
+### 結論
+
+| 面向         | 評分       | 狀態        | 建議                       |
+| ------------ | ---------- | ----------- | -------------------------- |
+| **架構設計** | 8.2/10     | ✅ 優秀     | 後續加入 logging、metrics  |
+| **安全性**   | 5.8/10     | ⚠️ 需改善   | 在 Sprint 0.9 實施安全加固 |
+| **測試品質** | 3.6/10     | 🚨 關鍵不足 | 在 Sprint 0.8 補充測試     |
+| **整體**     | **5.9/10** | ⚠️ 可接受   | 已準備合併，改善可後延     |
+
+### Sprint 0.6 → 0.7 → 0.8 + 0.9 時程建議
+
+```
+Now: Sprint 0.6 ✅
+  ↓
+Sprint 0.7: Apex 應用 (平行進行)
+  ↓
+Sprint 0.8: 測試基礎設施 (3 週) - 補充測試覆蓋率
+Sprint 0.9: 安全基礎 (3 週) - 加強安全防護
+  ↓
+Sprint 1: 認證系統 (可開始)
+```
+
+---
+
+## 🔧 Phase 0+: Infrastructure Hardening (Optional)
+
+### Sprint 0.8: CI/CD & Testing Infrastructure
+
+**時間**: 2-3 週
+**目標**: 建立自動化測試和部署流程，提升測試覆蓋率至 70%+
+**優先級**: P1（建議在 Phase 1 之前完成）
+**前置需求**: Sprint 0.6 完成
+
+**來源**: Quality Engineer 審查建議 + 原規劃
+
+**主要任務**:
+
+#### Unit Testing 補充 (基於 Sprint 0.6 審查)
+
+- [ ] 建立 `apps/api/src/health/health.controller.spec.ts`
+  - 測試三個健康檢查端點：liveness, readiness, full health
+  - Mock HealthService 依賴
+  - 驗證回應格式和狀態碼
+
+- [ ] 建立 `apps/api/src/health/health.service.spec.ts`
+  - 測試 getLiveness()、getReadiness()、getFullHealth()
+  - Mock PrismaService 連線狀況
+  - 驗證資料庫連接檢測邏輯
+
+- [ ] 建立 `apps/api/src/prisma/prisma.service.spec.ts`
+  - 測試 onModuleInit() 連接流程
+  - 測試 onModuleDestroy() 斷連流程
+  - 測試 onApplicationBootstrap() 驗證流程
+  - 驗證錯誤處理
+
+#### Integration Testing Framework
+
+- [ ] 設定 Integration 測試環境
+  - 獨立的測試資料庫（PostgreSQL）
+  - 測試前後的資料庫清理
+  - Seed 資料機制
+
+- [ ] 建立 Health 端點整合測試
+  - 測試與實際資料庫的連線
+  - 測試真實的連池行為
+
+#### Jest 覆蓋率配置
+
+- [ ] 配置 Jest coverage 收集
+  - 設定 coverage threshold：80% for 核心模組
+  - 生成 HTML 覆蓋率報告
+  - 配置 CI 檢查覆蓋率不低於 70%
+
+#### CI/CD Pipeline 建立
+
+- [ ] GitHub Actions 工作流設定（`.github/workflows/test.yml`）
+  - 每次 PR 自動執行測試
+  - 發佈測試覆蓋率報告
+  - 設定分支保護規則（必須通過測試）
+
+- [ ] GitHub Actions 工作流設定（`.github/workflows/deploy.yml`）
+  - 自動部署到 Staging（每次 main 推送）
+  - 自動部署到 Production（每次 release tag）
+  - 部署前執行測試和 lint 檢查
+
+#### 性能基準測試
+
+- [ ] 建立性能測試基準
+  - API 響應時間基準
+  - 資料庫查詢效能基準
+  - 記錄到 CI/CD 流程
+
+**估計時間分解**:
+
+- Unit 測試補充：~8-10 小時
+- Integration 測試框架：~6-8 小時
+- Jest 覆蓋率配置：~2 小時
+- CI/CD 工作流：~4 小時
+- 性能基準：~3 小時
+- **小計**: ~23-27 小時（分散到 2-3 週）
+
+**輸出**:
+
+- ✅ 測試覆蓋率從 18.96% 提升至 70%+
+- ✅ CI pipeline 自動執行測試並報告覆蓋率
+- ✅ CD pipeline 自動部署
+- ✅ 測試報告整合到 PR
+- ✅ 分支保護規則啟用
+
+---
+
+### Sprint 0.9: Security Foundations
+
+**時間**: 2-3 週
+**目標**: 建立安全性和驗證框架基礎，修復 Sprint 0.6 識別的安全問題
+**優先級**: P1（建議在 Sprint 1 認證之前完成）
+**前置需求**: Sprint 0.6 完成
+**來源**: Security Engineer 審查建議 + 原規劃
+
+**主要任務**:
+
+#### 1. 輸入驗證框架 (4-5 小時) - 修復 C1
+
+- [ ] 安裝 `class-validator` 和 `class-transformer`
+
+  ```bash
+  cd apps/api
+  pnpm add class-validator class-transformer
+  ```
+
+- [ ] 建立全域驗證管道
+  - 在 `main.ts` 加入 `useGlobalPipes(new ValidationPipe(...))`
+  - 配置：whitelist, forbidNonWhitelisted, transform
+
+- [ ] 建立標準 DTO 類別模板
+  - 為每個 API endpoint 創建對應的 DTO
+  - 使用 class-validator 装飾器
+
+- [ ] 自訂驗證器（可選）
+  - 建立業務邏輯特定的驗證器
+  - 例：郵件唯一性驗證
+
+#### 2. 例外處理系統 (3-4 小時) - 修復 C2
+
+- [ ] 建立全域異常篩選器 (`GlobalExceptionFilter`)
+  - 捕獲所有異常
+  - 統一的錯誤回應格式
+  - 不洩露系統細節
+
+- [ ] 實作統一的錯誤回應格式
+
+  ```typescript
+  {
+    "statusCode": 400,
+    "message": "Validation failed",
+    "errors": [...]  // 開發環境可見，生產隱藏
+  }
+  ```
+
+- [ ] Prisma 錯誤處理
+  - 捕獲常見的 Prisma 異常
+  - 轉換為使用者友善的訊息
+  - 例：重複值錯誤、記錄不存在
+
+- [ ] 敏感資訊保護
+  - 生產環境不洩露 stack trace
+  - 不洩露資料庫欄位名稱
+  - 不洩露內部伺服器狀態
+
+#### 3. 安全性中介軟體 (3-4 小時) - 修復 H1, H2
+
+- [ ] 安裝 Helmet
+
+  ```bash
+  pnpm add @nestjs/helmet
+  ```
+
+  - 在 `main.ts` 設定：`app.use(helmet())`
+  - 設置安全 headers
+
+- [ ] 實作 Rate Limiting
+  - 安裝 `@nestjs/throttler`
+  - 設定全域限流規則
+  - 針對特定端點的限流
+
+- [ ] 強化 CORS 設定 (修復 H2)
+  - 明確指定允許的 origin（不使用 `*`）
+  - 配置 `credentials: false` 或只允許特定 origin
+  - 限制允許的 HTTP methods
+
+- [ ] CSRF 保護（可選）
+  - 評估是否需要 CSRF token
+  - 配置 CSRF 中介軟體
+
+#### 4. 依賴套件安全更新 (2 小時) - 修復 H3
+
+- [ ] 檢查並更新易受攻擊的套件
+
+  ```bash
+  npm audit
+  pnpm audit
+  ```
+
+- [ ] 更新 tar@7.5.1 到最新版本
+  - 檢查相關依賴
+  - 執行測試確保相容性
+
+- [ ] 設定依賴套件掃描
+  - GitHub Dependabot 啟用
+  - 自動檢測易受攻擊的依賴
+
+#### 5. HTTP Request Logging (2-3 小時) - 新增功能
+
+- [ ] 建立 LoggerMiddleware
+  - 記錄請求方法、路徑、状態碼
+  - 記錄響應時間
+
+- [ ] 整合結構化日誌（可選進階功能）
+  - 選擇 Winston 或 Pino
+  - JSON 格式日誌
+  - 不同環境的日誌等級
+
+- [ ] 請求追蹤 ID
+  - 為每個請求生成唯一 ID
+  - 在所有日誌中包含追蹤 ID
+  - 幫助 debugging
+
+- [ ] 敏感資料遮罩
+  - 在日誌中隱藏密碼、token
+  - 正則表達式模式匹配
+  - 遮罩個人識別資訊 (PII)
+
+- [ ] 效能監控
+  - 記錄 API 響應時間
+  - 識別慢速端點
+  - 建立效能基準
+
+**優先順序** (如果時間有限):
+
+1. **必做**: 1 + 2 + 3 (驗證、錯誤處理、安全中介軟體) - 修復 Critical 問題
+2. **重要**: 4 (依賴更新) - 修復 High Priority 問題
+3. **補充**: 5 (Logging) - 加強可觀測性
+
+**估計時間分解**:
+
+- 輸入驗證框架：~4-5 小時
+- 例外處理系統：~3-4 小時
+- 安全性中介軟體：~3-4 小時
+- 依賴套件更新：~2 小時
+- HTTP 請求 Logging：~2-3 小時
+- **小計**: ~14-18 小時（集中到 1-2 週）
+
+**輸出**:
+
+- ✅ 所有端點都有輸入驗證（修復 C1）
+- ✅ 錯誤回應格式一致，不洩露敏感資訊（修復 C2）
+- ✅ 安全性 headers 啟用（修復 H1）
+- ✅ CORS 安全加固（修復 H2）
+- ✅ 依賴套件安全更新（修復 H3）
+- ✅ HTTP 請求日誌完整
+- ✅ 為 Sprint 1 認證系統（C3 會在 Sprint 1 實施）打好基礎
+- ✅ Security Engineer 評分預期提升至 8+/10
+
+---
+
 ## 🔐 Sprint 1: 認證系統
 
-**時間**: 1-2 週  
-**目標**: 實現完整的使用者認證流程（Supabase Auth + NestJS JWT 驗證）  
-**優先級**: P0（最高優先，功能基礎）  
-**前置需求**: Sprint 0.1-0.7 完成
+**時間**: 1-2 週
+**目標**: 實現完整的使用者認證流程（Supabase Auth + NestJS JWT 驗證）
+**優先級**: P0（最高優先，功能基礎）
+**前置需求**: Sprint 0.1-0.7 完成 + 建議完成 Sprint 0.9
 
 ### 主要任務
 
@@ -933,6 +1284,33 @@ chore(deps): upgrade next.js to 15.0.0
 3. **循序漸進**: 一次只專注一個 Sprint
 4. **測試驗證**: 每個階段都要測試，確保功能正常
 5. **享受過程**: 這是學習之旅，不是趕工
+
+---
+
+## 📊 Phase 2: Production Readiness (Optional)
+
+**時間**: 2 週
+**目標**: 建立生產環境的可觀測性和運營準備
+**優先級**: P1（建議在上線前完成）
+**前置需求**: Sprint 4 完成
+
+**主要任務**:
+
+### Observability & Operations
+
+- **結構化日誌** (Winston): JSON 格式、環境適配、效能追蹤
+- **錯誤追蹤** (Sentry): 自動錯誤報告、Source maps、Alert 規則
+- **效能監控** (Prometheus): Metrics 端點、業務指標、Dashboard 設定
+- **資料庫優化**: Index 策略、查詢分析、連線池調優
+- **健康檢查增強**: 資料庫狀態、外部服務檢查
+- **營運文檔**: 部署指南、監控指南、Troubleshooting
+
+**輸出**:
+
+- ✅ 生產環境可見性
+- ✅ 問題追蹤自動化
+- ✅ 效能基準建立
+- ✅ 營運文檔完整
 
 ---
 

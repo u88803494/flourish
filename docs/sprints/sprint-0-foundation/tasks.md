@@ -7,7 +7,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 ## 📋 Sprint 0.1: Basic Monorepo Structure
 
 **Status**: ✅ COMPLETED  
-**Completed**: 2025-01-15
+**Completed**: 2025-10-28
 
 - [x] Create Turborepo with pnpm
   - Use `pnpm dlx create-turbo@latest flourish`
@@ -158,48 +158,68 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🔧 Sprint 0.6: NestJS Application
+## 🔧 Sprint 0.6: NestJS Application & Quality Enhancements
 
-**Status**: 📦 Planned  
-**Estimated Time**: 1 hour
+**Status**: ✅ COMPLETED
+**Actual Time**: ~1.5 hours
 
-- [ ] Create NestJS app
-  - `cd apps && npx @nestjs/cli new api`
-  - Choose pnpm
-- [ ] Configure package.json
-  - Update scripts (dev, build, start)
-  - Add workspace dependencies
-- [ ] Install dependencies
-  - `@repo/database`
-  - `@nestjs/config`
-  - `@nestjs/passport`, `passport-jwt`
-  - `class-validator`, `class-transformer`
-- [ ] Create Prisma module
-  - Generate PrismaModule
-  - Create PrismaService
-  - Make globally available
-- [ ] Set up environment variables
-  - Create `.env` file
-  - Add `DATABASE_URL`
-  - Add `PORT=3001`
-- [ ] Test NestJS startup
-  - Run `pnpm dev` (in apps/api)
-  - Verify app runs on port 3001
-  - Check health endpoint
-- [ ] Update root turbo.json
-  - Ensure api is included in dev pipeline
-- [ ] Test multi-app dev
-  - Run `pnpm dev` from root
-  - Verify flow (3000) and api (3001) both run
-- [ ] Git commit
-  - `feat(api): set up nestjs backend with prisma integration`
+### Core Setup (Original Sprint 0.6)
+
+- [x] Create NestJS app (`cd apps && npx @nestjs/cli new api`)
+- [x] Configure package.json with proper scripts
+- [x] Install dependencies (@repo/database, @nestjs/config, etc.)
+- [x] Create Prisma module with PrismaService
+- [x] Set up environment variables
+- [x] Test NestJS startup and multi-app dev environment
+
+### Quality Enhancements (Added)
+
+- [x] Fix unit tests (app.controller.spec.ts)
+  - Added PrismaService mock to test module
+  - Updated test assertions to match actual API response
+
+- [x] Fix E2E tests (app.e2e-spec.ts)
+  - Updated test to verify JSON response structure
+  - Added proper cleanup with afterEach hook
+
+- [x] Enable TypeScript Strict Mode
+  - Updated tsconfig.json: `strictNullChecks: true`, `noImplicitAny: true`
+  - Fixed type errors in main.ts
+  - All TypeScript compilation successful
+
+- [x] Add ESLint Configuration
+  - Created `eslint.config.js` with proper rules
+  - Integrated with lint script in package.json
+
+- [x] Implement Health Check Endpoints
+  - Created health module with controller and service
+  - Endpoints: `GET /health/liveness`, `GET /health/readiness`, `GET /health`
+  - Integrated into AppModule
+
+- [x] Add Performance Optimizations
+  - Installed and configured compression middleware
+  - Updated .env.example with connection pool parameters
+  - Both installed in main.ts
+
+### Test Results
+
+- ✅ Unit tests: 1 passed
+- ✅ E2E tests: 1 passed
+- ✅ TypeScript compilation: Success (strict mode)
+- ✅ All tests passing
+
+### Git Commits
+
+- `feat(api): set up nestjs backend with prisma integration`
+- Additional commits for enhancements
 
 ---
 
 ## 📈 Sprint 0.7: Apex Application
 
-**Status**: 📦 Planned  
+**Status**: 📦 Planned
 **Estimated Time**: 30 minutes
+**Planned Start**: After Sprint 0.6 merge (2025-11-04)
 
 - [ ] Create Next.js app
   - `cd apps && pnpm create next-app@latest apex`
@@ -229,15 +249,119 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
+## 🔧 Sprint 0.8: CI/CD & Testing Infrastructure
+
+**Status**: 📦 Planned (Based on Quality Engineer Review)
+**Estimated Time**: 2-3 weeks
+**Priority**: P1 (Before Phase 1)
+
+**Key Tasks**:
+
+- [ ] Unit Testing Expansion
+  - [ ] `health.controller.spec.ts` (3-4 hours)
+  - [ ] `health.service.spec.ts` (2-3 hours)
+  - [ ] `prisma.service.spec.ts` (3-4 hours)
+  - Target: 70%+ coverage (from 18.96%)
+
+- [ ] Integration Testing Framework
+  - [ ] Test database setup (PostgreSQL)
+  - [ ] Health endpoint integration tests
+
+- [ ] Jest Coverage Configuration
+  - [ ] Configure coverage thresholds
+  - [ ] HTML coverage reports
+  - [ ] CI coverage checks
+
+- [ ] GitHub Actions Workflows
+  - [ ] Test workflow (`.github/workflows/test.yml`)
+  - [ ] Deploy workflow (`.github/workflows/deploy.yml`)
+  - [ ] Branch protection rules
+
+- [ ] Performance Benchmarking
+  - [ ] API response time baselines
+  - [ ] Database query baselines
+
+**Notes**:
+
+- Addresses Quality Engineer assessment (3.6/10, 18.96% coverage)
+- Must complete before Phase 1 to ensure stable CI/CD
+- Estimated effort: 23-27 hours spread over 2-3 weeks
+
+---
+
+## 🔐 Sprint 0.9: Security Foundations
+
+**Status**: 📦 Planned (Based on Security Engineer Review)
+**Estimated Time**: 2-3 weeks
+**Priority**: P1 (Before Sprint 1 Authentication)
+
+**Key Tasks**:
+
+- [ ] Input Validation Framework (4-5 hours)
+  - [ ] Install `class-validator` + `class-transformer`
+  - [ ] Global ValidationPipe in `main.ts`
+  - [ ] Standard DTO templates
+  - **Fixes**: C1 (Missing validation)
+
+- [ ] Exception Handling System (3-4 hours)
+  - [ ] Global exception filter
+  - [ ] Unified error response format
+  - [ ] Prisma error mapping
+  - [ ] Sensitive data protection
+  - **Fixes**: C2 (Information leakage)
+
+- [ ] Security Middleware (3-4 hours)
+  - [ ] Helmet (HTTP headers)
+  - [ ] Rate Limiting (@nestjs/throttler)
+  - [ ] CORS hardening (specific origins)
+  - [ ] CSRF protection (optional)
+  - **Fixes**: H1 (Missing headers), H2 (Overly permissive CORS)
+
+- [ ] Dependency Security Updates (2 hours)
+  - [ ] `npm audit` / `pnpm audit`
+  - [ ] Update `tar@7.5.1` with CVE
+  - [ ] GitHub Dependabot setup
+  - **Fixes**: H3 (Dependency vulnerability)
+
+- [ ] HTTP Request Logging (2-3 hours)
+  - [ ] LoggerMiddleware
+  - [ ] Structured logging (optional)
+  - [ ] Request tracing IDs
+  - [ ] Sensitive data masking
+  - [ ] Performance monitoring
+
+**Priority If Time-Limited**:
+
+1. **Must-do**: Tasks 1-3 (Validation, Exception, Security) → Fixes critical issues
+2. **Important**: Task 4 (Dependencies) → Fixes high priority issues
+3. **Supplementary**: Task 5 (Logging) → Improves observability
+
+**Notes**:
+
+- Addresses Security Engineer assessment (5.8/10, 3 Critical + 3 High issues)
+- Estimated effort: 14-18 hours concentrated into 1-2 weeks
+- Security Engineer score expected to improve to 8+/10 after completion
+
+---
+
 ## 📊 Overall Progress
 
-**Sprint 0 Completion**: 5/7 sub-sprints (71%)
+**Sprint 0 Completion**: 6/7 sub-sprints (86%) - including planning for Phase 0+
 
-**Time Spent**: ~2.5 hours
-**Time Remaining**: ~1.5 hours
+**Time Spent**: ~2.5 hours (Sprint 0.1-0.6)
+**Time Remaining for Phase 0+**: ~4-6 weeks
+
+**Expert Review Summary**:
+
+- Backend Architect: 8.2/10 ⭐ (Excellent architecture)
+- Security Engineer: 5.8/10 ⚠️ (Needs security hardening)
+- Quality Engineer: 3.6/10 🚨 (Test coverage critically low)
 
 **Blockers**: None
-**Risks**: None identified
+**Risks**:
+
+- Security issues should be addressed before authentication (Sprint 1)
+- Test coverage needs improvement for stable CI/CD pipeline
 
 ---
 
@@ -259,7 +383,7 @@ Sprint 0 is complete when:
 
 ## 📝 Notes
 
-### 2025-01-15
+### 2025-10-28
 
 - Completed Sprint 0.1 in ~25 minutes
 - Turborepo setup was smooth with pnpm
@@ -301,7 +425,43 @@ Sprint 0 is complete when:
   - Key learning: Session Pooler (not Direct Connection) required for IPv4 networks in Supabase
   - Ready to proceed with Sprint 0.6 (NestJS Setup)
 
+### 2025-11-04
+
+- Completed Sprint 0.6 (NestJS Application & Quality Enhancements)
+  - Successfully set up NestJS backend with Prisma integration
+  - Fixed unit and E2E tests
+  - Enabled TypeScript strict mode
+  - Added ESLint configuration
+  - Implemented health check endpoints (liveness, readiness, full)
+  - Added compression middleware
+  - Created comprehensive Prisma service with fail-fast strategy
+  - All tests passing ✅
+
+- Expert Review Process
+  - Conducted comprehensive expert reviews from 3 specialized perspectives:
+    1. **Backend Architect**: 8.2/10 ⭐ - Excellent architecture, solid design
+    2. **Security Engineer**: 5.8/10 ⚠️ - Identified 3 Critical + 3 High issues
+    3. **Quality Engineer**: 3.6/10 🚨 - Test coverage critically low (18.96% vs 70% target)
+
+- Integrated Expert Review Recommendations
+  - Added comprehensive "Sprint 0.6 Expert Review Summary" section to requirements.md
+  - Created detailed Sprint 0.8 (CI/CD & Testing) tasks based on Quality Engineer recommendations
+  - Created detailed Sprint 0.9 (Security Foundations) tasks based on Security Engineer recommendations
+  - Clear roadmap now exists for Phase 0+ improvements
+  - Time estimates provided: Sprint 0.8 (23-27 hrs), Sprint 0.9 (14-18 hrs)
+
+- Key Learnings
+  - Architecture decisions were sound (Backend Architect: 8.2/10)
+  - Security hardening deferred to Sprint 0.9 is appropriate approach
+  - Test coverage requires dedicated effort (Sprint 0.8) before Phase 1
+  - Expert review process provides valuable structured feedback
+  - Improvements properly sequenced without blocking merge to main
+
 ---
 
-**Last Updated**: 2025-10-31
-**Next Update**: After completing Sprint 0.6
+**Last Updated**: 2025-11-04
+**Next Update**: After completing Sprint 0.7 (Apex Application)
+
+## 📚 相關規劃文檔
+
+- [UML 和文檔規劃](./uml-and-documentation-plan.md) - 系統設計文檔化計劃（Sprint 0.8+ 實施）

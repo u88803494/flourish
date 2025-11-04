@@ -340,5 +340,5 @@ pnpm create next-app@latest apex
 
 ---
 
-**Last Updated**: 2025-01-15  
+**Last Updated**: 2025-11-04
 **Status**: Living document, updated as implementation progresses
