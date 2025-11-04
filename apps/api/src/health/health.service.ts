@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class HealthService {
   constructor(private prisma: PrismaService) {}
 
-  async getLiveness(): Promise<{ status: string }> {
+  getLiveness(): { status: string } {
     return {
       status: 'alive',
     };
