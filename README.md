@@ -24,16 +24,17 @@ This monorepo includes:
   - Continuously climb upward
   - _(Coming soon)_
 
-- **`api`** 🔧 - Backend API service (NestJS)
+- **`api`** 🔧 - Backend API service (NestJS) ✅
   - Business logic processing
-  - Database operations
-  - Authentication and authorization
-  - _(Coming soon)_
+  - Database operations with Prisma
+  - Health check endpoints (liveness, readiness)
+  - TypeScript strict mode enabled
+  - Runs on `http://localhost:3001`
 
 ### Shared Packages
 
 - **`@repo/ui`** - Shared React component library
-- **`@repo/database`** - Prisma schema and client _(Coming soon)_
+- **`@repo/database`** - Prisma schema and client ✅
 - **`@repo/chart-engine`** - Curve chart core logic _(Coming soon)_
 - **`@repo/eslint-config`** - ESLint configurations
 - **`@repo/typescript-config`** - TypeScript configurations
@@ -43,12 +44,12 @@ All packages and applications are 100% [TypeScript](https://www.typescriptlang.o
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 15 (App Router) + React 19 + TypeScript
-- **Backend**: NestJS + TypeScript _(Coming soon)_
-- **Database**: Supabase PostgreSQL + Prisma _(Coming soon)_
-- **Auth**: Supabase Auth _(Coming soon)_
-- **Monorepo**: Turborepo + pnpm
-- **Styling**: Tailwind CSS
-- **Linting**: ESLint + Prettier _(To be configured)_
+- **Backend**: NestJS 11 + TypeScript (Strict mode) ✅
+- **Database**: Supabase PostgreSQL + Prisma ✅
+- **Auth**: Supabase Auth _(Sprint 1)_
+- **Monorepo**: Turborepo + pnpm ✅
+- **Styling**: Tailwind CSS ✅
+- **Linting**: ESLint + Prettier ✅
 
 ## 🚀 Getting Started
 
@@ -65,9 +66,15 @@ pnpm install
 
 # Start all applications in development mode
 pnpm dev
+# flow (3000), apex (3002), api (3001)
 
 # Start a specific application
-pnpm dev --filter=flow
+pnpm dev --filter=flow        # Financial tracking app
+pnpm dev --filter=api         # Backend API
+pnpm dev --filter=apex        # Statistics tracking (coming soon)
+
+# Check API health
+curl http://localhost:3001/health
 ```
 
 ### Build
@@ -103,31 +110,42 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 ```
 flourish/
 ├── apps/
-│   ├── flow/              # 💰 Financial tracking app
+│   ├── flow/              # 💰 Financial tracking app (Next.js)
 │   ├── apex/              # 📈 Statistics curve tool (placeholder)
-│   └── api/               # 🔧 Backend API (placeholder)
+│   └── api/               # 🔧 Backend API (NestJS, port 3001) ✅
 ├── packages/
 │   ├── ui/                # 🎨 Shared UI components
-│   ├── database/          # 🗄️ Prisma schema (placeholder)
+│   ├── database/          # 🗄️ Prisma + Supabase client ✅
 │   ├── chart-engine/      # 📊 Chart core logic (placeholder)
 │   ├── typescript-config/ # ⚙️ Shared TypeScript config
 │   └── eslint-config/     # ⚙️ Shared ESLint config
 ├── docs/                  # 📚 Project documentation
+├── .serena/               # 🧠 Project knowledge & memory
 ├── turbo.json             # Turborepo configuration
 └── package.json           # Workspace configuration
 ```
 
 ## 📅 Development Roadmap
 
-### Phase 0: Foundation (Current)
+### Phase 0: Foundation ✅ (85% Complete)
 
-- [x] Sprint 0.1: Basic monorepo structure
-- [ ] Sprint 0.2: Prettier setup
-- [ ] Sprint 0.3: Husky + lint-staged
-- [ ] Sprint 0.4: commitlint
-- [ ] Sprint 0.5: Prisma setup
-- [ ] Sprint 0.6: NestJS application
-- [ ] Sprint 0.7: Apex application
+- [x] Sprint 0.1: Basic monorepo structure ✅ (2025-10-28)
+- [x] Sprint 0.2: Prettier setup ✅ (2025-10-30)
+- [x] Sprint 0.3: Husky + lint-staged ✅ (2025-10-30)
+- [x] Sprint 0.4: commitlint ✅ (2025-10-30)
+- [x] Sprint 0.5: Prisma setup ✅ (2025-10-31)
+- [x] Sprint 0.6: NestJS application ✅ (2025-11-04)
+  - NestJS backend with Prisma integration
+  - Health check endpoints (liveness, readiness, full)
+  - TypeScript strict mode enabled
+  - ESLint & Prettier configured
+  - Unit & E2E tests passing
+- [ ] Sprint 0.7: Apex application _(Next)_
+
+### Phase 0+: Infrastructure Hardening (Planned)
+
+- [ ] Sprint 0.8: CI/CD & Testing Infrastructure _(2-3 weeks)_
+- [ ] Sprint 0.9: Security Foundations _(2-3 weeks)_
 
 ### Phase 1: Core Features
 
