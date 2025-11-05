@@ -1,0 +1,174 @@
+@import '../base-theme.css';
+
+/**
+ * daisyUI Corporate Theme - Professional Blue System
+ *
+ * Source: Converted from daisyUI Corporate theme
+ * Original: https://daisyui.com/docs/themes/#corporate
+ * Color Space: OKLCH (native support in modern browsers)
+ *
+ * Design Philosophy: Professional, trustworthy, tech-focused
+ * Intended For: Flow financial tracking application
+ *
+ * Color System: Professional blue + deep blue-purple + cyan accents
+ *
+ * daisyUI Original Colors (OKLCH):
+ * - base-100: oklch(100% 0 0) → Pure white
+ * - base-content: oklch(22.389% 0.031 278.072) → Deep blue text
+ * - primary: oklch(58% 0.158 241.966) → Professional blue
+ * - secondary: oklch(55% 0.046 257.417) → Deep blue-purple
+ * - accent: oklch(60% 0.118 184.704) → Cyan
+ */
+
+:root {
+  /* ========================================
+     Background & Foreground
+     ======================================== */
+  --background: oklch(100% 0 0); /* Pure white */
+  --foreground: oklch(22.389% 0.031 278.072); /* Deep blue text */
+
+  /* ========================================
+     Muted (Secondary backgrounds and text)
+     ======================================== */
+  --muted: oklch(93% 0 0); /* Light gray background */
+  --muted-foreground: oklch(45% 0.015 278); /* Medium blue-gray text */
+
+  /* ========================================
+     Card
+     ======================================== */
+  --card: oklch(100% 0 0); /* White card */
+  --card-foreground: oklch(22.389% 0.031 278.072); /* Deep blue text */
+
+  /* ========================================
+     Popover
+     ======================================== */
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(22.389% 0.031 278.072);
+
+  /* ========================================
+     Border & Input
+     ======================================== */
+  --border: oklch(86% 0 0); /* Gray border */
+  --input: oklch(86% 0 0); /* Input border */
+
+  /* ========================================
+     Primary (Professional Blue)
+     ======================================== */
+  --primary: oklch(58% 0.158 241.966); /* Professional blue */
+  --primary-foreground: oklch(100% 0 0); /* White text */
+
+  /* ========================================
+     Secondary (Deep Blue-Purple)
+     ======================================== */
+  --secondary: oklch(55% 0.046 257.417); /* Deep blue-purple */
+  --secondary-foreground: oklch(100% 0 0); /* White text */
+
+  /* ========================================
+     Accent (Cyan)
+     ======================================== */
+  --accent: oklch(60% 0.118 184.704); /* Cyan */
+  --accent-foreground: oklch(100% 0 0); /* White text */
+
+  /* ========================================
+     Destructive (Error color)
+     ======================================== */
+  --destructive: oklch(70% 0.191 22.216); /* Red */
+  --destructive-foreground: oklch(0% 0 0); /* Black text */
+
+  /* ========================================
+     Success (Financial Green - Flow specific)
+     ======================================== */
+  --success: oklch(62% 0.194 149.214); /* Green */
+  --success-foreground: oklch(100% 0 0); /* White text */
+
+  /* ========================================
+     Warning
+     ======================================== */
+  --warning: oklch(85% 0.199 91.936); /* Yellow */
+  --warning-foreground: oklch(0% 0 0); /* Black text */
+
+  /* ========================================
+     Info
+     ======================================== */
+  --info: oklch(60% 0.126 221.723); /* Blue info */
+  --info-foreground: oklch(100% 0 0); /* White text */
+
+  /* ========================================
+     Ring (focus indicator)
+     ======================================== */
+  --ring: oklch(58% 0.158 241.966); /* Professional blue */
+}
+
+.dark {
+  /* ========================================
+     Dark Mode: Deep Blue-Black Theme
+     ======================================== */
+  --background: oklch(8% 0.02 278); /* Deep blue-black background */
+  --foreground: oklch(98% 0 0); /* Near-white text */
+
+  --muted: oklch(15% 0.015 278); /* Deep blue-gray background */
+  --muted-foreground: oklch(65% 0 0); /* Medium gray text */
+
+  --card: oklch(10% 0.02 278); /* Deep blue-black card */
+  --card-foreground: oklch(98% 0 0);
+
+  --popover: oklch(10% 0.02 278);
+  --popover-foreground: oklch(98% 0 0);
+
+  --border: oklch(20% 0.015 278); /* Deep gray border */
+  --input: oklch(20% 0.015 278);
+
+  --primary: oklch(65% 0.17 241.966); /* Brighter blue */
+  --primary-foreground: oklch(100% 0 0);
+
+  --secondary: oklch(60% 0.055 257.417); /* Brighter blue-purple */
+  --secondary-foreground: oklch(100% 0 0);
+
+  --accent: oklch(65% 0.13 184.704); /* Brighter cyan */
+  --accent-foreground: oklch(100% 0 0);
+
+  --destructive: oklch(72% 0.2 22.216);
+  --destructive-foreground: oklch(100% 0 0);
+
+  --success: oklch(65% 0.2 149.214); /* Brighter green */
+  --success-foreground: oklch(100% 0 0);
+
+  --warning: oklch(85% 0.199 91.936);
+  --warning-foreground: oklch(0% 0 0);
+
+  --info: oklch(65% 0.14 221.723);
+  --info-foreground: oklch(100% 0 0);
+
+  --ring: oklch(65% 0.17 241.966);
+}
+
+@theme {
+  /* ========================================
+     Register to Tailwind
+     ======================================== */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+}
