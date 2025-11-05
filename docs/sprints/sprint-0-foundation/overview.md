@@ -34,7 +34,7 @@ Set up a professional-grade development environment with:
 
 **Key Achievements**:
 
-- ✅ Flow app runs successfully at http://localhost:3000
+- ✅ Flow app runs successfully at http://localhost:3100
 - ✅ 13 documentation files organized
 - ✅ 7 clean Git commits following Conventional Commits
 - ✅ Project structure ready for expansion
@@ -124,7 +124,7 @@ Set up a professional-grade development environment with:
 **Objectives**:
 
 - Create Next.js app for Apex
-- Configure on port 3002
+- Configure on port 3200
 - Basic structure setup
 - Test multi-app dev environment
 

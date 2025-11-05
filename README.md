@@ -29,7 +29,7 @@ This monorepo includes:
   - Database operations with Prisma
   - Health check endpoints (liveness, readiness)
   - TypeScript strict mode enabled
-  - Runs on `http://localhost:3001`
+  - Runs on `http://localhost:6888`
 
 ### Shared Packages
 
@@ -66,7 +66,7 @@ pnpm install
 
 # Start all applications in development mode
 pnpm dev
-# flow (3000), apex (3002), api (3001)
+# flow (3100), apex (3200), api (6888)
 
 # Start a specific application
 pnpm dev --filter=flow        # Financial tracking app
@@ -74,7 +74,7 @@ pnpm dev --filter=api         # Backend API
 pnpm dev --filter=apex        # Statistics tracking (coming soon)
 
 # Check API health
-curl http://localhost:3001/health
+curl http://localhost:6888/health
 ```
 
 ### Build
@@ -112,7 +112,7 @@ flourish/
 ├── apps/
 │   ├── flow/              # 💰 Financial tracking app (Next.js)
 │   ├── apex/              # 📈 Statistics curve tool (placeholder)
-│   └── api/               # 🔧 Backend API (NestJS, port 3001) ✅
+│   └── api/               # 🔧 Backend API (NestJS, port 6888) ✅
 ├── packages/
 │   ├── ui/                # 🎨 Shared UI components
 │   ├── database/          # 🗄️ Prisma + Supabase client ✅
@@ -127,7 +127,7 @@ flourish/
 
 ## 📅 Development Roadmap
 
-### Phase 0: Foundation ✅ (85% Complete)
+### Phase 0: Foundation ✅ (100% Complete)
 
 - [x] Sprint 0.1: Basic monorepo structure ✅ (2025-10-28)
 - [x] Sprint 0.2: Prettier setup ✅ (2025-10-30)
@@ -140,7 +140,11 @@ flourish/
   - TypeScript strict mode enabled
   - ESLint & Prettier configured
   - Unit & E2E tests passing
-- [ ] Sprint 0.7: Apex application _(Next)_
+- [x] Sprint 0.7: Apex application ✅ (2025-11-04)
+  - Next.js 16 statistics tracking tool
+  - Beautiful landing page with "Coming soon" features preview
+  - Port 3200 configuration complete
+  - Ready for feature development in Phase 1
 
 ### Phase 0+: Infrastructure Hardening (Planned)
 

@@ -28,7 +28,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
   - Create `project-overview.md`
 - [x] Test flow app
   - Run `pnpm dev --filter=flow`
-  - Verify app loads at http://localhost:3000
+  - Verify app loads at http://localhost:3100
 - [x] Git commits
   - Commit 1: Rename web to flow
   - Commit 2: Add placeholder directories
@@ -227,8 +227,8 @@ Track the implementation progress of Sprint 0 sub-sprints.
   - App Router: Yes
   - Tailwind: Yes
 - [ ] Configure port
-  - Update dev script to use port 3002
-  - `"dev": "next dev -p 3002"`
+  - Update dev script to use port 3200
+  - `"dev": "next dev -p 3200"`
 - [ ] Add workspace dependencies
   - `@repo/ui`
   - `@repo/chart-engine` (when created)
@@ -237,10 +237,10 @@ Track the implementation progress of Sprint 0 sub-sprints.
   - Add navigation if needed
 - [ ] Test apex startup
   - Run `pnpm dev --filter=apex`
-  - Verify app runs on port 3002
+  - Verify app runs on port 3200
 - [ ] Test all apps concurrently
   - Run `pnpm dev` from root
-  - Verify flow (3000), apex (3002), api (3001)
+  - Verify flow (3100), apex (3200), api (6888)
 - [ ] Update documentation
   - Add apex to README
   - Update project overview
