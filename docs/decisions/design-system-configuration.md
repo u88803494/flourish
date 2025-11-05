@@ -1,8 +1,9 @@
 # Design System 配置決策
 
 **日期**: 2025-11-05
-**狀態**: 討論中
+**狀態**: ✅ 已完成決策
 **決策者**: 開發團隊
+**最後更新**: 2025-11-05
 
 ## 背景
 
@@ -83,7 +84,29 @@ apps/apex/components/ # Apex 專屬 component
 - ⚠️ 更複雜的心智模型
 - ⚠️ 共享/客製 component 界線不清
 
-**決策**: **[待定 - 需要決定]**
+**決策**: ✅ **採用 Hybrid 優化版本**
+
+**實際架構**:
+
+```
+packages/ui/
+├── styles/
+│   ├── base-theme.css       # 共享 design tokens
+│   └── themes/
+│       ├── lofi.css         # Apex 主題
+│       └── corporate.css    # Flow 主題
+└── components/ui/           # shadcn components (Sprint 1)
+
+apps/flow/components/        # Flow 專屬
+apps/apex/components/        # Apex 專屬
+```
+
+**決策理由**:
+
+- 基礎 themes 共享，確保設計一致性
+- App 可以有專屬 components 處理特殊需求
+- shadcn/ui components 在 packages/ui，所有 app 共用
+- 平衡了共享與彈性
 
 ---
 
@@ -139,7 +162,21 @@ apps/apex/components/ # Apex 專屬 component
 
 - ⚠️ 需要紀律來維持一致性
 
-**決策**: **[待定 - 需要決定]**
+**決策**: ✅ **採用選項 B: 基礎 Theme + App 覆寫**
+
+**實際實作**:
+
+- `packages/ui/styles/base-theme.css`: 共享 design tokens (spacing, typography, shadows)
+- `packages/ui/styles/themes/lofi.css`: Apex 專屬主題 (黑白極簡)
+- `packages/ui/styles/themes/corporate.css`: Flow 專屬主題 (專業藍綠)
+- Apps 透過 `@import` 引入對應主題
+
+**決策理由**:
+
+- 共享基礎確保 spacing、typography 一致
+- 顏色系統完全分離，符合兩個 app 不同定位
+- 容易維護和更新
+- 支援快速主題切換測試
 
 ---
 
@@ -147,41 +184,47 @@ apps/apex/components/ # Apex 專屬 component
 
 #### Flow Application（財務追蹤）
 
-**目前實作**:
+**最終決定**: ✅ **Corporate Theme (daisyUI)**
 
-- Primary: Green (#22c55e 系列)
-- Secondary: Emerald (#10b981 系列)
-- Accent: Teal (#14b8a6 系列)
+- **來源**: daisyUI Corporate 主題
+- **主色系**: 專業藍綠系統
+  - Primary: Professional Blue (HSL 242 89% 51%)
+  - Secondary: Deep Blue (HSL 257 33% 44%)
+  - Accent: Teal (HSL 185 84% 51%)
+- **特殊保留**: 綠色元素用於財務正向指標
+  - Success: Green (HSL 160 79% 46%)
+  - Growth: Deep Green (自訂)
+  - Income: Income Green (自訂)
 
-**理由**: 綠色代表成長、金錢和財務健康
+**理由**:
 
-**狀態**: ✅ 已定義
+- 專業、可信賴的財務感
+- 藍綠主調穩重
+- 綠色點綴保留財務成長意象
 
-#### Apex Application（數據分析）
+#### Apex Application（統計追蹤）
 
-**考慮中的選項**:
+**最終決定**: ✅ **Lofi Theme (daisyUI)**
 
-1. **與 Flow 相同（統一品牌）**
-   - 整個生態系統單一品牌識別
-   - 使用者更容易識別 Flourish apps
+- **來源**: daisyUI Lofi 主題
+- **風格**: 黑白極簡主義 (Minimalist Black & White)
+- **色彩系統**:
+  - Background: Pure White / Pure Black (HSL 0 0% 100% / 0 0% 0%)
+  - Foreground: Pure Black / Pure White (HSL 0 0% 0% / 0 0% 100%)
+  - Primary: Deep Gray / White (HSL 0 0% 16% / 0 0% 100%)
+  - Accent: Light Gray / Dark Gray (HSL 0 0% 97% / 0 0% 10%)
+- **功能色**: Success (Green), Warning (Yellow), Error (Red)
 
-2. **藍色系統（專業分析）**
-   - Primary: Blue (#3b82f6)
-   - 傳達專業、信任、數據
-   - 分析工具中常見
+**理由**:
 
-3. **紫色系統（科技/創新）**
-   - Primary: Purple (#a855f7)
-   - 現代、科技前瞻感
-   - 與 Flow 區別
+- 專注數據可視化，避免色彩干擾
+- 黑白極簡風格，專業精準
+- 高對比度，易於閱讀圖表
+- 與 Flow 有視覺區別但保持專業感
 
-4. **與 Flow 互補（綠 + 藍）**
-   - 使用綠色作為基礎，加入藍色點綴
-   - 視覺連結同時保持區別
-
-**決策**: **[待定 - 需要利害關係人意見]**
-
-**決策問題**: Apex 應該有自己的色彩識別，還是共享 Flow 的品牌？
+**決策過程**:
+經過實際測試多個主題（Business Blue, Synthwave, Nord 等），
+最終選擇 Lofi 因其極簡風格最適合統計數據呈現。
 
 ---
 
@@ -273,7 +316,7 @@ export default {
 - ⚠️ 較新的方式（較不熟悉）
 - ⚠️ 需要手動定義 types 來支援 autocomplete
 
-**決策**: ✅ **已批准 - 使用 CSS-first**
+**決策**: ✅ **已批准並實作 - 使用 CSS-first**
 
 **理由**:
 
@@ -283,7 +326,13 @@ export default {
 4. 未來趨勢的方式
 5. 主題更有彈性
 
-**參考**: 詳細說明見 `docs/guides/tailwind-css-first.md`
+**實作狀態**:
+
+- ✅ Flow: 已移除 `tailwind.config.ts`，使用 CSS-first
+- ✅ Apex: 從一開始就使用 CSS-first
+- ✅ 保留 `postcss.config.mjs`（Tailwind v4 必需）
+
+**參考**: 實作細節見 Sprint 0.7.1, 0.7.2, 0.7.3 規劃文檔
 
 ---
 
@@ -317,11 +366,9 @@ export default {
 
 ## 待解決問題
 
-1. **Component 位置**: packages/ui vs 各 app vs hybrid？
-2. **Apex 色彩系統**: Apex 應該使用哪個色盤？
-3. **Theme 覆寫深度**: App 應該有多少客製化空間？
-4. **Component Export 策略**: Named exports vs default exports？
-5. **Storybook**: 是否應該加入 Storybook 來開發 component？
+~~1. **Component 位置**: packages/ui vs 各 app vs hybrid？~~ ✅ 已決定：Hybrid
+~~2. **Apex 色彩系統**: Apex 應該使用哪個色盤？~~ ✅ 已決定：Lofi
+~~3. **Theme 覆寫深度**: App 應該有多少客製化空間？~~ ✅ 已決定：完全分離 4. **Component Export 策略**: Named exports vs default exports？（Sprint 1 決定）5. **Storybook**: 是否應該加入 Storybook 來開發 component？（未來評估）
 
 ---
 
@@ -338,18 +385,43 @@ export default {
 
 - [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
 - [shadcn/ui Documentation](https://ui.shadcn.com)
-- [Tailwind CSS-first Guide](../guides/tailwind-css-first.md)
-- [Sprint 0.7 Overview](../sprints/sprint-0-foundation/overview.md)
+- [daisyUI Themes](https://daisyui.com/docs/themes/)
+- [Sprint 0.7 Overview](../sprints/sprint-0-foundation/0.7-overview.md)
+- [Sprint 0.7.1: packages/ui Setup](../sprints/sprint-0-foundation/0.7.1-packages-ui-setup.md)
+- [Sprint 0.7.2: Lofi Theme](../sprints/sprint-0-foundation/0.7.2-lofi-theme.md)
+- [Sprint 0.7.3: Corporate Theme](../sprints/sprint-0-foundation/0.7.3-corporate-theme.md)
 
 ---
 
 ## 決策記錄
 
-_隨著決策制定而填入_
+### 2025-11-05 (完整決策日)
 
-**2025-11-05**:
+**上午 - 技術路線決定**:
 
-- ✅ 決定使用 CSS-first 配置方式
-- ⏳ Component 位置待討論
-- ⏳ Apex 色彩系統待決定
-- ⏳ Theme 策略待最終確定
+- ✅ 決定使用 Tailwind CSS v4 CSS-first 配置方式
+- ✅ 選擇 shadcn/ui 作為 component collection
+- ✅ 確定 Hybrid 架構（packages/ui + app-specific components）
+
+**下午 - 產品定位釐清**:
+
+- 📋 Flow: 個人記帳工具，推廣懶人記帳法
+- 📋 Apex: 山達基曲線圖工具，專業統計追蹤
+- 📋 關係：有關聯但獨立，Flow 可導入數據到 Apex
+
+**下午 - 配色方案決策**:
+
+- 🎨 測試 shadcn/ui 官方主題 → 數量少、風格不符
+- 🎨 測試 Business Blue, Synthwave, Nord → 僅 Business Blue 順眼
+- 🎨 發現 daisyUI 主題轉換方案
+- ✅ **Apex 最終決定**: Lofi (黑白極簡)
+- ✅ **Flow 最終決定**: Corporate (專業藍綠)
+
+**晚上 - 實作準備**:
+
+- ✅ Apex page.tsx 重構為 CSS variables
+- ✅ Flow 移除 tailwind.config.ts
+- ✅ 建立 Sprint 0.7.1, 0.7.2, 0.7.3 完整規劃文檔
+
+**決策完成度**: 100%
+**待執行**: Sprint 0.7.1 → 0.7.2 → 0.7.3 實作
