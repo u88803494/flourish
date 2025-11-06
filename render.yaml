@@ -56,9 +56,9 @@ services:
         sync: false
 
       # CORS Configuration
-      # Update with your actual Vercel URLs after frontend deployment
+      # Production Vercel URLs + localhost for development
       - key: CORS_ORIGIN
-        value: https://flourish-flow.vercel.app,https://flourish-apex.vercel.app,http://localhost:3100,http://localhost:3200
+        value: https://flourish-flow.vercel.app,https://flourish-flow*.vercel.app,https://flourish-apex.vercel.app,https://flourish-apex*.vercel.app,http://localhost:3100,http://localhost:3200
 
     # Auto-deploy on push to main branch
     autoDeploy: true
