@@ -1,0 +1,65 @@
+# Render Blueprint for Flourish API
+# Documentation: https://render.com/docs/blueprint-spec
+# Monorepo Guide: https://render.com/docs/deploy-monorepo
+
+services:
+  # NestJS API Backend
+  - type: web
+    name: flourish-api
+    runtime: node
+    region: singapore # Closest to Taiwan for low latency
+    plan: free # Free tier with 512MB RAM, 750 hours/month
+
+    # Important: Do NOT set rootDir for monorepo with workspace dependencies
+    # Build from repo root to access all workspace packages (@flourish/database)
+
+    buildCommand: |
+      echo "🚀 Starting Flourish API build for Render..."
+      echo "📦 Installing dependencies with pnpm..."
+      pnpm install --frozen-lockfile
+
+      echo "🗄️  Generating Prisma Client..."
+      pnpm --filter @flourish/database prisma:generate
+
+      echo "🔄 Running database migrations..."
+      pnpm --filter @flourish/database migrate:prod
+
+      echo "🏗️  Building NestJS API..."
+      pnpm --filter @flourish/api build
+
+      echo "✅ Build completed successfully!"
+
+    startCommand: cd apps/api && pnpm start:prod
+
+    # Health check configuration
+    healthCheckPath: /health/liveness
+
+    # Environment variables
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 10000 # Render's default port
+
+      # Database (set manually in Render dashboard)
+      # Get from: Supabase Dashboard > Settings > Database > Connection string (Session pooler)
+      - key: DATABASE_URL
+        sync: false
+
+      # Supabase (set manually in Render dashboard)
+      # Get from: Supabase Dashboard > Settings > API
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      # CORS Configuration
+      # Update with your actual Vercel URLs after frontend deployment
+      - key: CORS_ORIGIN
+        value: https://flourish-flow.vercel.app,https://flourish-apex.vercel.app,http://localhost:3100,http://localhost:3200
+
+    # Auto-deploy on push to main branch
+    autoDeploy: true
+    branch: main
