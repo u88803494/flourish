@@ -16,7 +16,7 @@ services:
     buildCommand: |
       echo "🚀 Starting Flourish API build for Render..."
       echo "📦 Installing dependencies with pnpm..."
-      pnpm install --frozen-lockfile
+      NODE_ENV=development pnpm install --frozen-lockfile
 
       echo "🗄️  Generating Prisma Client..."
       pnpm --filter @flourish/database prisma:generate
