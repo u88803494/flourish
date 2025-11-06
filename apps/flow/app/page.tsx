@@ -11,12 +11,12 @@ export default function Home() {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:6888';
         const response = await fetch(`${apiUrl}/health/liveness`);
         setApiStatus(response.ok ? 'connected' : 'disconnected');
-      } catch (error) {
+      } catch {
         setApiStatus('disconnected');
       }
     };
 
-    checkApi();
+    void checkApi();
   }, []);
 
   return (
