@@ -94,9 +94,41 @@ pnpm build --filter=flow
 pnpm lint
 ```
 
+## 🚀 Deployment
+
+### Environments
+
+- **Staging**: `https://flourish-api-staging.onrender.com` (testing environment)
+- **Production**: `https://flourish-api-production.onrender.com` (live environment)
+
+### Workflow
+
+```bash
+# 1. Create feature branch
+git checkout -b feat/your-feature
+
+# 2. Test in staging (optional)
+git checkout staging
+git merge feat/your-feature
+git push origin staging  # Auto-deploys to staging
+
+# 3. Create PR to main
+# → Review → Merge → Auto-deploys to production
+```
+
+See [Git Workflow Guide](./docs/deployment/git-workflow.md) for complete deployment process.
+
+### Setup Guides
+
+- **[Render Staging](./docs/deployment/render-staging-setup.md)** - Set up staging environment
+- **[Render Production](./docs/deployment/render-production-setup.md)** - Set up production environment
+- **[Keep-Alive](./docs/deployment/keep-alive-setup.md)** - Configure monitoring
+
 ## 📖 Documentation
 
 Comprehensive documentation is available in the [`docs/`](./docs/) directory:
+
+### General Documentation
 
 - [00-discussion-summary.md](./docs/00-discussion-summary.md) - Complete project discussion and decisions
 - [01-tech-comparison.md](./docs/01-tech-comparison.md) - Technology selection analysis
@@ -104,6 +136,15 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 - [05-dev-tooling-plan.md](./docs/05-dev-tooling-plan.md) - Development tooling plan
 - [06-complete-sprint-plan.md](./docs/06-complete-sprint-plan.md) - Complete sprint planning
 - [07-git-workflow-and-commit-guidelines.md](./docs/07-git-workflow-and-commit-guidelines.md) - Git workflow and commit message guidelines
+
+### Deployment Documentation
+
+- [Git Workflow Guide](./docs/deployment/git-workflow.md) - Branching strategy and deployment workflow
+- [Render Staging Setup](./docs/deployment/render-staging-setup.md) - Staging environment setup guide
+- [Render Production Setup](./docs/deployment/render-production-setup.md) - Production environment setup guide
+- [Keep-Alive Setup](./docs/deployment/keep-alive-setup.md) - UptimeRobot configuration guide
+- [Backend Hosting Comparison](./docs/deployment/backend-hosting-comparison.md) - Platform comparison analysis
+- [Render Deployment Guide](./docs/deployment/render-deployment-guide.md) - Complete Render deployment guide
 
 ## 🗂️ Project Structure
 
@@ -146,9 +187,15 @@ flourish/
   - Port 3200 configuration complete
   - Ready for feature development in Phase 1
 
-### Phase 0+: Infrastructure Hardening (Planned)
+### Phase 0+: Infrastructure Hardening (In Progress)
 
-- [ ] Sprint 0.8: CI/CD & Testing Infrastructure _(2-3 weeks)_
+- [x] Sprint 0.8: Deployment & CI/CD Setup ✅ (2025-01-07)
+  - Dual environment deployment (Staging + Production)
+  - Render hosting configuration
+  - Vercel frontend deployment
+  - Git workflow established (feat → staging → main)
+  - Complete deployment documentation
+  - Keep-alive monitoring setup
 - [ ] Sprint 0.9: Security Foundations _(2-3 weeks)_
 
 ### Phase 1: Core Features
