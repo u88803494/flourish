@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // Zod schema for environment variables
 export const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(6888),
   DATABASE_URL: z.string().url('DATABASE_URL must be a valid URL'),
   SUPABASE_JWT_SECRET: z.string().min(32, 'SUPABASE_JWT_SECRET must be at least 32 characters'),
