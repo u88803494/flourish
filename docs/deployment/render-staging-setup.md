@@ -1,63 +1,63 @@
-# Render Staging Environment Setup Guide
+# Render Staging 環境設置指南
 
-## Overview
+## 概述
 
-This guide walks you through setting up the **Staging Environment** for Flourish API on Render.
+本指南將引導你在 Render 上設置 **Flourish API 的 Staging 測試環境**。
 
-**Account**: Your staging Render account
-**Branch**: `staging`
-**Purpose**: Testing deployment before production
-
----
-
-## Prerequisites
-
-- [ ] GitHub repository connected to Render account
-- [ ] `staging` branch exists and is pushed to GitHub
-- [ ] Supabase database credentials ready (from `apps/api/.env.local`)
+**帳號**：你的 Staging Render 帳號
+**分支**：`staging`
+**用途**：在正式部署到生產環境之前進行測試
 
 ---
 
-## Step 1: Create New Web Service
+## 前置條件
 
-1. Log in to your **Staging Render Account**
-2. Click **"New +"** → **"Web Service"**
-3. Connect your GitHub repository: `u88803494/flourish`
-   - If not already connected, click "Configure Account" and grant access
+- [ ] GitHub repository 已連接到 Render 帳號
+- [ ] `staging` 分支已存在並推送到 GitHub
+- [ ] Supabase 資料庫憑證已準備好（從 `apps/api/.env.local` 取得）
 
 ---
 
-## Step 2: Configure Basic Settings
+## 步驟 1：建立新的 Web Service
 
-### Service Name
+1. 登入你的 **Staging Render 帳號**
+2. 點擊 **"New +"** → **"Web Service"**
+3. 連接你的 GitHub repository：`u88803494/flourish`
+   - 如果尚未連接，點擊 "Configure Account" 並授權存取
+
+---
+
+## 步驟 2：設定基本配置
+
+### Service Name（服務名稱）
 
 ```
 flourish-api-staging
 ```
 
-### Region
+### Region（區域）
 
 ```
 Singapore
 ```
 
-### Branch
+### Branch（分支）
 
 ```
 staging
 ```
 
-⚠️ **Important**: Make sure to select `staging` branch, not `main`
+⚠️ **重要**：確保選擇 `staging` 分支，不是 `main`
 
-### Runtime
+### Runtime（執行環境）
 
 ```
 Node
 ```
 
-### Build Command
+### Build Command（建置指令）
 
-**Copy and paste this entire command**:
+**複製並貼上整段指令**：
 
 ```bash
 echo "🚀 Starting Flourish API build for Render (STAGING)..." && \
@@ -72,13 +72,13 @@ pnpm --filter @flourish/api build && \
 echo "✅ Staging build completed successfully!"
 ```
 
-### Start Command
+### Start Command（啟動指令）
 
 ```bash
 cd apps/api && pnpm start:prod
 ```
 
-### Plan
+### Plan（方案）
 
 ```
 Free
@@ -86,11 +86,11 @@ Free
 
 ---
 
-## Step 3: Configure Environment Variables
+## 步驟 3：設定環境變數
 
-Click "Advanced" → "Add Environment Variable" and add the following:
+點擊 "Advanced" → "Add Environment Variable" 並新增以下變數：
 
-### Required Environment Variables
+### 必要的環境變數
 
 #### 1. NODE_ENV
 
@@ -113,7 +113,7 @@ Key: DATABASE_URL
 Value: postgresql://postgres.fstcioczrehqtcbdzuij:YbYkJd2EILWNCt3@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
 ```
 
-⚠️ **Note**: This is from your `apps/api/.env.local` file
+⚠️ **注意**：這個值來自你的 `apps/api/.env.local` 檔案
 
 #### 4. SUPABASE_JWT_SECRET
 
@@ -136,13 +136,13 @@ Key: CORS_ORIGIN
 Value: https://flourish-flow-*.vercel.app,https://flourish-apex-*.vercel.app,http://localhost:3100,http://localhost:3200
 ```
 
-💡 **Note**: Wildcard patterns allow all Vercel preview deployments
+💡 **說明**：萬用字元模式允許所有 Vercel preview 部署訪問
 
 ---
 
-## Step 4: Configure Health Check
+## 步驟 4：設定健康檢查
 
-Scroll down to **"Health Check Path"**:
+向下捲動到 **"Health Check Path"**：
 
 ```
 /health/liveness
@@ -150,49 +150,49 @@ Scroll down to **"Health Check Path"**:
 
 ---
 
-## Step 5: Auto-Deploy Settings
+## 步驟 5：自動部署設定
 
-Make sure these are enabled:
+確保啟用以下設定：
 
-- ✅ **Auto-Deploy**: ON (deploy automatically when `staging` branch updates)
-
----
-
-## Step 6: Create Service
-
-1. Review all settings
-2. Click **"Create Web Service"**
-3. Wait for initial deployment (3-5 minutes)
+- ✅ **Auto-Deploy**：ON（當 `staging` 分支更新時自動部署）
 
 ---
 
-## Step 7: Verify Deployment
+## 步驟 6：建立服務
 
-Once deployment completes, you'll see a URL like:
+1. 檢查所有設定
+2. 點擊 **"Create Web Service"**
+3. 等待初次部署完成（3-5 分鐘）
+
+---
+
+## 步驟 7：驗證部署
+
+部署完成後，你會看到類似這樣的 URL：
 
 ```
 https://flourish-api-staging.onrender.com
 ```
 
-### Test Health Endpoint
+### 測試健康檢查端點
 
 ```bash
 curl https://flourish-api-staging.onrender.com/health/liveness
 ```
 
-**Expected Response**:
+**預期回應**：
 
 ```json
 { "status": "ok" }
 ```
 
-### Test Readiness Endpoint
+### 測試就緒狀態端點
 
 ```bash
 curl https://flourish-api-staging.onrender.com/health/readiness
 ```
 
-**Expected Response**:
+**預期回應**：
 
 ```json
 { "status": "ok", "database": "connected" }
@@ -200,9 +200,9 @@ curl https://flourish-api-staging.onrender.com/health/readiness
 
 ---
 
-## Step 8: Record Service URL
+## 步驟 8：記錄服務 URL
 
-**Save this URL** - you'll need it for Vercel environment variables:
+**保存這個 URL** - 你在設定 Vercel 環境變數時會用到：
 
 ```
 STAGING_API_URL=https://flourish-api-staging.onrender.com
@@ -210,114 +210,114 @@ STAGING_API_URL=https://flourish-api-staging.onrender.com
 
 ---
 
-## Troubleshooting
+## 疑難排解
 
-### Build Fails: "pnpm: command not found"
+### 建置失敗："pnpm: command not found"
 
-**Solution**: Render should auto-detect pnpm from `package.json`. If not:
+**解決方法**：Render 應該會從 `package.json` 自動偵測 pnpm。如果沒有：
 
-1. Go to Service Settings
-2. Add environment variable:
+1. 前往 Service Settings
+2. 新增環境變數：
    ```
    ENABLE_PNPM=true
    ```
-3. Redeploy
+3. 重新部署
 
-### Build Fails: "Prisma Client not generated"
+### 建置失敗："Prisma Client not generated"
 
-**Solution**: Make sure the build command includes:
+**解決方法**：確保建置指令包含：
 
 ```bash
 pnpm --filter @flourish/database prisma:generate
 ```
 
-### Health Check Fails
+### 健康檢查失敗
 
-**Solution**:
+**解決方法**：
 
-1. Check logs in Render Dashboard
-2. Verify `PORT=10000` environment variable
-3. Ensure `/health/liveness` endpoint exists in NestJS app
+1. 檢查 Render Dashboard 中的 logs
+2. 驗證 `PORT=10000` 環境變數
+3. 確保 `/health/liveness` 端點存在於 NestJS app 中
 
-### CORS Errors from Vercel
+### 來自 Vercel 的 CORS 錯誤
 
-**Solution**:
+**解決方法**：
 
-1. Verify `CORS_ORIGIN` includes wildcard patterns
-2. Check `apps/api/src/main.ts` implements regex-based CORS validation
-3. Test with:
+1. 驗證 `CORS_ORIGIN` 包含萬用字元模式
+2. 檢查 `apps/api/src/main.ts` 實作了基於正則表達式的 CORS 驗證
+3. 測試：
    ```bash
    curl -H "Origin: https://flourish-flow-abc123.vercel.app" \
      https://flourish-api-staging.onrender.com/health/liveness
    ```
 
-### Service Sleeps After 15 Minutes
+### 服務在 15 分鐘後進入休眠
 
-**Solution**: This is expected behavior for Free Plan. Options:
+**解決方法**：這是 Free Plan 的預期行為。選項：
 
-1. Set up Keep-Alive service (see `keep-alive-setup.md`)
-2. Accept cold starts for staging environment
-3. Upgrade to Starter Plan ($7/month)
-
----
-
-## Next Steps
-
-✅ Staging API deployed successfully!
-
-Now proceed to:
-
-1. **[Production Setup](./render-production-setup.md)** - Set up production environment
-2. **[Vercel Configuration](../README.md#vercel-environment-variables)** - Configure frontend apps
-3. **[Keep-Alive Setup](./keep-alive-setup.md)** - Prevent service from sleeping
+1. 設定 Keep-Alive 服務（參見 `keep-alive-setup.md`）
+2. 接受 staging 環境的冷啟動
+3. 升級到 Starter Plan（$7/月）
 
 ---
 
-## Maintenance
+## 下一步
 
-### Update Environment Variables
+✅ Staging API 部署成功！
 
-1. Go to Service Settings → Environment Variables
-2. Edit the variable
-3. Click "Save Changes"
-4. Service will automatically redeploy
+現在繼續：
 
-### Manual Redeploy
-
-1. Go to Service → Deploys
-2. Find successful deploy
-3. Click "..." → "Redeploy"
-
-### View Logs
-
-1. Go to Service → Logs
-2. Real-time logs will appear
-3. Use search/filter for specific errors
+1. **[Production 設置](./render-production-setup.md)** - 設定生產環境
+2. **[Vercel 設定](../README.md#vercel-environment-variables)** - 設定前端應用
+3. **[Keep-Alive 設置](./keep-alive-setup.md)** - 防止服務休眠
 
 ---
 
-## Important Notes
+## 維護
 
-⚠️ **Security**:
+### 更新環境變數
 
-- Never commit environment variables to git
-- Keep `SUPABASE_SERVICE_ROLE_KEY` secret
-- Rotate keys if exposed
+1. 前往 Service Settings → Environment Variables
+2. 編輯變數
+3. 點擊 "Save Changes"
+4. 服務會自動重新部署
 
-💰 **Free Tier Limits**:
+### 手動重新部署
 
-- 750 build hours/month
-- Service sleeps after 15 min inactivity
-- Shares resources with other free services
+1. 前往 Service → Deploys
+2. 找到成功的部署
+3. 點擊 "..." → "Redeploy"
 
-🔄 **Auto-Deploy**:
+### 查看 Logs
 
-- Every push to `staging` branch triggers deployment
-- Check "Events" tab for deployment history
-- Failed deploys won't replace current version
+1. 前往 Service → Logs
+2. 即時 logs 會顯示
+3. 使用搜尋/過濾功能查找特定錯誤
 
 ---
 
-**Last Updated**: 2025-01-07
-**Status**: Active
-**Service URL**: `https://flourish-api-staging.onrender.com` (update after creation)
+## 重要注意事項
+
+⚠️ **安全性**：
+
+- 永遠不要將環境變數提交到 git
+- 保持 `SUPABASE_SERVICE_ROLE_KEY` 機密
+- 如果洩漏，請輪換金鑰
+
+💰 **Free Tier 限制**：
+
+- 750 建置小時/月
+- 15 分鐘無活動後服務休眠
+- 與其他 free services 共享資源
+
+🔄 **自動部署**：
+
+- 每次推送到 `staging` 分支都會觸發部署
+- 檢查 "Events" 標籤查看部署歷史
+- 失敗的部署不會替換目前版本
+
+---
+
+**最後更新**：2025-11-07
+**狀態**：Active
+**服務 URL**：`https://flourish-api-staging.onrender.com`（建立後更新）

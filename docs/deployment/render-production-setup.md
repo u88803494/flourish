@@ -1,64 +1,64 @@
-# Render Production Environment Setup Guide
+# Render Production 環境設置指南
 
-## Overview
+## 概述
 
-This guide walks you through setting up the **Production Environment** for Flourish API on Render.
+本指南將引導你在 Render 上設置 **Flourish API 的 Production 生產環境**。
 
-**Account**: Your production Render account
-**Branch**: `main`
-**Purpose**: Live production deployment
-
----
-
-## Prerequisites
-
-- [ ] GitHub repository connected to Render account
-- [ ] `main` branch exists with tested code
-- [ ] Supabase database credentials ready (from `apps/api/.env.local`)
-- [ ] Staging environment tested successfully
+**帳號**：你的 Production Render 帳號
+**分支**：`main`
+**用途**：正式上線的生產環境
 
 ---
 
-## Step 1: Create New Web Service
+## 前置條件
 
-1. Log in to your **Production Render Account**
-2. Click **"New +"** → **"Web Service"**
-3. Connect your GitHub repository: `u88803494/flourish`
-   - If not already connected, click "Configure Account" and grant access
+- [ ] GitHub repository 已連接到 Render 帳號
+- [ ] `main` 分支存在且包含已測試的程式碼
+- [ ] Supabase 資料庫憑證已準備好（從 `apps/api/.env.local` 取得）
+- [ ] Staging 環境已成功測試
 
 ---
 
-## Step 2: Configure Basic Settings
+## 步驟 1：建立新的 Web Service
 
-### Service Name
+1. 登入你的 **Production Render 帳號**
+2. 點擊 **"New +"** → **"Web Service"**
+3. 連接你的 GitHub repository：`u88803494/flourish`
+   - 如果尚未連接，點擊 "Configure Account" 並授權存取
+
+---
+
+## 步驟 2：設定基本配置
+
+### Service Name（服務名稱）
 
 ```
 flourish-api-production
 ```
 
-### Region
+### Region（區域）
 
 ```
 Singapore
 ```
 
-### Branch
+### Branch（分支）
 
 ```
 main
 ```
 
-⚠️ **Critical**: Make sure to select `main` branch for production
+⚠️ **重要**：務必選擇 `main` 分支作為生產環境
 
-### Runtime
+### Runtime（執行環境）
 
 ```
 Node
 ```
 
-### Build Command
+### Build Command（建置指令）
 
-**Copy and paste this entire command**:
+**複製並貼上整段指令**：
 
 ```bash
 echo "🚀 Starting Flourish API build for Render (PRODUCTION)..." && \
@@ -73,13 +73,13 @@ pnpm --filter @flourish/api build && \
 echo "✅ Production build completed successfully!"
 ```
 
-### Start Command
+### Start Command（啟動指令）
 
 ```bash
 cd apps/api && pnpm start:prod
 ```
 
-### Plan
+### Plan（方案）
 
 ```
 Free
@@ -87,11 +87,11 @@ Free
 
 ---
 
-## Step 3: Configure Environment Variables
+## 步驟 3：設定環境變數
 
-Click "Advanced" → "Add Environment Variable" and add the following:
+點擊 "Advanced" → "Add Environment Variable" 並新增以下變數：
 
-### Required Environment Variables
+### 必要的環境變數
 
 #### 1. NODE_ENV
 
@@ -100,7 +100,7 @@ Key: NODE_ENV
 Value: production
 ```
 
-⚠️ **Note**: Use `production` for production environment (not `staging`)
+⚠️ **注意**：生產環境使用 `production`（不是 `staging`）
 
 #### 2. PORT
 
@@ -116,7 +116,7 @@ Key: DATABASE_URL
 Value: postgresql://postgres.fstcioczrehqtcbdzuij:YbYkJd2EILWNCt3@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
 ```
 
-⚠️ **Note**: Same database as staging (for now). Consider separate database in Phase 1.
+⚠️ **注意**：目前與 staging 使用相同資料庫。Phase 1 時考慮使用獨立資料庫。
 
 #### 4. SUPABASE_JWT_SECRET
 
@@ -139,13 +139,13 @@ Key: CORS_ORIGIN
 Value: https://flourish-flow.vercel.app,https://flourish-apex.vercel.app
 ```
 
-🔒 **Security**: Production only allows official Vercel production URLs (no wildcards, no localhost)
+🔒 **安全性**：生產環境只允許官方 Vercel production URLs（無萬用字元、無 localhost）
 
 ---
 
-## Step 4: Configure Health Check
+## 步驟 4：設定健康檢查
 
-Scroll down to **"Health Check Path"**:
+向下捲動到 **"Health Check Path"**：
 
 ```
 /health/liveness
@@ -153,82 +153,82 @@ Scroll down to **"Health Check Path"**:
 
 ---
 
-## Step 5: Auto-Deploy Settings
+## 步驟 5：自動部署設定
 
-Configure carefully:
+謹慎設定：
 
-- ✅ **Auto-Deploy**: ON (deploy automatically when `main` branch updates)
-- ⚠️ **Branch Protection**: Ensure `main` branch requires PR reviews on GitHub
-
----
-
-## Step 6: Create Service
-
-1. Review all settings carefully
-2. Double-check `main` branch is selected
-3. Verify CORS_ORIGIN does NOT include wildcards
-4. Click **"Create Web Service"**
-5. Wait for initial deployment (3-5 minutes)
+- ✅ **Auto-Deploy**：ON（當 `main` 分支更新時自動部署）
+- ⚠️ **Branch Protection**：確保 `main` 分支在 GitHub 上需要 PR 審查
 
 ---
 
-## Step 7: Verify Deployment
+## 步驟 6：建立服務
 
-Once deployment completes, you'll see a URL like:
+1. 仔細檢查所有設定
+2. 再次確認選擇的是 `main` 分支
+3. 驗證 CORS_ORIGIN **不包含**萬用字元
+4. 點擊 **"Create Web Service"**
+5. 等待初次部署完成（3-5 分鐘）
+
+---
+
+## 步驟 7：驗證部署
+
+部署完成後，你會看到類似這樣的 URL：
 
 ```
 https://flourish-api-production.onrender.com
 ```
 
-### Test Health Endpoint
+### 測試健康檢查端點
 
 ```bash
 curl https://flourish-api-production.onrender.com/health/liveness
 ```
 
-**Expected Response**:
+**預期回應**：
 
 ```json
 { "status": "ok" }
 ```
 
-### Test Readiness Endpoint
+### 測試就緒狀態端點
 
 ```bash
 curl https://flourish-api-production.onrender.com/health/readiness
 ```
 
-**Expected Response**:
+**預期回應**：
 
 ```json
 { "status": "ok", "database": "connected" }
 ```
 
-### Test CORS (should reject preview URLs)
+### 測試 CORS（應拒絕 preview URLs）
 
 ```bash
-# This should fail (preview URL not allowed in production)
+# 這應該失敗（preview URL 在 production 中不被允許）
 curl -H "Origin: https://flourish-flow-abc123.vercel.app" \
   https://flourish-api-production.onrender.com/health/liveness
 ```
 
-**Expected**: CORS error (this is correct behavior for production)
+**預期**：CORS 錯誤（這是 production 的正確行為）
 
-### Test CORS (should allow production URLs)
+### 測試 CORS（應允許 production URLs）
 
 ```bash
-# This should succeed
+# 這應該成功
 curl -H "Origin: https://flourish-flow.vercel.app" \
   https://flourish-api-production.onrender.com/health/liveness
 ```
 
-**Expected**: `{"status":"ok"}`
+**預期**：`{"status":"ok"}`
 
 ---
 
-## Step 8: Record Service URL
+## 步驟 8：記錄服務 URL
 
-**Save this URL** - you'll need it for Vercel environment variables:
+**保存這個 URL** - 你在設定 Vercel 環境變數時會用到：
 
 ```
 PRODUCTION_API_URL=https://flourish-api-production.onrender.com
@@ -236,141 +236,141 @@ PRODUCTION_API_URL=https://flourish-api-production.onrender.com
 
 ---
 
-## Production-Specific Configurations
+## Production 專屬配置
 
 ### GitHub Branch Protection
 
-**Important**: Protect `main` branch to prevent accidental deployments
+**重要**：保護 `main` 分支以防止意外部署
 
-1. Go to GitHub repository settings
+1. 前往 GitHub repository settings
 2. Branches → Add rule for `main`
-3. Enable:
+3. 啟用：
    - ✅ Require pull request reviews before merging
    - ✅ Require status checks to pass
    - ✅ Require branches to be up to date
-   - ✅ Include administrators (everyone must follow rules)
+   - ✅ Include administrators（所有人都必須遵守規則）
 
-### Deployment Notifications
+### 部署通知
 
-Consider setting up Slack/Discord webhooks:
+考慮設定 Slack/Discord webhooks：
 
 1. Render Dashboard → Service → Settings
-2. Scroll to "Deploy Notifications"
-3. Add webhook URL
+2. 捲動到 "Deploy Notifications"
+3. 新增 webhook URL
 
 ---
 
-## Troubleshooting
+## 疑難排解
 
-### Build Fails: "pnpm: command not found"
+### 建置失敗："pnpm: command not found"
 
-**Solution**: Render should auto-detect pnpm from `package.json`. If not:
+**解決方法**：Render 應該會從 `package.json` 自動偵測 pnpm。如果沒有：
 
-1. Go to Service Settings
-2. Add environment variable:
+1. 前往 Service Settings
+2. 新增環境變數：
    ```
    ENABLE_PNPM=true
    ```
-3. Redeploy
+3. 重新部署
 
-### Build Fails: "Prisma Client not generated"
+### 建置失敗："Prisma Client not generated"
 
-**Solution**: Verify build command includes:
+**解決方法**：驗證建置指令包含：
 
 ```bash
 pnpm --filter @flourish/database prisma:generate
 ```
 
-### Health Check Fails
+### 健康檢查失敗
 
-**Solution**:
+**解決方法**：
 
-1. Check logs in Render Dashboard
-2. Verify `PORT=10000` environment variable
-3. Ensure `/health/liveness` endpoint exists
+1. 檢查 Render Dashboard 中的 logs
+2. 驗證 `PORT=10000` 環境變數
+3. 確保 `/health/liveness` 端點存在
 
-### CORS Rejects Legitimate Production URLs
+### CORS 拒絕合法的 Production URLs
 
-**Solution**:
+**解決方法**：
 
-1. Verify exact production URLs in Vercel dashboard
-2. Update `CORS_ORIGIN` if URLs changed
-3. Check `apps/api/src/main.ts` CORS implementation
-4. Test with exact URL:
+1. 在 Vercel dashboard 中驗證確切的 production URLs
+2. 如果 URLs 變更，更新 `CORS_ORIGIN`
+3. 檢查 `apps/api/src/main.ts` 的 CORS 實作
+4. 使用確切的 URL 測試：
    ```bash
    curl -H "Origin: https://flourish-flow.vercel.app" \
      https://flourish-api-production.onrender.com/health/liveness
    ```
 
-### Accidental Deployment from Wrong Branch
+### 從錯誤分支意外部署
 
-**Prevention**:
+**預防**：
 
-- Set up GitHub branch protection
-- Require PR reviews
-- Never force-push to `main`
+- 設定 GitHub branch protection
+- 要求 PR 審查
+- 永遠不要 force-push 到 `main`
 
-**Recovery**:
+**復原**：
 
-1. Find last good deployment in Render Dashboard
-2. Click "..." → "Redeploy"
-3. Or revert commit in git and push
+1. 在 Render Dashboard 中找到最後一個良好的部署
+2. 點擊 "..." → "Redeploy"
+3. 或在 git 中回退 commit 並推送
 
 ---
 
-## Monitoring & Alerts
+## 監控與告警
 
-### Set Up UptimeRobot
+### 設定 UptimeRobot
 
-**Important**: Production should have reliable keep-alive monitoring
+**重要**：Production 應該有可靠的 keep-alive 監控
 
-See [Keep-Alive Setup Guide](./keep-alive-setup.md) for detailed steps.
+詳細步驟請參見 [Keep-Alive 設置指南](./keep-alive-setup.md)。
 
-### Log Monitoring
+### Log 監控
 
-**Check logs regularly**:
+**定期檢查 logs**：
 
 1. Render Dashboard → Service → Logs
-2. Look for errors, warnings
-3. Monitor performance metrics
+2. 尋找錯誤、警告
+3. 監控效能指標
 
-### Set Up Error Tracking (Future)
+### 設定錯誤追蹤（未來）
 
-Consider integrating:
+考慮整合：
 
-- **Sentry**: Error tracking and performance monitoring
-- **LogRocket**: Session replay
-- **New Relic**: APM and monitoring
+- **Sentry**：錯誤追蹤和效能監控
+- **LogRocket**：Session replay
+- **New Relic**：APM 和監控
 
 ---
 
-## Maintenance
+## 維護
 
-### Update Environment Variables
+### 更新環境變數
 
-1. Go to Service Settings → Environment Variables
-2. Edit the variable
-3. Click "Save Changes"
-4. Service will automatically redeploy
+1. 前往 Service Settings → Environment Variables
+2. 編輯變數
+3. 點擊 "Save Changes"
+4. 服務會自動重新部署
 
-⚠️ **Production Warning**: Environment variable changes trigger deployment
+⚠️ **Production 警告**：環境變數變更會觸發部署
 
-### Manual Redeploy
+### 手動重新部署
 
-1. Go to Service → Deploys
-2. Find successful deploy
-3. Click "..." → "Redeploy"
+1. 前往 Service → Deploys
+2. 找到成功的部署
+3. 點擊 "..." → "Redeploy"
 
-### Emergency Rollback
+### 緊急回滾
 
-**If production deployment fails**:
+**如果 production 部署失敗**：
 
-1. **Quick Fix**: Redeploy previous version
+1. **快速修復**：重新部署先前版本
    - Render Dashboard → Deploys
-   - Find last successful deploy
-   - Click "..." → "Redeploy"
+   - 找到最後一個成功的部署
+   - 點擊 "..." → "Redeploy"
 
-2. **Git Revert**: If issue is in code
+2. **Git Revert**：如果問題在程式碼中
 
    ```bash
    git checkout main
@@ -378,106 +378,106 @@ Consider integrating:
    git push origin main
    ```
 
-   - Render will auto-deploy the revert
+   - Render 會自動部署回退
 
-3. **Expected Time**: 5-10 minutes total
+3. **預期時間**：總共 5-10 分鐘
 
-### View Logs
+### 查看 Logs
 
-1. Go to Service → Logs
-2. Real-time logs will appear
-3. Use search/filter for debugging
+1. 前往 Service → Logs
+2. 即時 logs 會顯示
+3. 使用搜尋/過濾功能除錯
 
 ---
 
-## Security Best Practices
+## 安全性最佳實踐
 
-🔒 **Environment Variables**:
+🔒 **環境變數**：
 
-- Never commit to git
-- Rotate keys periodically
-- Use separate credentials for production (future)
+- 永遠不要提交到 git
+- 定期輪換金鑰
+- 為 production 使用獨立憑證（未來）
 
-🔒 **CORS Configuration**:
+🔒 **CORS 配置**：
 
-- Only allow known production domains
-- No wildcards in production
-- No localhost URLs
+- 只允許已知的 production domains
+- Production 中無萬用字元
+- 無 localhost URLs
 
-🔒 **Branch Protection**:
+🔒 **Branch Protection**：
 
-- Require PR reviews for `main`
-- Prevent force pushes
-- Require status checks
+- `main` 需要 PR 審查
+- 防止 force pushes
+- 需要 status checks
 
-🔒 **Access Control**:
+🔒 **存取控制**：
 
-- Limit who can access Render dashboard
-- Use separate production account
-- Enable 2FA on Render account
+- 限制誰能存取 Render dashboard
+- 使用獨立的 production 帳號
+- 在 Render 帳號上啟用 2FA
 
 ---
 
 ## Production Checklist
 
-Before going live:
+上線前：
 
-- [ ] All tests pass in staging
-- [ ] CORS configured correctly (no wildcards)
-- [ ] Environment variables set correctly
-- [ ] Health checks working
-- [ ] GitHub branch protection enabled
-- [ ] Keep-alive monitoring set up
-- [ ] Error tracking configured (if applicable)
-- [ ] Deployment notifications configured
-- [ ] Rollback procedure tested
-- [ ] Documentation updated
-
----
-
-## Next Steps
-
-✅ Production API deployed successfully!
-
-Now proceed to:
-
-1. **[Vercel Configuration](../README.md#vercel-environment-variables)** - Configure frontend for production
-2. **[Keep-Alive Setup](./keep-alive-setup.md)** - Prevent service from sleeping
-3. **[Git Workflow](./git-workflow.md)** - Follow proper deployment workflow
+- [ ] 所有測試在 staging 通過
+- [ ] CORS 正確配置（無萬用字元）
+- [ ] 環境變數正確設定
+- [ ] 健康檢查運作正常
+- [ ] GitHub branch protection 已啟用
+- [ ] Keep-alive 監控已設定
+- [ ] 錯誤追蹤已配置（如適用）
+- [ ] 部署通知已配置
+- [ ] 回滾程序已測試
+- [ ] 文件已更新
 
 ---
 
-## Important Notes
+## 下一步
 
-⚠️ **Production Safety**:
+✅ Production API 部署成功！
 
-- Every push to `main` deploys to production
-- Always test in staging first
-- Use PR review process
-- Never skip branch protection
+現在繼續：
 
-💰 **Free Tier Limits**:
-
-- 750 build hours/month
-- Service sleeps after 15 min inactivity
-- Consider upgrading for production workloads
-
-🔄 **Auto-Deploy**:
-
-- Only from `main` branch
-- Triggered by git push
-- Check "Events" tab for history
-- Failed deploys won't replace current version
-
-📊 **Monitoring**:
-
-- Set up UptimeRobot for keep-alive
-- Monitor error logs daily
-- Track performance metrics
-- Set up alerts for critical issues
+1. **[Vercel 設定](../README.md#vercel-environment-variables)** - 為 production 配置前端
+2. **[Keep-Alive 設置](./keep-alive-setup.md)** - 防止服務休眠
+3. **[Git 工作流程](./git-workflow.md)** - 遵循正確的部署流程
 
 ---
 
-**Last Updated**: 2025-01-07
-**Status**: Active
-**Service URL**: `https://flourish-api-production.onrender.com` (update after creation)
+## 重要注意事項
+
+⚠️ **Production 安全**：
+
+- 每次推送到 `main` 都會部署到 production
+- 總是先在 staging 測試
+- 使用 PR 審查流程
+- 永遠不要跳過 branch protection
+
+💰 **Free Tier 限制**：
+
+- 750 建置小時/月
+- 15 分鐘無活動後服務休眠
+- 考慮為 production workloads 升級
+
+🔄 **自動部署**：
+
+- 僅從 `main` 分支
+- 由 git push 觸發
+- 檢查 "Events" 標籤查看歷史
+- 失敗的部署不會替換目前版本
+
+📊 **監控**：
+
+- 設定 UptimeRobot keep-alive
+- 每日監控錯誤 logs
+- 追蹤效能指標
+- 為關鍵問題設定告警
+
+---
+
+**最後更新**：2025-11-07
+**狀態**：Active
+**服務 URL**：`https://flourish-api-production.onrender.com`（建立後更新）
