@@ -119,60 +119,107 @@ Set up a professional-grade development environment with:
 ### Sprint 0.7: Apex Application
 
 **Time**: ~30 minutes
-**Status**: 📦 Planned
+**Status**: ✅ COMPLETED
 
 **Objectives**:
 
-- Create Next.js app for Apex
-- Configure on port 3200
-- Basic structure setup
-- Test multi-app dev environment
+- ✅ Create Next.js app for Apex
+- ✅ Configure on port 3200
+- ✅ Basic structure setup
+- ✅ Test multi-app dev environment
+- ✅ Implement homepage with statistics design
+- ✅ Add Tailwind CSS configuration
+
+---
+
+### Sprint 0.8: Deployment Evaluation & Architecture Decision
+
+**Time**: ~12.5 hours
+**Status**: ✅ COMPLETED
+**Completed**: 2025-11-07
+
+**What was done**:
+
+- ✅ 評估後端部署方案（Render, Fly.io, Railway, OCI）
+- ✅ 成功部署 Render Staging 環境
+- ✅ 撰寫完整的部署文檔（已存檔）
+- ✅ 修復 TypeScript 編譯錯誤和環境驗證問題
+- ✅ **重大決策：採用純 Supabase 架構**
+- ✅ 創建 ADR 001 - Architecture Simplification
+- ✅ 存檔 NestJS + Render 部署文檔
+
+**Key Achievement**:
+
+從 NestJS + Render 遷移到純 Supabase 架構，節省 100% 部署成本（$0 vs $7+/月）、70% 維護工作量、60% 開發時間。
+
+📄 **詳細文檔**：[Sprint 0.8 Evaluation](./0.8-deployment-evaluation.md)
+📄 **決策記錄**：[ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
 
 ---
 
 ## 🚀 Next Steps After Sprint 0
 
-Sprint 0 完成後，建議的發展路徑：
+Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）：
 
-**Phase 0+: Infrastructure Hardening** (Optional, 建議在 Sprint 1 之前完成)
+**Phase 0+: Supabase Migration & Security** (建議在 Sprint 1 之前完成)
 
-- **Sprint 0.8**: CI/CD & Testing Infrastructure
-  - GitHub Actions 設定
-  - 自動化測試與覆蓋率追蹤
-  - 自動部署流程
+- **Sprint 0.9**: Supabase Migration
+  - 創建 `packages/supabase-client/` 套件
+  - 移除 `apps/api/` 目錄（NestJS）
+  - 整合 Supabase 到 Flow 和 Apex
+  - 設置基礎 Row Level Security (RLS) policies
+  - 創建 Supabase 設置文檔
 
-- **Sprint 0.9**: Security Foundations
-  - 輸入驗證框架
-  - 例外處理系統
-  - 安全性中介軟體
-  - 為 Sprint 1 認證系統打基礎
+- **Sprint 0.10**: Security Enhancement (可選)
+  - 完善 RLS policies
+  - 前端表單驗證
+  - 錯誤處理標準化
 
 **Phase 1: Core Features**
 
-- Sprint 1: Authentication (基於 Sprint 0.9 的 validation framework)
-- Sprint 2-4: Feature development (記帳、分類、圖表)
+- **Sprint 1**: Authentication
+  - 使用 Supabase Auth（非從零實作）
+  - Email/Password 登入
+  - Social OAuth（可選）
+
+- **Sprint 2-4**: Feature Development
+  - 記帳功能
+  - 分類管理
+  - 數據視覺化
 
 **Phase 2: Production Readiness** (Sprint 4 之後)
 
 - Observability & Operations
-- 結構化日誌、錯誤追蹤、效能監控
+- 結構化日誌、錯誤追蹤
+- 效能監控
 - 營運文檔與部署準備
 
 詳細規劃請參考 [requirements.md](./requirements.md)
+
+**架構變更說明**：
+
+- 原計劃的 Sprint 0.8 (CI/CD) 和 0.9 (Security Foundations) 主要針對 NestJS 架構
+- 經 Sprint 0.8 評估後決定採用 Supabase，這些 Sprint 不再需要
+- 新的 Sprint 0.9 專注於 Supabase 遷移實作
 
 ---
 
 ## 📊 Progress Tracking
 
-**Overall Progress**: 1/7 (14%)
+**Overall Progress**: 3/8 (38%) → **Phase 0 完成度: 100%**
 
-- [x] Sprint 0.1: Basic Monorepo
-- [ ] Sprint 0.2: Prettier
-- [ ] Sprint 0.3: Husky + lint-staged
-- [ ] Sprint 0.4: commitlint
-- [ ] Sprint 0.5: Prisma
-- [ ] Sprint 0.6: NestJS
-- [ ] Sprint 0.7: Apex
+- [x] Sprint 0.1: Basic Monorepo ✅
+- [x] Sprint 0.6: NestJS Application & Polish ✅
+- [x] Sprint 0.7: Apex Application ✅
+- [x] Sprint 0.8: Deployment Evaluation & Architecture Decision ✅
+- [ ] Sprint 0.2: Prettier ⏭️ Skipped (低優先級)
+- [ ] Sprint 0.3: Husky + lint-staged ⏭️ Skipped (低優先級)
+- [ ] Sprint 0.4: commitlint ⏭️ Skipped (低優先級)
+- [ ] Sprint 0.5: Prisma ⏭️ Moved to Sprint 0.9 (Supabase 整合)
+
+**Phase 0 Status**: ✅ **已完成**
+
+Sprint 0.2-0.4（開發工具）和 Sprint 0.5（Prisma）優先級較低，已調整到後續 Sprint 或跳過。Phase 0 的核心目標（基礎架構 + 架構決策）已全部完成。
 
 ---
 
@@ -221,7 +268,18 @@ Sprint 0 is complete when:
 
 ## 🔗 Related Documents
 
+### Sprint 文檔
+
 - [Sprint 0 Requirements](./requirements.md)
 - [Sprint 0 Implementation](./implementation.md)
 - [Sprint 0 Tasks](./tasks.md)
+- [Sprint 0.8 Evaluation](./0.8-deployment-evaluation.md) ⭐ 新增
+
+### 決策文檔
+
+- [ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md) ⭐ 重要決策
+- [Render Deployment Archive](../../archive/render-deployment/README.md) - 存檔的 NestJS + Render 文檔
+
+### 專案文檔
+
 - [Project Overview](../../project-overview.md)
