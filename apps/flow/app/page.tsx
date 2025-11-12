@@ -1,11 +1,37 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 export default function Home() {
+  const [apiStatus, setApiStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+
+  useEffect(() => {
+    const checkApi = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:6888';
+        const response = await fetch(`${apiUrl}/health/liveness`);
+        setApiStatus(response.ok ? 'connected' : 'disconnected');
+      } catch {
+        setApiStatus('disconnected');
+      }
+    };
+
+    void checkApi();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <nav className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             💰 Flow
           </h1>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-muted-foreground">API:</span>
+            {apiStatus === 'checking' && <span className="text-muted-foreground">⏳</span>}
+            {apiStatus === 'connected' && <span className="text-green-500">✅ Connected</span>}
+            {apiStatus === 'disconnected' && <span className="text-red-500">❌ Offline</span>}
+          </div>
         </div>
       </nav>
 

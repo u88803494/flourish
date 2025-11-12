@@ -12,9 +12,34 @@ async function bootstrap() {
 
   // Enable CORS for frontend apps
   const corsOrigin = configService.get<string>('CORS_ORIGIN');
-  const corsOrigins = corsOrigin?.split(',') || [];
+  const corsOrigins = corsOrigin?.split(',').map((origin) => origin.trim()) || [];
+
   app.enableCors({
-    origin: corsOrigins,
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void
+    ) => {
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      // Check if origin matches any of the allowed patterns
+      const isAllowed = corsOrigins.some((allowedOrigin) => {
+        // Convert wildcard pattern to regex
+        const pattern = allowedOrigin
+          .replace(/[.+?^${}()|[\]\\]/g, '\\$&') // Escape special chars
+          .replace(/\*/g, '.*'); // Convert * to .*
+        const regex = new RegExp(`^${pattern}$`);
+        return regex.test(origin);
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   });
 

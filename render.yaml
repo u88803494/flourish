@@ -1,0 +1,90 @@
+# ============================================================================
+# Render Configuration Reference for Flourish API
+# ============================================================================
+#
+# ⚠️ IMPORTANT: This file is for REFERENCE ONLY
+#
+# We use TWO separate Render accounts for dual-environment deployment:
+#   - Account A (Staging):  Monitors `staging` branch
+#   - Account B (Production): Monitors `main` branch
+#
+# This approach gives us:
+#   ✅ 750 build hours per environment (not shared)
+#   ✅ Clear separation of staging and production
+#   ✅ No risk of free tier quota conflicts
+#
+# Deployment Strategy:
+#   1. Staging Account: Create service manually using settings below
+#   2. Production Account: Create service manually using settings below
+#   3. See: docs/deployment/render-staging-setup.md
+#   4. See: docs/deployment/render-production-setup.md
+#
+# ============================================================================
+# Documentation
+# ============================================================================
+# - Render Blueprint Spec: https://render.com/docs/blueprint-spec
+# - Monorepo Deployment: https://render.com/docs/deploy-monorepo
+# - Our Setup Guides: docs/deployment/
+# ============================================================================
+
+services:
+  # NestJS API Backend
+  - type: web
+    name: flourish-api
+    runtime: node
+    region: singapore # Closest to Taiwan for low latency
+    plan: free # Free tier with 512MB RAM, 750 hours/month
+
+    # Important: Do NOT set rootDir for monorepo with workspace dependencies
+    # Build from repo root to access all workspace packages (@flourish/database)
+
+    buildCommand: |
+      echo "🚀 Starting Flourish API build for Render..."
+      echo "📦 Installing dependencies with pnpm..."
+      NODE_ENV=development pnpm install --frozen-lockfile
+
+      echo "🗄️  Generating Prisma Client..."
+      pnpm --filter @flourish/database prisma:generate
+
+      echo "🔄 Running database migrations..."
+      pnpm --filter @flourish/database migrate:prod
+
+      echo "🏗️  Building NestJS API..."
+      pnpm --filter @flourish/api build
+
+      echo "✅ Build completed successfully!"
+
+    startCommand: cd apps/api && pnpm start:prod
+
+    # Health check configuration
+    healthCheckPath: /health/liveness
+
+    # Environment variables
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 10000 # Render's default port
+
+      # Database (set manually in Render dashboard)
+      # Get from: Supabase Dashboard > Settings > Database > Connection string (Session pooler)
+      - key: DATABASE_URL
+        sync: false
+
+      # Supabase (set manually in Render dashboard)
+      # Get from: Supabase Dashboard > Settings > API
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      # CORS Configuration
+      # Production Vercel URLs + localhost for development
+      - key: CORS_ORIGIN
+        value: https://flourish-flow.vercel.app,https://flourish-flow*.vercel.app,https://flourish-apex.vercel.app,https://flourish-apex*.vercel.app,http://localhost:3100,http://localhost:3200
+
+    # Auto-deploy on push to main branch
+    autoDeploy: true
+    branch: main
