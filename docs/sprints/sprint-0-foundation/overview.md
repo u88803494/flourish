@@ -163,12 +163,65 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 
 **Phase 0+: Supabase Migration & Security** (建議在 Sprint 1 之前完成)
 
-- **Sprint 0.9**: Supabase Migration
-  - 創建 `packages/supabase-client/` 套件
-  - 移除 `apps/api/` 目錄（NestJS）
-  - 整合 Supabase 到 Flow 和 Apex
-  - 設置基礎 Row Level Security (RLS) policies
-  - 創建 Supabase 設置文檔
+- **Sprint 0.9**: Supabase Migration & Integration (Planning Sprint)
+
+  **總時間**: ~10 小時 (分為 4 個 sub-sprints)
+
+  **核心目標**：建立完整的 Supabase 架構，替代 NestJS + Render
+
+  **Sub-Sprints**:
+  - **Sprint 0.9.1** (2 小時) - Supabase CLI & Environment Setup
+    - Supabase CLI 安裝與項目連接
+    - MCP (Model Context Protocol) 配置
+    - 環境變數安全管理
+    - Supabase 訪問令牌配置
+    - 📄 參考: [MCP 設置指南](../../guides/mcp-setup.md)
+
+  - **Sprint 0.9.2** (2.5 小時) - Database Schema & Migrations
+    - 設計與創建 4 個 SQL 遷移文件
+      - Migration 1: 核心表結構 (users, transactions, categories 等)
+      - Migration 2: 認證整合與觸發器
+      - Migration 3: Row Level Security (RLS) 策略
+      - Migration 4: 索引和輔助函數
+    - 測試遷移執行
+    - 驗證數據完整性
+    - 📄 詳細計劃: [Sprint 0.9 詳細規劃](./0.9-supabase-migration-plan.md)
+
+  - **Sprint 0.9.3** (3.5 小時) - Supabase Client Package & Integration
+    - 創建 `@repo/supabase-client` 套件
+    - TypeScript 類型生成
+    - React 自定義 Hooks (useAuth, useTransactions 等)
+    - Flow 應用集成
+    - Apex 應用集成
+    - 環境變數配置驗證
+
+  - **Sprint 0.9.4** (1.5 小時) - NestJS API Archive & Documentation
+    - 存檔 `apps/api/` (NestJS) 目錄
+    - 更新項目文檔
+    - 更新部署文檔
+    - 更新架構決策記錄
+    - 清理舊配置
+    - 提交並完成 Sprint
+
+  **關鍵決策**:
+  - ✅ 純 Supabase 架構（0 成本，vs NestJS + Render $7+/月）
+  - ✅ 使用 MCP 進行開發效率最大化
+  - ✅ Row Level Security 強制執行用戶數據隔離
+
+  **成功指標**:
+  - [ ] Supabase 項目完全配置
+  - [ ] 所有遷移成功執行
+  - [ ] RLS 策略驗證並通過安全測試
+  - [ ] Flow 和 Apex 成功連接到 Supabase
+  - [ ] 文檔完整，開發人員可以獨立開發
+  - [ ] NestJS API 安全存檔
+
+  **風險與緩解**:
+  - ⚠️ **RLS 策略複雜**：在遷移前進行徹底測試
+  - ⚠️ **遷移順序依賴**：嚴格按照 0.9.1 → 0.9.4 的順序
+  - ⚠️ **令牌管理**：環境變數使用，.env.local gitignored
+
+  📄 **詳細文檔**: [Sprint 0.9 完整規劃](./0.9-supabase-migration-plan.md)
 
 - **Sprint 0.10**: Security Enhancement (可選)
   - 完善 RLS policies
