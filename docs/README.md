@@ -26,6 +26,7 @@ Development guides and workflows:
 - [Development Setup](./guides/development-setup.md) - How to set up and develop the project
 - [Database Setup](./guides/database-setup.md) - Supabase + Prisma database configuration
 - [Git Workflow](./guides/git-workflow.md) - Git workflow and commit message guidelines
+- [API Documentation Workflow](./guides/api-documentation-workflow.md) - Guide for auto-generating API docs and types
 - [Versioning Strategy](./guides/versioning-strategy.md) - Version management and release strategy
 - [Deployment Guide](./guides/deployment.md) - Deployment strategies and configurations
 
@@ -41,6 +42,7 @@ System design and architecture documentation:
 
 Technical references and quick guides:
 
+- [Project Glossary](./references/glossary.md) - Definitions of key project-specific terms
 - [Database Troubleshooting](./references/database-troubleshooting.md) - Common database errors and solutions
 - [Prisma Guide](./references/prisma-guide.md) - Prisma usage and tips
 - [NestJS Quick Reference](./references/nestjs-quick-ref.md) - NestJS patterns and best practices
