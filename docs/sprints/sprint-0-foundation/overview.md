@@ -263,9 +263,13 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 
 ## 📊 Progress Tracking
 
-**Overall Progress**: 5/10 (50%) → **Phase 0 完成度: 50%**
+**Overall Progress**: 9/13 (69%) → **Phase 0 完成度: 69%**
 
 - [x] Sprint 0.1: Basic Monorepo ✅
+- [x] Sprint 0.2: Prettier ✅
+- [x] Sprint 0.3: Husky + lint-staged ✅
+- [x] Sprint 0.4: commitlint ✅
+- [x] Sprint 0.5: Prisma ✅ (Kept as design reference)
 - [x] Sprint 0.6: NestJS Application & Polish ✅
 - [x] Sprint 0.7: Apex Application ✅
 - [x] Sprint 0.8: Deployment Evaluation & Architecture Decision ✅
@@ -274,10 +278,6 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 - [ ] Sprint 0.9.3: Supabase Client Package & Integration
 - [ ] Sprint 0.9.4: NestJS API Archive & Documentation
 - [ ] Sprint 0.10: Documentation & Agent Setup 📋 (Planned)
-- [ ] Sprint 0.2: Prettier ⏭️ Skipped (低優先級)
-- [ ] Sprint 0.3: Husky + lint-staged ⏭️ Skipped (低優先級)
-- [ ] Sprint 0.4: commitlint ⏭️ Skipped (低優先級)
-- [ ] Sprint 0.5: Prisma ⏭️ Moved to Sprint 0.9 (Supabase 整合)
 
 **Phase 0 Status**: 🔄 **進行中** (完成 Sprint 0.9.1, 正在進行 Sprint 0.9.2)
 
