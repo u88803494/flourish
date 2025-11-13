@@ -1,68 +1,68 @@
-# Supabase Migration Approaches
+# Supabase 遷移方法
 
-**Last Updated**: 2025-11-13
-**Status**: Active Decision
-**Related**: [ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md)
-
----
-
-## 📖 Overview
-
-Database migrations are version-controlled changes to your database schema. Supabase supports two approaches for managing migrations:
-
-1. **Imperative Migrations** (SQL files) - What we use ✅
-2. **Declarative Schema** (State-based) - Alternative approach
-
-This document explains both approaches, their trade-offs, and why Flourish uses Imperative Migrations.
+**最後更新**: 2025-11-13
+**狀態**: 使用中的決策
+**相關文件**: [ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md)
 
 ---
 
-## 🔧 Imperative Migrations (Current Approach)
+## 📖 概述
 
-### What is it?
+資料庫遷移是版本控制的資料庫 schema 變更。Supabase 支援兩種管理遷移的方法：
 
-Imperative migrations define **step-by-step changes** to your database schema. Each migration is a SQL file that describes how to transform the database from one state to another.
+1. **Imperative Migrations（命令式遷移）**（SQL 檔案）- 我們使用的方法 ✅
+2. **Declarative Schema（宣告式 Schema）**（狀態式）- 替代方法
 
-**Analogy**: Like a recipe that tells you each cooking step in order.
+本文件說明兩種方法、它們的權衡，以及為什麼 Flourish 使用 Imperative Migrations。
 
-### How it works
+---
+
+## 🔧 Imperative Migrations（目前方法）
+
+### 什麼是 Imperative Migrations？
+
+Imperative migrations 定義**逐步變更**資料庫 schema。每個遷移都是一個 SQL 檔案，描述如何將資料庫從一個狀態轉換到另一個狀態。
+
+**比喻**：就像食譜告訴你每個烹飪步驟的順序。
+
+### 運作方式
 
 ```bash
-# 1. Create a new migration
+# 1. 建立新遷移
 npx supabase migration new add_user_preferences
 
-# 2. Edit the generated SQL file
+# 2. 編輯產生的 SQL 檔案
 # supabase/migrations/20251113120000_add_user_preferences.sql
 ```
 
 ```sql
 -- supabase/migrations/20251113120000_add_user_preferences.sql
 
--- Add new column
+-- 新增欄位
 ALTER TABLE users ADD COLUMN preferences JSONB DEFAULT '{}';
 
--- Add index for performance
+-- 新增索引以提升效能
 CREATE INDEX idx_users_preferences ON users USING GIN (preferences);
 
--- Add comment
+-- 新增註解
 COMMENT ON COLUMN users.preferences IS 'User preference settings stored as JSON';
 ```
 
 ```bash
-# 3. Push to Supabase
+# 3. 推送到 Supabase
 npx supabase db push
 ```
 
-### Real Example from Flourish
+### Flourish 的實際範例
 
-From `supabase/migrations/20251113050233_initial_schema.sql`:
+來自 `supabase/migrations/20251113050233_initial_schema.sql`：
 
 ```sql
--- Create ENUM types
+-- 建立 ENUM 型別
 CREATE TYPE statement_status AS ENUM ('PENDING', 'EXTRACTED', 'IMPORTED', 'ARCHIVED');
 CREATE TYPE transaction_type AS ENUM ('EXPENSE', 'INCOME', 'REFUND');
 
--- Create users table
+-- 建立 users 資料表
 CREATE TABLE users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT UNIQUE NOT NULL,
@@ -74,53 +74,53 @@ CREATE TABLE users (
 COMMENT ON TABLE users IS 'User profiles linked to Supabase Auth';
 ```
 
-### Pros ✅
+### 優點 ✅
 
-| Advantage              | Why it matters                                                            |
-| ---------------------- | ------------------------------------------------------------------------- |
-| **Full Control**       | You write exactly what changes should happen                              |
-| **Explicit History**   | Each migration file shows exactly what changed and when                   |
-| **Easy Review**        | Clear SQL that can be reviewed in PRs                                     |
-| **Predictable**        | No surprises - you know exactly what will run                             |
-| **Learn SQL**          | Improves your SQL skills through hands-on practice                        |
-| **Complex Operations** | Can handle intricate migrations (data transformations, conditional logic) |
+| 優勢           | 為什麼重要                             |
+| -------------- | -------------------------------------- |
+| **完全控制**   | 你可以精確撰寫應該發生的變更           |
+| **明確的歷史** | 每個遷移檔案都顯示確切的變更內容與時間 |
+| **易於審查**   | 清楚的 SQL 可在 PRs 中審查             |
+| **可預測**     | 沒有意外 - 你清楚知道會執行什麼        |
+| **學習 SQL**   | 透過實際練習提升 SQL 技能              |
+| **複雜操作**   | 可處理複雜的遷移（資料轉換、條件邏輯） |
 
-### Cons ❌
+### 缺點 ❌
 
-| Disadvantage               | Impact                                  |
-| -------------------------- | --------------------------------------- |
-| **Manual Work**            | You must write all SQL by hand          |
-| **Requires SQL Knowledge** | Need to know PostgreSQL syntax          |
-| **No Auto-Diffing**        | Can't automatically detect schema drift |
-| **More Verbose**           | More code to write and maintain         |
+| 劣勢                 | 影響                     |
+| -------------------- | ------------------------ |
+| **手動工作**         | 必須手寫所有 SQL         |
+| **需要 SQL 知識**    | 需要了解 PostgreSQL 語法 |
+| **沒有自動差異比對** | 無法自動偵測 schema 漂移 |
+| **較冗長**           | 需要撰寫和維護更多程式碼 |
 
-### When to use
+### 何時使用
 
-- ✅ You want full control over database changes
-- ✅ You're learning SQL and PostgreSQL
-- ✅ Your team is comfortable with SQL
-- ✅ You need complex migrations (data transformations, conditional logic)
-- ✅ You value explicit migration history
+- ✅ 你想要完全控制資料庫變更
+- ✅ 你正在學習 SQL 和 PostgreSQL
+- ✅ 你的團隊熟悉 SQL
+- ✅ 你需要複雜遷移（資料轉換、條件邏輯）
+- ✅ 你重視明確的遷移歷史
 
 ---
 
-## 🎯 Declarative Schema (Alternative Approach)
+## 🎯 Declarative Schema（替代方法）
 
-### What is it?
+### 什麼是 Declarative Schema？
 
-Declarative schema defines the **desired final state** of your database. The tool automatically generates the migrations needed to reach that state.
+Declarative schema 定義資料庫的**期望最終狀態**。工具會自動產生達到該狀態所需的遷移。
 
-**Analogy**: Like telling someone "I want a chocolate cake" and they figure out the recipe.
+**比喻**：就像告訴某人「我想要一個巧克力蛋糕」，他們會想出食譜。
 
-### How it works
+### 運作方式
 
 ```bash
-# 1. Define your schema in a single file
+# 1. 在單一檔案中定義你的 schema
 # supabase/schema.sql
 ```
 
 ```sql
--- supabase/schema.sql (Complete database state)
+-- supabase/schema.sql（完整的資料庫狀態）
 
 CREATE TYPE statement_status AS ENUM ('PENDING', 'EXTRACTED', 'IMPORTED', 'ARCHIVED');
 
@@ -128,7 +128,7 @@ CREATE TABLE users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT UNIQUE NOT NULL,
   name TEXT,
-  preferences JSONB DEFAULT '{}',  -- Added this line
+  preferences JSONB DEFAULT '{}',  -- 新增這一行
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -140,20 +140,20 @@ CREATE POLICY "Users can view own profile" ON users FOR SELECT USING (auth.uid()
 ```
 
 ```bash
-# 2. Generate migration automatically
+# 2. 自動產生遷移
 npx supabase db diff --schema public
 
-# Output: Generated 20251113120000_add_preferences.sql
+# 輸出：產生 20251113120000_add_preferences.sql
 # ALTER TABLE users ADD COLUMN preferences JSONB DEFAULT '{}';
 # CREATE INDEX idx_users_preferences ON users USING GIN (preferences);
 
-# 3. Push to Supabase
+# 3. 推送到 Supabase
 npx supabase db push
 ```
 
-### Example Workflow
+### 範例工作流程
 
-**Before** (current schema):
+**之前**（目前的 schema）：
 
 ```sql
 CREATE TABLE users (
@@ -163,59 +163,59 @@ CREATE TABLE users (
 );
 ```
 
-**After** (you edit schema.sql to add preferences):
+**之後**（你編輯 schema.sql 加入 preferences）：
 
 ```sql
 CREATE TABLE users (
   id UUID PRIMARY KEY,
   email TEXT NOT NULL,
   name TEXT,
-  preferences JSONB DEFAULT '{}'  -- Added
+  preferences JSONB DEFAULT '{}'  -- 新增
 );
 ```
 
-**CLI auto-generates**:
+**CLI 自動產生**：
 
 ```sql
--- Generated migration
+-- 產生的遷移
 ALTER TABLE users ADD COLUMN preferences JSONB DEFAULT '{}';
 ```
 
-### Pros ✅
+### 優點 ✅
 
-| Advantage                  | Why it matters                            |
-| -------------------------- | ----------------------------------------- |
-| **70% Faster**             | CLI generates SQL for you                 |
-| **Auto-Diffing**           | Automatically detects schema differences  |
-| **Less SQL Writing**       | Just define the final state               |
-| **Safer Changes**          | Tool generates correct migration syntax   |
-| **Schema Drift Detection** | Can compare remote vs local automatically |
+| 優勢                | 為什麼重要             |
+| ------------------- | ---------------------- |
+| **70% 更快**        | CLI 為你產生 SQL       |
+| **自動差異比對**    | 自動偵測 schema 差異   |
+| **減少 SQL 撰寫**   | 只需定義最終狀態       |
+| **更安全的變更**    | 工具產生正確的遷移語法 |
+| **Schema 漂移偵測** | 可自動比較遠端與本地   |
 
-### Cons ❌
+### 缺點 ❌
 
-| Disadvantage           | Impact                                      |
-| ---------------------- | ------------------------------------------- |
-| **Less Control**       | Tool decides how to migrate                 |
-| **Hidden Changes**     | Generated migrations might surprise you     |
-| **Learning Curve**     | New Supabase feature, fewer resources       |
-| **Complex Operations** | May not handle complex data transformations |
-| **Supabase-Specific**  | Locked into Supabase tooling                |
+| 劣勢              | 影響                       |
+| ----------------- | -------------------------- |
+| **較少控制**      | 工具決定如何遷移           |
+| **隱藏的變更**    | 產生的遷移可能出乎意料     |
+| **學習曲線**      | Supabase 新功能，資源較少  |
+| **複雜操作**      | 可能無法處理複雜的資料轉換 |
+| **Supabase 專屬** | 鎖定在 Supabase 工具中     |
 
-### When to use
+### 何時使用
 
-- ✅ Large team wanting simplified workflow
-- ✅ Frequent schema changes
-- ✅ Less SQL expertise on team
-- ✅ Want automated drift detection
-- ✅ Simple CRUD schema (no complex transformations)
+- ✅ 大型團隊想要簡化工作流程
+- ✅ 頻繁的 schema 變更
+- ✅ 團隊的 SQL 專業知識較少
+- ✅ 想要自動化漂移偵測
+- ✅ 簡單的 CRUD schema（沒有複雜轉換）
 
 ---
 
-## 📊 Side-by-Side Comparison
+## 📊 並排比較
 
-### Adding a New Column
+### 新增欄位
 
-**Imperative (Our Approach)**:
+**Imperative（我們的方法）**：
 
 ```sql
 -- 20251113120000_add_user_preferences.sql
@@ -224,167 +224,167 @@ CREATE INDEX idx_users_preferences ON users USING GIN (preferences);
 COMMENT ON COLUMN users.preferences IS 'User preference settings';
 ```
 
-**Declarative (Alternative)**:
+**Declarative（替代方法）**：
 
 ```sql
--- schema.sql (just edit the table definition)
+-- schema.sql（只需編輯資料表定義）
 CREATE TABLE users (
   id UUID PRIMARY KEY,
   email TEXT NOT NULL,
   name TEXT,
-  preferences JSONB DEFAULT '{}'  -- Just add this line
+  preferences JSONB DEFAULT '{}'  -- 只需新增這一行
 );
 
 CREATE INDEX idx_users_preferences ON users USING GIN (preferences);
 ```
 
 ```bash
-# Then run: npx supabase db diff
-# Auto-generates the ALTER TABLE migration
+# 然後執行：npx supabase db diff
+# 自動產生 ALTER TABLE 遷移
 ```
 
-### Comparison Table
+### 比較表格
 
-| Feature             | Imperative            | Declarative              |
-| ------------------- | --------------------- | ------------------------ |
-| **Learning Curve**  | 🟡 Medium (need SQL)  | 🟢 Easy (less SQL)       |
-| **Control**         | 🟢 Full control       | 🟡 Tool-dependent        |
-| **Speed**           | 🟡 Manual SQL writing | 🟢 70% faster            |
-| **History**         | 🟢 Explicit files     | 🟡 Generated files       |
-| **Review**          | 🟢 Clear SQL diffs    | 🟡 Review generated code |
-| **Complex Ops**     | 🟢 Full SQL power     | 🔴 Limited               |
-| **SQL Learning**    | 🟢 High value         | 🔴 Abstracted away       |
-| **Drift Detection** | 🔴 Manual             | 🟢 Automatic             |
-| **Tooling**         | 🟢 Standard SQL       | 🟡 Supabase CLI only     |
+| 功能         | Imperative          | Declarative         |
+| ------------ | ------------------- | ------------------- |
+| **學習曲線** | 🟡 中等（需要 SQL） | 🟢 簡單（較少 SQL） |
+| **控制**     | 🟢 完全控制         | 🟡 依賴工具         |
+| **速度**     | 🟡 手動撰寫 SQL     | 🟢 70% 更快         |
+| **歷史**     | 🟢 明確的檔案       | 🟡 產生的檔案       |
+| **審查**     | 🟢 清楚的 SQL 差異  | 🟡 審查產生的程式碼 |
+| **複雜操作** | 🟢 完整的 SQL 能力  | 🔴 有限             |
+| **SQL 學習** | 🟢 高價值           | 🔴 被抽象化         |
+| **漂移偵測** | 🔴 手動             | 🟢 自動             |
+| **工具**     | 🟢 標準 SQL         | 🟡 僅 Supabase CLI  |
 
 ---
 
-## 🏗️ Flourish's Decision: Imperative Migrations
+## 🏗️ Flourish 的決策：Imperative Migrations
 
-### Why we chose Imperative
+### 為什麼我們選擇 Imperative
 
-1. **Learning Value** 🎓
-   - Henry wants to become a full-stack engineer
-   - Learning SQL is essential for backend development
-   - Imperative migrations are SQL practice
+1. **學習價值** 🎓
+   - Henry 想成為全端工程師
+   - 學習 SQL 對後端開發至關重要
+   - Imperative migrations 就是 SQL 練習
 
-2. **Project Scale** 📏
-   - Solo developer project
-   - Small schema (7 tables)
-   - Infrequent schema changes
-   - Declarative's 70% speed advantage doesn't matter much
+2. **專案規模** 📏
+   - 單一開發者專案
+   - 小型 schema（7 個資料表）
+   - 不頻繁的 schema 變更
+   - Declarative 的 70% 速度優勢影響不大
 
-3. **Control & Predictability** 🎯
-   - Full control over migration order
-   - No surprises from auto-generated SQL
-   - Can add complex logic if needed (data transformations, conditional migrations)
+3. **控制與可預測性** 🎯
+   - 完全控制遷移順序
+   - 沒有自動產生 SQL 的意外
+   - 可在需要時加入複雜邏輯（資料轉換、條件遷移）
 
-4. **Already Complete** ✅
-   - 4 migrations already written and working
-   - Schema is deployed and tested
-   - No benefit to switching now
+4. **已經完成** ✅
+   - 4 個遷移已撰寫且正常運作
+   - Schema 已部署並測試
+   - 現在切換沒有好處
 
-### When to reconsider
+### 何時重新考慮
 
-Consider switching to Declarative Schema if:
+如果出現以下情況，考慮切換至 Declarative Schema：
 
-- ⚠️ **Team grows** → Multiple developers benefit from simplified workflow
-- ⚠️ **Schema changes become frequent** → 70% speed savings become significant
-- ⚠️ **Maintaining schema drift becomes a pain** → Auto-diffing becomes valuable
-- ⚠️ **Henry is comfortable with SQL** → Learning value achieved, can optimize for speed
+- ⚠️ **團隊成長** → 多位開發者受益於簡化工作流程
+- ⚠️ **Schema 變更變得頻繁** → 70% 速度節省變得顯著
+- ⚠️ **維護 schema 漂移變得痛苦** → 自動差異比對變得有價值
+- ⚠️ **Henry 熟悉 SQL** → 學習價值已達成，可優化速度
 
-### Migration Path (if needed in future)
+### 遷移路徑（如果未來需要）
 
-If we decide to switch to Declarative later:
+如果之後決定切換至 Declarative：
 
 ```bash
-# 1. Generate schema.sql from current migrations
+# 1. 從目前的遷移產生 schema.sql
 npx supabase db dump --schema public > supabase/schema.sql
 
-# 2. Future changes just edit schema.sql
-# 3. Use db diff to generate migrations
+# 2. 未來變更只需編輯 schema.sql
+# 3. 使用 db diff 產生遷移
 npx supabase db diff
 ```
 
-Our existing migrations remain valid and don't need to be rewritten.
+我們現有的遷移保持有效，不需要重寫。
 
 ---
 
-## 📚 Workflow Guide
+## 📚 工作流程指南
 
-### Current Workflow (Imperative)
+### 目前工作流程（Imperative）
 
 ```bash
-# 1. Create new migration
+# 1. 建立新遷移
 npx supabase migration new feature_name
 
-# 2. Edit the generated SQL file
+# 2. 編輯產生的 SQL 檔案
 # supabase/migrations/YYYYMMDDHHMMSS_feature_name.sql
 
-# 3. Write your SQL
+# 3. 撰寫你的 SQL
 ALTER TABLE users ADD COLUMN new_field TEXT;
 
-# 4. Test locally (optional)
-npx supabase db reset  # Resets local DB and runs all migrations
+# 4. 本地測試（選擇性）
+npx supabase db reset  # 重置本地 DB 並執行所有遷移
 
-# 5. Push to remote
+# 5. 推送到遠端
 npx supabase db push
 
-# 6. Commit to Git
+# 6. 提交到 Git
 git add supabase/migrations/
 git commit -m "feat(db): add new_field to users"
 ```
 
-### Alternative Workflow (Declarative)
+### 替代工作流程（Declarative）
 
 ```bash
-# 1. Edit schema.sql
-# supabase/schema.sql - modify the desired state
+# 1. 編輯 schema.sql
+# supabase/schema.sql - 修改期望狀態
 
-# 2. Generate migration diff
+# 2. 產生遷移差異
 npx supabase db diff --schema public
 
-# 3. Review generated migration
+# 3. 審查產生的遷移
 cat supabase/migrations/YYYYMMDDHHMMSS_generated.sql
 
-# 4. Push to remote
+# 4. 推送到遠端
 npx supabase db push
 
-# 5. Commit to Git
+# 5. 提交到 Git
 git add supabase/schema.sql supabase/migrations/
 git commit -m "feat(db): add new_field to users"
 ```
 
 ---
 
-## 🔗 Related Documentation
+## 🔗 相關文檔
 
-- [ADR 002 - Imperative Migrations Decision](../decisions/002-imperative-migrations.md)
-- [Sprint 0.9.2 - Database Migrations](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
-- [Database Setup Guide](./database-setup.md)
-- [Supabase CLI Reference](https://supabase.com/docs/guides/cli)
-
----
-
-## 🤔 FAQ
-
-**Q: Can I use both approaches in the same project?**
-A: Technically yes, but not recommended. Pick one approach for consistency.
-
-**Q: Is Declarative Schema stable?**
-A: Yes, it's a production feature as of 2024-2025. But it's newer than Imperative migrations.
-
-**Q: Will my Imperative migrations become obsolete?**
-A: No. Imperative migrations are the foundation of both approaches. Declarative just auto-generates them.
-
-**Q: Can I switch from Imperative to Declarative later?**
-A: Yes! Generate schema.sql from your existing migrations and continue from there.
-
-**Q: Which approach does Supabase recommend?**
-A: Supabase supports both equally. Declarative is newer and marketed as "simpler", but Imperative remains fully supported.
+- [ADR 002 - Imperative Migrations 決策](../decisions/002-imperative-migrations.md)
+- [Sprint 0.9.2 - 資料庫遷移](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [資料庫設置指南](./database-setup.md)
+- [Supabase CLI 參考](https://supabase.com/docs/guides/cli)
 
 ---
 
-**Decision Made By**: Henry Lee
-**Decision Date**: 2025-11-13
-**Review Date**: After Sprint 1 (when schema changes become more frequent)
+## 🤔 常見問題
+
+**問：可以在同一個專案中使用兩種方法嗎？**
+答：技術上可以，但不建議。選擇一種方法以保持一致性。
+
+**問：Declarative Schema 穩定嗎？**
+答：是的，從 2024-2025 開始它是正式環境功能。但它比 Imperative migrations 更新。
+
+**問：我的 Imperative migrations 會過時嗎？**
+答：不會。Imperative migrations 是兩種方法的基礎。Declarative 只是自動產生它們。
+
+**問：可以之後從 Imperative 切換到 Declarative 嗎？**
+答：可以！從現有遷移產生 schema.sql 並從那裡繼續。
+
+**問：Supabase 推薦哪種方法？**
+答：Supabase 同等支援兩者。Declarative 較新且被宣傳為「更簡單」，但 Imperative 仍然完全支援。
+
+---
+
+**決策制定者**：Henry Lee
+**決策日期**：2025-11-13
+**審查日期**：Sprint 1 之後（當 schema 變更變得更頻繁時）

@@ -1,290 +1,290 @@
-# ADR 002: Use Imperative Migrations for Database Schema Changes
+# ADR 002: 使用 Imperative Migrations 管理資料庫 Schema 變更
 
-**Status**: Accepted
-**Date**: 2025-11-13
-**Deciders**: Henry Lee
-**Related**: [ADR 001 - Architecture Simplification](./001-architecture-simplification.md), [Sprint 0.9.2](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
-
----
-
-## Context
-
-During Sprint 0.9.2 (Database Schema & Migrations), we needed to decide between two approaches for managing Supabase database migrations:
-
-1. **Imperative Migrations** - Traditional SQL migration files
-2. **Declarative Schema** - New Supabase feature (2024-2025) using state-based schema definitions
-
-Both approaches are officially supported by Supabase and production-ready.
-
-### Background
-
-- Flourish is a personal project with a solo developer (Henry)
-- Project uses Supabase as the database and backend (per ADR 001)
-- Schema consists of 7 core tables (users, cards, categories, statements, transactions, recurring_expenses, saving_rules)
-- Migration frequency expected to be low (monthly at most)
-- Developer goal: become a full-stack engineer with strong SQL knowledge
-
-### Research Findings
-
-**Imperative Migrations**:
-
-- ✅ Full control over migration logic
-- ✅ Explicit history and clear diffs
-- ✅ Standard SQL - universal knowledge
-- ✅ Can handle complex data transformations
-- ❌ Requires manual SQL writing
-- ❌ No automatic drift detection
-
-**Declarative Schema**:
-
-- ✅ 70% faster development (auto-generates migrations)
-- ✅ Automatic schema drift detection
-- ✅ Simpler workflow for simple CRUD operations
-- ❌ Less control over migration execution
-- ❌ Newer feature with fewer learning resources
-- ❌ Supabase-specific, not portable
+**狀態**: 已接受
+**日期**: 2025-11-13
+**決策者**: Henry Lee
+**相關文件**: [ADR 001 - 架構簡化](./001-architecture-simplification.md)、[Sprint 0.9.2](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
 
 ---
 
-## Decision
+## 背景脈絡
 
-**We will use Imperative Migrations (SQL migration files) for Flourish.**
+在 Sprint 0.9.2（資料庫 Schema 與遷移）期間，我們需要在兩種管理 Supabase 資料庫遷移的方法之間做選擇：
 
-Migration workflow:
+1. **Imperative Migrations（命令式遷移）** - 傳統的 SQL 遷移檔案
+2. **Declarative Schema（宣告式 Schema）** - Supabase 新功能（2024-2025）使用狀態式 schema 定義
+
+兩種方法都是 Supabase 官方支援且已可用於正式環境。
+
+### 背景說明
+
+- Flourish 是個人專案，由單一開發者（Henry）負責
+- 專案使用 Supabase 作為資料庫與後端（依據 ADR 001）
+- Schema 包含 7 個核心資料表（users、cards、categories、statements、transactions、recurring_expenses、saving_rules）
+- 預期遷移頻率較低（最多每月一次）
+- 開發者目標：成為具備扎實 SQL 知識的全端工程師
+
+### 研究發現
+
+**Imperative Migrations（命令式遷移）**：
+
+- ✅ 完全掌控遷移邏輯
+- ✅ 明確的歷史記錄與清晰的差異
+- ✅ 標準 SQL - 通用知識
+- ✅ 可處理複雜的資料轉換
+- ❌ 需要手動編寫 SQL
+- ❌ 沒有自動偵測 schema 漂移
+
+**Declarative Schema（宣告式 Schema）**：
+
+- ✅ 開發速度快 70%（自動產生遷移）
+- ✅ 自動偵測 schema 漂移
+- ✅ 簡單 CRUD 操作的工作流程更簡單
+- ❌ 對遷移執行的控制較少
+- ❌ 較新的功能，學習資源較少
+- ❌ Supabase 專屬，不易移植
+
+---
+
+## 決策
+
+**我們將使用 Imperative Migrations（SQL 遷移檔案）管理 Flourish 的資料庫。**
+
+遷移工作流程：
 
 ```bash
-# Create migration
+# 建立遷移
 npx supabase migration new feature_name
 
-# Edit SQL file
+# 編輯 SQL 檔案
 # supabase/migrations/YYYYMMDDHHMMSS_feature_name.sql
 
-# Push to Supabase
+# 推送至 Supabase
 npx supabase db push
 ```
 
 ---
 
-## Rationale
+## 理由
 
-### 1. Learning Value (Primary Factor) 🎓
+### 1. 學習價值（主要因素）🎓
 
-**Henry's Goal**: Become a full-stack engineer
+**Henry 的目標**：成為全端工程師
 
-- Imperative migrations provide hands-on SQL practice
-- Building strong SQL skills is essential for backend development
-- Declarative Schema abstracts away SQL, reducing learning opportunities
-- **Impact**: High - aligns with personal development goals
+- Imperative migrations 提供實際的 SQL 練習機會
+- 建立扎實的 SQL 技能對後端開發至關重要
+- Declarative Schema 將 SQL 抽象化，減少學習機會
+- **影響**：高 - 符合個人發展目標
 
-### 2. Project Scale (Supporting Factor) 📏
+### 2. 專案規模（支持因素）📏
 
-**Flourish Characteristics**:
+**Flourish 特性**：
 
-- Solo developer (no team coordination complexity)
-- Small schema (7 tables, ~30 columns total)
-- Low migration frequency (estimated once per month or less)
+- 單一開發者（無團隊協調複雜度）
+- 小型 schema（7 個資料表，約 30 個欄位）
+- 低遷移頻率（預估每月一次或更少）
 
-**Analysis**:
+**分析**：
 
-- Declarative's 70% speed advantage is negligible for infrequent changes
-- Estimated time savings: ~2 hours/year
-- Not worth the trade-off of reduced control and learning
+- Declarative 的 70% 速度優勢對低頻變更影響不大
+- 預估時間節省：每年約 2 小時
+- 不值得犧牲控制權與學習價值
 
-### 3. Already Complete (Pragmatic Factor) ✅
+### 3. 已經完成（務實因素）✅
 
-**Current State**:
+**目前狀態**：
 
-- Sprint 0.9.2 completed with 4 Imperative migrations
-- All migrations tested and deployed successfully
-- Schema working correctly in production
+- Sprint 0.9.2 已完成 4 個 Imperative migrations
+- 所有遷移都已測試並成功部署
+- Schema 在正式環境中正常運作
 
-**Analysis**:
+**分析**：
 
-- Switching to Declarative would require rework
-- No technical debt from current approach
-- Migrations can serve as learning examples
+- 切換至 Declarative 需要重新實作
+- 目前方法沒有技術債務
+- 遷移檔案可作為學習範例
 
-### 4. Control & Predictability (Technical Factor) 🎯
+### 4. 控制與可預測性（技術因素）🎯
 
-**Requirements**:
+**需求**：
 
-- Need explicit control for Row Level Security (RLS) policies
-- Complex trigger functions for auth integration
-- Helper functions for business logic
-- Data type migrations (PascalCase ENUM → snake_case)
+- 需要明確控制 Row Level Security（RLS）策略
+- 複雜的觸發器函式用於認證整合
+- 業務邏輯的輔助函式
+- 資料型別遷移（PascalCase ENUM → snake_case）
 
-**Analysis**:
+**分析**：
 
-- Imperative provides full control over migration order
-- Can review exact SQL in pull requests
-- No surprises from auto-generated code
-- Handles complex operations better
-
----
-
-## Consequences
-
-### Positive ✅
-
-1. **Strong SQL foundation**: Developer gains valuable SQL expertise
-2. **Full control**: Can implement complex migrations as needed
-3. **Clear history**: Each migration file documents exactly what changed
-4. **Easy review**: SQL diffs are straightforward in PRs
-5. **Portable knowledge**: SQL skills transfer to any database/ORM
-
-### Negative ❌
-
-1. **Manual work**: Must write SQL by hand for each change
-2. **No auto-diffing**: Can't automatically detect schema drift
-3. **Slower (marginally)**: Takes longer to write migrations vs auto-generation
-
-### Neutral 🟡
-
-1. **Can switch later**: Not locked in - can migrate to Declarative Schema if needs change
-2. **Both approaches supported**: Supabase maintains both long-term
+- Imperative 提供對遷移順序的完全控制
+- 可在 pull requests 中檢視確切的 SQL
+- 沒有自動產生程式碼的意外驚喜
+- 更適合處理複雜操作
 
 ---
 
-## Alternatives Considered
+## 影響
 
-### Alternative 1: Declarative Schema
+### 正面影響 ✅
 
-**Pros**:
+1. **扎實的 SQL 基礎**：開發者獲得寶貴的 SQL 專業知識
+2. **完全控制**：可依需求實作複雜遷移
+3. **清晰的歷史**：每個遷移檔案都記錄確切的變更
+4. **易於審查**：SQL 差異在 PRs 中一目了然
+5. **可移植的知識**：SQL 技能可應用於任何資料庫/ORM
 
-- Faster development (70% time savings)
-- Automatic drift detection
-- Simpler workflow
+### 負面影響 ❌
 
-**Cons**:
+1. **手動工作**：每次變更都必須手寫 SQL
+2. **沒有自動差異比對**：無法自動偵測 schema 漂移
+3. **稍慢（邊際）**：撰寫遷移比自動產生耗時
 
-- Less learning value (abstracts SQL away)
-- Reduced control over migrations
-- Fewer learning resources available
+### 中性影響 🟡
 
-**Why rejected**: Learning value and control are higher priorities than speed for this project.
-
-### Alternative 2: ORM-based Migrations (Prisma, Drizzle)
-
-**Pros**:
-
-- TypeScript-first approach
-- Type-safe queries
-- Integrated migrations
-
-**Cons**:
-
-- Poor Supabase integration (per ADR 001 research)
-- Doesn't support Supabase features (RLS, auth.users, triggers)
-- Additional abstraction layer
-
-**Why rejected**: Already decided against ORMs in ADR 001 due to Supabase compatibility issues.
-
-### Alternative 3: Hybrid Approach
-
-**Idea**: Use Imperative for complex migrations, Declarative for simple ones
-
-**Why rejected**: Mixing approaches creates inconsistency and confusion.
+1. **可以之後切換**：未來如果需求改變，仍可遷移至 Declarative Schema
+2. **兩種方法都受支援**：Supabase 長期維護兩者
 
 ---
 
-## Implementation
+## 考慮過的替代方案
 
-### Sprint 0.9.2 Deliverables
+### 替代方案 1：Declarative Schema
 
-Completed 4 migrations using Imperative approach:
+**優點**：
+
+- 開發速度快（節省 70% 時間）
+- 自動偵測漂移
+- 工作流程更簡單
+
+**缺點**：
+
+- 學習價值較低（將 SQL 抽象化）
+- 對遷移的控制較少
+- 可用的學習資源較少
+
+**為何拒絕**：對此專案而言，學習價值與控制權的優先級高於速度。
+
+### 替代方案 2：基於 ORM 的遷移（Prisma、Drizzle）
+
+**優點**：
+
+- TypeScript 優先方法
+- 型別安全查詢
+- 整合遷移
+
+**缺點**：
+
+- Supabase 整合不佳（根據 ADR 001 研究）
+- 不支援 Supabase 功能（RLS、auth.users、觸發器）
+- 額外的抽象層
+
+**為何拒絕**：ADR 001 已決定不使用 ORM，因 Supabase 相容性問題。
+
+### 替代方案 3：混合方法
+
+**想法**：複雜遷移使用 Imperative，簡單遷移使用 Declarative
+
+**為何拒絕**：混合方法會造成不一致與困惑。
+
+---
+
+## 實作
+
+### Sprint 0.9.2 交付成果
+
+使用 Imperative 方法完成 4 個遷移：
 
 1. **`20251113050233_initial_schema.sql`**
-   - Core tables and ENUM types
-   - Foreign key relationships
-   - Timestamps and defaults
+   - 核心資料表與 ENUM 型別
+   - 外鍵關聯
+   - 時間戳與預設值
 
 2. **`20251113054218_auth_integration.sql`**
-   - Auto-create user trigger
-   - Updated_at triggers for all tables
+   - 自動建立使用者觸發器
+   - 所有資料表的 updated_at 觸發器
 
 3. **`20251113054418_rls_policies.sql`**
-   - Row Level Security enabled
-   - User data isolation policies
+   - 啟用 Row Level Security
+   - 使用者資料隔離策略
 
 4. **`20251113054900_indexes_functions.sql`**
-   - Performance indexes
-   - Helper functions for business logic
+   - 效能索引
+   - 業務邏輯的輔助函式
 
-### Guidelines for Future Migrations
+### 未來遷移指南
 
 ```sql
--- Template for new migrations
+-- 新遷移的範本
 -- supabase/migrations/YYYYMMDDHHMMSS_descriptive_name.sql
 
 -- ============================================================================
--- Migration XX: Descriptive Title
--- Purpose and context
+-- Migration XX: 描述性標題
+-- 目的與背景說明
 -- ============================================================================
 
--- Add your SQL here
--- Use comments to explain non-obvious logic
+-- 在此加入你的 SQL
+-- 使用註解說明非顯而易見的邏輯
 
--- Add table comments for documentation
-COMMENT ON TABLE table_name IS 'Description of purpose';
-COMMENT ON COLUMN table_name.column_name IS 'Description of use';
+-- 新增資料表註解作為文檔
+COMMENT ON TABLE table_name IS '目的描述';
+COMMENT ON COLUMN table_name.column_name IS '用途描述';
 ```
 
 ---
 
-## Review Triggers
+## 重新審視觸發條件
 
-Reconsider this decision if:
+如果出現以下情況，請重新考慮此決策：
 
-1. **Team Growth**: Multiple developers join → Declarative might simplify collaboration
-2. **High Frequency**: Schema changes become weekly → 70% speed savings become significant
-3. **SQL Mastery**: Henry achieves strong SQL skills → Learning value achieved
-4. **Schema Complexity**: Schema grows to 50+ tables → Auto-diffing becomes valuable
-5. **Drift Issues**: Manual drift management becomes painful → Auto-detection needed
+1. **團隊成長**：多位開發者加入 → Declarative 可能簡化協作
+2. **高頻率**：Schema 變更變成每週 → 70% 速度節省變得顯著
+3. **SQL 精通**：Henry 達成扎實的 SQL 技能 → 學習價值已達成
+4. **Schema 複雜度**：Schema 成長至 50+ 資料表 → 自動差異比對變得有價值
+5. **漂移問題**：手動管理漂移變得痛苦 → 需要自動偵測
 
-**Next Review**: After Sprint 1 (Authentication) when schema evolution patterns become clearer
-
----
-
-## Related Decisions
-
-- **ADR 001 - Architecture Simplification**: Decided to use Supabase directly (no NestJS, no Prisma)
-- This ADR complements ADR 001 by defining how we'll manage Supabase migrations
+**下次審查**：Sprint 1（認證）之後，當 schema 演化模式變得更清晰時
 
 ---
 
-## References
+## 相關決策
 
-- [Supabase Migration Approaches Guide](../guides/supabase-migration-approaches.md) - Detailed comparison
-- [Supabase CLI Documentation](https://supabase.com/docs/guides/cli)
-- [Sprint 0.9.2 Implementation](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
-- [PostgreSQL Migration Best Practices](https://www.postgresql.org/docs/current/ddl-alter.html)
+- **ADR 001 - 架構簡化**：決定直接使用 Supabase（無 NestJS、無 Prisma）
+- 本 ADR 補充 ADR 001，定義我們如何管理 Supabase 遷移
 
 ---
 
-## Notes
+## 參考資源
 
-### Why This Matters
+- [Supabase 遷移方法指南](../guides/supabase-migration-approaches.md) - 詳細比較
+- [Supabase CLI 文檔](https://supabase.com/docs/guides/cli)
+- [Sprint 0.9.2 實作](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [PostgreSQL 遷移最佳實踐](https://www.postgresql.org/docs/current/ddl-alter.html)
 
-Database migrations are a foundational decision that affects:
+---
 
-- Development velocity
-- Code review quality
-- Team onboarding
-- Technical debt accumulation
-- Developer skill growth
+## 備註
 
-Choosing Imperative Migrations prioritizes **learning and control** over **speed and convenience** - appropriate for a solo developer building full-stack skills.
+### 為什麼這很重要
 
-### Future Migration Path
+資料庫遷移是影響以下方面的基礎決策：
 
-If we switch to Declarative Schema later:
+- 開發速度
+- 程式碼審查品質
+- 團隊新人上手
+- 技術債務累積
+- 開發者技能成長
+
+選擇 Imperative Migrations 優先考慮**學習與控制**而非**速度與便利** - 適合正在建立全端技能的單一開發者。
+
+### 未來的遷移路徑
+
+如果之後切換至 Declarative Schema：
 
 ```bash
-# Generate schema.sql from current migrations
+# 從現有遷移產生 schema.sql
 npx supabase db dump --schema public > supabase/schema.sql
 
-# Future changes edit schema.sql and run
+# 未來變更編輯 schema.sql 並執行
 npx supabase db diff
 ```
 
-Existing Imperative migrations remain valid and functional.
+現有的 Imperative migrations 仍然有效且可運作。
