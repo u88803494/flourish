@@ -223,10 +223,14 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 
   📄 **詳細文檔**: [Sprint 0.9 完整規劃](./0.9-supabase-migration-plan.md)
 
-- **Sprint 0.10**: Security Enhancement (可選)
-  - 完善 RLS policies
-  - 前端表單驗證
-  - 錯誤處理標準化
+- **Sprint 0.10**: Documentation & Agent Setup (~1.5 小時)
+  - 建立完整的 AI Agent 文檔系統
+  - 創建 `AGENTS.md` (通用 AI 助手配置)
+  - 更新 `CLAUDE.md` (Claude Code 專屬配置)
+  - 創建 `ARCHITECTURE.md` (系統架構文檔)
+  - 建立 symlinks for Cursor/Windsurf 相容性
+  - 參考 `~/personal/my-website` 的文檔結構
+  - 📄 詳細計劃: [Sprint 0.10 詳細規劃](./0.10-documentation-agent-setup.md)
 
 **Phase 1: Core Features**
 
@@ -259,20 +263,30 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 
 ## 📊 Progress Tracking
 
-**Overall Progress**: 3/8 (38%) → **Phase 0 完成度: 100%**
+**Overall Progress**: 5/10 (50%) → **Phase 0 完成度: 50%**
 
 - [x] Sprint 0.1: Basic Monorepo ✅
 - [x] Sprint 0.6: NestJS Application & Polish ✅
 - [x] Sprint 0.7: Apex Application ✅
 - [x] Sprint 0.8: Deployment Evaluation & Architecture Decision ✅
+- [x] Sprint 0.9.1: Supabase CLI & Environment Setup ✅
+- [ ] Sprint 0.9.2: Database Schema & Migrations 🔄 (In Progress)
+- [ ] Sprint 0.9.3: Supabase Client Package & Integration
+- [ ] Sprint 0.9.4: NestJS API Archive & Documentation
+- [ ] Sprint 0.10: Documentation & Agent Setup 📋 (Planned)
 - [ ] Sprint 0.2: Prettier ⏭️ Skipped (低優先級)
 - [ ] Sprint 0.3: Husky + lint-staged ⏭️ Skipped (低優先級)
 - [ ] Sprint 0.4: commitlint ⏭️ Skipped (低優先級)
 - [ ] Sprint 0.5: Prisma ⏭️ Moved to Sprint 0.9 (Supabase 整合)
 
-**Phase 0 Status**: ✅ **已完成**
+**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 0.9.1, 正在進行 Sprint 0.9.2)
 
-Sprint 0.2-0.4（開發工具）和 Sprint 0.5（Prisma）優先級較低，已調整到後續 Sprint 或跳過。Phase 0 的核心目標（基礎架構 + 架構決策）已全部完成。
+**Remaining Sprints**:
+
+- Sprint 0.9.2-0.9.4: Supabase Migration (預估 7.5 小時)
+- Sprint 0.10: Documentation & Agent Setup (預估 1.5 小時)
+
+Sprint 0.2-0.4（開發工具）和 Sprint 0.5（Prisma）優先級較低，已調整到後續 Sprint 或跳過。Phase 0 的核心目標（基礎架構 + Supabase 遷移 + 文檔系統）接近完成。
 
 ---
 
