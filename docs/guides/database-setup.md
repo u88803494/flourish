@@ -1,12 +1,29 @@
 # Database Setup Guide
 
+> ⚠️ **DEPRECATED**: This guide describes the old Prisma-based setup (Phase 0, before Sprint 0.8).
+>
+> **Current Architecture (Sprint 0.8+)**: Flourish uses **Supabase directly** without Prisma or NestJS.
+>
+> **For current database setup**, see:
+>
+> - [Supabase Migration Approaches](./supabase-migration-approaches.md) - Migration methods explained
+> - [ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md) - Architecture decision
+> - [Sprint 0.9.2 Documentation](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md) - Migration implementation
+>
+> This document is kept for historical reference only.
+
+---
+
 完整的 Supabase + Prisma 數據庫設置指南，適用於本地開發和新團隊成員。
 
 **上次更新**: 2025-10-31
+**狀態**: ⚠️ Deprecated (replaced by Supabase-first approach)
 
 ---
 
 ## 📋 概述
+
+> **Historical Note**: This describes the Phase 0 architecture before ADR 001.
 
 Flourish 使用 **Supabase** (PostgreSQL) 作為數據庫，**Prisma ORM** 作為數據訪問層。
 
@@ -304,6 +321,14 @@ datasource db {
 ---
 
 ## 📚 相關文檔
+
+### Current Documentation (Sprint 0.8+)
+
+- **[Supabase Migration Approaches](./supabase-migration-approaches.md)** ⭐ - Comprehensive guide to migration methods
+- **[ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md)** - Why we chose Imperative over Declarative
+- [Sprint 0.9.2 Documentation](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md) - Implementation details
+
+### Historical Documentation (Pre-Sprint 0.8)
 
 - [Database Design](../architecture/database-design.md) - 詳細的 schema 設計說明
 - [Prisma Guide](../references/prisma-guide.md) - Prisma ORM 使用指南
