@@ -223,14 +223,13 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 
   📄 **詳細文檔**: [Sprint 0.9 完整規劃](./0.9-supabase-migration-plan.md)
 
-- **Sprint 0.10**: Documentation & Agent Setup (~1.5 小時)
-  - 建立完整的 AI Agent 文檔系統
-  - 創建 `AGENTS.md` (通用 AI 助手配置)
-  - 更新 `CLAUDE.md` (Claude Code 專屬配置)
-  - 創建 `ARCHITECTURE.md` (系統架構文檔)
-  - 建立 symlinks for Cursor/Windsurf 相容性
-  - 參考 `~/personal/my-website` 的文檔結構
-  - 📄 詳細計劃: [Sprint 0.10 詳細規劃](./0.10-documentation-agent-setup.md)
+- **Sprint 0.10**: 文檔、治理與自動化 (~3 小時)
+  - 建立完整的 AI Agent 文檔系統（`AGENTS.md`、`CLAUDE.md`、`ARCHITECTURE.md`）
+  - 建立專案詞彙表（`docs/references/glossary.md`）定義核心術語
+  - 建立 API 文檔與類型自動化工作流程指南（`docs/guides/api-documentation-workflow.md`）
+  - 建立 Pull Request 範本（`.github/PULL_REQUEST_TEMPLATE.md`）強制執行文檔更新
+  - 建立 symlinks 相容 Cursor/Windsurf
+  - 📄 詳細計劃：[Sprint 0.10 詳細規劃](./0.10-documentation-agent-setup.md)
 
 **Phase 1: Core Features**
 
