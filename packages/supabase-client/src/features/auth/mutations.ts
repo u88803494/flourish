@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
-import { queryKeys } from '@/shared/utils/query-keys';
+import { queryKeys } from '../../shared/utils/query-keys';
 import { signIn, signUp, signOut } from './server';
 import type { AuthUser, SignInCredentials, SignUpCredentials } from './types';
 

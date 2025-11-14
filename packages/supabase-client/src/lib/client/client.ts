@@ -1,5 +1,5 @@
 import { createBrowserClient as createSupabaseBrowserClient } from '@supabase/ssr';
-import type { Database } from '@/shared/types/database';
+import type { Database } from '../../shared/types/database';
 
 /**
  * Create a Supabase client for Client Components

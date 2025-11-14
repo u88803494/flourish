@@ -4,7 +4,7 @@ import type {
   TransactionUpdate,
   Category,
   Card,
-} from '@/shared/types';
+} from '../../shared/types';
 
 /**
  * Transaction with related category and card information

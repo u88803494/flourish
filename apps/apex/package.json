@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@repo/supabase-client": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.90.8",
     "next": "16.0.1",

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
-import { queryKeys } from '@/shared/utils/query-keys';
+import { queryKeys } from '../../shared/utils/query-keys';
 import { createTransaction, updateTransaction, deleteTransaction } from './server';
 import type { Transaction, TransactionInsert, TransactionUpdate } from './types';
 

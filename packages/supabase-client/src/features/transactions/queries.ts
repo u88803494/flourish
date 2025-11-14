@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import { queryKeys } from '@/shared/utils/query-keys';
+import { queryKeys } from '../../shared/utils/query-keys';
 import { getTransactions, getTransaction } from './server';
 import type { TransactionWithRelations } from './types';
 

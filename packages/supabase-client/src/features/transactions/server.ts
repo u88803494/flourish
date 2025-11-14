@@ -1,6 +1,6 @@
 'use server';
 
-import { createServerClient } from '@/lib/server';
+import { createServerClient } from '../../lib/server/client';
 import { revalidatePath } from 'next/cache';
 import type {
   Transaction,

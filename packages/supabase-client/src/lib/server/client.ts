@@ -5,7 +5,7 @@ import {
   type CookieOptions,
 } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import type { Database } from '@/shared/types/database';
+import type { Database } from '../../shared/types/database';
 
 /**
  * Create a Supabase client for Server Components and Server Actions
