@@ -10,6 +10,7 @@ import type {
  * Transaction with related category and card information
  */
 export interface TransactionWithRelations extends Transaction {
+  id: string;
   category: Category | null;
   card: Card | null;
 }
