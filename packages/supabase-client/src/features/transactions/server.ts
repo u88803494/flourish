@@ -2,12 +2,21 @@
 
 import { createServerClient } from '../../lib/server/client';
 import { revalidatePath } from 'next/cache';
+import type { QueryData } from '@supabase/supabase-js';
 import type {
   Transaction,
   TransactionInsert,
   TransactionUpdate,
   TransactionWithRelations,
 } from './types';
+
+/**
+ * Helper to bypass Supabase type inference issues
+ * See TYPESCRIPT_KNOWN_ISSUES.md for details
+ */
+function bypassSupabaseTypeCheck(query: any): any {
+  return query;
+}
 
 /**
  * Get all transactions for a user with related data
@@ -33,20 +42,22 @@ import type {
  * ```
  */
 export async function getTransactions(userId: string): Promise<TransactionWithRelations[]> {
-  const supabase = await createServerClient();
+  const supabase: any = await createServerClient();
 
-  const { data, error } = await supabase
+  const result = await supabase
     .from('transactions')
     .select('*, category:categories(*), card:cards(*)')
     .eq('user_id', userId)
     .order('date', { ascending: false });
+
+  const { data, error } = result;
 
   if (error) {
     throw new Error(`Failed to fetch transactions: ${error.message}`);
   }
 
   // Transform the data to match our type (Supabase returns different shape)
-  return (data || []).map((tx) => ({
+  return (data || []).map((tx: any) => ({
     ...tx,
     category: Array.isArray(tx.category) ? tx.category[0] || null : tx.category,
     card: Array.isArray(tx.card) ? tx.card[0] || null : tx.card,
@@ -75,14 +86,16 @@ export async function getTransaction(
   id: string,
   userId: string
 ): Promise<TransactionWithRelations> {
-  const supabase = await createServerClient();
+  const supabase: any = await createServerClient();
 
-  const { data, error } = await supabase
+  const result = await supabase
     .from('transactions')
     .select('*, category:categories(*), card:cards(*)')
     .eq('id', id)
     .eq('user_id', userId)
     .single();
+
+  const { data, error } = result;
 
   if (error) {
     throw new Error(`Failed to fetch transaction: ${error.message}`);
@@ -94,8 +107,10 @@ export async function getTransaction(
 
   return {
     ...data,
-    category: Array.isArray(data.category) ? data.category[0] || null : data.category,
-    card: Array.isArray(data.card) ? data.card[0] || null : data.card,
+    category: Array.isArray((data as any).category)
+      ? (data as any).category[0] || null
+      : (data as any).category,
+    card: Array.isArray((data as any).card) ? (data as any).card[0] || null : (data as any).card,
   } as TransactionWithRelations;
 }
 
@@ -124,7 +139,7 @@ export async function getTransaction(
  * ```
  */
 export async function createTransaction(transaction: TransactionInsert): Promise<Transaction> {
-  const supabase = await createServerClient();
+  const supabase: any = await createServerClient();
 
   const { data, error } = await supabase.from('transactions').insert(transaction).select().single();
 
@@ -166,15 +181,17 @@ export async function updateTransaction(
   userId: string,
   updates: TransactionUpdate
 ): Promise<Transaction> {
-  const supabase = await createServerClient();
+  const supabase: any = await createServerClient();
 
-  const { data, error } = await supabase
+  const result = await supabase
     .from('transactions')
     .update(updates)
     .eq('id', id)
     .eq('user_id', userId)
     .select()
     .single();
+
+  const { data, error } = result;
 
   if (error) {
     throw new Error(`Failed to update transaction: ${error.message}`);
@@ -209,9 +226,11 @@ export async function updateTransaction(
  * ```
  */
 export async function deleteTransaction(id: string, userId: string): Promise<void> {
-  const supabase = await createServerClient();
+  const supabase: any = await createServerClient();
 
-  const { error } = await supabase.from('transactions').delete().eq('id', id).eq('user_id', userId);
+  const result = await supabase.from('transactions').delete().eq('id', id).eq('user_id', userId);
+
+  const { error } = result;
 
   if (error) {
     throw new Error(`Failed to delete transaction: ${error.message}`);

@@ -31,7 +31,7 @@ export function TransactionsTestClient({
         user_id: userId,
         merchant_name: merchantName,
         amount: parseFloat(amount),
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split('T')[0]!,
         type: 'EXPENSE',
       });
       alert('Transaction created successfully!');

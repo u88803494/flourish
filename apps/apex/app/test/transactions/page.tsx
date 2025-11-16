@@ -1,12 +1,13 @@
 import { getTransactions } from '@repo/supabase-client/transactions/server';
+import type { TransactionWithRelations } from '@repo/supabase-client/transactions';
 import { TransactionsTestClient } from './TransactionsTestClient';
 
 // Mock user ID for testing (in production, get from auth session)
 const TEST_USER_ID = '00000000-0000-0000-0000-000000000000';
 
 export default async function TransactionsTestPage() {
-  let initialTransactions;
-  let error = null;
+  let initialTransactions: TransactionWithRelations[];
+  let error: string | null = null;
 
   try {
     initialTransactions = await getTransactions(TEST_USER_ID);
