@@ -246,7 +246,7 @@ Claude Code 的配置文件位於：
 **可能原因**：
 
 - ❌ 資料庫表中沒有數據（正常，目前還在開發階段）
-- ❌ Row Level Security (RLS) 策略阻擋了查詢（Sprint 0.9.2 會設置）
+- ❌ Row Level Security (RLS) 策略阻擋了查詢（Sprint 9, Task 2 會設置）
 
 **解決方案**：
 
@@ -332,7 +332,7 @@ vim ~/.claude.json
 
 ### Flourish 專案文檔
 
-- 📄 [Sprint 0.9 詳細規劃](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- 📄 [Sprint 0.9 詳細規劃](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 - 📄 [ADR 001 - 架構簡化](../decisions/001-architecture-simplification.md)
 - 📄 [部署文檔](../deployment/README.md)
 

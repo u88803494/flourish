@@ -19,7 +19,7 @@
 
 **Flourish** 是整合的個人成長平台，用於財務追蹤和效能統計。基於理念：「When money flows and statistics rise, everything will **flourish**.」（當金錢流動、統計上升，一切都會繁榮）
 
-### 當前架構（Sprint 0.8 決策）
+### 當前架構（Sprint 8 決策）
 
 專案已採用 **Supabase-first 架構**（ADR 001）：
 
@@ -36,7 +36,7 @@
 - 開發速度：快約 60%
 - 完美符合當前需求（CRUD + 統計）
 
-**狀態**：Sprint 0.9 已完成（Supabase 遷移完成）
+**狀態**：Sprint 9 已完成（Supabase 遷移完成）
 
 ---
 
@@ -74,7 +74,7 @@ pnpm check-types
 
 ### 資料庫（Prisma - 僅供參考）
 
-**重要**：在 Sprint 0.9 中，遷移將改用 Supabase SQL 格式。Prisma schema 保留作為設計參考用途。
+**重要**：在 Sprint 9 中，遷移將改用 Supabase SQL 格式。Prisma schema 保留作為設計參考用途。
 
 ```bash
 cd packages/database
@@ -92,7 +92,7 @@ pnpm migrate
 pnpm db:push
 ```
 
-### Supabase CLI（Sprint 0.9+）
+### Supabase CLI（Sprint 9+）
 
 ```bash
 # 登入 Supabase
@@ -152,7 +152,7 @@ npx supabase db reset                 # 重置本地資料庫
 - Supabase JavaScript client 包裝器
 - TypeScript 類型（從 schema 自動生成）
 - 常用操作的 React hooks
-- 狀態：✅ 完成（Sprint 0.9.3）
+- 狀態：✅ 完成（Sprint 9, Task 3）
 
 **ui**
 
@@ -184,13 +184,13 @@ npx supabase db reset                 # 重置本地資料庫
 - 減少 70% 維護負擔
 - 開發速度提升 60%
 
-**實施**：Sprint 0.9（4 個子 Sprint）
+**實施**：Sprint 9（4 個任務）
 
 **重要檔案**：
 
 - 決策記錄：`docs/decisions/001-architecture-simplification.md`
-- 評估：`docs/sprints/sprint-0-foundation/0.8-deployment-evaluation.md`
-- 計劃：`docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md`
+- 評估：`docs/sprints/sprint-0-foundation/08-deployment-evaluation.md`
+- 計劃：`docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md`
 
 ---
 
@@ -199,7 +199,7 @@ npx supabase db reset                 # 重置本地資料庫
 ### 分支
 
 - `main` - 正式環境（部署至 Vercel）
-- `staging` - 測試環境（Sprint 0.9 後將棄用）
+- `staging` - 測試環境（Sprint 9 後將棄用）
 - `feat/*` - 功能分支
 - `fix/*` - 錯誤修復分支
 
@@ -256,7 +256,7 @@ git push origin feat/new-feature
 
 ### 後端（當前：NestJS，遷移至 Supabase）
 
-- **框架**：NestJS 11（Sprint 0.9 封存中）
+- **框架**：NestJS 11（Sprint 9 封存中）
 - **ORM**：Prisma（保留 schema 作為參考）
 - **測試**：Jest（單元測試）、Supertest（E2E）
 
@@ -271,7 +271,7 @@ git push origin feat/new-feature
 
 - **前端**：Vercel（從 main 自動部署）
 - **資料庫**：Supabase（託管式 PostgreSQL）
-- **後端**：正在移除（Sprint 0.9）
+- **後端**：正在移除（Sprint 9）
 
 ---
 
@@ -285,13 +285,13 @@ git push origin feat/new-feature
 ### Sprint 規劃
 
 - `docs/sprints/sprint-0-foundation/overview.md` - Phase 0 進度追蹤
-- `docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md` - Sprint 0.9 詳細計劃
+- `docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md` - Sprint 9 詳細計劃
 
 ### 開發指南
 
 - `docs/guides/development.md` - 本地開發設定
 - `docs/guides/mcp-setup.md` - MCP 配置指南（可用時）
-- `docs/guides/database-migrations.md` - 遷移工作流程（Sprint 0.9）
+- `docs/guides/database-migrations.md` - 遷移工作流程（Sprint 9）
 
 ### Git 工作流程
 
@@ -301,19 +301,20 @@ git push origin feat/new-feature
 
 ## 🎯 當前階段：Phase 0 Foundation
 
-**狀態**：🔄 進行中（93% 完成 - 13/14 Sprint 已完成）
+**狀態**：✅ 完成（100% - 11 個 Sprint 已完成）
 
 已完成的 Sprint：
 
-- Sprint 0.1：Monorepo 結構 ✅
-- Sprint 0.2-0.5：開發工具 ✅
-- Sprint 0.6：NestJS ✅
-- Sprint 0.7：Apex app ✅
-- Sprint 0.8：架構決策 ✅
-- Sprint 0.9：Supabase 遷移 ✅（所有 4 個子 Sprint 完成）
-- Sprint 0.10：文檔與 Agent 設定 🔄（進行中）
+- Sprint 1：Monorepo 結構 ✅
+- Sprint 2-5：開發工具 ✅
+- Sprint 6：NestJS ✅
+- Sprint 7：Apex app ✅
+- Sprint 8：架構決策 ✅
+- Sprint 9：Supabase 遷移 ✅（4 個任務）
+- Sprint 10：文檔與 Agent 設定 ✅
+- Sprint 11：Sprint 編號重構 ✅
 
-**下一個 Sprint**：Sprint 0.11 - Sprint 編號重構
+**下一個階段**：Phase 1 - 認證與核心功能
 
 ---
 
@@ -322,13 +323,13 @@ git push origin feat/new-feature
 ### 本地開發（.env.local）
 
 ```bash
-# Supabase 配置（Sprint 0.9+）
+# Supabase 配置（Sprint 9+）
 SUPABASE_PROJECT_REF=fstcioczrehqtcbdzuij
 SUPABASE_ACCESS_TOKEN=<your-access-token>  # 用於 Supabase CLI
 NEXT_PUBLIC_SUPABASE_URL=https://fstcioczrehqtcbdzuij.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 
-# MCP 配置（選用，Sprint 0.9+）
+# MCP 配置（選用，Sprint 9+）
 # MCP config 使用上面定義的環境變數
 ```
 
@@ -351,7 +352,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 2. **Prisma Schema**（參考）
    - `packages/database/prisma/schema.prisma`
    - 包含 7 個主要資料表（users, cards, categories, statements 等）
-   - 正在 Sprint 0.9 中遷移至 Supabase SQL 格式
+   - 已在 Sprint 9 中遷移至 Supabase SQL 格式
 
 3. **前端配置**
    - `apps/flow/next.config.js` - Flow 的 Next.js 配置
@@ -384,7 +385,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 
 ### 目前正在移除
 
-- **NestJS API**（`apps/api/`）- 正在 Sprint 0.9 封存
+- **NestJS API**（`apps/api/`）- 已在 Sprint 9 封存
   - 所有後端邏輯將直接使用 Supabase
   - 已儲存封存程式碼供參考：`docs/archive/nestjs-api/`
 
@@ -415,7 +416,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 
 - Jest 用於單元測試
 - 執行：`pnpm test`（如已配置）
-- E2E 測試使用 Supertest（僅 API，Sprint 0.9 封存期間）
+- E2E 測試使用 Supertest（僅 API，Sprint 9 封存期間）
 
 ### 除錯
 
@@ -437,10 +438,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 
 - 「如何新增 API 端點？」→ 參閱 Supabase REST API 文檔
 - 「如何部署？」→ 參閱 `docs/deployment/` 資料夾
-- 「如何建立遷移？」→ 參閱 `docs/guides/database-migrations.md`（Sprint 0.9+）
+- 「如何建立遷移？」→ 參閱 `docs/guides/database-migrations.md`（Sprint 9+）
 
 ---
 
 **最後更新**：2025-11-21
-**當前階段**：Phase 0 Foundation（93% 完成 - Sprint 0.10 進行中）
-**下一步**：Sprint 0.11 - Sprint 編號重構
+**當前階段**：Phase 0 Foundation（100% 完成）
+**下一步**：Phase 1 - 認證與核心功能

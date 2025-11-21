@@ -101,7 +101,7 @@ apps/api/
 
 ### Migration Details
 
-See: [Sprint 0.9 - Supabase Migration Plan](../../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+See: [Sprint 0.9 - Supabase Migration Plan](../../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 
 ---
 
@@ -146,12 +146,12 @@ If you restore this API, refer to:
 ### Architecture Decisions
 
 - [ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
-- [Sprint 0.8 Deployment Evaluation](../../sprints/sprint-0-foundation/0.8-deployment-evaluation.md)
+- [Sprint 0.8 Deployment Evaluation](../../sprints/sprint-0-foundation/08-deployment-evaluation.md)
 
 ### Migration Documentation
 
 - [Sprint 0.9 Overview](../../sprints/sprint-0-foundation/overview.md)
-- [Supabase Migration Plan](../../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [Supabase Migration Plan](../../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 
 ### Deployment Archive
 
@@ -182,6 +182,6 @@ For Flourish's current scope (CRUD + statistics), Supabase's built-in features a
 
 ---
 
-**Archived By**: Claude Code (Sprint 0.9.4)
+**Archived By**: Claude Code (Sprint 9, Task 4)
 **Archive Date**: 2025-11-21
 **Status**: Complete

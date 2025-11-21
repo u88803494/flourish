@@ -8,7 +8,7 @@
 >
 > - [Supabase 遷移方法](./supabase-migration-approaches.md) - 遷移方法說明
 > - [ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md) - 架構決策
-> - [Sprint 0.9.2 文檔](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md) - 遷移實作
+> - [Sprint 9, Task 2 文檔](../sprints/sprint-0-foundation/09-supabase-migration-plan.md) - 遷移實作
 >
 > 本文件僅保留作為歷史參考。
 
@@ -326,7 +326,7 @@ datasource db {
 
 - **[Supabase Migration Approaches](./supabase-migration-approaches.md)** ⭐ - Comprehensive guide to migration methods
 - **[ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md)** - Why we chose Imperative over Declarative
-- [Sprint 0.9.2 Documentation](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md) - Implementation details
+- [Sprint 9, Task 2 Documentation](../sprints/sprint-0-foundation/09-supabase-migration-plan.md) - Implementation details
 
 ### Historical Documentation (Pre-Sprint 0.8)
 

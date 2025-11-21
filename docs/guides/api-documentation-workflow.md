@@ -66,13 +66,13 @@
 
 ### 如何執行？
 
-**注意**: `@repo/supabase-client` 套件將在 **Sprint 0.9.3** 建立。在此之前，請使用以下指令：
+**注意**: `@repo/supabase-client` 套件將在 **Sprint 9, Task 3** 建立。在此之前，請使用以下指令：
 
 ```bash
-# Sprint 0.9.3 之後
+# Sprint 9, Task 3 之後
 pnpm --filter=@repo/supabase-client generate-types
 
-# Sprint 0.9.3 之前（暫時）
+# Sprint 9, Task 3 之前（暫時）
 npx supabase gen types typescript --project-id fstcioczrehqtcbdzuij > temp-types.ts
 ```
 

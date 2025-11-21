@@ -152,7 +152,7 @@ Set up a professional-grade development environment with:
 
 從 NestJS + Render 遷移到純 Supabase 架構，節省 100% 部署成本（$0 vs $7+/月）、70% 維護工作量、60% 開發時間。
 
-📄 **詳細文檔**：[Sprint 0.8 Evaluation](./0.8-deployment-evaluation.md)
+📄 **詳細文檔**：[Sprint 0.8 Evaluation](./08-deployment-evaluation.md)
 📄 **決策記錄**：[ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
 
 ---
@@ -170,14 +170,14 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
   **核心目標**：建立完整的 Supabase 架構，替代 NestJS + Render
 
   **Sub-Sprints**:
-  - **Sprint 0.9.1** (2 小時) - Supabase CLI & Environment Setup
+  - **Sprint 9, Task 1** (2 小時) - Supabase CLI & Environment Setup
     - Supabase CLI 安裝與項目連接
     - MCP (Model Context Protocol) 配置
     - 環境變數安全管理
     - Supabase 訪問令牌配置
     - 📄 參考: [MCP 設置指南](../../guides/mcp-setup.md)
 
-  - **Sprint 0.9.2** (2.5 小時) - Database Schema & Migrations
+  - **Sprint 9, Task 2** (2.5 小時) - Database Schema & Migrations
     - 設計與創建 4 個 SQL 遷移文件
       - Migration 1: 核心表結構 (users, transactions, categories 等)
       - Migration 2: 認證整合與觸發器
@@ -185,9 +185,9 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
       - Migration 4: 索引和輔助函數
     - 測試遷移執行
     - 驗證數據完整性
-    - 📄 詳細計劃: [Sprint 0.9 詳細規劃](./0.9-supabase-migration-plan.md)
+    - 📄 詳細計劃: [Sprint 0.9 詳細規劃](./09-supabase-migration-plan.md)
 
-  - **Sprint 0.9.3** (3.5 小時) - Supabase Client Package & Integration
+  - **Sprint 9, Task 3** (3.5 小時) - Supabase Client Package & Integration
     - 創建 `@repo/supabase-client` 套件
     - TypeScript 類型生成
     - React 自定義 Hooks (useAuth, useTransactions 等)
@@ -195,7 +195,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
     - Apex 應用集成
     - 環境變數配置驗證
 
-  - **Sprint 0.9.4** (1.5 小時) - NestJS API Archive & Documentation
+  - **Sprint 9, Task 4** (1.5 小時) - NestJS API Archive & Documentation
     - 存檔 `apps/api/` (NestJS) 目錄
     - 更新項目文檔
     - 更新部署文檔
@@ -221,7 +221,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
   - ⚠️ **遷移順序依賴**：嚴格按照 0.9.1 → 0.9.4 的順序
   - ⚠️ **令牌管理**：環境變數使用，.env.local gitignored
 
-  📄 **詳細文檔**: [Sprint 0.9 完整規劃](./0.9-supabase-migration-plan.md)
+  📄 **詳細文檔**: [Sprint 0.9 完整規劃](./09-supabase-migration-plan.md)
 
 - **Sprint 0.10**: 文檔、治理與自動化 (~3 小時)
   - 建立完整的 AI Agent 文檔系統（`AGENTS.md`、`CLAUDE.md`、`ARCHITECTURE.md`）
@@ -229,7 +229,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
   - 建立 API 文檔與類型自動化工作流程指南（`docs/guides/api-documentation-workflow.md`）
   - 建立 Pull Request 範本（`.github/PULL_REQUEST_TEMPLATE.md`）強制執行文檔更新
   - 建立 symlinks 相容 Cursor/Windsurf
-  - 📄 詳細計劃：[Sprint 0.10 詳細規劃](./0.10-documentation-agent-setup.md)
+  - 📄 詳細計劃：[Sprint 0.10 詳細規劃](./10-documentation-agent-setup.md)
 
 **Phase 1: Core Features**
 
@@ -272,14 +272,14 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 - [x] Sprint 0.6: NestJS Application & Polish ✅
 - [x] Sprint 0.7: Apex Application ✅
 - [x] Sprint 0.8: Deployment Evaluation & Architecture Decision ✅
-- [x] Sprint 0.9.1: Supabase CLI & Environment Setup ✅
-- [x] Sprint 0.9.2: Database Schema & Migrations ✅
-- [x] Sprint 0.9.3: Supabase Client Package & Integration ✅
-- [x] Sprint 0.9.4: NestJS API Archive & Documentation ✅
+- [x] Sprint 9, Task 1: Supabase CLI & Environment Setup ✅
+- [x] Sprint 9, Task 2: Database Schema & Migrations ✅
+- [x] Sprint 9, Task 3: Supabase Client Package & Integration ✅
+- [x] Sprint 9, Task 4: NestJS API Archive & Documentation ✅
 - [ ] Sprint 0.10: Documentation & Agent Setup 📋 (Planned)
 - [ ] Sprint 0.11: Sprint Numbering Refactoring 📋 (Planned)
 
-**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 0.9.4, 準備進行 Sprint 0.10)
+**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 9, Task 4, 準備進行 Sprint 0.10)
 
 **Remaining Sprints**:
 
@@ -340,7 +340,7 @@ Sprint 0 is complete when:
 - [Sprint 0 Requirements](./requirements.md)
 - [Sprint 0 Implementation](./implementation.md)
 - [Sprint 0 Tasks](./tasks.md)
-- [Sprint 0.8 Evaluation](./0.8-deployment-evaluation.md) ⭐ 新增
+- [Sprint 0.8 Evaluation](./08-deployment-evaluation.md) ⭐ 新增
 
 ### 決策文檔
 
