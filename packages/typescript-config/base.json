@@ -14,6 +14,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "paths": {
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/eslint-config/*": ["../../packages/eslint-config/*"],
+      "@repo/supabase-client/*": ["../../packages/supabase-client/src/*"],
+      "@repo/typescript-config/*": ["../../packages/typescript-config/*"]
+    }
   }
 }
