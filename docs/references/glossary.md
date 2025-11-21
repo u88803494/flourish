@@ -1,61 +1,285 @@
-# 專案詞彙表 (Glossary)
+# 術語表
 
-**最後更新**: 2025-11-13
+**目的**: 專案術語參考，確保溝通一致性
 
-本文件定義了 Flourish 專案中使用的核心術語，以確保團隊成員（包括 AI 助手）對概念有一致的理解。
+**最後更新**: 2025-11-21
+**狀態**: 使用中
 
 ---
 
-## A
+## 📖 如何使用本術語表
+
+**給開發者**:
+
+- 在程式碼、文檔和溝通中一致使用這些術語
+- 隨著專案演進添加新術語
+- 架構變更時更新定義
+
+**給 AI Agents**:
+
+- 遇到不熟悉的術語時參考本術語表
+- 在生成的程式碼和文檔中使用規範術語
+- 在所有輸出中保持一致性
+
+---
+
+## 🌱 專案與品牌
+
+### Flourish
+
+**定義**: 整合的個人成長平台，結合財務追蹤與效能統計。
+
+**理念**: "When money flows and statistics rise, everything will flourish."（當金錢流動、統計上升，一切都會繁榮）
+
+**元件**:
+
+- Flow（財務追蹤）
+- Apex（效能統計）
+
+**狀態**: 積極開發中，Phase 0 已完成
+
+---
+
+## 🏗️ 架構術語
+
+### Supabase-first Architecture
+
+**定義**: 使用 Supabase 作為主要後端的架構模式，消除自訂 API 伺服器。
+
+**取代**: NestJS + Render 架構（Sprint 0.8 棄用）
+
+**優點**: $0 成本，減少 70% 維護，開發速度快 60%
+
+### Monorepo
+
+**定義**: 使用 Turborepo + pnpm workspaces 包含多個 apps 和 packages 的單一儲存庫。
+
+### RLS (Row Level Security)
+
+**定義**: PostgreSQL 功能，在資料庫層級強制執行資料存取控制。
 
 ### ADR (Architecture Decision Record)
 
-- **定義**: 一種用來記錄重要架構決策的文檔。它解釋了「為什麼」我們做出某個技術選擇，以及權衡了哪些替代方案。
-- **位置**: `docs/decisions/`
+**定義**: 記錄重大架構決策的文件。
 
-### Apex
+**位置**: docs/decisions/
 
-- **定義**: Flourish 專案中的「統計追蹤應用」。它是一個基於山達基狀況公式，用於繪製統計曲線、追蹤績效的工具。
-- **理念**: 追蹤統計的頂點 (Apex)，幫助使用者達到權勢狀況 (Power Condition)。
+---
 
-## C
-
-### Condition Formula (狀況公式)
-
-- **定義**: 源自山達基管理技術的一套方法論，用於根據統計數據的趨勢來判斷當前的「狀況」（如：緊急、正常、富裕），並提供相應的行動步驟來改善狀況。
-- **應用**: Apex 應用的核心分析引擎。
-
-## F
+## 📱 應用程式
 
 ### Flow
 
-- **定義**: Flourish 專案中的「財務追蹤應用」。它是一個專為信用卡重度使用者設計的記帳工具，核心流程是處理每月 PDF 對帳單。
-- **理念**: 金錢即流動 (Flow)，透過管理財務流動來創造富足。
+**全名**: Flow - 財務追蹤應用程式
 
-## O
+**Port**: 3100（開發）
 
-### OpenAPI Specification
+**URL**: https://flourish-flow.vercel.app
 
-- **定義**: 一套用於定義 RESTful API 結構的行業標準。它通常是一個 JSON 或 YAML 檔案，可以用來自動生成互動式 API 文檔、客戶端程式碼等。
-- **應用**: 我們使用它來記錄 Supabase 自動生成的 API，作為 AI 和開發者的「API 說明書」。
-- **位置**: `docs/references/api/supabase-openapi-spec.yaml`
+### Apex
 
-## P
+**全名**: Apex - 效能統計應用程式
 
-### Pre-Deduction System (預扣系統)
+**Port**: 3200（開發）
 
-- **定義**: Flourish 的核心預算計算模型。它透過在總收入中預先扣除「固定月費」、「分攤年費」和「自動儲蓄」，來計算出使用者「真正可用的預算」。
-- **公式**: `實際可用金額 = 總收入 - 自動儲蓄 - 固定月費 - 分攤年費`
+**URL**: https://flourish-apex.vercel.app
 
-## S
+---
 
-### Statement-Centric Model (以帳單為中心的模型)
+## 📦 套件
 
-- **定義**: Flourish 專案的資料庫核心架構。所有交易 (Transaction) 都必須源自於一份對帳單 (Statement)，而不是獨立存在。
-- **流程**: `User` → `Card` → `Statement` → `Transaction`
-- **實作**: 參考資料庫 schema（`supabase/migrations/`）
+### @repo/supabase-client
 
-### Supabase-first
+**目的**: 集中式 Supabase 客戶端配置與 React hooks
 
-- **定義**: 本專案採用的後端架構，即前端應用直接與 Supabase 的服務（資料庫、認證、API）互動，移除了獨立的 NestJS 後端層。
-- **決策**: `docs/decisions/001-architecture-simplification.md`
+### @repo/database
+
+**目的**: 使用 Prisma 的資料庫 schema 參考（僅參考用）
+
+### @repo/ui
+
+**目的**: 使用 Tailwind CSS 的共享 React 元件
+
+---
+
+## 🗄️ 資料庫術語
+
+### Migration
+
+**定義**: 定義資料庫 schema 變更的 SQL 檔案
+
+**位置**: supabase/migrations/
+
+### Schema
+
+**定義**: 資料庫結構定義（表、欄位、關係）
+
+### Transaction
+
+**定義**: 單筆財務交易記錄（收入或支出）
+
+---
+
+## 🔐 安全術語
+
+### JWT (JSON Web Token)
+
+**定義**: Supabase Auth 使用的 token-based 認證標準
+
+### Anon Key
+
+**目的**: 前端使用安全的公開 API 金鑰
+
+### Service Role Key
+
+**目的**: 繞過 RLS 策略的管理 API 金鑰（⚠️ 絕不暴露給前端！）
+
+---
+
+## 🚀 部署術語
+
+### Vercel
+
+**定義**: 具全球 CDN 的前端託管平台
+
+### Supabase Cloud
+
+**定義**: 具 BaaS 功能的託管 PostgreSQL 託管
+
+**Project Ref**: fstcioczrehqtcbdzuij
+
+---
+
+## 🏃 開發術語
+
+### Sprint
+
+**定義**: 具特定目標的時間框限開發迭代
+
+**編號**: 將從 0.1-0.11 重新編號為 01-11（Sprint 11）
+
+### Phase
+
+**定義**: 由多個 Sprint 組成的主要開發里程碑
+
+### MCP (Model Context Protocol)
+
+**定義**: AI agents 存取外部工具和服務的標準
+
+### Conventional Commits
+
+**格式**: `<type>(<scope>): <subject>`
+
+---
+
+## 🎨 UI/UX 術語
+
+### Design Tokens
+
+**定義**: 集中式設計值（顏色、間距、排版）
+
+### Component
+
+**定義**: 可重用的 React UI 構建塊
+
+### Server Component
+
+**定義**: 在伺服器上執行的 React 元件（Next.js 15 功能）
+
+### Client Component
+
+**定義**: 在瀏覽器中執行的 React 元件
+
+---
+
+## 📊 資料術語
+
+### KPI (Key Performance Indicator)
+
+**定義**: 追蹤財務績效的可衡量值
+
+### Category
+
+**定義**: 交易的分類（收入或支出）
+
+### Recurring Expense
+
+**定義**: 按計劃重複的自動化費用
+
+### Saving Rule
+
+**定義**: 基於條件的自動化儲蓄規則
+
+---
+
+## 🛠️ 工具術語
+
+### Turborepo
+
+**定義**: JavaScript/TypeScript 的 Monorepo 建置系統
+
+### pnpm
+
+**定義**: 快速、節省磁碟空間的套件管理器
+
+### Prettier
+
+**定義**: 一致風格的程式碼格式化工具
+
+### Husky
+
+**定義**: Git hooks 管理器
+
+### Type Check
+
+**定義**: TypeScript 類型驗證過程
+
+**指令**: `pnpm check-types`
+
+### Lint
+
+**定義**: 程式碼風格與潛在錯誤檢查工具
+
+**指令**: `pnpm lint` 或 `pnpm lint --fix`
+
+---
+
+## 📝 文檔術語
+
+### Diataxis Framework
+
+**定義**: 具 4 個類別的文檔結構框架（Tutorials、How-to、Reference、Explanation）
+
+**參考**: https://diataxis.fr/
+
+### CLAUDE.md
+
+**目的**: 主要 AI agent 指令檔案
+
+### AGENTS.md
+
+**目的**: AI agent 協作與工作流程指南
+
+### ARCHITECTURE.md
+
+**目的**: 系統架構文檔
+
+---
+
+## 🔗 縮寫與簡稱
+
+| 縮寫 | 完整術語                          |
+| ---- | --------------------------------- |
+| ADR  | Architecture Decision Record      |
+| API  | Application Programming Interface |
+| CRUD | Create, Read, Update, Delete      |
+| JWT  | JSON Web Token                    |
+| KPI  | Key Performance Indicator         |
+| MCP  | Model Context Protocol            |
+| RLS  | Row Level Security                |
+| UUID | Universally Unique Identifier     |
+
+---
+
+**維護者**: Flourish Team
+**上次審查**: Sprint 10 (2025-11-21)
