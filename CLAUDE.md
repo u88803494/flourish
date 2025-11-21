@@ -1,19 +1,19 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本檔案提供 Claude Code (claude.ai/code) 在此儲存庫中工作時的指引。
 
-**Documentation Framework**: This file follows the [Diataxis framework](https://diataxis.fr/) structure:
+**文檔框架**: 本檔案遵循 [Diataxis framework](https://diataxis.fr/) 結構：
 
-- **Tutorials** (Learning-oriented): Step-by-step guides for newcomers
-- **How-to Guides** (Goal-oriented): Solutions for specific tasks
-- **Reference** (Information-oriented): Technical specifications
-- **Explanation** (Understanding-oriented): Conceptual clarification
+- **Tutorials**（學習導向）：新手的逐步指南
+- **How-to Guides**（目標導向）：特定任務的解決方案
+- **Reference**（資訊導向）：技術規格
+- **Explanation**（理解導向）：概念澄清
 
-**Companion Documents**:
+**相關文檔**:
 
-- `AGENTS.md` - AI agent collaboration workflows and best practices
-- `ARCHITECTURE.md` - System architecture and design patterns
-- `docs/references/glossary.md` - Project terminology reference
+- `AGENTS.md` - AI agent 協作工作流程與最佳實踐
+- `ARCHITECTURE.md` - 系統架構與設計模式
+- `docs/references/glossary.md` - 專案術語參考
 
 ## 🌱 Project Overview
 

@@ -1,152 +1,152 @@
 # AGENTS.md
 
-**Purpose**: AI Agent collaboration guide for efficient and consistent development with Claude Code
+**目的**: AI Agent 協作指南，用於與 Claude Code 進行高效且一致的開發
 
-**Last Updated**: 2025-11-21
-**Status**: Active
-
----
-
-## 🤖 Agent Roles & Responsibilities
-
-### Primary Agent: Claude Code
-
-**Role**: Full-stack development assistant with Supabase-first architecture expertise
-
-**Key Responsibilities**:
-
-- Code generation and refactoring
-- Documentation creation and maintenance
-- Sprint planning and execution
-- Git workflow management
-- Database migrations (Supabase SQL)
-- Architecture decision support
-
-**Context Sources**:
-
-1. `CLAUDE.md` - Project development guide (primary reference)
-2. `ARCHITECTURE.md` - System architecture and design patterns
-3. `docs/references/glossary.md` - Project terminology
-4. Sprint documentation in `docs/sprints/`
-5. ADR files in `docs/decisions/`
+**最後更新**: 2025-11-21
+**狀態**: 使用中
 
 ---
 
-## 🛠️ MCP Server Integration
+## 🤖 Agent 角色與職責
 
-### Available MCP Servers
+### 主要 Agent: Claude Code
 
-**Supabase MCP** (Primary)
+**角色**: 全端開發助手，專精於 Supabase-first 架構
 
-- Database operations and migrations
-- Schema inspection and validation
-- RLS policy management
-- Function and trigger creation
+**核心職責**:
+
+- 程式碼生成與重構
+- 文檔創建與維護
+- Sprint 規劃與執行
+- Git 工作流程管理
+- 資料庫遷移 (Supabase SQL)
+- 架構決策支援
+
+**上下文來源**:
+
+1. `CLAUDE.md` - 專案開發指南（主要參考）
+2. `ARCHITECTURE.md` - 系統架構與設計模式
+3. `docs/references/glossary.md` - 專案術語表
+4. Sprint 文檔於 `docs/sprints/`
+5. ADR 檔案於 `docs/decisions/`
+
+---
+
+## 🛠️ MCP Server 整合
+
+### 可用的 MCP Servers
+
+**Supabase MCP**（主要）
+
+- 資料庫操作與遷移
+- Schema 檢查與驗證
+- RLS 策略管理
+- Function 和 Trigger 創建
 
 **Context7 MCP**
 
-- Library documentation lookup (React, Next.js, TypeScript)
-- Framework best practices
-- Official API reference
+- 函式庫文檔查詢（React, Next.js, TypeScript）
+- 框架最佳實踐
+- 官方 API 參考
 
 **Sequential Thinking MCP**
 
-- Complex problem decomposition
-- Multi-step reasoning and planning
-- Architecture analysis
+- 複雜問題分解
+- 多步驟推理與規劃
+- 架構分析
 
-**Tavily MCP** (Research)
+**Tavily MCP**（研究）
 
-- Web search for current information
-- Documentation discovery
-- Technical research
+- 網頁搜尋最新資訊
+- 文檔探索
+- 技術研究
 
-### Tool Usage Guidelines
+### 工具使用指南
 
-**When to use Supabase MCP**:
+**何時使用 Supabase MCP**:
 
-- Creating or modifying database migrations
-- Checking schema consistency
-- Testing RLS policies
-- Inspecting database logs
+- 創建或修改資料庫遷移
+- 檢查 schema 一致性
+- 測試 RLS 策略
+- 檢查資料庫日誌
 
-**When to use Context7**:
+**何時使用 Context7**:
 
-- Implementing new framework features
-- Checking official API documentation
-- Finding best practices for libraries
+- 實作新的框架功能
+- 查詢官方 API 文檔
+- 尋找函式庫最佳實踐
 
-**When to use Sequential**:
+**何時使用 Sequential**:
 
-- Sprint planning and breakdown
-- Complex architecture decisions
-- Multi-file refactoring strategies
+- Sprint 規劃與分解
+- 複雜架構決策
+- 多檔案重構策略
 
-**When to use Tavily**:
+**何時使用 Tavily**:
 
-- Finding latest package versions
-- Researching new technologies
-- Discovering community solutions
+- 查找最新套件版本
+- 研究新技術
+- 探索社群解決方案
 
 ---
 
-## 📋 Development Workflow
+## 📋 開發工作流程
 
-### 1. Sprint Planning Phase
+### 1. Sprint 規劃階段
 
-**Agent Actions**:
+**Agent 行動**:
 
-1. Read Sprint requirements from `docs/sprints/sprint-X-*/overview.md`
-2. Review related ADRs for architectural constraints
-3. Use Sequential MCP to decompose tasks
-4. Create detailed implementation plan
-5. Get user approval before proceeding
+1. 從 `docs/sprints/sprint-X-*/overview.md` 讀取 Sprint 需求
+2. 審查相關 ADR 以了解架構限制
+3. 使用 Sequential MCP 分解任務
+4. 創建詳細實作計劃
+5. 在進行前獲得使用者批准
 
-**Output**:
+**輸出**:
 
-- Detailed task breakdown
-- File change manifest (CREATE, UPDATE, DELETE)
-- Commit strategy
-- Verification checklist
+- 詳細任務分解
+- 檔案變更清單（CREATE, UPDATE, DELETE）
+- 提交策略
+- 驗證檢查清單
 
-**Example**:
+**範例**:
 
 ```
 Sprint 0.9.3: Supabase Client Package
-├── Task 1: Create @repo/supabase-client package
+├── Task 1: 創建 @repo/supabase-client 套件
 │   ├── CREATE packages/supabase-client/package.json
 │   ├── CREATE packages/supabase-client/src/index.ts
 │   └── UPDATE pnpm-workspace.yaml
-├── Task 2: Generate TypeScript types
+├── Task 2: 生成 TypeScript 類型
 │   └── CREATE packages/supabase-client/src/types.ts
-└── Task 3: Implement React hooks
+└── Task 3: 實作 React hooks
     ├── CREATE packages/supabase-client/src/hooks/useAuth.ts
     └── CREATE packages/supabase-client/src/hooks/useTransactions.ts
 ```
 
-### 2. Implementation Phase
+### 2. 實作階段
 
-**Agent Actions**:
+**Agent 行動**:
 
-1. Create feature branch: `feat/sprint-X-description`
-2. Implement changes incrementally
-3. Run verification after each significant change:
-   - `pnpm build --filter=flow --filter=apex`
+1. 創建功能分支: `feat/sprint-X-description`
+2. 逐步實作變更
+3. 每次重大變更後執行驗證:
+   - `pnpm build --filter=flow --filter=@flourish/apex`
    - `pnpm lint`
    - `pnpm check-types`
-4. Commit with Conventional Commits format
-5. Push and create PR with comprehensive description
+4. 使用 Conventional Commits 格式提交
+5. 推送並創建包含完整描述的 PR
 
-**Branch Naming Convention**:
+**分支命名規範**:
 
 ```
-feat/sprint-X-description       # Feature implementation
-fix/issue-description           # Bug fixes
-docs/documentation-update       # Documentation only
-refactor/code-improvement       # Code restructuring
+feat/sprint-X-description       # 功能實作
+fix/issue-description           # Bug 修復
+docs/documentation-update       # 純文檔更新
+refactor/code-improvement       # 程式碼重構
 ```
 
-**Commit Message Format**:
+**提交訊息格式**:
 
 ```
 <type>(<scope>): <subject>
@@ -156,38 +156,38 @@ refactor/code-improvement       # Code restructuring
 <footer>
 ```
 
-**Example**:
+**範例**:
 
 ```bash
 git commit -m "feat(supabase-client): add authentication hooks
 
-- Implement useAuth hook for session management
-- Add useUser hook for current user data
-- Include TypeScript types for auth state
+- 實作 useAuth hook 用於 session 管理
+- 新增 useUser hook 用於當前使用者資料
+- 包含 auth state 的 TypeScript 類型
 
 Closes #20"
 ```
 
-### 3. Verification Phase
+### 3. 驗證階段
 
-**Required Checks**:
+**必要檢查**:
 
-- [ ] Build passes: `pnpm build --filter=flow --filter=apex`
-- [ ] Lint passes: `pnpm lint`
-- [ ] Types valid: `pnpm check-types`
-- [ ] Documentation updated (if applicable)
-- [ ] Commits follow Conventional Commits
+- [ ] Build 通過: `pnpm build --filter=flow --filter=@flourish/apex`
+- [ ] Lint 通過: `pnpm lint`
+- [ ] 類型有效: `pnpm check-types`
+- [ ] 文檔已更新（如適用）
+- [ ] 提交遵循 Conventional Commits
 
-**Known Issues to Skip**:
+**已知可跳過問題**:
 
-- `docs` app build failures (pre-existing, unrelated)
+- `docs` app build 失敗（既有問題，與本次無關）
 
-### 4. Pull Request Phase
+### 4. Pull Request 階段
 
-**PR Description Template**:
+**PR 描述範本**:
 
 ```markdown
-## Sprint X: [Title]
+## Sprint X: [標題]
 
 **Issue**: Closes #XX
 **Sprint Doc**: `docs/sprints/sprint-X-*/overview.md`
@@ -196,298 +196,298 @@ Closes #20"
 
 ## Changes
 
-### Created
+### 創建
 
-- [ ] File/directory path
-- [ ] File/directory path
+- [ ] 檔案/目錄路徑
+- [ ] 檔案/目錄路徑
 
-### Modified
+### 修改
 
-- [ ] File/directory path
-- [ ] File/directory path
+- [ ] 檔案/目錄路徑
+- [ ] 檔案/目錄路徑
 
-### Deleted
+### 刪除
 
-- [ ] File/directory path
+- [ ] 檔案/目錄路徑
 
 ---
 
 ## Verification
 
-- [x] Build passes
-- [x] Lint passes
-- [x] Types valid
-- [x] Documentation updated
+- [x] Build 通過
+- [x] Lint 通過
+- [x] 類型有效
+- [x] 文檔已更新
 
 ---
 
-## Implementation Notes
+## 實作注意事項
 
-[Any important details, decisions, or context]
+[任何重要細節、決策或上下文]
 ```
 
 ---
 
-## 🎯 Best Practices
+## 🎯 最佳實踐
 
-### Code Generation
+### 程式碼生成
 
-**DO**:
+**應該做**:
 
-- ✅ Follow existing code patterns in the file
-- ✅ Use TypeScript strict mode
-- ✅ Add JSDoc comments for public APIs
-- ✅ Include error handling
-- ✅ Use descriptive variable names
+- ✅ 遵循檔案中現有的程式碼模式
+- ✅ 使用 TypeScript strict mode
+- ✅ 為公開 API 添加 JSDoc 註解
+- ✅ 包含錯誤處理
+- ✅ 使用描述性的變數名稱
 
-**DON'T**:
+**不應該做**:
 
-- ❌ Generate code without understanding context
-- ❌ Skip type annotations
-- ❌ Ignore existing patterns
-- ❌ Create unnecessary abstractions
-- ❌ Hard-code environment variables
+- ❌ 在不理解上下文的情況下生成程式碼
+- ❌ 跳過類型標註
+- ❌ 忽略現有模式
+- ❌ 創建不必要的抽象
+- ❌ 硬編碼環境變數
 
-### Documentation
+### 文檔
 
-**DO**:
+**應該做**:
 
-- ✅ Update CLAUDE.md when architecture changes
-- ✅ Create ADR for significant decisions
-- ✅ Document breaking changes
-- ✅ Update Sprint overview when completing tasks
-- ✅ Use glossary terms consistently
+- ✅ 架構變更時更新 CLAUDE.md
+- ✅ 為重大決策創建 ADR
+- ✅ 記錄 breaking changes
+- ✅ 完成任務時更新 Sprint overview
+- ✅ 一致使用 glossary 術語
 
-**DON'T**:
+**不應該做**:
 
-- ❌ Generate documentation without code changes
-- ❌ Update docs without implementation
-- ❌ Leave TODOs in documentation
-- ❌ Use inconsistent terminology
-- ❌ Forget to update "Last Updated" dates
+- ❌ 在沒有程式碼變更的情況下生成文檔
+- ❌ 在沒有實作的情況下更新文檔
+- ❌ 在文檔中留下 TODO
+- ❌ 使用不一致的術語
+- ❌ 忘記更新「最後更新」日期
 
-### Database Migrations
+### 資料庫遷移
 
-**DO**:
+**應該做**:
 
-- ✅ Use Supabase CLI for migrations: `npx supabase migration new [name]`
-- ✅ Follow migration guide: `docs/guides/database-migrations.md`
-- ✅ Test migrations locally: `npx supabase db reset`
-- ✅ Include RLS policies for new tables
-- ✅ Add indexes for foreign keys
+- ✅ 使用 Supabase CLI 進行遷移: `npx supabase migration new [name]`
+- ✅ 遵循遷移指南: `docs/guides/database-migrations.md`
+- ✅ 本地測試遷移: `npx supabase db reset`
+- ✅ 為新表包含 RLS 策略
+- ✅ 為外鍵添加索引
 
-**DON'T**:
+**不應該做**:
 
-- ❌ Use Prisma migrations (deprecated)
-- ❌ Skip RLS policies
-- ❌ Hard-code UUIDs
-- ❌ Push untested migrations to production
-- ❌ Forget to document breaking changes
-
----
-
-## 🔍 Context Management
-
-### Reading Priority
-
-**When starting a new task**:
-
-1. Read CLAUDE.md (always first)
-2. Read ARCHITECTURE.md (if architecture-related)
-3. Read Sprint overview (`docs/sprints/sprint-X-*/overview.md`)
-4. Read ADRs if referenced
-5. Read glossary for unfamiliar terms
-
-**When implementing features**:
-
-1. Read existing similar code in codebase
-2. Use Context7 for framework-specific patterns
-3. Check git history for recent changes: `git log --oneline -- <file>`
-
-**When stuck**:
-
-1. Use Sequential MCP to break down the problem
-2. Search web with Tavily for solutions
-3. Review Sprint documentation for context
-4. Ask user for clarification
-
-### Memory Management
-
-**Agent should remember**:
-
-- Current Sprint number and goals
-- Recent architectural decisions (ADRs)
-- Active branch name
-- Outstanding tasks in current Sprint
-
-**Agent can forget**:
-
-- Completed Sprint details (documented in overview)
-- Deprecated features (documented in archive)
-- Temporary implementation details
+- ❌ 使用 Prisma 遷移（已棄用）
+- ❌ 跳過 RLS 策略
+- ❌ 硬編碼 UUID
+- ❌ 推送未測試的遷移到生產環境
+- ❌ 忘記記錄 breaking changes
 
 ---
 
-## 🚨 Error Handling
+## 🔍 上下文管理
 
-### Common Issues
+### 閱讀優先級
 
-**Build Failures**:
+**開始新任務時**:
+
+1. 閱讀 CLAUDE.md（永遠是第一個）
+2. 閱讀 ARCHITECTURE.md（如果與架構相關）
+3. 閱讀 Sprint overview (`docs/sprints/sprint-X-*/overview.md`)
+4. 如有引用則閱讀 ADR
+5. 閱讀 glossary 以了解不熟悉的術語
+
+**實作功能時**:
+
+1. 閱讀程式碼庫中現有的類似程式碼
+2. 使用 Context7 查找框架特定模式
+3. 檢查 git 歷史查看最近變更: `git log --oneline -- <file>`
+
+**遇到困難時**:
+
+1. 使用 Sequential MCP 分解問題
+2. 使用 Tavily 搜尋網頁解決方案
+3. 審查 Sprint 文檔以了解上下文
+4. 向使用者尋求澄清
+
+### 記憶管理
+
+**Agent 應該記住**:
+
+- 當前 Sprint 編號和目標
+- 最近的架構決策（ADR）
+- 活動分支名稱
+- 當前 Sprint 的未完成任務
+
+**Agent 可以忘記**:
+
+- 已完成的 Sprint 細節（已記錄在 overview 中）
+- 已棄用的功能（已記錄在 archive 中）
+- 臨時實作細節
+
+---
+
+## 🚨 錯誤處理
+
+### 常見問題
+
+**Build 失敗**:
 
 ```bash
-# Problem: Type errors
-# Solution:
+# 問題: 類型錯誤
+# 解決方案:
 pnpm check-types
-# Fix reported type errors
+# 修復報告的類型錯誤
 
-# Problem: Lint errors
-# Solution:
+# 問題: Lint 錯誤
+# 解決方案:
 pnpm lint --fix
 ```
 
-**Migration Failures**:
+**遷移失敗**:
 
 ```bash
-# Problem: Migration already exists
-# Solution: Use IF NOT EXISTS
+# 問題: 遷移已存在
+# 解決方案: 使用 IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS table_name (...)
 
-# Problem: RLS blocks access
-# Solution: Check RLS policies
+# 問題: RLS 阻擋存取
+# 解決方案: 檢查 RLS 策略
 SELECT * FROM pg_policies WHERE tablename = 'table_name'
 ```
 
-**Git Issues**:
+**Git 問題**:
 
 ```bash
-# Problem: Merge conflicts
-# Solution:
+# 問題: 合併衝突
+# 解決方案:
 git status
 git diff <conflicted-file>
-# Resolve conflicts, then:
+# 解決衝突，然後:
 git add <resolved-file>
 git commit
 
-# Problem: Wrong branch
-# Solution:
+# 問題: 分支錯誤
+# 解決方案:
 git checkout main
 git pull
 git checkout -b feat/correct-branch
 ```
 
-### Escalation Protocol
+### 升級協議
 
-**When to ask user**:
+**何時詢問使用者**:
 
-1. Architectural decisions not covered by ADRs
-2. Breaking changes that affect existing functionality
-3. Ambiguous requirements in Sprint documentation
-4. Resource constraints (e.g., package size concerns)
-5. Security considerations (e.g., exposing sensitive data)
+1. ADR 未涵蓋的架構決策
+2. 影響現有功能的 breaking changes
+3. Sprint 文檔中的模糊需求
+4. 資源限制（例如套件大小考量）
+5. 安全考量（例如暴露敏感資料）
 
-**How to ask**:
+**如何詢問**:
 
-- Provide context from documentation
-- Explain the trade-offs
-- Suggest 2-3 options with pros/cons
-- Recommend preferred option with reasoning
-
----
-
-## 📊 Quality Standards
-
-### Code Quality
-
-**Metrics**:
-
-- TypeScript strict mode compliance: 100%
-- Lint errors: 0
-- Build success: Required
-- Test coverage: Not yet required (future)
-
-**Review Checklist**:
-
-- [ ] Follows project code style
-- [ ] No console.log statements (use proper logging)
-- [ ] Error handling implemented
-- [ ] Types are specific (not `any`)
-- [ ] Functions are focused and testable
-
-### Documentation Quality
-
-**Metrics**:
-
-- Up-to-date: Last Updated within 7 days of change
-- Complete: All sections filled
-- Accurate: Matches actual implementation
-- Consistent: Uses glossary terms
-
-**Review Checklist**:
-
-- [ ] Follows Diataxis framework (when applicable)
-- [ ] Examples are tested
-- [ ] Links are valid
-- [ ] Code blocks have language tags
-- [ ] Uses proper heading hierarchy
+- 提供文檔中的上下文
+- 解釋權衡取捨
+- 建議 2-3 個選項及其優缺點
+- 推薦首選方案並說明理由
 
 ---
 
-## 🎓 Learning & Adaptation
+## 📊 品質標準
 
-### Agent Improvement Areas
+### 程式碼品質
 
-**Technical Skills**:
+**指標**:
 
-- Supabase advanced features (Edge Functions, Realtime)
-- Next.js 15 App Router patterns
+- TypeScript strict mode 合規: 100%
+- Lint 錯誤: 0
+- Build 成功: 必要
+- 測試覆蓋率: 尚未要求（未來）
+
+**審查檢查清單**:
+
+- [ ] 遵循專案程式碼風格
+- [ ] 無 console.log 陳述句（使用適當的日誌記錄）
+- [ ] 已實作錯誤處理
+- [ ] 類型是具體的（不是 `any`）
+- [ ] 函式是專注且可測試的
+
+### 文檔品質
+
+**指標**:
+
+- 時效性: 變更後 7 天內更新「最後更新」
+- 完整性: 所有章節已填寫
+- 準確性: 符合實際實作
+- 一致性: 使用 glossary 術語
+
+**審查檢查清單**:
+
+- [ ] 遵循 Diataxis 框架（如適用）
+- [ ] 範例經過測試
+- [ ] 連結有效
+- [ ] 程式碼區塊有語言標籤
+- [ ] 使用適當的標題階層
+
+---
+
+## 🎓 學習與適應
+
+### Agent 改進領域
+
+**技術技能**:
+
+- Supabase 進階功能（Edge Functions, Realtime）
+- Next.js 15 App Router 模式
 - React Server Components
-- Performance optimization
+- 效能優化
 
-**Process Skills**:
+**流程技能**:
 
-- Sprint planning accuracy
-- Time estimation
-- Breaking down complex tasks
-- Git workflow efficiency
+- Sprint 規劃準確性
+- 時間估算
+- 分解複雜任務
+- Git 工作流程效率
 
-### Feedback Loop
+### 反饋循環
 
-**After each Sprint**:
+**每個 Sprint 後**:
 
-1. Review what went well
-2. Identify what could be improved
-3. Update this document with learnings
-4. Incorporate feedback into next Sprint
+1. 審查哪些做得好
+2. 識別可以改進的地方
+3. 根據學習更新本文檔
+4. 將反饋納入下一個 Sprint
 
-**User Feedback Integration**:
+**使用者反饋整合**:
 
-- User corrections → Update understanding
-- User preferences → Document in CLAUDE.md
-- User patterns → Recognize and follow
-- User concerns → Address proactively
-
----
-
-## 🔗 Related Documentation
-
-**Core Documents**:
-
-- `CLAUDE.md` - Primary development guide
-- `ARCHITECTURE.md` - System architecture
-- `docs/references/glossary.md` - Project terminology
-
-**Workflow Documents**:
-
-- `docs/deployment/git-workflow.md` - Git and deployment process
-- `docs/guides/database-migrations.md` - Migration workflow
-
-**Planning Documents**:
-
-- `docs/sprints/sprint-0-foundation/overview.md` - Current phase status
-- `docs/decisions/` - Architecture Decision Records
+- 使用者更正 → 更新理解
+- 使用者偏好 → 記錄在 CLAUDE.md
+- 使用者模式 → 識別並遵循
+- 使用者關注 → 主動處理
 
 ---
 
-**Maintained By**: Claude Code Agent
-**Review Frequency**: Every Sprint
-**Next Review**: Sprint 11 (2025-11-22)
+## 🔗 相關文檔
+
+**核心文檔**:
+
+- `CLAUDE.md` - 主要開發指南
+- `ARCHITECTURE.md` - 系統架構
+- `docs/references/glossary.md` - 專案術語
+
+**工作流程文檔**:
+
+- `docs/deployment/git-workflow.md` - Git 和部署流程
+- `docs/guides/database-migrations.md` - 遷移工作流程
+
+**規劃文檔**:
+
+- `docs/sprints/sprint-0-foundation/overview.md` - 當前階段狀態
+- `docs/decisions/` - 架構決策記錄
+
+---
+
+**維護者**: Claude Code Agent
+**審查頻率**: 每個 Sprint
+**下次審查**: Sprint 11 完成後

@@ -1,30 +1,30 @@
 # ARCHITECTURE.md
 
-**Purpose**: System architecture documentation for Flourish platform
+**目的**: Flourish 平台的系統架構文檔
 
-**Last Updated**: 2025-11-21
-**Status**: Active
-**Architecture Version**: 2.0 (Supabase-first)
+**最後更新**: 2025-11-21
+**狀態**: 使用中
+**架構版本**: 2.0 (Supabase-first)
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ 架構總覽
 
-### High-Level Architecture
+### 高階架構
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Client Applications                      │
+│                     客戶端應用程式                           │
 ├────────────────────────────┬────────────────────────────────┤
 │      Flow (Next.js)        │      Apex (Next.js)            │
-│   Financial Tracking       │   Performance Statistics       │
+│   財務追蹤                  │   效能統計                      │
 │   Port: 3100               │   Port: 3200                   │
 └────────────────────────────┴────────────────────────────────┘
                               │
                               │ HTTPS
                               ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                    Supabase Platform                         │
+│                    Supabase 平台                             │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
 │  │   Auth       │  │   Database   │  │   Storage    │      │
@@ -47,7 +47,7 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Deployment Architecture
+### 部署架構
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -70,175 +70,142 @@
 
 ---
 
-## 🎯 Architecture Decision Records (ADRs)
+## 🎯 架構決策記錄 (ADRs)
 
-### ADR 001: Architecture Simplification (2025-11-07)
+### ADR 001: 架構簡化 (2025-11-07)
 
-**Status**: Accepted & Implemented
-**Context**: Evaluating backend deployment options (NestJS + Render vs Supabase)
+**狀態**: 已接受並實施
+**背景**: 評估後端部署選項（NestJS + Render vs Supabase）
 
-**Decision**: Adopt Supabase-first architecture, remove NestJS backend
+**決策**: 採用 Supabase-first 架構，移除 NestJS 後端
 
-**Rationale**:
+**理由**:
 
-- **Cost**: $0/month (Supabase Free) vs $7+/month (NestJS + Render)
-- **Maintenance**: 70% reduction in infrastructure overhead
-- **Development Speed**: 60% faster (auto-generated APIs vs manual endpoints)
-- **Feature Fit**: CRUD + statistics align perfectly with Supabase capabilities
+- **成本**: $0/月（Supabase Free）vs $7+/月（NestJS + Render）
+- **維護**: 減少 70% 基礎設施開銷
+- **開發速度**: 快 60%（自動生成 API vs 手動端點）
+- **功能契合**: CRUD + 統計與 Supabase 能力完美對齊
 
-**Consequences**:
+**後果**:
 
-- ✅ No backend server to maintain
-- ✅ Simplified deployment (Vercel only)
-- ✅ Built-in Auth, Realtime, Storage
-- ⚠️ Complex business logic requires Edge Functions
-- ⚠️ Vendor lock-in to Supabase (mitigated: PostgreSQL is standard)
+- ✅ 無需維護後端伺服器
+- ✅ 簡化部署（僅 Vercel）
+- ✅ 內建 Auth、Realtime、Storage
+- ⚠️ 複雜業務邏輯需要 Edge Functions
+- ⚠️ 供應商鎖定於 Supabase（緩解：PostgreSQL 是標準）
 
-**Implementation**: Sprint 0.9 (4 sub-sprints)
-**Documentation**: `docs/decisions/001-architecture-simplification.md`
+**實施**: Sprint 0.9（4 個子 Sprint）
+**文檔**: `docs/decisions/001-architecture-simplification.md`
 
 ---
 
-## 📦 Component Architecture
+## 📦 元件架構
 
-### Frontend Applications
+### 前端應用程式
 
-#### Flow App (Financial Tracking)
+#### Flow App（財務追蹤）
 
-**Technology Stack**:
+**技術堆疊**:
 
-- Framework: Next.js 15 (App Router)
-- Language: TypeScript 5 (strict mode)
-- Styling: Tailwind CSS
-- State: React Context + Hooks
-- Data Fetching: Supabase Client (@repo/supabase-client)
+- 框架: Next.js 15 (App Router)
+- 語言: TypeScript 5 (strict mode)
+- 樣式: Tailwind CSS
+- 狀態: React Context + Hooks
+- 資料獲取: Supabase Client (@repo/supabase-client)
 
-**Key Features**:
+**核心功能**:
 
-- Transaction management (CRUD)
-- Category organization
-- Statement import
-- Recurring expense tracking
-- Saving rules automation
+- 交易管理（CRUD）
+- 分類組織
+- 帳單匯入
+- 定期費用追蹤
+- 儲蓄規則自動化
 
-**Directory Structure**:
+#### Apex App（效能統計）
 
-```
-apps/flow/
-├── src/
-│   ├── app/              # Next.js App Router pages
-│   ├── components/       # React components
-│   ├── lib/              # Utilities and helpers
-│   └── hooks/            # Custom React hooks
-├── public/               # Static assets
-└── package.json
-```
+**技術堆疊**:
 
-#### Apex App (Performance Statistics)
+- 框架: Next.js 15 (App Router)
+- 語言: TypeScript 5 (strict mode)
+- 樣式: Tailwind CSS
+- 圖表: 待定（Phase 1）
+- 資料獲取: Supabase Client (@repo/supabase-client)
 
-**Technology Stack**:
+**核心功能**（規劃中）:
 
-- Framework: Next.js 15 (App Router)
-- Language: TypeScript 5 (strict mode)
-- Styling: Tailwind CSS
-- Charts: TBD (Phase 1)
-- Data Fetching: Supabase Client (@repo/supabase-client)
+- 財務 KPI 儀表板
+- 趨勢分析
+- 目標追蹤
+- 效能報告
 
-**Key Features** (Planned):
-
-- Financial KPI dashboard
-- Trend analysis
-- Goal tracking
-- Performance reports
-
-**Directory Structure**:
-
-```
-apps/apex/
-├── src/
-│   ├── app/              # Next.js App Router pages
-│   ├── components/       # React components
-│   ├── lib/              # Utilities and helpers
-│   └── hooks/            # Custom React hooks
-├── public/               # Static assets
-└── package.json
-```
-
-### Shared Packages
+### 共享套件
 
 #### @repo/supabase-client
 
-**Purpose**: Centralized Supabase client configuration and utilities
+**目的**: 集中式 Supabase 客戶端配置與工具
 
-**Exports**:
+**匯出**:
 
-- `supabase` - Configured Supabase client instance
-- `useAuth()` - Authentication hook
-- `useUser()` - Current user data hook
-- `useTransactions()` - Transaction data hook
-- Types (auto-generated from database schema)
+- `supabase` - 配置好的 Supabase 客戶端實例
+- `useAuth()` - 認證 hook
+- `useUser()` - 當前使用者資料 hook
+- `useTransactions()` - 交易資料 hook
+- Types（從資料庫 schema 自動生成）
 
-**Usage Example**:
+**使用範例**:
 
 ```typescript
 import { supabase, useAuth } from '@repo/supabase-client';
 
 function LoginPage() {
   const { signIn, signOut, user } = useAuth();
-
   // ...
 }
 ```
 
 #### @repo/database
 
-**Purpose**: Database schema reference (Prisma)
+**目的**: 資料庫 schema 參考（Prisma）
 
-**Status**: Reference only (not used for migrations)
+**狀態**: 僅參考用（不用於遷移）
 
-**Contents**:
+**內容**:
 
-- `prisma/schema.prisma` - Database schema definition
-- Documentation for table relationships
-- Type reference for discussions
+- `prisma/schema.prisma` - 資料庫 schema 定義
+- 表關係文檔
+- 討論用的類型參考
 
-**Note**: Actual migrations use Supabase SQL files
+**注意**: 實際遷移使用 Supabase SQL 檔案
 
 #### @repo/ui
 
-**Purpose**: Shared React components
+**目的**: 共享 React 元件
 
-**Components**:
+**元件**:
 
-- Button, Input, Select (form elements)
-- Card, Modal, Dropdown (containers)
-- Table, List (data display)
+- Button、Input、Select（表單元素）
+- Card、Modal、Dropdown（容器）
+- Table、List（資料顯示）
 
-**Styling**: Tailwind CSS with consistent design tokens
-
-#### @repo/chart-engine
-
-**Status**: Planned for Phase 1
-
-**Purpose**: Chart rendering logic shared between Flow and Apex
+**樣式**: Tailwind CSS with consistent design tokens
 
 ---
 
-## 🗄️ Database Architecture
+## 🗄️ 資料庫架構
 
-### Schema Design
+### Schema 設計
 
-**Core Tables**:
+**核心資料表**:
 
 ```sql
--- User authentication (managed by Supabase Auth)
+-- 使用者認證（由 Supabase Auth 管理）
 users
 ├── id (UUID, PK)
 ├── email
 ├── created_at
 └── updated_at
 
--- Payment cards
+-- 支付卡片
 cards
 ├── id (UUID, PK)
 ├── user_id (UUID, FK → users.id)
@@ -247,7 +214,7 @@ cards
 ├── card_type
 └── is_active
 
--- Transaction categories
+-- 交易分類
 categories
 ├── id (UUID, PK)
 ├── user_id (UUID, FK → users.id)
@@ -256,17 +223,16 @@ categories
 ├── color
 └── icon
 
--- Credit card statements
+-- 信用卡帳單
 statements
 ├── id (UUID, PK)
 ├── card_id (UUID, FK → cards.id)
-├── month
-├── year
+├── month, year
 ├── due_date
 ├── total_amount
 └── is_paid
 
--- Financial transactions
+-- 財務交易
 transactions
 ├── id (UUID, PK)
 ├── user_id (UUID, FK → users.id)
@@ -277,18 +243,17 @@ transactions
 ├── transaction_date
 └── type (income/expense)
 
--- Recurring expenses
+-- 定期費用
 recurring_expenses
 ├── id (UUID, PK)
 ├── user_id (UUID, FK → users.id)
 ├── category_id (UUID, FK → categories.id)
 ├── amount
 ├── frequency (daily/weekly/monthly/yearly)
-├── start_date
-├── end_date (nullable)
+├── start_date, end_date (nullable)
 └── is_active
 
--- Automated saving rules
+-- 自動儲蓄規則
 saving_rules
 ├── id (UUID, PK)
 ├── user_id (UUID, FK → users.id)
@@ -301,17 +266,17 @@ saving_rules
 
 ### Row Level Security (RLS)
 
-**Policy Pattern**:
+**策略模式**:
 
 ```sql
--- Users can only access their own data
+-- 使用者只能存取自己的資料
 ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Users can manage own transactions" ON transactions
   USING (auth.uid() = user_id);
 ```
 
-**Applied to all user-scoped tables**:
+**套用至所有使用者範圍表**:
 
 - transactions
 - categories
@@ -320,15 +285,15 @@ CREATE POLICY "Users can manage own transactions" ON transactions
 - recurring_expenses
 - saving_rules
 
-**Benefits**:
+**優點**:
 
-- Automatic multi-tenancy
-- No need for WHERE user_id = ? in queries
-- Security enforced at database level
+- 自動多租戶
+- 查詢中不需要 WHERE user_id = ?
+- 在資料庫層級強制執行安全性
 
-### Indexes
+### 索引
 
-**Foreign Keys** (automatic):
+**外鍵**（自動）:
 
 ```sql
 CREATE INDEX idx_transactions_user_id ON transactions(user_id);
@@ -336,7 +301,7 @@ CREATE INDEX idx_transactions_category_id ON transactions(category_id);
 CREATE INDEX idx_transactions_statement_id ON transactions(statement_id);
 ```
 
-**Query Optimization**:
+**查詢優化**:
 
 ```sql
 CREATE INDEX idx_transactions_date ON transactions(transaction_date DESC);
@@ -345,322 +310,250 @@ CREATE INDEX idx_transactions_type ON transactions(type);
 
 ---
 
-## 🔐 Security Architecture
+## 🔐 安全架構
 
-### Authentication Flow
+### 認證流程
 
 ```
 ┌─────────────┐
-│   Browser   │
+│   瀏覽器     │
 └──────┬──────┘
        │ 1. signIn(email, password)
        ↓
 ┌─────────────────┐
 │ Supabase Auth   │
 ├─────────────────┤
-│ - Verify creds  │
-│ - Generate JWT  │
-│ - Set session   │
+│ - 驗證憑證       │
+│ - 生成 JWT      │
+│ - 設定 session  │
 └────────┬────────┘
          │ 2. JWT Token
          ↓
 ┌──────────────────┐
-│ Client Storage   │
+│ 客戶端儲存        │
 │ (localStorage)   │
 └────────┬─────────┘
-         │ 3. Include in requests
+         │ 3. 請求中包含
          ↓
 ┌────────────────────┐
 │ Supabase REST API  │
 ├────────────────────┤
-│ - Validate JWT     │
-│ - Extract user_id  │
-│ - Apply RLS        │
+│ - 驗證 JWT         │
+│ - 提取 user_id     │
+│ - 套用 RLS         │
 └────────────────────┘
 ```
 
-### Data Access Control
+### 資料存取控制
 
-**Layers**:
+**層級**:
 
-1. **Authentication** (Supabase Auth): Who are you?
-2. **Authorization** (RLS Policies): What can you access?
-3. **Validation** (Application): Is this data valid?
+1. **認證**（Supabase Auth）：你是誰？
+2. **授權**（RLS 策略）：你可以存取什麼？
+3. **驗證**（應用程式）：這個資料有效嗎？
 
-**Security Principles**:
+**安全原則**:
 
-- Zero trust: Verify every request
-- Least privilege: Users can only access their data
-- Defense in depth: Multiple security layers
-- Encryption: HTTPS for transit, encrypted at rest
+- 零信任：驗證每個請求
+- 最小權限：使用者只能存取自己的資料
+- 深度防禦：多個安全層級
+- 加密：傳輸使用 HTTPS，靜態加密
 
-### Environment Variables
+### 環境變數
 
-**Public** (exposed to browser):
+**公開**（暴露給瀏覽器）:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
 ```
 
-**Private** (server-side only):
+**私密**（僅伺服器端）:
 
 ```bash
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...  # Never expose to frontend!
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...  # 絕不暴露給前端！
 ```
 
-**Usage**:
+**用途**:
 
-- Anon key: Safe for frontend, limited by RLS
-- Service role key: Bypasses RLS, migrations only
+- Anon key：前端安全，受 RLS 限制
+- Service role key：繞過 RLS，僅用於遷移
 
 ---
 
-## 🚀 Deployment Architecture
+## 🚀 部署架構
 
-### Frontend Deployment (Vercel)
+### 前端部署（Vercel）
 
-**Trigger**: Push to `main` branch
-**Process**:
+**觸發**: 推送到 `main` 分支
+**流程**:
 
-1. Git push → Vercel detects change
-2. Vercel builds Next.js apps
-3. Deploy to global CDN
-4. Update DNS
+1. Git push → Vercel 偵測變更
+2. Vercel 建置 Next.js apps
+3. 部署到全球 CDN
+4. 更新 DNS
 
-**Environment Variables** (Vercel Dashboard):
+**環境變數**（Vercel Dashboard）:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
-**Domains**:
+**網域**:
 
 - Flow: `https://flourish-flow.vercel.app`
 - Apex: `https://flourish-apex.vercel.app`
 
-### Database Deployment (Supabase)
+### 資料庫部署（Supabase）
 
-**Migration Workflow**:
+**遷移工作流程**:
 
 ```bash
-# Local development
+# 本地開發
 npx supabase migration new feature_name
-# Edit SQL file in supabase/migrations/
+# 編輯 supabase/migrations/ 中的 SQL 檔案
 
-# Test locally
+# 本地測試
 npx supabase db reset
 
-# Deploy to production
+# 部署到生產環境
 npx supabase db push
 ```
 
-**Rollback Strategy**:
+**回滾策略**:
 
-- Create reverse migration
-- Supabase doesn't support auto-rollback
-- Keep backups (automatic daily backups)
-
----
-
-## 📊 Performance Architecture
-
-### Caching Strategy
-
-**CDN Caching** (Vercel):
-
-- Static assets: Cached indefinitely
-- SSR pages: Cache with revalidation
-- API routes: No cache (user-specific)
-
-**Client Caching**:
-
-- Supabase Client: In-memory cache
-- React Query (future): Server state management
-
-### Database Optimization
-
-**Indexes**:
-
-- All foreign keys indexed
-- Date columns for sorting
-- Frequently filtered columns
-
-**Query Optimization**:
-
-- RLS policies use indexed columns
-- Limit result sets
-- Paginate large datasets
-
-### Bundle Size
-
-**Target**: < 200KB initial JS bundle
-
-**Optimization**:
-
-- Tree-shaking (automatic)
-- Code splitting (route-based)
-- Dynamic imports for heavy components
-- Lazy loading for charts (future)
+- 創建反向遷移
+- Supabase 不支援自動回滾
+- 保留備份（自動每日備份）
 
 ---
 
-## 🔄 Data Flow Architecture
+## 📊 效能架構
 
-### Transaction Creation Flow
+### 快取策略
 
-```
-┌──────────────┐
-│ User Input   │
-│ (Flow App)   │
-└──────┬───────┘
-       │
-       │ 1. Submit form
-       ↓
-┌──────────────────┐
-│ Client Validation│
-│ (React Hook Form)│
-└──────┬───────────┘
-       │
-       │ 2. Call Supabase
-       ↓
-┌───────────────────────┐
-│ Supabase REST API     │
-│ POST /transactions    │
-└──────┬────────────────┘
-       │
-       │ 3. Validate JWT & RLS
-       ↓
-┌────────────────────────┐
-│ PostgreSQL             │
-│ INSERT INTO transactions│
-└──────┬─────────────────┘
-       │
-       │ 4. Return new record
-       ↓
-┌────────────────────┐
-│ Update UI          │
-│ (Optimistic)       │
-└────────────────────┘
-```
+**CDN 快取**（Vercel）:
 
-### Real-time Updates (Future)
+- 靜態資源：永久快取
+- SSR 頁面：帶重新驗證的快取
+- API 路由：不快取（使用者特定）
 
-```
-┌─────────────┐        ┌─────────────┐
-│  Browser A  │        │  Browser B  │
-└──────┬──────┘        └──────┬──────┘
-       │                      │
-       │ 1. Create transaction│
-       ↓                      │
-┌──────────────┐              │
-│  Supabase    │              │
-│  Database    │              │
-└──────┬───────┘              │
-       │                      │
-       │ 2. Broadcast change  │
-       ├──────────────────────┤
-       │                      │
-       │                      ↓
-       │              ┌───────────────┐
-       │              │ Realtime Sub  │
-       │              │ (WebSocket)   │
-       │              └───────┬───────┘
-       │                      │
-       │                      │ 3. Update UI
-       │                      ↓
-       │              ┌──────────────┐
-       │              │ Browser B    │
-       │              │ (Auto-sync)  │
-       │              └──────────────┘
-```
+**客戶端快取**:
+
+- Supabase Client：記憶體內快取
+- React Query（未來）：伺服器狀態管理
+
+### 資料庫優化
+
+**索引**:
+
+- 所有外鍵已索引
+- 日期欄位用於排序
+- 頻繁過濾的欄位
+
+**查詢優化**:
+
+- RLS 策略使用已索引欄位
+- 限制結果集
+- 大型資料集分頁
+
+### Bundle 大小
+
+**目標**: < 200KB 初始 JS bundle
+
+**優化**:
+
+- Tree-shaking（自動）
+- 程式碼分割（基於路由）
+- 重型元件的動態導入
+- 圖表的延遲載入（未來）
 
 ---
 
-## 🧩 Integration Points
+## 🧩 整合點
 
-### External Services
+### 外部服務
 
-**Supabase** (Primary):
+**Supabase**（主要）:
 
-- Database (PostgreSQL)
-- Authentication (JWT)
-- Storage (File uploads)
-- Realtime (WebSocket)
-- Edge Functions (Future)
+- 資料庫（PostgreSQL）
+- 認證（JWT）
+- 儲存（檔案上傳）
+- Realtime（WebSocket）
+- Edge Functions（未來）
 
-**Vercel** (Deployment):
+**Vercel**（部署）:
 
-- CDN hosting
-- Serverless functions (if needed)
-- Analytics
-- Environment management
+- CDN 託管
+- Serverless functions（如需要）
+- 分析
+- 環境管理
 
-**Future Integrations** (Phase 2+):
+**未來整合**（Phase 2+）:
 
-- Payment gateways (Stripe)
-- Email service (SendGrid/Postmark)
-- Analytics (PostHog/Mixpanel)
-- Error tracking (Sentry)
-
----
-
-## 🔮 Future Architecture Considerations
-
-### Scalability
-
-**Current Limits** (Supabase Free Tier):
-
-- 50,000 MAU (Monthly Active Users)
-- 500 MB database storage
-- 1 GB file storage
-- 2 GB bandwidth
-
-**Scaling Path**:
-
-1. **Phase 1** (0-50K users): Free tier
-2. **Phase 2** (50K-500K users): Supabase Pro ($25/month)
-3. **Phase 3** (500K+ users): Team/Enterprise plan
-
-**Horizontal Scaling**:
-
-- Supabase handles database scaling
-- Vercel handles frontend CDN scaling
-- Edge Functions for compute scaling
-
-### Migration Path
-
-**If Supabase becomes limiting**:
-
-1. Export PostgreSQL database (standard format)
-2. Migrate to managed PostgreSQL (AWS RDS, etc.)
-3. Re-implement Auth with NextAuth.js or similar
-4. Add NestJS for complex business logic (code archived)
-
-**Cost**: ~1 week of work (architecture preserved)
+- 支付閘道（Stripe）
+- 電子郵件服務（SendGrid/Postmark）
+- 分析（PostHog/Mixpanel）
+- 錯誤追蹤（Sentry）
 
 ---
 
-## 📚 Related Documentation
+## 🔮 未來架構考量
 
-**Architecture Decisions**:
+### 可擴展性
+
+**目前限制**（Supabase Free Tier）:
+
+- 50,000 MAU（每月活躍使用者）
+- 500 MB 資料庫儲存
+- 1 GB 檔案儲存
+- 2 GB 頻寬
+
+**擴展路徑**:
+
+1. **Phase 1**（0-50K 使用者）：免費層級
+2. **Phase 2**（50K-500K 使用者）：Supabase Pro（$25/月）
+3. **Phase 3**（500K+ 使用者）：Team/Enterprise 方案
+
+**水平擴展**:
+
+- Supabase 處理資料庫擴展
+- Vercel 處理前端 CDN 擴展
+- Edge Functions 用於運算擴展
+
+### 遷移路徑
+
+**如果 Supabase 變得受限**:
+
+1. 匯出 PostgreSQL 資料庫（標準格式）
+2. 遷移到託管 PostgreSQL（AWS RDS 等）
+3. 使用 NextAuth.js 或類似工具重新實作 Auth
+4. 為複雜業務邏輯新增 NestJS（程式碼已存檔）
+
+**成本**: ~1 週工作量（架構已保留）
+
+---
+
+## 📚 相關文檔
+
+**架構決策**:
 
 - `docs/decisions/001-architecture-simplification.md`
 
-**Implementation Guides**:
+**實作指南**:
 
 - `docs/guides/database-migrations.md`
 - `docs/guides/development.md`
 
-**Deployment**:
+**部署**:
 
 - `docs/deployment/README.md`
 - `docs/deployment/git-workflow.md`
 
 ---
 
-**Maintained By**: Flourish Team
-**Architecture Version**: 2.0 (Supabase-first)
-**Last Major Update**: Sprint 0.9 (2025-11-21)
-**Next Review**: Sprint 1 (Authentication implementation)
+**維護者**: Flourish Team
+**架構版本**: 2.0 (Supabase-first)
+**上次主要更新**: Sprint 0.9 (2025-11-21)
+**下次審查**: Sprint 1（認證實作）
