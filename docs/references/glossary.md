@@ -1,61 +1,273 @@
-# 專案詞彙表 (Glossary)
+# Glossary
 
-**最後更新**: 2025-11-13
+**Purpose**: Project terminology reference for consistent communication
 
-本文件定義了 Flourish 專案中使用的核心術語，以確保團隊成員（包括 AI 助手）對概念有一致的理解。
+**Last Updated**: 2025-11-21
+**Status**: Active
 
 ---
 
-## A
+## 📖 How to Use This Glossary
+
+**For Developers**:
+
+- Use these terms consistently in code, docs, and communication
+- Add new terms as the project evolves
+- Update definitions when architecture changes
+
+**For AI Agents**:
+
+- Reference this glossary when encountering unfamiliar terms
+- Use canonical terms in generated code and documentation
+- Maintain consistency across all outputs
+
+---
+
+## 🌱 Project & Brand
+
+### Flourish
+
+**Definition**: Integrated personal growth platform combining financial tracking and performance statistics.
+
+**Philosophy**: "When money flows and statistics rise, everything will flourish."
+
+**Components**:
+
+- Flow (financial tracking)
+- Apex (performance statistics)
+
+**Status**: Active development, Phase 0 complete
+
+---
+
+## 🏗️ Architecture Terms
+
+### Supabase-first Architecture
+
+**Definition**: Architecture pattern using Supabase as primary backend, eliminating custom API servers.
+
+**Replaced**: NestJS + Render architecture (deprecated in Sprint 0.8)
+
+**Benefits**: $0 cost, 70% less maintenance, 60% faster development
+
+### Monorepo
+
+**Definition**: Single repository containing multiple apps and packages using Turborepo + pnpm workspaces.
+
+### RLS (Row Level Security)
+
+**Definition**: PostgreSQL feature enforcing data access control at database level.
 
 ### ADR (Architecture Decision Record)
 
-- **定義**: 一種用來記錄重要架構決策的文檔。它解釋了「為什麼」我們做出某個技術選擇，以及權衡了哪些替代方案。
-- **位置**: `docs/decisions/`
+**Definition**: Document recording significant architectural decisions.
 
-### Apex
+**Location**: docs/decisions/
 
-- **定義**: Flourish 專案中的「統計追蹤應用」。它是一個基於山達基狀況公式，用於繪製統計曲線、追蹤績效的工具。
-- **理念**: 追蹤統計的頂點 (Apex)，幫助使用者達到權勢狀況 (Power Condition)。
+---
 
-## C
-
-### Condition Formula (狀況公式)
-
-- **定義**: 源自山達基管理技術的一套方法論，用於根據統計數據的趨勢來判斷當前的「狀況」（如：緊急、正常、富裕），並提供相應的行動步驟來改善狀況。
-- **應用**: Apex 應用的核心分析引擎。
-
-## F
+## 📱 Applications
 
 ### Flow
 
-- **定義**: Flourish 專案中的「財務追蹤應用」。它是一個專為信用卡重度使用者設計的記帳工具，核心流程是處理每月 PDF 對帳單。
-- **理念**: 金錢即流動 (Flow)，透過管理財務流動來創造富足。
+**Full Name**: Flow - Financial Tracking Application
 
-## O
+**Port**: 3100 (development)
 
-### OpenAPI Specification
+**URL**: https://flourish-flow.vercel.app
 
-- **定義**: 一套用於定義 RESTful API 結構的行業標準。它通常是一個 JSON 或 YAML 檔案，可以用來自動生成互動式 API 文檔、客戶端程式碼等。
-- **應用**: 我們使用它來記錄 Supabase 自動生成的 API，作為 AI 和開發者的「API 說明書」。
-- **位置**: `docs/references/api/supabase-openapi-spec.yaml`
+### Apex
 
-## P
+**Full Name**: Apex - Performance Statistics Application
 
-### Pre-Deduction System (預扣系統)
+**Port**: 3200 (development)
 
-- **定義**: Flourish 的核心預算計算模型。它透過在總收入中預先扣除「固定月費」、「分攤年費」和「自動儲蓄」，來計算出使用者「真正可用的預算」。
-- **公式**: `實際可用金額 = 總收入 - 自動儲蓄 - 固定月費 - 分攤年費`
+**URL**: https://flourish-apex.vercel.app
 
-## S
+---
 
-### Statement-Centric Model (以帳單為中心的模型)
+## 📦 Packages
 
-- **定義**: Flourish 專案的資料庫核心架構。所有交易 (Transaction) 都必須源自於一份對帳單 (Statement)，而不是獨立存在。
-- **流程**: `User` → `Card` → `Statement` → `Transaction`
-- **實作**: 參考資料庫 schema（`supabase/migrations/`）
+### @repo/supabase-client
 
-### Supabase-first
+**Purpose**: Centralized Supabase client configuration and React hooks
 
-- **定義**: 本專案採用的後端架構，即前端應用直接與 Supabase 的服務（資料庫、認證、API）互動，移除了獨立的 NestJS 後端層。
-- **決策**: `docs/decisions/001-architecture-simplification.md`
+### @repo/database
+
+**Purpose**: Database schema reference using Prisma (reference only)
+
+### @repo/ui
+
+**Purpose**: Shared React components with Tailwind CSS
+
+---
+
+## 🗄️ Database Terms
+
+### Migration
+
+**Definition**: SQL file defining database schema changes
+
+**Location**: supabase/migrations/
+
+### Schema
+
+**Definition**: Database structure definition (tables, columns, relationships)
+
+### Transaction
+
+**Definition**: Single financial transaction record (income or expense)
+
+---
+
+## 🔐 Security Terms
+
+### JWT (JSON Web Token)
+
+**Definition**: Token-based authentication standard used by Supabase Auth
+
+### Anon Key
+
+**Purpose**: Public API key safe for frontend use
+
+### Service Role Key
+
+**Purpose**: Admin API key bypassing RLS policies (⚠️ NEVER expose to frontend!)
+
+---
+
+## 🚀 Deployment Terms
+
+### Vercel
+
+**Definition**: Frontend hosting platform with global CDN
+
+### Supabase Cloud
+
+**Definition**: Managed PostgreSQL hosting with BaaS features
+
+**Project Ref**: fstcioczrehqtcbdzuij
+
+---
+
+## 🏃 Development Terms
+
+### Sprint
+
+**Definition**: Time-boxed development iteration with specific goals
+
+**Numbering**: Will be renumbered from 0.1-0.11 to 01-11 in Sprint 11
+
+### Phase
+
+**Definition**: Major development milestone consisting of multiple sprints
+
+### MCP (Model Context Protocol)
+
+**Definition**: Standard for AI agents to access external tools and services
+
+### Conventional Commits
+
+**Format**: \`<type>(<scope>): <subject>\`
+
+---
+
+## 🎨 UI/UX Terms
+
+### Design Tokens
+
+**Definition**: Centralized design values (colors, spacing, typography)
+
+### Component
+
+**Definition**: Reusable React UI building block
+
+### Server Component
+
+**Definition**: React component that runs on the server (Next.js 15 feature)
+
+### Client Component
+
+**Definition**: React component that runs in browser
+
+---
+
+## 📊 Data Terms
+
+### KPI (Key Performance Indicator)
+
+**Definition**: Measurable value tracking financial performance
+
+### Category
+
+**Definition**: Classification for transactions (income or expense)
+
+### Recurring Expense
+
+**Definition**: Automated expense that repeats on schedule
+
+### Saving Rule
+
+**Definition**: Automated rule for saving money based on conditions
+
+---
+
+## 🛠️ Tool Terms
+
+### Turborepo
+
+**Definition**: Monorepo build system for JavaScript/TypeScript
+
+### pnpm
+
+**Definition**: Fast, disk-efficient package manager
+
+### Prettier
+
+**Definition**: Code formatter for consistent style
+
+### Husky
+
+**Definition**: Git hooks manager
+
+---
+
+## 📝 Documentation Terms
+
+### Diataxis Framework
+
+**Definition**: Documentation structure framework with 4 categories (Tutorials, How-to, Reference, Explanation)
+
+**Reference**: https://diataxis.fr/
+
+### CLAUDE.md
+
+**Purpose**: Primary AI agent instruction file
+
+### AGENTS.md
+
+**Purpose**: AI agent collaboration and workflow guide
+
+### ARCHITECTURE.md
+
+**Purpose**: System architecture documentation
+
+---
+
+## 🔗 Acronyms & Abbreviations
+
+| Abbr | Full Term                         |
+| ---- | --------------------------------- |
+| ADR  | Architecture Decision Record      |
+| API  | Application Programming Interface |
+| CRUD | Create, Read, Update, Delete      |
+| JWT  | JSON Web Token                    |
+| KPI  | Key Performance Indicator         |
+| MCP  | Model Context Protocol            |
+| RLS  | Row Level Security                |
+| UUID | Universally Unique Identifier     |
+
+---
+
+**Maintained By**: Flourish Team
+**Last Review**: Sprint 10 (2025-11-21)

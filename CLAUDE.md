@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Documentation Framework**: This file follows the [Diataxis framework](https://diataxis.fr/) structure:
+
+- **Tutorials** (Learning-oriented): Step-by-step guides for newcomers
+- **How-to Guides** (Goal-oriented): Solutions for specific tasks
+- **Reference** (Information-oriented): Technical specifications
+- **Explanation** (Understanding-oriented): Conceptual clarification
+
+**Companion Documents**:
+
+- `AGENTS.md` - AI agent collaboration workflows and best practices
+- `ARCHITECTURE.md` - System architecture and design patterns
+- `docs/references/glossary.md` - Project terminology reference
+
 ## 🌱 Project Overview
 
 **Flourish** is an integrated personal growth platform for financial tracking and performance statistics. Based on the philosophy: "When money flows and statistics rise, everything will **flourish**."
@@ -288,16 +301,19 @@ git push origin feat/new-feature
 
 ## 🎯 Current Phase: Phase 0 Foundation
 
-**Status:** ✅ Complete (100%)
+**Status:** 🔄 In Progress (93% complete - 13/14 sprints done)
 
 Completed sprints:
 
 - Sprint 0.1: Monorepo structure ✅
 - Sprint 0.2-0.5: Development tooling ✅
-- Sprint 0.6: NestJS (archiving in 0.9) ✅
+- Sprint 0.6: NestJS ✅
 - Sprint 0.7: Apex app ✅
 - Sprint 0.8: Architecture decision ✅
-- Sprint 0.9: Supabase migration 🔄 (planning complete, implementation pending)
+- Sprint 0.9: Supabase migration ✅ (All 4 sub-sprints complete)
+- Sprint 0.10: Documentation & Agent Setup 🔄 (In progress)
+
+**Next Sprint**: Sprint 0.11 - Sprint Numbering Refactoring
 
 ---
 
@@ -425,6 +441,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # For frontend
 
 ---
 
-**Last Updated:** 2025-11-12
-**Current Phase:** Phase 0 Foundation (100% complete) → Sprint 0.9 Planning
-**Next:** Sprint 0.9.1 Supabase Basic Setup
+**Last Updated:** 2025-11-21
+**Current Phase:** Phase 0 Foundation (93% complete - Sprint 0.10 in progress)
+**Next:** Sprint 0.11 - Sprint Numbering Refactoring
