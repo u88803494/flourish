@@ -654,11 +654,11 @@ Closes #12
 2. ✅ 確定最終專案名稱（flourish）
 3. ✅ 確定應用程式命名（flow, apex, api）
 4. ✅ 規劃開發工具鏈（Prettier, Husky, lint-staged, commitlint）
-5. ⏳ 建立 Turborepo monorepo 結構（Sprint 0.1 - 今晚）
-6. ⏳ 設定開發工具鏈（Sprint 0.2-0.4 - 之後）
-7. ⏳ 設定 Prisma（Sprint 0.5）
-8. ⏳ 建立 NestJS 應用（Sprint 0.6）
-9. ⏳ 建立 apex 應用（Sprint 0.7）
+5. ⏳ 建立 Turborepo monorepo 結構（Sprint 1 - 今晚）
+6. ⏳ 設定開發工具鏈（Sprint 2-4 - 之後）
+7. ⏳ 設定 Prisma（Sprint 5）
+8. ⏳ 建立 NestJS 應用（Sprint 6）
+9. ⏳ 建立 apex 應用（Sprint 7）
 10. ⏳ 開始 Sprint 1: 認證系統
 
 ---

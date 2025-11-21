@@ -137,13 +137,13 @@ chore: upgrade dependencies
 
 ## 🗓️ 安裝與設定階段規劃
 
-### Sprint 0.1: 基本 Monorepo（今晚）✅
+### Sprint 1: 基本 Monorepo（今晚）✅
 
 - [x] 建立 Turborepo
 - [x] 基本目錄結構
 - [x] 文檔
 
-### Sprint 0.2: Prettier 設定（第一優先）
+### Sprint 2: Prettier 設定（第一優先）
 
 **時間**: 15 分鐘
 
@@ -163,7 +163,7 @@ chore: upgrade dependencies
 
 ---
 
-### Sprint 0.3: Husky + lint-staged（第二優先）
+### Sprint 3: Husky + lint-staged（第二優先）
 
 **時間**: 20 分鐘
 
@@ -183,7 +183,7 @@ chore: upgrade dependencies
 
 ---
 
-### Sprint 0.4: commitlint（第三優先）
+### Sprint 4: commitlint（第三優先）
 
 **時間**: 15 分鐘
 
@@ -201,7 +201,7 @@ chore: upgrade dependencies
 
 ---
 
-### Sprint 0.5: 優化 ESLint 設定（第四優先）
+### Sprint 5: 優化 ESLint 設定（第四優先）
 
 **時間**: 20 分鐘
 
@@ -428,20 +428,20 @@ module.exports = {
 
 ## 🚀 安裝指令摘要
 
-### Sprint 0.2: Prettier
+### Sprint 2: Prettier
 
 ```bash
 pnpm add -D -w prettier
 ```
 
-### Sprint 0.3: Husky + lint-staged
+### Sprint 3: Husky + lint-staged
 
 ```bash
 pnpm add -D -w husky lint-staged
 npx husky install
 ```
 
-### Sprint 0.4: commitlint
+### Sprint 4: commitlint
 
 ```bash
 pnpm add -D -w @commitlint/cli @commitlint/config-conventional
@@ -481,13 +481,13 @@ pnpm add -D -w @commitlint/cli @commitlint/config-conventional
 
 ## 📅 實施時間表
 
-### 今晚（Sprint 0.1）
+### 今晚（Sprint 1）
 
 - ✅ 建立基本 Turborepo
 - ✅ 目錄結構
 - ✅ 文檔
 
-### 明天或之後（Sprint 0.2-0.5）
+### 明天或之後（Sprint 2-0.5）
 
 - [ ] 安裝 Prettier（15 分鐘）
 - [ ] 安裝 Husky + lint-staged（20 分鐘）

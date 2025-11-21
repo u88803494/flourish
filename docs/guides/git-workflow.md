@@ -568,4 +568,4 @@ git log --graph --oneline --all
 
 ---
 
-這份規範將在 Sprint 0.4 設定 commitlint 時強制執行。
+這份規範將在 Sprint 4 設定 commitlint 時強制執行。

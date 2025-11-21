@@ -283,7 +283,7 @@ Apps import 時使用完整路徑：
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./07-overview.md)
+- [Sprint 7 Overview](./07-overview.md)
 - [Design System Configuration Decision](../../decisions/design-system-configuration.md)
 - [Tailwind CSS-first Guide](../../guides/tailwind-css-first.md)
 

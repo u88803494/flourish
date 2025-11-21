@@ -4,7 +4,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 📋 Sprint 0.1: Basic Monorepo Structure
+## 📋 Sprint 1: Basic Monorepo Structure
 
 **Status**: ✅ COMPLETED  
 **Completed**: 2025-10-28
@@ -39,7 +39,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🎨 Sprint 0.2: Prettier Setup
+## 🎨 Sprint 2: Prettier Setup
 
 **Status**: ✅ COMPLETED
 **Completed**: 2025-10-30
@@ -66,7 +66,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🪝 Sprint 0.3: Husky + lint-staged
+## 🪝 Sprint 3: Husky + lint-staged
 
 **Status**: ✅ COMPLETED
 **Completed**: 2025-10-30
@@ -93,7 +93,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 📝 Sprint 0.4: commitlint Setup
+## 📝 Sprint 4: commitlint Setup
 
 **Status**: ✅ COMPLETED
 **Completed**: 2025-10-30
@@ -115,7 +115,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🗄️ Sprint 0.5: Prisma Setup
+## 🗄️ Sprint 5: Prisma Setup
 
 **Status**: ✅ COMPLETED
 **Completed**: 2025-10-31
@@ -158,12 +158,12 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🔧 Sprint 0.6: NestJS Application & Quality Enhancements
+## 🔧 Sprint 6: NestJS Application & Quality Enhancements
 
 **Status**: ✅ COMPLETED
 **Actual Time**: ~1.5 hours
 
-### Core Setup (Original Sprint 0.6)
+### Core Setup (Original Sprint 6)
 
 - [x] Create NestJS app (`cd apps && npx @nestjs/cli new api`)
 - [x] Configure package.json with proper scripts
@@ -215,11 +215,11 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 📈 Sprint 0.7: Apex Application
+## 📈 Sprint 7: Apex Application
 
 **Status**: 📦 Planned
 **Estimated Time**: 30 minutes
-**Planned Start**: After Sprint 0.6 merge (2025-11-04)
+**Planned Start**: After Sprint 6 merge (2025-11-04)
 
 - [ ] Create Next.js app
   - `cd apps && pnpm create next-app@latest apex`
@@ -249,7 +249,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🔧 Sprint 0.8: CI/CD & Testing Infrastructure
+## 🔧 Sprint 8: CI/CD & Testing Infrastructure
 
 **Status**: 📦 Planned (Based on Quality Engineer Review)
 **Estimated Time**: 2-3 weeks
@@ -289,7 +289,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ---
 
-## 🔐 Sprint 0.9: Security Foundations
+## 🔐 Sprint 9: Security Foundations
 
 **Status**: 📦 Planned (Based on Security Engineer Review)
 **Estimated Time**: 2-3 weeks
@@ -348,7 +348,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 **Sprint 0 Completion**: 6/7 sub-sprints (86%) - including planning for Phase 0+
 
-**Time Spent**: ~2.5 hours (Sprint 0.1-0.6)
+**Time Spent**: ~2.5 hours (Sprint 1-0.6)
 **Time Remaining for Phase 0+**: ~4-6 weeks
 
 **Expert Review Summary**:
@@ -369,13 +369,13 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 Sprint 0 is complete when:
 
-- [x] Sprint 0.1: Basic monorepo ✅
-- [x] Sprint 0.2: Prettier configured ✅
-- [x] Sprint 0.3: Git hooks working ✅
-- [x] Sprint 0.4: Commit validation active ✅
-- [x] Sprint 0.5: Database accessible ✅
-- [ ] Sprint 0.6: API server running
-- [ ] Sprint 0.7: All apps running together
+- [x] Sprint 1: Basic monorepo ✅
+- [x] Sprint 2: Prettier configured ✅
+- [x] Sprint 3: Git hooks working ✅
+- [x] Sprint 4: Commit validation active ✅
+- [x] Sprint 5: Database accessible ✅
+- [ ] Sprint 6: API server running
+- [ ] Sprint 7: All apps running together
 - [x] Documentation updated (Database, Troubleshooting, Architecture)
 - [ ] Ready to start Sprint 1
 
@@ -385,7 +385,7 @@ Sprint 0 is complete when:
 
 ### 2025-10-28
 
-- Completed Sprint 0.1 in ~25 minutes
+- Completed Sprint 1 in ~25 minutes
 - Turborepo setup was smooth with pnpm
 - Documentation restructure needed (completed)
 - Git workflow established with 7 clean commits
@@ -393,24 +393,24 @@ Sprint 0 is complete when:
 
 ### 2025-10-30
 
-- Completed Sprint 0.2 (Prettier Setup)
+- Completed Sprint 2 (Prettier Setup)
   - Prettier configuration added with sensible defaults
   - Format scripts added to package.json
   - All files formatted with `pnpm format`
-- Completed Sprint 0.3 (Husky + lint-staged)
+- Completed Sprint 3 (Husky + lint-staged)
   - Husky hooks configured successfully
   - Pre-commit hook runs lint-staged automatically
   - `.lintstagedrc.json` configured for TypeScript and markdown files
-- Completed Sprint 0.4 (commitlint)
+- Completed Sprint 4 (commitlint)
   - commitlint configured with conventional commits
   - Commit message validation working via commit-msg hook
   - Custom type-enum configured in commitlint.config.js
-- Development tooling phase complete (Sprint 0.1-0.4)
-- Ready to proceed with infrastructure setup (Sprint 0.5-0.7)
+- Development tooling phase complete (Sprint 1-0.4)
+- Ready to proceed with infrastructure setup (Sprint 5-0.7)
 
 ### 2025-10-31
 
-- Completed Sprint 0.5 (Prisma Setup + Database Migration)
+- Completed Sprint 5 (Prisma Setup + Database Migration)
   - Successfully created Supabase project in Tokyo region
   - Resolved IPv4/IPv6 connection issue by using Session Pooler connection method
   - Created comprehensive database schema with 7 core tables
@@ -423,11 +423,11 @@ Sprint 0 is complete when:
     - Updated `/docs/guides/development-setup.md` with database setup steps
     - Updated `/docs/README.md` navigation structure
   - Key learning: Session Pooler (not Direct Connection) required for IPv4 networks in Supabase
-  - Ready to proceed with Sprint 0.6 (NestJS Setup)
+  - Ready to proceed with Sprint 6 (NestJS Setup)
 
 ### 2025-11-04
 
-- Completed Sprint 0.6 (NestJS Application & Quality Enhancements)
+- Completed Sprint 6 (NestJS Application & Quality Enhancements)
   - Successfully set up NestJS backend with Prisma integration
   - Fixed unit and E2E tests
   - Enabled TypeScript strict mode
@@ -444,24 +444,24 @@ Sprint 0 is complete when:
     3. **Quality Engineer**: 3.6/10 🚨 - Test coverage critically low (18.96% vs 70% target)
 
 - Integrated Expert Review Recommendations
-  - Added comprehensive "Sprint 0.6 Expert Review Summary" section to requirements.md
-  - Created detailed Sprint 0.8 (CI/CD & Testing) tasks based on Quality Engineer recommendations
-  - Created detailed Sprint 0.9 (Security Foundations) tasks based on Security Engineer recommendations
+  - Added comprehensive "Sprint 6 Expert Review Summary" section to requirements.md
+  - Created detailed Sprint 8 (CI/CD & Testing) tasks based on Quality Engineer recommendations
+  - Created detailed Sprint 9 (Security Foundations) tasks based on Security Engineer recommendations
   - Clear roadmap now exists for Phase 0+ improvements
-  - Time estimates provided: Sprint 0.8 (23-27 hrs), Sprint 0.9 (14-18 hrs)
+  - Time estimates provided: Sprint 8 (23-27 hrs), Sprint 9 (14-18 hrs)
 
 - Key Learnings
   - Architecture decisions were sound (Backend Architect: 8.2/10)
-  - Security hardening deferred to Sprint 0.9 is appropriate approach
-  - Test coverage requires dedicated effort (Sprint 0.8) before Phase 1
+  - Security hardening deferred to Sprint 9 is appropriate approach
+  - Test coverage requires dedicated effort (Sprint 8) before Phase 1
   - Expert review process provides valuable structured feedback
   - Improvements properly sequenced without blocking merge to main
 
 ---
 
 **Last Updated**: 2025-11-04
-**Next Update**: After completing Sprint 0.7 (Apex Application)
+**Next Update**: After completing Sprint 7 (Apex Application)
 
 ## 📚 相關規劃文檔
 
-- [UML 和文檔規劃](./uml-and-documentation-plan.md) - 系統設計文檔化計劃（Sprint 0.8+ 實施）
+- [UML 和文檔規劃](./uml-and-documentation-plan.md) - 系統設計文檔化計劃（Sprint 8+ 實施）

@@ -430,7 +430,7 @@ Flourish (transactions) → Apex (condition formulas) → Charts/Insights
 
 ## 成功指標
 
-### Sprint 0.5 MVP 成功
+### Sprint 5 MVP 成功
 
 - ✅ 上傳 PDF 帳單
 - ✅ 提取基本交易資料（日期、金額、商家）
@@ -463,4 +463,4 @@ Flourish (transactions) → Apex (condition formulas) → Charts/Insights
 - [Database Design](../architecture/database-design.md)
 - [Workflow Pivot Analysis](workflow-pivot-analysis.md)
 - [Functional Requirements](functional-requirements.md)
-- [Sprint 0.5 Requirements](../sprints/sprint-0.5-mvp/requirements.md)
+- [Sprint 5 Requirements](../sprints/sprint-0.5-mvp/requirements.md)

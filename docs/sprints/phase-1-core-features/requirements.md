@@ -29,7 +29,7 @@
 
 ---
 
-## 🎯 Sprint 0.1: Monorepo 基礎架構
+## 🎯 Sprint 1: Monorepo 基礎架構
 
 **時間**: 20 分鐘  
 **目標**: 建立 Turborepo monorepo 基礎結構，確立專案架構  
@@ -142,12 +142,12 @@ flourish/
 
 ---
 
-## 🎨 Sprint 0.2: Prettier 設定
+## 🎨 Sprint 2: Prettier 設定
 
 **時間**: 15 分鐘  
 **目標**: 設定 Prettier 自動格式化，統一程式碼風格  
 **優先級**: P1（高優先）  
-**前置需求**: Sprint 0.1 完成
+**前置需求**: Sprint 1 完成
 
 ### 任務清單
 
@@ -231,12 +231,12 @@ flourish/
 
 ---
 
-## 🪝 Sprint 0.3: Husky + lint-staged 設定
+## 🪝 Sprint 3: Husky + lint-staged 設定
 
 **時間**: 20 分鐘  
 **目標**: 設定 Git hooks，在 commit 前自動檢查和格式化程式碼  
 **優先級**: P1（高優先）  
-**前置需求**: Sprint 0.2 完成
+**前置需求**: Sprint 2 完成
 
 ### 任務清單
 
@@ -303,12 +303,12 @@ flourish/
 
 ---
 
-## 📝 Sprint 0.4: commitlint 設定
+## 📝 Sprint 4: commitlint 設定
 
 **時間**: 15 分鐘  
 **目標**: 規範 commit message 格式，遵循 Conventional Commits  
 **優先級**: P2（中優先）  
-**前置需求**: Sprint 0.3 完成
+**前置需求**: Sprint 3 完成
 
 ### 任務清單
 
@@ -395,12 +395,12 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
-## 🗄️ Sprint 0.5: Prisma 設定
+## 🗄️ Sprint 5: Prisma 設定
 
 **時間**: 30 分鐘  
 **目標**: 在 monorepo 中設定 Prisma，建立共享的 database package  
 **優先級**: P0（最高優先，開發必需）  
-**前置需求**: Sprint 0.1 完成
+**前置需求**: Sprint 1 完成
 
 ### 任務清單
 
@@ -545,12 +545,12 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
-## 🔧 Sprint 0.6: NestJS 應用建立
+## 🔧 Sprint 6: NestJS 應用建立
 
 **時間**: 1 小時  
 **目標**: 建立 NestJS API 應用，整合 Prisma  
 **優先級**: P0（最高優先，開發必需）  
-**前置需求**: Sprint 0.5 完成
+**前置需求**: Sprint 5 完成
 
 ### 任務清單
 
@@ -651,12 +651,12 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
-## 📈 Sprint 0.7: Apex 應用建立
+## 📈 Sprint 7: Apex 應用建立
 
 **時間**: 30 分鐘  
 **目標**: 建立第二個 Next.js 應用（曲線圖工具）  
 **優先級**: P1（中高優先）  
-**前置需求**: Sprint 0.1 完成
+**前置需求**: Sprint 1 完成
 
 ### 任務清單
 
@@ -730,7 +730,7 @@ chore(deps): upgrade next.js to 15.0.0
 
 ---
 
-## 📊 Sprint 0.6 專家審查總結
+## 📊 Sprint 6 專家審查總結
 
 **審查日期**: 2025-11-04
 **審查範圍**: NestJS API 應用整合 Prisma 與基礎設施
@@ -779,7 +779,7 @@ chore(deps): upgrade next.js to 15.0.0
 - Prisma 連接字串管理適當
 - 基礎的健康檢查端點存在
 
-**改進時程** (建議 Sprint 0.9):
+**改進時程** (建議 Sprint 9):
 
 - 整合 class-validator 和全局 ValidationPipe
 - 實作統一錯誤回應格式
@@ -805,7 +805,7 @@ chore(deps): upgrade next.js to 15.0.0
 3. `prisma.service.spec.ts` - Prisma 服務單元測試
 4. 整合測試 - API 端點與資料庫交互測試
 
-**測試建議** (Sprint 0.8):
+**測試建議** (Sprint 8):
 
 - [ ] 補齊 4 個單元測試檔案（~8-10 小時）
 - [ ] 建立 Integration 測試框架（~6-8 小時）
@@ -816,22 +816,22 @@ chore(deps): upgrade next.js to 15.0.0
 
 ### 結論
 
-| 面向         | 評分       | 狀態        | 建議                       |
-| ------------ | ---------- | ----------- | -------------------------- |
-| **架構設計** | 8.2/10     | ✅ 優秀     | 後續加入 logging、metrics  |
-| **安全性**   | 5.8/10     | ⚠️ 需改善   | 在 Sprint 0.9 實施安全加固 |
-| **測試品質** | 3.6/10     | 🚨 關鍵不足 | 在 Sprint 0.8 補充測試     |
-| **整體**     | **5.9/10** | ⚠️ 可接受   | 已準備合併，改善可後延     |
+| 面向         | 評分       | 狀態        | 建議                      |
+| ------------ | ---------- | ----------- | ------------------------- |
+| **架構設計** | 8.2/10     | ✅ 優秀     | 後續加入 logging、metrics |
+| **安全性**   | 5.8/10     | ⚠️ 需改善   | 在 Sprint 9 實施安全加固  |
+| **測試品質** | 3.6/10     | 🚨 關鍵不足 | 在 Sprint 8 補充測試      |
+| **整體**     | **5.9/10** | ⚠️ 可接受   | 已準備合併，改善可後延    |
 
-### Sprint 0.6 → 0.7 → 0.8 + 0.9 時程建議
+### Sprint 6 → 0.7 → 0.8 + 0.9 時程建議
 
 ```
-Now: Sprint 0.6 ✅
+Now: Sprint 6 ✅
   ↓
-Sprint 0.7: Apex 應用 (平行進行)
+Sprint 7: Apex 應用 (平行進行)
   ↓
-Sprint 0.8: 測試基礎設施 (3 週) - 補充測試覆蓋率
-Sprint 0.9: 安全基礎 (3 週) - 加強安全防護
+Sprint 8: 測試基礎設施 (3 週) - 補充測試覆蓋率
+Sprint 9: 安全基礎 (3 週) - 加強安全防護
   ↓
 Sprint 1: 認證系統 (可開始)
 ```
@@ -840,18 +840,18 @@ Sprint 1: 認證系統 (可開始)
 
 ## 🔧 Phase 0+: Infrastructure Hardening (Optional)
 
-### Sprint 0.8: CI/CD & Testing Infrastructure
+### Sprint 8: CI/CD & Testing Infrastructure
 
 **時間**: 2-3 週
 **目標**: 建立自動化測試和部署流程，提升測試覆蓋率至 70%+
 **優先級**: P1（建議在 Phase 1 之前完成）
-**前置需求**: Sprint 0.6 完成
+**前置需求**: Sprint 6 完成
 
 **來源**: Quality Engineer 審查建議 + 原規劃
 
 **主要任務**:
 
-#### Unit Testing 補充 (基於 Sprint 0.6 審查)
+#### Unit Testing 補充 (基於 Sprint 6 審查)
 
 - [ ] 建立 `apps/api/src/health/health.controller.spec.ts`
   - 測試三個健康檢查端點：liveness, readiness, full health
@@ -925,12 +925,12 @@ Sprint 1: 認證系統 (可開始)
 
 ---
 
-### Sprint 0.9: Security Foundations
+### Sprint 9: Security Foundations
 
 **時間**: 2-3 週
-**目標**: 建立安全性和驗證框架基礎，修復 Sprint 0.6 識別的安全問題
+**目標**: 建立安全性和驗證框架基礎，修復 Sprint 6 識別的安全問題
 **優先級**: P1（建議在 Sprint 1 認證之前完成）
-**前置需求**: Sprint 0.6 完成
+**前置需求**: Sprint 6 完成
 **來源**: Security Engineer 審查建議 + 原規劃
 
 **主要任務**:
@@ -1084,7 +1084,7 @@ Sprint 1: 認證系統 (可開始)
 **時間**: 1-2 週
 **目標**: 實現完整的使用者認證流程（Supabase Auth + NestJS JWT 驗證）
 **優先級**: P0（最高優先，功能基礎）
-**前置需求**: Sprint 0.1-0.7 完成 + 建議完成 Sprint 0.9
+**前置需求**: Sprint 1-0.7 完成 + 建議完成 Sprint 9
 
 ### 主要任務
 
@@ -1266,8 +1266,8 @@ Sprint 1: 認證系統 (可開始)
 
 ### Phase 0（基礎建設）
 
-- Sprint 0.1-0.4: 約 1.5 小時（可分多次）
-- Sprint 0.5-0.7: 約 2 小時
+- Sprint 1-0.4: 約 1.5 小時（可分多次）
+- Sprint 5-0.7: 約 2 小時
 - **總計**: 約 3.5 小時
 
 ### Phase 1（核心功能）

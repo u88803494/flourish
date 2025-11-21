@@ -425,7 +425,7 @@ text-teal-600 → text-accent
 
 完成 Sprint 7, Task 3 後：
 
-**Sprint 0.7 完成！** 🎉
+**Sprint 7 完成！** 🎉
 
 可以開始 Sprint 1 (Authentication)，此時就可以安裝 shadcn/ui components。
 
@@ -433,7 +433,7 @@ text-teal-600 → text-accent
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./07-overview.md)
+- [Sprint 7 Overview](./07-overview.md)
 - [Sprint 7, Task 1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
 - [Sprint 7, Task 2: Lofi Theme](./07-task-2-lofi-theme.md)
 - [Design System Configuration](../../decisions/design-system-configuration.md)

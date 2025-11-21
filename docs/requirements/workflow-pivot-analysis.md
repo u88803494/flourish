@@ -8,7 +8,7 @@
 
 ## 執行摘要
 
-在 Sprint 0.5 規劃期間，發現了一個關鍵事實：實際使用者工作流程與最初的規劃假設有顯著差異。本文件分析從**每日手動輸入**到**每月 PDF 批次處理**的轉向及其對 Flourish 專案的影響。
+在 Sprint 5 規劃期間，發現了一個關鍵事實：實際使用者工作流程與最初的規劃假設有顯著差異。本文件分析從**每日手動輸入**到**每月 PDF 批次處理**的轉向及其對 Flourish 專案的影響。
 
 **關鍵發現**：使用者是信用卡重度使用者（20+ 張卡），透過 PDF 上傳處理每月帳單，而非手動輸入每日交易的人。
 
@@ -16,7 +16,7 @@
 
 ## 原始假設
 
-### 初始規劃（Sprint 0.5 前）
+### 初始規劃（Sprint 5 前）
 
 **假設的使用者行為**:
 
@@ -282,7 +282,7 @@ POST   /api/import/historical         # 匯入 CSV 資料
 
 ### MVP 範圍重新定義
 
-**Sprint 0.5 MVP 必須擁有**:
+**Sprint 5 MVP 必須擁有**:
 
 - ✅ PDF 帳單上傳
 - ✅ 基本 AI 交易提取
@@ -290,7 +290,7 @@ POST   /api/import/historical         # 匯入 CSV 資料
 - ✅ 以帳單為中心的資料模型
 - ✅ 多卡管理
 
-**Sprint 0.5 Nice to Have → 延後至 Sprint 2**:
+**Sprint 5 Nice to Have → 延後至 Sprint 2**:
 
 - ⏸️ 預扣系統（重要但複雜）
 - ⏸️ 週期性支出追蹤
@@ -307,7 +307,7 @@ POST   /api/import/historical         # 匯入 CSV 資料
 
 ## 實作階段
 
-### 階段 1：Sprint 0.5 - PDF 處理 MVP（2 週）
+### 階段 1：Sprint 5 - PDF 處理 MVP（2 週）
 
 **目標**：上傳 → 提取 → 匯入工作流程
 
@@ -383,7 +383,7 @@ POST   /api/import/historical         # 匯入 CSV 資料
 **風險 2：複雜的預算邏輯**
 
 - **關注點**：預扣計算複雜
-- **影響**：中等 - 延後至 Sprint 2 降低 Sprint 0.5 風險
+- **影響**：中等 - 延後至 Sprint 2 降低 Sprint 5 風險
 - **緩解**:
   - 實作前先與使用者驗證邏輯
   - 逐步建構（訂閱 → 分攤 → 儲蓄）
@@ -415,14 +415,14 @@ POST   /api/import/historical         # 匯入 CSV 資料
 
 **做得好的地方**:
 
-- ✅ 在 Sprint 0.5 規劃期間詢問了釐清問題
+- ✅ 在 Sprint 5 規劃期間詢問了釐清問題
 - ✅ 使用者提供了實際工作流程的詳細情境
 - ✅ 發現了真實痛點（Google Sheets 複雜度）
 - ✅ 揭露了資料量實況（20+ 張卡、6 年資料）
 
 **可以改進的地方**:
 
-- ⚠️ 應該更早詢問工作流程（Sprint 0.1）
+- ⚠️ 應該更早詢問工作流程（Sprint 1）
 - ⚠️ 初始假設未與使用者場景驗證
 - ⚠️ 在理解工作流程前就建立了資料庫設計
 
@@ -462,9 +462,9 @@ POST   /api/import/historical         # 匯入 CSV 資料
 1. ✅ 文件化需求（本文件）
 2. ⏳ 以階段式架構更新 database-design.md
 3. ⏳ 建立包含詳細功能的 functional-requirements.md
-4. ⏳ 以新範圍規劃 Sprint 0.5 執行
+4. ⏳ 以新範圍規劃 Sprint 5 執行
 
-### Sprint 0.5 執行（接下來 2 週）
+### Sprint 5 執行（接下來 2 週）
 
 1. 設置 Supabase 專案和認證
 2. 定義 Prisma schema（以帳單為中心的模型）
@@ -490,7 +490,7 @@ POST   /api/import/historical         # 匯入 CSV 資料
 
 **關鍵要點**：理解實際使用者工作流程比堅持初始計畫更重要。從手動輸入轉向 PDF 批次處理從根本上改善了使用者體驗，並為信用卡重度使用者定位了 Flourish。
 
-**專案時程影響**：最小 - Sprint 0.5 範圍已調整但仍可在 2 週內達成。進階功能延後至 Sprint 2 降低風險並允許更快發布。
+**專案時程影響**：最小 - Sprint 5 範圍已調整但仍可在 2 週內達成。進階功能延後至 Sprint 2 降低風險並允許更快發布。
 
 ---
 
@@ -499,4 +499,4 @@ POST   /api/import/historical         # 匯入 CSV 資料
 - [Vision and Workflow](vision-and-workflow.md) - 轉向後的詳細需求
 - [Database Design](../architecture/database-design.md) - 更新的資料模型
 - [Functional Requirements](functional-requirements.md) - 功能規格
-- [Sprint 0.5 Tasks](../sprints/sprint-0-foundation/tasks.md) - 實作計畫
+- [Sprint 5 Tasks](../sprints/sprint-0-foundation/tasks.md) - 實作計畫

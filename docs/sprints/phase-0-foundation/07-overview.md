@@ -1,4 +1,4 @@
-# Sprint 0.7: Apex Application & Design System
+# Sprint 7: Apex Application & Design System
 
 **時間**: 2-3 天
 **狀態**: 📋 規劃完成，待執行
@@ -15,7 +15,7 @@
 
 ## 📋 Sub-Sprints
 
-### ✅ Sprint 0.7.0: Apex App 基礎建立
+### ✅ Sprint 7.0: Apex App 基礎建立
 
 **狀態**: 已完成
 **完成日期**: 2025-11-05
@@ -170,7 +170,7 @@ apps/apex/
 
 ## ✅ Success Criteria
 
-Sprint 0.7 完成條件:
+Sprint 7 完成條件:
 
 **必要條件**:
 

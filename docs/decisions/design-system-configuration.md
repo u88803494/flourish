@@ -7,7 +7,7 @@
 
 ## 背景
 
-在 Sprint 0.7 (Apex Application) 實施過程中，我們發現需要統一的 design system 來支援 Flow 和 Apex 兩個應用程式。如果沒有適當的 component library，我們會面臨：
+在 Sprint 7 (Apex Application) 實施過程中，我們發現需要統一的 design system 來支援 Flow 和 Apex 兩個應用程式。如果沒有適當的 component library，我們會面臨：
 
 - 應用程式之間 UI/UX 不一致
 - Component 程式碼重複
@@ -230,7 +230,7 @@ apps/apex/components/        # Apex 專屬
 
 ### 4. Component 範圍
 
-#### Phase 1: 必要 Component (Sprint 0.7 / 1)
+#### Phase 1: 必要 Component (Sprint 7 / 1)
 
 **Authentication & Forms**（Sprint 1 立即需求）:
 
@@ -375,8 +375,8 @@ export default {
 ## 時程
 
 - **決策階段**: 2025-11-05（今天）
-- **實施**: Sprint 0.7（2-3 天）
-- **驗證**: Sprint 0.8 之前
+- **實施**: Sprint 7（2-3 天）
+- **驗證**: Sprint 8 之前
 - **正式使用**: Sprint 1 (Authentication)
 
 ---
@@ -386,7 +386,7 @@ export default {
 - [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
 - [shadcn/ui Documentation](https://ui.shadcn.com)
 - [daisyUI Themes](https://daisyui.com/docs/themes/)
-- [Sprint 0.7 Overview](../sprints/sprint-0-foundation/07-overview.md)
+- [Sprint 7 Overview](../sprints/sprint-0-foundation/07-overview.md)
 - [Sprint 7, Task 1: packages/ui Setup](../sprints/sprint-0-foundation/07-task-1-packages-ui-setup.md)
 - [Sprint 7, Task 2: Lofi Theme](../sprints/sprint-0-foundation/07-task-2-lofi-theme.md)
 - [Sprint 7, Task 3: Corporate Theme](../sprints/sprint-0-foundation/07-task-3-corporate-theme.md)
