@@ -1,0 +1,51 @@
+{
+  "name": "@repo/supabase-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Supabase client package with feature-based architecture",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./auth": "./src/features/auth/index.ts",
+    "./auth/server": "./src/features/auth/server.ts",
+    "./transactions": "./src/features/transactions/index.ts",
+    "./transactions/server": "./src/features/transactions/server.ts",
+    "./cards": "./src/features/cards/index.ts",
+    "./cards/server": "./src/features/cards/server.ts",
+    "./categories": "./src/features/categories/index.ts",
+    "./categories/server": "./src/features/categories/server.ts",
+    "./statements": "./src/features/statements/index.ts",
+    "./statements/server": "./src/features/statements/server.ts",
+    "./recurring-expenses": "./src/features/recurring-expenses/index.ts",
+    "./recurring-expenses/server": "./src/features/recurring-expenses/server.ts",
+    "./saving-rules": "./src/features/saving-rules/index.ts",
+    "./saving-rules/server": "./src/features/saving-rules/server.ts",
+    "./types": "./src/shared/types/index.ts",
+    "./client": "./src/lib/client/index.ts",
+    "./server": "./src/lib/server/index.ts",
+    "./provider": "./src/lib/client/provider.tsx"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "generate-types": "supabase gen types typescript --linked > src/shared/types/database.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.81.1",
+    "@tanstack/react-query": "^5.90.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18.2.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "server-only": "^0.0.1",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0 || ^16.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  }
+}
