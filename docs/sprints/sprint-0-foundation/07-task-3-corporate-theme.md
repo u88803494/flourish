@@ -1,8 +1,8 @@
-# Sprint 0.7.3: Corporate Theme (Flow)
+# Sprint 7, Task 3: Corporate Theme (Flow)
 
 **預估時間**: 1 小時
 **狀態**: 📋 規劃中
-**依賴**: Sprint 0.7.1 完成
+**依賴**: Sprint 7, Task 1 完成
 
 ---
 
@@ -423,7 +423,7 @@ text-teal-600 → text-accent
 
 ## 🚀 Next Steps
 
-完成 Sprint 0.7.3 後：
+完成 Sprint 7, Task 3 後：
 
 **Sprint 0.7 完成！** 🎉
 
@@ -433,9 +433,9 @@ text-teal-600 → text-accent
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./0.7-overview.md)
-- [Sprint 0.7.1: packages/ui Setup](./0.7.1-packages-ui-setup.md)
-- [Sprint 0.7.2: Lofi Theme](./0.7.2-lofi-theme.md)
+- [Sprint 0.7 Overview](./07-overview.md)
+- [Sprint 7, Task 1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
+- [Sprint 7, Task 2: Lofi Theme](./07-task-2-lofi-theme.md)
 - [Design System Configuration](../../decisions/design-system-configuration.md)
 
 ---

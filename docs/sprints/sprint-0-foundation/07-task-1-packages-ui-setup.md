@@ -1,4 +1,4 @@
-# Sprint 0.7.1: packages/ui 基礎架構
+# Sprint 7, Task 1: packages/ui 基礎架構
 
 **預估時間**: 1-1.5 小時
 **狀態**: 📋 規劃中
@@ -30,8 +30,8 @@ packages/ui/
 ├── styles/
 │   ├── base-theme.css       # 共享基礎 theme
 │   └── themes/              # App-specific themes (0.7.2, 0.7.3 建立)
-│       ├── lofi.css         # (Sprint 0.7.2)
-│       └── corporate.css    # (Sprint 0.7.3)
+│       ├── lofi.css         # (Sprint 7, Task 2)
+│       └── corporate.css    # (Sprint 7, Task 3)
 └── components/              # (未來 Sprint 1 建立)
     └── ui/                  # shadcn/ui components
 ```
@@ -274,16 +274,16 @@ Apps import 時使用完整路徑：
 
 ## 🚀 Next Steps
 
-完成 Sprint 0.7.1 後：
+完成 Sprint 7, Task 1 後：
 
-1. **Sprint 0.7.2**: 建立 Lofi theme 並套用到 Apex
-2. **Sprint 0.7.3**: 建立 Corporate theme 並套用到 Flow
+1. **Sprint 7, Task 2**: 建立 Lofi theme 並套用到 Apex
+2. **Sprint 7, Task 3**: 建立 Corporate theme 並套用到 Flow
 
 ---
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./0.7-overview.md)
+- [Sprint 0.7 Overview](./07-overview.md)
 - [Design System Configuration Decision](../../decisions/design-system-configuration.md)
 - [Tailwind CSS-first Guide](../../guides/tailwind-css-first.md)
 

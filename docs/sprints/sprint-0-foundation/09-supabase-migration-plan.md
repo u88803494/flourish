@@ -62,7 +62,7 @@ From **ADR 001 - Architecture Simplification**:
 
 ## 📊 Sub-Sprint Structure
 
-### Sprint 0.9.1: Supabase Basic Setup ⏱️ ~2 hours
+### Sprint 9, Task 1: Supabase Basic Setup ⏱️ ~2 hours
 
 **Objective**: Initialize Supabase development environment and verify MCP integration
 
@@ -171,7 +171,7 @@ From Supabase Dashboard:
 
 **Deliverable**: All keys configured in environment
 
-### Verification Checklist (Sprint 0.9.1)
+### Verification Checklist (Sprint 9, Task 1)
 
 - [x] Supabase CLI installed (via npx)
 - [x] `npx supabase login` successful with access token
@@ -186,11 +186,11 @@ From Supabase Dashboard:
 
 ---
 
-### Sprint 0.9.2: Database Migrations ⏱️ ~2.5 hours
+### Sprint 9, Task 2: Database Migrations ⏱️ ~2.5 hours
 
 **Objective**: Create and execute SQL migrations to establish complete database schema
 
-**Dependencies**: Sprint 0.9.1 (Supabase linked)
+**Dependencies**: Sprint 9, Task 1 (Supabase linked)
 
 **Pre-requisites**:
 
@@ -491,7 +491,7 @@ npx supabase db diff
 
 **Expected Output**: All migrations applied successfully
 
-### Verification Checklist (Sprint 0.9.2)
+### Verification Checklist (Sprint 9, Task 2)
 
 - [ ] All 4 migration files created and error-free
 - [ ] Local `supabase db reset` runs successfully
@@ -507,11 +507,11 @@ npx supabase db diff
 
 ---
 
-### Sprint 0.9.3: Client Package & Integration ⏱️ ~3.5 hours
+### Sprint 9, Task 3: Client Package & Integration ⏱️ ~3.5 hours
 
 **Objective**: Create Supabase client package and integrate into Flow/Apex
 
-**Dependencies**: Sprint 0.9.2 (Database ready)
+**Dependencies**: Sprint 9, Task 2 (Database ready)
 
 #### 3.1 Create supabase-client Package
 
@@ -751,7 +751,7 @@ Same process as Flow:
 2. Configure `.env.local` with Supabase keys
 3. Use hooks in components
 
-### Verification Checklist (Sprint 0.9.3)
+### Verification Checklist (Sprint 9, Task 3)
 
 - [ ] `packages/supabase-client/` package created
 - [ ] `pnpm install` succeeds
@@ -767,11 +767,11 @@ Same process as Flow:
 
 ---
 
-### Sprint 0.9.4: Cleanup & Documentation ⏱️ ~1.5 hours
+### Sprint 9, Task 4: Cleanup & Documentation ⏱️ ~1.5 hours
 
 **Objective**: Archive NestJS API and complete all documentation
 
-**Dependencies**: Sprint 0.9.3 (Integration complete)
+**Dependencies**: Sprint 9, Task 3 (Integration complete)
 
 #### 4.1 Archive NestJS API
 
@@ -823,7 +823,7 @@ Supabase provides:
 All code is available in Git history:
 
 - Last commit: [See last-commit.txt]
-- Branch: `main` (before Sprint 0.9.1)
+- Branch: `main` (before Sprint 9, Task 1)
 - Full deployment docs: `docs/archive/render-deployment/`
 
 You can restore the code and use it as a microservice template if needed.
@@ -850,28 +850,28 @@ Update the Sprint 0.9 section to show completion:
 - ✅ Set up secure MCP configuration
 - ✅ Documented all technical steps
 
-#### Sprint 0.9.1: Supabase Setup (~2 hours)
+#### Sprint 9, Task 1: Supabase Setup (~2 hours)
 
 - ✅ Supabase CLI authentication
 - ✅ Project initialization and linking
 - ✅ Environment variables configuration
 - ✅ MCP integration and testing
 
-#### Sprint 0.9.2: Database Migrations (~2.5 hours)
+#### Sprint 9, Task 2: Database Migrations (~2.5 hours)
 
 - ✅ Created 4 SQL migration files
 - ✅ Implemented auth integration with triggers
 - ✅ Configured Row Level Security policies
 - ✅ Added performance indexes and helper functions
 
-#### Sprint 0.9.3: Client & Integration (~3.5 hours)
+#### Sprint 9, Task 3: Client & Integration (~3.5 hours)
 
 - ✅ Created `@repo/supabase-client` package
 - ✅ Generated TypeScript types from schema
 - ✅ Implemented React hooks (useAuth, useTransactions)
 - ✅ Integrated into Flow and Apex apps
 
-#### Sprint 0.9.4: Cleanup & Docs (~1.5 hours)
+#### Sprint 9, Task 4: Cleanup & Docs (~1.5 hours)
 
 - ✅ Archived NestJS API
 - ✅ Updated Turbo configuration
@@ -969,7 +969,7 @@ Note: Production rollbacks require manual Supabase Dashboard intervention
 
 ```
 
-### Verification Checklist (Sprint 0.9.4)
+### Verification Checklist (Sprint 9, Task 4)
 
 - [ ] `apps/api/` removed from Git
 - [ ] `turbo.json` updated (no api references)
@@ -988,13 +988,13 @@ Note: Production rollbacks require manual Supabase Dashboard intervention
 
 ```
 
-Sprint 0.9.1 (Setup)
+Sprint 9, Task 1 (Setup)
 ↓
-Sprint 0.9.2 (Migrations) [depends on 0.9.1]
+Sprint 9, Task 2 (Migrations) [depends on 0.9.1]
 ↓
-Sprint 0.9.3 (Integration) [depends on 0.9.2]
+Sprint 9, Task 3 (Integration) [depends on 0.9.2]
 ↓
-Sprint 0.9.4 (Cleanup) [depends on 0.9.3]
+Sprint 9, Task 4 (Cleanup) [depends on 0.9.3]
 
 ```
 
@@ -1102,7 +1102,7 @@ Sprint 0.9.4 (Cleanup) [depends on 0.9.3]
 
 ### Architecture
 - [ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
-- [Sprint 0.8 Evaluation](./0.8-deployment-evaluation.md)
+- [Sprint 0.8 Evaluation](./08-deployment-evaluation.md)
 - [Deployment README](../../deployment/README.md)
 
 ### Guides
@@ -1148,5 +1148,5 @@ After Sprint 0.9 completion:
 **Document Created**: 2025-11-12
 **Last Updated**: 2025-11-12
 **Status**: Complete
-**Next Review**: After Sprint 0.9.1 completion
+**Next Review**: After Sprint 9, Task 1 completion
 ```

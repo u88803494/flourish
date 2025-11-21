@@ -94,7 +94,7 @@
 - ⚠️ 複雜業務邏輯需要 Edge Functions
 - ⚠️ 供應商鎖定於 Supabase（緩解：PostgreSQL 是標準）
 
-**實施**: Sprint 0.9（4 個子 Sprint）
+**實施**: Sprint 9（4 個任務）
 **文檔**: `docs/decisions/001-architecture-simplification.md`
 
 ---
@@ -555,5 +555,5 @@ npx supabase db push
 
 **維護者**: Flourish Team
 **架構版本**: 2.0 (Supabase-first)
-**上次主要更新**: Sprint 0.9 (2025-11-21)
+**上次主要更新**: Sprint 9 (2025-11-21)
 **下次審查**: Sprint 1（認證實作）

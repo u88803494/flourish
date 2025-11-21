@@ -332,7 +332,7 @@ export default {
 - ✅ Apex: 從一開始就使用 CSS-first
 - ✅ 保留 `postcss.config.mjs`（Tailwind v4 必需）
 
-**參考**: 實作細節見 Sprint 0.7.1, 0.7.2, 0.7.3 規劃文檔
+**參考**: 實作細節見 Sprint 7, Task 1, 0.7.2, 0.7.3 規劃文檔
 
 ---
 
@@ -386,10 +386,10 @@ export default {
 - [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
 - [shadcn/ui Documentation](https://ui.shadcn.com)
 - [daisyUI Themes](https://daisyui.com/docs/themes/)
-- [Sprint 0.7 Overview](../sprints/sprint-0-foundation/0.7-overview.md)
-- [Sprint 0.7.1: packages/ui Setup](../sprints/sprint-0-foundation/0.7.1-packages-ui-setup.md)
-- [Sprint 0.7.2: Lofi Theme](../sprints/sprint-0-foundation/0.7.2-lofi-theme.md)
-- [Sprint 0.7.3: Corporate Theme](../sprints/sprint-0-foundation/0.7.3-corporate-theme.md)
+- [Sprint 0.7 Overview](../sprints/sprint-0-foundation/07-overview.md)
+- [Sprint 7, Task 1: packages/ui Setup](../sprints/sprint-0-foundation/07-task-1-packages-ui-setup.md)
+- [Sprint 7, Task 2: Lofi Theme](../sprints/sprint-0-foundation/07-task-2-lofi-theme.md)
+- [Sprint 7, Task 3: Corporate Theme](../sprints/sprint-0-foundation/07-task-3-corporate-theme.md)
 
 ---
 
@@ -421,7 +421,7 @@ export default {
 
 - ✅ Apex page.tsx 重構為 CSS variables
 - ✅ Flow 移除 tailwind.config.ts
-- ✅ 建立 Sprint 0.7.1, 0.7.2, 0.7.3 完整規劃文檔
+- ✅ 建立 Sprint 7, Task 1, 0.7.2, 0.7.3 完整規劃文檔
 
 **決策完成度**: 100%
-**待執行**: Sprint 0.7.1 → 0.7.2 → 0.7.3 實作
+**待執行**: Sprint 7, Task 1 → 0.7.2 → 0.7.3 實作

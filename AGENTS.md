@@ -112,7 +112,7 @@
 **範例**:
 
 ```
-Sprint 0.9.3: Supabase Client Package
+Sprint 9, Task 3: Supabase Client Package
 ├── Task 1: 創建 @repo/supabase-client 套件
 │   ├── CREATE packages/supabase-client/package.json
 │   ├── CREATE packages/supabase-client/src/index.ts
@@ -216,7 +216,7 @@ Closes #20"
 
 - [x] Build 通過
 - [x] Lint 通過
-- [x] 類型有效
+- [x] 類型檢查通過
 - [x] 文檔已更新
 
 ---

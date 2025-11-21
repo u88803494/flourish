@@ -360,7 +360,7 @@ git commit -m "feat(db): add new_field to users"
 ## 🔗 相關文檔
 
 - [ADR 002 - Imperative Migrations 決策](../decisions/002-imperative-migrations.md)
-- [Sprint 0.9.2 - 資料庫遷移](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [Sprint 9, Task 2 - 資料庫遷移](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 - [資料庫設置指南](./database-setup.md)
 - [Supabase CLI 參考](https://supabase.com/docs/guides/cli)
 

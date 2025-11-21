@@ -47,23 +47,23 @@
 
 ### 階段 1：Sprint 編號對照表
 
-| 目前格式     | 新編號          | 新檔名                            | 說明                  |
-| ------------ | --------------- | --------------------------------- | --------------------- |
-| Sprint 0.1   | Sprint 1        | `sprint-01-monorepo.md`           | 基礎 Monorepo         |
-| Sprint 0.2   | Sprint 2        | `sprint-02-prettier.md`           | Prettier 設定         |
-| Sprint 0.3   | Sprint 3        | `sprint-03-husky.md`              | Husky + lint-staged   |
-| Sprint 0.4   | Sprint 4        | `sprint-04-commitlint.md`         | commitlint            |
-| Sprint 0.5   | Sprint 5        | `sprint-05-prisma.md`             | Prisma（設計參考）    |
-| Sprint 0.6   | Sprint 6        | `sprint-06-nestjs.md`             | NestJS 應用程式       |
-| Sprint 0.7   | Sprint 7        | `sprint-07-apex.md`               | Apex 應用程式         |
-| Sprint 0.8   | Sprint 8        | `sprint-08-deployment.md`         | 部署評估              |
-| Sprint 0.9   | Sprint 9        | `sprint-09-supabase/`             | Supabase 遷移（目錄） |
-| Sprint 0.9.1 | Sprint 9 Task 1 | `sprint-09/task-01-cli.md`        | CLI & 環境設定        |
-| Sprint 0.9.2 | Sprint 9 Task 2 | `sprint-09/task-02-migrations.md` | 資料庫遷移            |
-| Sprint 0.9.3 | Sprint 9 Task 3 | `sprint-09/task-03-client.md`     | Supabase Client 套件  |
-| Sprint 0.9.4 | Sprint 9 Task 4 | `sprint-09/task-04-archive.md`    | NestJS 存檔           |
-| Sprint 0.10  | Sprint 10       | `sprint-10-docs.md`               | 文檔 & Agent 設定     |
-| Sprint 0.11  | Sprint 11       | `sprint-11-refactoring.md`        | 本次重構 sprint       |
+| 目前格式         | 新編號          | 新檔名                            | 說明                  |
+| ---------------- | --------------- | --------------------------------- | --------------------- |
+| Sprint 0.1       | Sprint 1        | `sprint-01-monorepo.md`           | 基礎 Monorepo         |
+| Sprint 0.2       | Sprint 2        | `sprint-02-prettier.md`           | Prettier 設定         |
+| Sprint 0.3       | Sprint 3        | `sprint-03-husky.md`              | Husky + lint-staged   |
+| Sprint 0.4       | Sprint 4        | `sprint-04-commitlint.md`         | commitlint            |
+| Sprint 0.5       | Sprint 5        | `sprint-05-prisma.md`             | Prisma（設計參考）    |
+| Sprint 0.6       | Sprint 6        | `sprint-06-nestjs.md`             | NestJS 應用程式       |
+| Sprint 0.7       | Sprint 7        | `sprint-07-apex.md`               | Apex 應用程式         |
+| Sprint 0.8       | Sprint 8        | `sprint-08-deployment.md`         | 部署評估              |
+| Sprint 0.9       | Sprint 9        | `sprint-09-supabase/`             | Supabase 遷移（目錄） |
+| Sprint 9, Task 1 | Sprint 9 Task 1 | `sprint-09/task-01-cli.md`        | CLI & 環境設定        |
+| Sprint 9, Task 2 | Sprint 9 Task 2 | `sprint-09/task-02-migrations.md` | 資料庫遷移            |
+| Sprint 9, Task 3 | Sprint 9 Task 3 | `sprint-09/task-03-client.md`     | Supabase Client 套件  |
+| Sprint 9, Task 4 | Sprint 9 Task 4 | `sprint-09/task-04-archive.md`    | NestJS 存檔           |
+| Sprint 0.10      | Sprint 10       | `sprint-10-docs.md`               | 文檔 & Agent 設定     |
+| Sprint 0.11      | Sprint 11       | `sprint-11-refactoring.md`        | 本次重構 sprint       |
 
 ### 階段 2：資料夾結構
 
@@ -75,9 +75,9 @@ docs/sprints/sprint-0-foundation/
 ├── requirements.md
 ├── implementation.md
 ├── tasks.md
-├── 0.8-deployment-evaluation.md
-├── 0.9-supabase-migration-plan.md
-└── 0.10-documentation-agent-setup.md
+├── 08-deployment-evaluation.md
+├── 09-supabase-migration-plan.md
+└── 10-documentation-agent-setup.md
 ```
 
 **重構後**：
@@ -97,7 +97,7 @@ docs/sprints/
 │   ├── sprint-07-apex.md
 │   ├── sprint-08-deployment.md
 │   ├── sprint-09-supabase/
-│   │   ├── overview.md（從 0.9-supabase-migration-plan.md 改名）
+│   │   ├── overview.md（從 09-supabase-migration-plan.md 改名）
 │   │   ├── task-01-cli.md
 │   │   ├── task-02-migrations.md
 │   │   ├── task-03-client.md
@@ -159,7 +159,7 @@ touch docs/sprints/README.md
 **Sprint 8（部署評估）**：
 
 ```bash
-mv docs/sprints/sprint-0-foundation/0.8-deployment-evaluation.md \
+mv docs/sprints/sprint-0-foundation/08-deployment-evaluation.md \
    docs/sprints/phase-0-foundation/sprint-08-deployment.md
 ```
 
@@ -170,7 +170,7 @@ mv docs/sprints/sprint-0-foundation/0.8-deployment-evaluation.md \
 mkdir -p docs/sprints/phase-0-foundation/sprint-09-supabase
 
 # 移動並重新命名規劃文件
-mv docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md \
+mv docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md \
    docs/sprints/phase-0-foundation/sprint-09-supabase/overview.md
 
 # 注意：Task 檔案（0.9.1-0.9.4）目前還不存在
@@ -180,14 +180,14 @@ mv docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md \
 **Sprint 10（文檔）**：
 
 ```bash
-mv docs/sprints/sprint-0-foundation/0.10-documentation-agent-setup.md \
+mv docs/sprints/sprint-0-foundation/10-documentation-agent-setup.md \
    docs/sprints/phase-0-foundation/sprint-10-docs.md
 ```
 
 **Sprint 11（本文件）**：
 
 ```bash
-mv docs/sprints/sprint-0-foundation/0.11-sprint-numbering-refactoring.md \
+mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
    docs/sprints/phase-0-foundation/sprint-11-refactoring.md
 ```
 
@@ -217,10 +217,10 @@ mv docs/sprints/sprint-0-foundation/0.11-sprint-numbering-refactoring.md \
 - `Sprint 0.7` → `Sprint 7`
 - `Sprint 0.8` → `Sprint 8`
 - `Sprint 0.9` → `Sprint 9`
-- `Sprint 0.9.1` → `Sprint 9 Task 1` 或 `Sprint 9.1`
-- `Sprint 0.9.2` → `Sprint 9 Task 2` 或 `Sprint 9.2`
-- `Sprint 0.9.3` → `Sprint 9 Task 3` 或 `Sprint 9.3`
-- `Sprint 0.9.4` → `Sprint 9 Task 4` 或 `Sprint 9.4`
+- `Sprint 9, Task 1` → `Sprint 9 Task 1` 或 `Sprint 9.1`
+- `Sprint 9, Task 2` → `Sprint 9 Task 2` 或 `Sprint 9.2`
+- `Sprint 9, Task 3` → `Sprint 9 Task 3` 或 `Sprint 9.3`
+- `Sprint 9, Task 4` → `Sprint 9 Task 4` 或 `Sprint 9.4`
 - `Sprint 0.10` → `Sprint 10`
 - `Sprint 0.11` → `Sprint 11`
 
@@ -285,7 +285,7 @@ mv docs/sprints/sprint-0-foundation/0.11-sprint-numbering-refactoring.md \
 
 ```
 排序：sprint-0.1, sprint-0.10, sprint-0.2 ❌
-引用：Sprint 0.8, Sprint 0.9.1（不一致）
+引用：Sprint 0.8, Sprint 9, Task 1（不一致）
 結構：扁平，難以導覽
 ```
 

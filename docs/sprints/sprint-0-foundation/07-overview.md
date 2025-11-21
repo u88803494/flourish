@@ -32,7 +32,7 @@
 
 ---
 
-### 📦 Sprint 0.7.1: packages/ui 基礎架構
+### 📦 Sprint 7, Task 1: packages/ui 基礎架構
 
 **狀態**: 📋 規劃中
 **預估時間**: 1-1.5 小時
@@ -47,11 +47,11 @@
 - 配置 Turbo pipeline
 - 測試 workspace 整合
 
-**詳細規劃**: [0.7.1-packages-ui-setup.md](./0.7.1-packages-ui-setup.md)
+**詳細規劃**: [07-task-1-packages-ui-setup.md](./07-task-1-packages-ui-setup.md)
 
 ---
 
-### 📦 Sprint 0.7.2: Lofi Theme (Apex)
+### 📦 Sprint 7, Task 2: Lofi Theme (Apex)
 
 **狀態**: 📋 規劃中
 **預估時間**: 45 分鐘
@@ -66,11 +66,11 @@
 - 更新 Apex globals.css
 - 測試主題效果
 
-**詳細規劃**: [0.7.2-lofi-theme.md](./0.7.2-lofi-theme.md)
+**詳細規劃**: [07-task-2-lofi-theme.md](./07-task-2-lofi-theme.md)
 
 ---
 
-### 📦 Sprint 0.7.3: Corporate Theme (Flow)
+### 📦 Sprint 7, Task 3: Corporate Theme (Flow)
 
 **狀態**: 📋 規劃中
 **預估時間**: 1 小時
@@ -86,7 +86,7 @@
 - 移除舊的 tailwind.config.ts
 - 測試主題效果
 
-**詳細規劃**: [0.7.3-corporate-theme.md](./0.7.3-corporate-theme.md)
+**詳細規劃**: [07-task-3-corporate-theme.md](./07-task-3-corporate-theme.md)
 
 ---
 
@@ -194,12 +194,12 @@ Sprint 0.7 完成條件:
 
 ### 本週
 
-- 完成 Sprint 0.7.1 (packages/ui 架構)
-- 完成 Sprint 0.7.2 (Lofi theme)
+- 完成 Sprint 7, Task 1 (packages/ui 架構)
+- 完成 Sprint 7, Task 2 (Lofi theme)
 
 ### 下週
 
-- 完成 Sprint 0.7.3 (Corporate theme)
+- 完成 Sprint 7, Task 3 (Corporate theme)
 - 驗證整體系統
 
 ---
@@ -212,9 +212,9 @@ Sprint 0.7 完成條件:
 
 ### 規劃文檔
 
-- [0.7.1: packages/ui Setup](./0.7.1-packages-ui-setup.md)
-- [0.7.2: Lofi Theme](./0.7.2-lofi-theme.md)
-- [0.7.3: Corporate Theme](./0.7.3-corporate-theme.md)
+- [0.7.1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
+- [0.7.2: Lofi Theme](./07-task-2-lofi-theme.md)
+- [0.7.3: Corporate Theme](./07-task-3-corporate-theme.md)
 
 ### 技術文檔
 

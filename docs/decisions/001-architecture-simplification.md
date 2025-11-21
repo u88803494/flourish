@@ -277,7 +277,7 @@ export async function handler(req: Request) {
 - [Render Staging 設置](../archive/render-deployment/render-staging-setup.md)（存檔）
 - [Render Production 設置](../archive/render-deployment/render-production-setup.md)（存檔）
 - [Backend Hosting 比較](../archive/render-deployment/backend-hosting-comparison.md)（存檔）
-- [Sprint 0.8 評估文檔](../sprints/sprint-0-foundation/0.8-deployment-evaluation.md)
+- [Sprint 0.8 評估文檔](../sprints/sprint-0-foundation/08-deployment-evaluation.md)
 
 ### 外部資源
 

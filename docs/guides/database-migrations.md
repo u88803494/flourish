@@ -384,7 +384,7 @@ npx supabase db diff
 
 ## Related Documentation
 
-- [Sprint 0.9 - Supabase Migration Plan](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [Sprint 0.9 - Supabase Migration Plan](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 - [Supabase Setup Guide](./mcp-setup.md)
 - [Supabase Migrations Docs](https://supabase.com/docs/guides/cli/local-development#database-migrations)
 

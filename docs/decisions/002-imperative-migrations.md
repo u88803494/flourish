@@ -3,13 +3,13 @@
 **狀態**: 已接受
 **日期**: 2025-11-13
 **決策者**: Henry Lee
-**相關文件**: [ADR 001 - 架構簡化](./001-architecture-simplification.md)、[Sprint 0.9.2](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+**相關文件**: [ADR 001 - 架構簡化](./001-architecture-simplification.md)、[Sprint 9, Task 2](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 
 ---
 
 ## 背景脈絡
 
-在 Sprint 0.9.2（資料庫 Schema 與遷移）期間，我們需要在兩種管理 Supabase 資料庫遷移的方法之間做選擇：
+在 Sprint 9, Task 2（資料庫 Schema 與遷移）期間，我們需要在兩種管理 Supabase 資料庫遷移的方法之間做選擇：
 
 1. **Imperative Migrations（命令式遷移）** - 傳統的 SQL 遷移檔案
 2. **Declarative Schema（宣告式 Schema）** - Supabase 新功能（2024-2025）使用狀態式 schema 定義
@@ -94,7 +94,7 @@ npx supabase db push
 
 **目前狀態**：
 
-- Sprint 0.9.2 已完成 4 個 Imperative migrations
+- Sprint 9, Task 2 已完成 4 個 Imperative migrations
 - 所有遷移都已測試並成功部署
 - Schema 在正式環境中正常運作
 
@@ -189,7 +189,7 @@ npx supabase db push
 
 ## 實作
 
-### Sprint 0.9.2 交付成果
+### Sprint 9, Task 2 交付成果
 
 使用 Imperative 方法完成 4 個遷移：
 
@@ -256,7 +256,7 @@ COMMENT ON COLUMN table_name.column_name IS '用途描述';
 
 - [Supabase 遷移方法指南](../guides/supabase-migration-approaches.md) - 詳細比較
 - [Supabase CLI 文檔](https://supabase.com/docs/guides/cli)
-- [Sprint 0.9.2 實作](../sprints/sprint-0-foundation/0.9-supabase-migration-plan.md)
+- [Sprint 9, Task 2 實作](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 - [PostgreSQL 遷移最佳實踐](https://www.postgresql.org/docs/current/ddl-alter.html)
 
 ---

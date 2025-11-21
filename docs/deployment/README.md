@@ -29,7 +29,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + REST API)
 **決策文檔**：
 
 - 📄 [ADR 001 - Architecture Simplification](../decisions/001-architecture-simplification.md)
-- 📄 [Sprint 0.8 Deployment Evaluation](../sprints/sprint-0-foundation/0.8-deployment-evaluation.md)
+- 📄 [Sprint 0.8 Deployment Evaluation](../sprints/sprint-0-foundation/08-deployment-evaluation.md)
 
 **主要原因**：
 
@@ -249,7 +249,7 @@ export async function handler(req: Request) {
 ### 決策文檔
 
 - [ADR 001 - Architecture Simplification](../decisions/001-architecture-simplification.md) ⭐
-- [Sprint 0.8 Deployment Evaluation](../sprints/sprint-0-foundation/0.8-deployment-evaluation.md)
+- [Sprint 0.8 Deployment Evaluation](../sprints/sprint-0-foundation/08-deployment-evaluation.md)
 
 ### 存檔文檔
 

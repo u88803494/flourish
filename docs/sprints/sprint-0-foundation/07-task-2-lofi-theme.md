@@ -1,8 +1,8 @@
-# Sprint 0.7.2: Lofi Theme (Apex)
+# Sprint 7, Task 2: Lofi Theme (Apex)
 
 **預估時間**: 45 分鐘
 **狀態**: 📋 規劃中
-**依賴**: Sprint 0.7.1 完成
+**依賴**: Sprint 7, Task 1 完成
 
 ---
 
@@ -339,16 +339,16 @@ document.documentElement.classList.add('dark');
 
 ## 🚀 Next Steps
 
-完成 Sprint 0.7.2 後：
+完成 Sprint 7, Task 2 後：
 
-**Sprint 0.7.3**: 建立 Corporate theme 並套用到 Flow
+**Sprint 7, Task 3**: 建立 Corporate theme 並套用到 Flow
 
 ---
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./0.7-overview.md)
-- [Sprint 0.7.1: packages/ui Setup](./0.7.1-packages-ui-setup.md)
+- [Sprint 0.7 Overview](./07-overview.md)
+- [Sprint 7, Task 1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
 - [Design System Configuration](../../decisions/design-system-configuration.md)
 
 ---
