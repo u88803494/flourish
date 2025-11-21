@@ -23,7 +23,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + REST API)
 - Development speed: ~60% faster
 - Perfect for current needs (CRUD + statistics)
 
-**Status:** Sprint 0.8 complete, Sprint 0.9 (Supabase migration) in planning
+**Status:** Sprint 0.9 complete (Supabase migration finished)
 
 ---
 
@@ -43,12 +43,11 @@ pnpm install
 
 # Start all apps in development mode
 pnpm dev
-# Starts: flow (3100), apex (3200), api (6888)
+# Starts: flow (3100), apex (3200)
 
 # Start specific app
 pnpm dev --filter=flow      # Financial tracking (Next.js)
 pnpm dev --filter=apex      # Statistics tool (Next.js)
-pnpm dev --filter=api       # Backend API (NestJS - archiving in Sprint 0.9)
 
 # Build all applications
 pnpm build
@@ -118,12 +117,13 @@ npx supabase db reset                 # Reset local database
 - Status: Foundation complete, features coming in Phase 1
 - URL: https://flourish-apex.vercel.app
 
-**api** - Backend API service
+**api** - ⚠️ **ARCHIVED** (2025-11-21)
 
 - Framework: NestJS 11
-- Port: 6888 (development)
-- Status: ⚠️ **Being archived in Sprint 0.9** - functionality migrating to Supabase
-- All future development uses Supabase directly
+- Status: No longer maintained
+- Reason: Migrated to Supabase architecture (ADR 001)
+- Archive: `docs/archive/nestjs-api/`
+- All functionality replaced by Supabase
 
 ### Shared Packages (packages/)
 
@@ -134,12 +134,12 @@ npx supabase db reset                 # Reset local database
 - Location: `packages/database/prisma/schema.prisma`
 - Tables: users, cards, categories, statements, transactions, recurring_expenses, saving_rules
 
-**supabase-client** (Sprint 0.9+)
+**supabase-client**
 
 - Supabase JavaScript client wrapper
 - TypeScript types (auto-generated from schema)
 - React hooks for common operations
-- Status: Creating in Sprint 0.9.3
+- Status: ✅ Complete (Sprint 0.9.3)
 
 **ui**
 
