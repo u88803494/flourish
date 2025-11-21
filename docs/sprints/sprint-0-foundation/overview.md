@@ -275,19 +275,18 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 0.8 架構決策調整）�
 - [x] Sprint 0.9.1: Supabase CLI & Environment Setup ✅
 - [x] Sprint 0.9.2: Database Schema & Migrations ✅
 - [x] Sprint 0.9.3: Supabase Client Package & Integration ✅
-- [ ] Sprint 0.9.4: NestJS API Archive & Documentation 📋 (Planned)
+- [x] Sprint 0.9.4: NestJS API Archive & Documentation ✅
 - [ ] Sprint 0.10: Documentation & Agent Setup 📋 (Planned)
 - [ ] Sprint 0.11: Sprint Numbering Refactoring 📋 (Planned)
 
-**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 0.9.3, 準備進行 Sprint 0.9.4)
+**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 0.9.4, 準備進行 Sprint 0.10)
 
 **Remaining Sprints**:
 
-- Sprint 0.9.4: NestJS API Archive (預估 1.5 小時)
 - Sprint 0.10: Documentation & Agent Setup (預估 3 小時)
 - Sprint 0.11: Sprint Numbering Refactoring (預估 1.5-2 小時)
 
-Phase 0 的核心目標（基礎架構 + Supabase 遷移 + 文檔系統）接近完成。Sprint 0.11 將重構 Sprint 編號為業界最佳實踐格式，為 Phase 1 做準備。
+**Sprint 0.9 (Supabase Migration) 已 100% 完成！** Phase 0 的核心目標（基礎架構 + Supabase 遷移）已完成，剩餘文檔系統優化和編號重構。
 
 ---
 
