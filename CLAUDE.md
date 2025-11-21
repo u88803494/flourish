@@ -15,207 +15,207 @@
 - `ARCHITECTURE.md` - 系統架構與設計模式
 - `docs/references/glossary.md` - 專案術語參考
 
-## 🌱 Project Overview
+## 🌱 專案總覽
 
-**Flourish** is an integrated personal growth platform for financial tracking and performance statistics. Based on the philosophy: "When money flows and statistics rise, everything will **flourish**."
+**Flourish** 是整合的個人成長平台，用於財務追蹤和效能統計。基於理念：「When money flows and statistics rise, everything will **flourish**.」（當金錢流動、統計上升，一切都會繁榮）
 
-### Current Architecture (Sprint 0.8 Decision)
+### 當前架構（Sprint 0.8 決策）
 
-The project has adopted a **Supabase-first architecture** (ADR 001):
+專案已採用 **Supabase-first 架構**（ADR 001）：
 
 ```
-Frontend (Flow/Apex) → Supabase (Database + Auth + REST API)
+前端（Flow/Apex）→ Supabase（資料庫 + 認證 + REST API）
          ↓
      Vercel
 ```
 
-**Key Benefits:**
+**關鍵優勢**：
 
-- Cost: $0/month (vs $7+/month for NestJS + Render)
-- Maintenance: ~70% reduction
-- Development speed: ~60% faster
-- Perfect for current needs (CRUD + statistics)
+- 成本：$0/月（vs NestJS + Render 的 $7+/月）
+- 維護：減少約 70%
+- 開發速度：快約 60%
+- 完美符合當前需求（CRUD + 統計）
 
-**Status:** Sprint 0.9 complete (Supabase migration finished)
+**狀態**：Sprint 0.9 已完成（Supabase 遷移完成）
 
 ---
 
-## 🛠️ Essential Development Commands
+## 🛠️ 必要開發指令
 
-### Prerequisites
+### 先決條件
 
 - Node.js 20+
 - pnpm 9+
-- Turborepo monorepo setup (all apps in one workspace)
+- Turborepo monorepo 設定（所有 apps 在同一個 workspace）
 
-### Quick Start
+### 快速開始
 
 ```bash
-# Install dependencies
+# 安裝依賴
 pnpm install
 
-# Start all apps in development mode
+# 以開發模式啟動所有 apps
 pnpm dev
-# Starts: flow (3100), apex (3200)
+# 啟動：flow (3100), apex (3200)
 
-# Start specific app
-pnpm dev --filter=flow      # Financial tracking (Next.js)
-pnpm dev --filter=apex      # Statistics tool (Next.js)
+# 啟動特定 app
+pnpm dev --filter=flow      # 財務追蹤（Next.js）
+pnpm dev --filter=apex      # 統計工具（Next.js）
 
-# Build all applications
+# 建置所有應用程式
 pnpm build
 
-# Lint all applications
+# Lint 所有應用程式
 pnpm lint
 
-# Type check
+# 類型檢查
 pnpm check-types
 ```
 
-### Database (Prisma - Reference Only)
+### 資料庫（Prisma - 僅供參考）
 
-**Important:** In Sprint 0.9, migrations will move to Supabase SQL format. Prisma schema is kept as a reference for design purposes.
+**重要**：在 Sprint 0.9 中，遷移將改用 Supabase SQL 格式。Prisma schema 保留作為設計參考用途。
 
 ```bash
 cd packages/database
 
-# View Prisma schema
+# 檢視 Prisma schema
 cat prisma/schema.prisma
 
-# Generate Prisma client (already done)
+# 生成 Prisma client（已完成）
 pnpm prisma generate
 
-# Run migrations locally (development only)
+# 本地執行遷移（僅開發環境）
 pnpm migrate
 
-# Push schema to database
+# 推送 schema 至資料庫
 pnpm db:push
 ```
 
-### Supabase CLI (Sprint 0.9+)
+### Supabase CLI（Sprint 0.9+）
 
 ```bash
-# Login to Supabase
+# 登入 Supabase
 npx supabase login
 
-# Initialize local development
+# 初始化本地開發
 npx supabase init
 
-# Link to remote project
+# 連結至遠端專案
 npx supabase link --project-ref fstcioczrehqtcbdzuij
 
-# Manage migrations
-npx supabase migration new [name]     # Create new migration
-npx supabase db push                  # Push to remote
-npx supabase db reset                 # Reset local database
+# 管理遷移
+npx supabase migration new [name]     # 創建新遷移
+npx supabase db push                  # 推送至遠端
+npx supabase db reset                 # 重置本地資料庫
 ```
 
 ---
 
-## 📁 Project Structure
+## 📁 專案結構
 
-### Applications (apps/)
+### 應用程式（apps/）
 
-**flow** - Financial tracking application
+**flow** - 財務追蹤應用程式
 
-- Framework: Next.js 15 (App Router)
-- Port: 3100 (development)
-- Status: Core functionality ready
-- URL: https://flourish-flow.vercel.app
+- 框架：Next.js 15（App Router）
+- Port：3100（開發環境）
+- 狀態：核心功能就緒
+- URL：https://flourish-flow.vercel.app
 
-**apex** - Statistics and performance tracking
+**apex** - 統計與效能追蹤
 
-- Framework: Next.js 15 (App Router)
-- Port: 3200 (development)
-- Status: Foundation complete, features coming in Phase 1
-- URL: https://flourish-apex.vercel.app
+- 框架：Next.js 15（App Router）
+- Port：3200（開發環境）
+- 狀態：基礎完成，功能將在 Phase 1 推出
+- URL：https://flourish-apex.vercel.app
 
-**api** - ⚠️ **ARCHIVED** (2025-11-21)
+**api** - ⚠️ **已封存**（2025-11-21）
 
-- Framework: NestJS 11
-- Status: No longer maintained
-- Reason: Migrated to Supabase architecture (ADR 001)
-- Archive: `docs/archive/nestjs-api/`
-- All functionality replaced by Supabase
+- 框架：NestJS 11
+- 狀態：不再維護
+- 原因：遷移至 Supabase 架構（ADR 001）
+- 封存位置：`docs/archive/nestjs-api/`
+- 所有功能已由 Supabase 取代
 
-### Shared Packages (packages/)
+### 共享套件（packages/）
 
 **database**
 
 - Prisma schema + client
-- Status: Keeping as design reference during migration
-- Location: `packages/database/prisma/schema.prisma`
-- Tables: users, cards, categories, statements, transactions, recurring_expenses, saving_rules
+- 狀態：遷移期間保留作為設計參考
+- 位置：`packages/database/prisma/schema.prisma`
+- 資料表：users, cards, categories, statements, transactions, recurring_expenses, saving_rules
 
 **supabase-client**
 
-- Supabase JavaScript client wrapper
-- TypeScript types (auto-generated from schema)
-- React hooks for common operations
-- Status: ✅ Complete (Sprint 0.9.3)
+- Supabase JavaScript client 包裝器
+- TypeScript 類型（從 schema 自動生成）
+- 常用操作的 React hooks
+- 狀態：✅ 完成（Sprint 0.9.3）
 
 **ui**
 
-- Shared React components
-- Tailwind CSS based
+- 共享 React 元件
+- 基於 Tailwind CSS
 
 **chart-engine**
 
-- Chart rendering logic
-- Status: Planned for Phase 1
+- 圖表渲染邏輯
+- 狀態：Phase 1 規劃中
 
 **typescript-config, eslint-config**
 
-- Shared configuration files
+- 共享配置檔案
 
 ---
 
-## 🏗️ Architecture Decisions
+## 🏗️ 架構決策
 
-### ADR 001: Architecture Simplification (2025-11-07)
+### ADR 001：架構簡化（2025-11-07）
 
-**Decision:** Migrate from NestJS + Render to pure Supabase architecture
+**決策**：從 NestJS + Render 遷移至純 Supabase 架構
 
-**Why:**
+**原因**：
 
-- Supabase handles: Database + Auth + REST API + Realtime subscriptions
-- No separate backend needed for current feature set
-- 100% cost reduction ($0 vs $7+/month)
-- 70% less maintenance overhead
-- 60% faster development
+- Supabase 處理：資料庫 + 認證 + REST API + Realtime 訂閱
+- 當前功能集不需要獨立後端
+- 100% 成本削減（$0 vs $7+/月）
+- 減少 70% 維護負擔
+- 開發速度提升 60%
 
-**Implementation:** Sprint 0.9 (4 sub-sprints)
+**實施**：Sprint 0.9（4 個子 Sprint）
 
-**Important Files:**
+**重要檔案**：
 
-- Decision record: `docs/decisions/001-architecture-simplification.md`
-- Evaluation: `docs/sprints/sprint-0-foundation/0.8-deployment-evaluation.md`
-- Plan: `docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md`
+- 決策記錄：`docs/decisions/001-architecture-simplification.md`
+- 評估：`docs/sprints/sprint-0-foundation/0.8-deployment-evaluation.md`
+- 計劃：`docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md`
 
 ---
 
-## 🚀 Development Workflow
+## 🚀 開發工作流程
 
-### Branches
+### 分支
 
-- `main` - Production (deployed to Vercel)
-- `staging` - Testing environment (will be deprecated after Sprint 0.9)
-- `feat/*` - Feature branches
-- `fix/*` - Bug fix branches
+- `main` - 正式環境（部署至 Vercel）
+- `staging` - 測試環境（Sprint 0.9 後將棄用）
+- `feat/*` - 功能分支
+- `fix/*` - 錯誤修復分支
 
-### Commits
+### 提交
 
-Follow **Conventional Commits** format:
+遵循 **Conventional Commits** 格式：
 
 ```
-feat(scope): description        # New feature
-fix(scope): description         # Bug fix
-docs(scope): description        # Documentation
-chore(scope): description       # Maintenance
-refactor(scope): description    # Code refactoring
+feat(scope): description        # 新功能
+fix(scope): description         # 錯誤修復
+docs(scope): description        # 文檔
+chore(scope): description       # 維護
+refactor(scope): description    # 程式碼重構
 ```
 
-Example:
+範例：
 
 ```bash
 git commit -m "feat(flow): add transaction filtering
@@ -225,222 +225,222 @@ git commit -m "feat(flow): add transaction filtering
 - Implement local state management"
 ```
 
-### Creating a Feature
+### 創建功能
 
 ```bash
-# 1. Create feature branch
+# 1. 創建功能分支
 git checkout -b feat/new-feature
 
-# 2. Development cycle
-pnpm dev                    # Start development
-# ... code, test, commit ...
+# 2. 開發循環
+pnpm dev                    # 啟動開發
+# ... 程式碼、測試、提交 ...
 
-# 3. Push and create PR
+# 3. 推送並創建 PR
 git push origin feat/new-feature
 
-# 4. After review and approval
-# Merge to main → Auto-deploys to production
+# 4. 審查並批准後
+# 合併至 main → 自動部署至正式環境
 ```
 
 ---
 
-## 📊 Tech Stack
+## 📊 技術堆疊
 
-### Frontend
+### 前端
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript (strict mode)
-- **Styling:** Tailwind CSS
-- **UI Components:** React 19
-- **State Management:** React Context (planning Redux for Phase 1)
+- **框架**：Next.js 15（App Router）
+- **語言**：TypeScript（strict mode）
+- **樣式**：Tailwind CSS
+- **UI 元件**：React 19
+- **狀態管理**：React Context（Phase 1 規劃 Redux）
 
-### Backend (Current: NestJS, Moving to Supabase)
+### 後端（當前：NestJS，遷移至 Supabase）
 
-- **Framework:** NestJS 11 (archiving in Sprint 0.9)
-- **ORM:** Prisma (keeping schema as reference)
-- **Testing:** Jest (unit), Supertest (E2E)
+- **框架**：NestJS 11（Sprint 0.9 封存中）
+- **ORM**：Prisma（保留 schema 作為參考）
+- **測試**：Jest（單元測試）、Supertest（E2E）
 
-### Database
+### 資料庫
 
-- **Provider:** Supabase (PostgreSQL)
-- **Migrations:** SQL files (Supabase CLI)
-- **Auth:** Supabase Auth
-- **API:** Auto-generated REST API with RLS
+- **供應商**：Supabase（PostgreSQL）
+- **遷移**：SQL 檔案（Supabase CLI）
+- **認證**：Supabase Auth
+- **API**：自動生成的 REST API，配合 RLS
 
-### Deployment
+### 部署
 
-- **Frontend:** Vercel (auto-deploy from main)
-- **Database:** Supabase (managed PostgreSQL)
-- **Backend:** Being removed (Sprint 0.9)
-
----
-
-## 📚 Key Documentation
-
-### Architecture & Decisions
-
-- `docs/decisions/001-architecture-simplification.md` - Current architecture decision
-- `docs/deployment/README.md` - Deployment overview (Supabase + Vercel)
-
-### Sprint Planning
-
-- `docs/sprints/sprint-0-foundation/overview.md` - Phase 0 progress tracking
-- `docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md` - Sprint 0.9 detailed plan
-
-### Development Guides
-
-- `docs/guides/development.md` - Local development setup
-- `docs/guides/mcp-setup.md` - MCP configuration guide (when available)
-- `docs/guides/database-migrations.md` - Migration workflow (Sprint 0.9)
-
-### Git Workflow
-
-- `docs/deployment/git-workflow.md` - Branching and deployment strategy
+- **前端**：Vercel（從 main 自動部署）
+- **資料庫**：Supabase（託管式 PostgreSQL）
+- **後端**：正在移除（Sprint 0.9）
 
 ---
 
-## 🎯 Current Phase: Phase 0 Foundation
+## 📚 關鍵文檔
 
-**Status:** 🔄 In Progress (93% complete - 13/14 sprints done)
+### 架構與決策
 
-Completed sprints:
+- `docs/decisions/001-architecture-simplification.md` - 當前架構決策
+- `docs/deployment/README.md` - 部署總覽（Supabase + Vercel）
 
-- Sprint 0.1: Monorepo structure ✅
-- Sprint 0.2-0.5: Development tooling ✅
-- Sprint 0.6: NestJS ✅
-- Sprint 0.7: Apex app ✅
-- Sprint 0.8: Architecture decision ✅
-- Sprint 0.9: Supabase migration ✅ (All 4 sub-sprints complete)
-- Sprint 0.10: Documentation & Agent Setup 🔄 (In progress)
+### Sprint 規劃
 
-**Next Sprint**: Sprint 0.11 - Sprint Numbering Refactoring
+- `docs/sprints/sprint-0-foundation/overview.md` - Phase 0 進度追蹤
+- `docs/sprints/sprint-0-foundation/0.9-supabase-migration-plan.md` - Sprint 0.9 詳細計劃
+
+### 開發指南
+
+- `docs/guides/development.md` - 本地開發設定
+- `docs/guides/mcp-setup.md` - MCP 配置指南（可用時）
+- `docs/guides/database-migrations.md` - 遷移工作流程（Sprint 0.9）
+
+### Git 工作流程
+
+- `docs/deployment/git-workflow.md` - 分支與部署策略
 
 ---
 
-## 🔐 Security & Environment Variables
+## 🎯 當前階段：Phase 0 Foundation
 
-### Local Development (.env.local)
+**狀態**：🔄 進行中（93% 完成 - 13/14 Sprint 已完成）
+
+已完成的 Sprint：
+
+- Sprint 0.1：Monorepo 結構 ✅
+- Sprint 0.2-0.5：開發工具 ✅
+- Sprint 0.6：NestJS ✅
+- Sprint 0.7：Apex app ✅
+- Sprint 0.8：架構決策 ✅
+- Sprint 0.9：Supabase 遷移 ✅（所有 4 個子 Sprint 完成）
+- Sprint 0.10：文檔與 Agent 設定 🔄（進行中）
+
+**下一個 Sprint**：Sprint 0.11 - Sprint 編號重構
+
+---
+
+## 🔐 安全與環境變數
+
+### 本地開發（.env.local）
 
 ```bash
-# Supabase Configuration (Sprint 0.9+)
+# Supabase 配置（Sprint 0.9+）
 SUPABASE_PROJECT_REF=fstcioczrehqtcbdzuij
-SUPABASE_ACCESS_TOKEN=<your-access-token>  # For Supabase CLI
+SUPABASE_ACCESS_TOKEN=<your-access-token>  # 用於 Supabase CLI
 NEXT_PUBLIC_SUPABASE_URL=https://fstcioczrehqtcbdzuij.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # For frontend
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 
-# MCP Configuration (Optional, Sprint 0.9+)
-# MCP config uses environment variables defined above
+# MCP 配置（選用，Sprint 0.9+）
+# MCP config 使用上面定義的環境變數
 ```
 
-**Important:**
+**重要**：
 
-- `.env.local` is in `.gitignore` (never commit secrets)
-- Use environment variables in configuration files
-- Service role key is only for migrations, never expose to frontend
+- `.env.local` 在 `.gitignore` 中（絕不提交機密資訊）
+- 在配置檔案中使用環境變數
+- Service role key 僅用於遷移，絕不暴露給前端
 
 ---
 
-## 🧠 Working with the Codebase
+## 🧠 程式碼庫工作
 
-### Key Files to Understand
+### 需要理解的關鍵檔案
 
-1. **Turborepo Configuration**
-   - `turbo.json` - Monorepo pipeline definition
-   - Root `package.json` - Workspace configuration
+1. **Turborepo 配置**
+   - `turbo.json` - Monorepo 管線定義
+   - 根目錄 `package.json` - Workspace 配置
 
-2. **Prisma Schema** (Reference)
+2. **Prisma Schema**（參考）
    - `packages/database/prisma/schema.prisma`
-   - Contains 7 main tables (users, cards, categories, statements, etc.)
-   - Being migrated to Supabase SQL format in Sprint 0.9
+   - 包含 7 個主要資料表（users, cards, categories, statements 等）
+   - 正在 Sprint 0.9 中遷移至 Supabase SQL 格式
 
-3. **Frontend Configuration**
-   - `apps/flow/next.config.js` - Next.js config for Flow
-   - `apps/apex/next.config.js` - Next.js config for Apex
-   - Both use Tailwind CSS
+3. **前端配置**
+   - `apps/flow/next.config.js` - Flow 的 Next.js 配置
+   - `apps/apex/next.config.js` - Apex 的 Next.js 配置
+   - 兩者皆使用 Tailwind CSS
 
-4. **Type Safety**
-   - TypeScript strict mode enabled everywhere
-   - Shared types in packages
-   - Prisma generates types for database models
+4. **類型安全**
+   - 所有地方都啟用 TypeScript strict mode
+   - packages 中的共享類型
+   - Prisma 生成資料庫模型的類型
 
-### Important: Reading Code
+### 重要：閱讀程式碼
 
-**Before making changes:**
+**進行變更前**：
 
-1. Check if file has existing patterns (follow them)
-2. Look at recent commits in file history
-3. Check ADR for architectural decisions
-4. Run `pnpm lint` before committing
+1. 檢查檔案是否有既有模式（遵循它們）
+2. 查看檔案歷史中的最近提交
+3. 檢查 ADR 以了解架構決策
+4. 提交前執行 `pnpm lint`
 
-**Common Issues:**
+**常見問題**：
 
-- Type errors? Run `pnpm check-types`
-- Lint errors? Run `pnpm lint --fix`
-- Build fails? Check `pnpm build` output
-
----
-
-## 🚨 Known Limitations & Future Work
-
-### Currently Being Removed
-
-- **NestJS API** (`apps/api/`) - Being archived in Sprint 0.9
-  - All backend logic will use Supabase directly
-  - Archived code saved for reference: `docs/archive/nestjs-api/`
-
-### Not Yet Implemented
-
-- **Authentication** - Coming in Sprint 1 (Supabase Auth)
-- **Charts** - Chart engine planned for Phase 1
-- **Realtime** - Supabase Realtime subscriptions (future)
-
-### Architecture Assumptions
-
-- Small team (solo developer)
-- Current load: small user base (~50K MAU free tier)
-- Future growth: RLS policies will scale, may need Edge Functions for complex logic
-- Can upgrade to NestJS later if needed (code archived)
+- 類型錯誤？執行 `pnpm check-types`
+- Lint 錯誤？執行 `pnpm lint --fix`
+- 建置失敗？檢查 `pnpm build` 輸出
 
 ---
 
-## 💡 Development Tips
+## 🚨 已知限制與未來工作
 
-### Performance
+### 目前正在移除
 
-- Monorepo: Use `--filter` flag to focus on specific apps
-- Build: Turborepo caches builds, deleting `.turbo/` clears cache
-- Dev: Each app runs independently, no cross-app dependencies at runtime
+- **NestJS API**（`apps/api/`）- 正在 Sprint 0.9 封存
+  - 所有後端邏輯將直接使用 Supabase
+  - 已儲存封存程式碼供參考：`docs/archive/nestjs-api/`
 
-### Testing
+### 尚未實作
 
-- Jest for unit tests
-- Run: `pnpm test` (if configured)
-- E2E tests with Supertest (API only, during Sprint 0.9 archival)
+- **認證** - Sprint 1 將推出（Supabase Auth）
+- **圖表** - Phase 1 規劃圖表引擎
+- **Realtime** - Supabase Realtime 訂閱（未來）
 
-### Debugging
+### 架構假設
 
-- Use browser DevTools for frontend
-- Supabase Dashboard for database inspection
-- Check application logs in Vercel Dashboard
-
----
-
-## 📞 Getting Help
-
-### Documentation
-
-1. Check `docs/` directory for complete documentation
-2. Read relevant ADR for architectural decisions
-3. Check Sprint records for context
-
-### Common Questions
-
-- "How do I add a new API endpoint?" → See docs on Supabase REST API
-- "How do I deploy?" → See `docs/deployment/` folder
-- "How do I create migrations?" → See `docs/guides/database-migrations.md` (Sprint 0.9+)
+- 小型團隊（獨立開發者）
+- 當前負載：小型使用者基礎（~50K MAU 免費層級）
+- 未來成長：RLS 策略可擴展，複雜邏輯可能需要 Edge Functions
+- 如需要可稍後升級至 NestJS（程式碼已封存）
 
 ---
 
-**Last Updated:** 2025-11-21
-**Current Phase:** Phase 0 Foundation (93% complete - Sprint 0.10 in progress)
-**Next:** Sprint 0.11 - Sprint Numbering Refactoring
+## 💡 開發技巧
+
+### 效能
+
+- Monorepo：使用 `--filter` flag 專注於特定 apps
+- 建置：Turborepo 快取建置，刪除 `.turbo/` 可清除快取
+- 開發：每個 app 獨立執行，執行期間無跨 app 依賴
+
+### 測試
+
+- Jest 用於單元測試
+- 執行：`pnpm test`（如已配置）
+- E2E 測試使用 Supertest（僅 API，Sprint 0.9 封存期間）
+
+### 除錯
+
+- 前端使用瀏覽器 DevTools
+- Supabase Dashboard 檢查資料庫
+- Vercel Dashboard 檢查應用程式日誌
+
+---
+
+## 📞 取得協助
+
+### 文檔
+
+1. 檢查 `docs/` 目錄以獲取完整文檔
+2. 閱讀相關 ADR 以了解架構決策
+3. 檢查 Sprint 記錄以了解上下文
+
+### 常見問題
+
+- 「如何新增 API 端點？」→ 參閱 Supabase REST API 文檔
+- 「如何部署？」→ 參閱 `docs/deployment/` 資料夾
+- 「如何建立遷移？」→ 參閱 `docs/guides/database-migrations.md`（Sprint 0.9+）
+
+---
+
+**最後更新**：2025-11-21
+**當前階段**：Phase 0 Foundation（93% 完成 - Sprint 0.10 進行中）
+**下一步**：Sprint 0.11 - Sprint 編號重構

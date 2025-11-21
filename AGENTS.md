@@ -174,7 +174,7 @@ Closes #20"
 
 - [ ] Build 通過: `pnpm build --filter=flow --filter=@flourish/apex`
 - [ ] Lint 通過: `pnpm lint`
-- [ ] 類型有效: `pnpm check-types`
+- [ ] 類型檢查通過: `pnpm check-types`
 - [ ] 文檔已更新（如適用）
 - [ ] 提交遵循 Conventional Commits
 
@@ -225,6 +225,19 @@ Closes #20"
 
 [任何重要細節、決策或上下文]
 ```
+
+- [ ] Build 通過
+- [x] Lint 通過
+- [x] 類型檢查通過
+- [x] 文檔已更新
+
+---
+
+## 實作注意事項
+
+[任何重要細節、決策或上下文]
+
+````
 
 ---
 
@@ -343,7 +356,7 @@ pnpm check-types
 # 問題: Lint 錯誤
 # 解決方案:
 pnpm lint --fix
-```
+````
 
 **遷移失敗**:
 
