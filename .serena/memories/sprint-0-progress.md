@@ -1,11 +1,11 @@
 # Sprint 0 Progress
 
 **Last Updated**: 2025-10-31
-**Current Status**: Sprint 0.6 in progress
+**Current Status**: Sprint 6 in progress
 
 ## Completed Sprints
 
-### Sprint 0.5: Database Setup ✅
+### Sprint 5: Database Setup ✅
 
 - **PR**: #2 (Merged)
 - **Issue**: #1 (Closed)
@@ -17,7 +17,7 @@
   - Comprehensive Chinese documentation
   - First migration executed successfully
 
-### Sprint 0.1-0.4: Foundation ✅
+### Sprint 1-0.4: Foundation ✅
 
 - Turborepo monorepo setup
 - Prettier, Husky, lint-staged, commitlint configured
@@ -25,7 +25,7 @@
 
 ## Current Sprint
 
-### Sprint 0.6: NestJS API Setup 🔄
+### Sprint 6: NestJS API Setup 🔄
 
 - **Issue**: #4 (Open)
 - **Branch**: feat/sprint-0.6-nestjs (current)
@@ -45,7 +45,7 @@
 
 ## Next Sprint
 
-### Sprint 0.7: Apex Application ⏳
+### Sprint 7: Apex Application ⏳
 
 - Create Next.js statistics application
 - Port: 3100

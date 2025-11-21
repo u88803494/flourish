@@ -39,7 +39,7 @@
 - 資料庫架構影響分析
 - UI/UX 流程差異
 - 功能優先順序調整
-- 實作階段規劃（Sprint 0.5, 2, 3+）
+- 實作階段規劃（Sprint 5, 2, 3+）
 - 風險與緩解措施
 - 經驗教訓
 
@@ -53,14 +53,14 @@
 
 **內容**:
 
-- FR-001: PDF Statement Upload Workflow (P0, Sprint 0.5)
-- FR-002: AI Transaction Extraction (P0, Sprint 0.5)
-- FR-003: Batch Transaction Import (P0, Sprint 0.5)
-- FR-004: Multi-Card Management (P0, Sprint 0.5)
+- FR-001: PDF Statement Upload Workflow (P0, Sprint 5)
+- FR-002: AI Transaction Extraction (P0, Sprint 5)
+- FR-003: Batch Transaction Import (P0, Sprint 5)
+- FR-004: Multi-Card Management (P0, Sprint 5)
 - FR-005: Pre-Deduction Budget System (P1, Sprint 2)
 - FR-006: Transaction Matching (P1, Sprint 2)
 - FR-007: Historical Data Import (P1, Sprint 2)
-- FR-008: Category Management (P0, Sprint 0.5)
+- FR-008: Category Management (P0, Sprint 5)
 
 每個需求包含：
 
@@ -76,7 +76,7 @@
 
 ## 🎯 需求優先順序
 
-### P0 (Must Have) - Sprint 0.5 MVP
+### P0 (Must Have) - Sprint 5 MVP
 
 核心對帳單處理功能，必須在第一版實作
 
@@ -141,7 +141,7 @@
 **變更類型**: 架構調整
 
 **原因**:
-在 Sprint 0.5 規劃期間，通過與使用者深入對話，發現實際工作流程與初始假設有重大差異。
+在 Sprint 5 規劃期間，通過與使用者深入對話，發現實際工作流程與初始假設有重大差異。
 
 **變更內容**:
 
@@ -149,12 +149,12 @@
 - ✅ 新增：PDF 對帳單上傳 + AI 辨識 + 批次匯入
 - ✅ 新增：Statement 模型作為核心實體
 - ✅ 新增：多卡管理系統（支援 20+ 張卡片）
-- ⏸️ 延後：預扣系統從 Sprint 0.5 延至 Sprint 2
+- ⏸️ 延後：預扣系統從 Sprint 5 延至 Sprint 2
 
 **影響**:
 
 - 資料庫架構：從 Transaction-Centric 改為 Statement-Centric
-- 開發時程：Sprint 0.5 範圍縮小，但更聚焦
+- 開發時程：Sprint 5 範圍縮小，但更聚焦
 - 使用者價值：更符合實際使用場景，效率大幅提升
 
 **相關文件**:

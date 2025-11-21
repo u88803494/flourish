@@ -6,7 +6,7 @@
 
 ## 背景
 
-在 Sprint 0.8 期間，原計劃使用 NestJS + Render 部署後端 API。經過完整的技術評估和部署測試後，決定簡化架構為純 Supabase 方案。
+在 Sprint 8 期間，原計劃使用 NestJS + Render 部署後端 API。經過完整的技術評估和部署測試後，決定簡化架構為純 Supabase 方案。
 
 ### 原始計劃
 
@@ -242,15 +242,15 @@ export async function handler(req: Request) {
 
 ## 實施計劃
 
-### Sprint 0.8（當前）- 文檔與決策
+### Sprint 8（當前）- 文檔與決策
 
 - [x] 評估 NestJS + Render 方案
 - [x] 識別成本和複雜度問題
 - [x] 創建此 ADR 文檔
 - [x] 存檔 Render 部署文檔
-- [x] 更新 Sprint 0.8 文檔
+- [x] 更新 Sprint 8 文檔
 
-### Sprint 0.9 - 實現 Supabase
+### Sprint 9 - 實現 Supabase
 
 - [ ] 創建 `packages/supabase-client`
 - [ ] 移除 `apps/api`
@@ -258,7 +258,7 @@ export async function handler(req: Request) {
 - [ ] 設置基礎 RLS policies
 - [ ] 更新開發環境設定
 
-### Sprint 0.10（可選）- 安全加強
+### Sprint 10（可選）- 安全加強
 
 - [ ] 完善 RLS policies
 - [ ] 前端表單驗證
@@ -277,7 +277,7 @@ export async function handler(req: Request) {
 - [Render Staging 設置](../archive/render-deployment/render-staging-setup.md)（存檔）
 - [Render Production 設置](../archive/render-deployment/render-production-setup.md)（存檔）
 - [Backend Hosting 比較](../archive/render-deployment/backend-hosting-comparison.md)（存檔）
-- [Sprint 0.8 評估文檔](../sprints/sprint-0-foundation/08-deployment-evaluation.md)
+- [Sprint 8 評估文檔](../sprints/sprint-0-foundation/08-deployment-evaluation.md)
 
 ### 外部資源
 
@@ -290,7 +290,7 @@ export async function handler(req: Request) {
 
 - **提議者**：Henry Lee
 - **日期**：2025-11-07
-- **背景**：Sprint 0.8 部署評估
+- **背景**：Sprint 8 部署評估
 
 ## 審查與更新
 

@@ -1,4 +1,4 @@
-# Sprint 0.8 部署決策記錄
+# Sprint 8 部署決策記錄
 
 > **決策日期**: 2025-11-06
 > **專案**: Flourish (Flow + Apex)
@@ -22,7 +22,7 @@
 
 ## 背景與需求
 
-### Sprint 0.8 目標
+### Sprint 8 目標
 
 - 部署 Flow（記帳前端）到 production
 - 部署 Apex（統計前端）到 production

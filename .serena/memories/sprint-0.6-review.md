@@ -1,4 +1,4 @@
-# Sprint 0.6 Code Review Summary
+# Sprint 6 Code Review Summary
 
 **Branch**: `feat/sprint-0.6-nestjs`
 **Commits**: 32 (包含修復)
@@ -57,7 +57,7 @@
 4. ✅ 無型別錯誤
 5. ✅ ESLint + Prettier 通過
 
-## 📋 後續優先級 (Sprint 0.8+)
+## 📋 後續優先級 (Sprint 8+)
 
 **Priority 2 - 強烈建議**:
 
@@ -93,4 +93,4 @@
 
 - Backend Architect 完整評估報告 (存在本 memory)
 - UML 規劃文檔 (docs/sprints/sprint-0-foundation/uml-and-documentation-plan.md)
-- Sprint 0.6 規劃 (docs/sprints/sprint-0-foundation/)
+- Sprint 6 規劃 (docs/sprints/sprint-0-foundation/)

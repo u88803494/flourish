@@ -1,8 +1,8 @@
-# Sprint 0.11: Sprint 編號重構
+# Sprint 11: Sprint 編號重構
 
 **狀態**: 📋 規劃中
 **預估時間**: ~1.5-2 小時
-**依賴**: Sprint 0.10 (Documentation & Agent Setup) 完成
+**依賴**: Sprint 10 (Documentation & Agent Setup) 完成
 **目標**: 將所有 Sprint 編號重構為業界最佳實踐格式
 
 ---
@@ -22,7 +22,7 @@
 ### 目前的問題
 
 1. **階層式編號**（0.1, 0.2）造成混淆：
-   - Sprint 0.10 在檔案系統中排在 0.2 後面
+   - Sprint 10 在檔案系統中排在 0.2 後面
    - Sub-sprints（0.9.1-0.9.4）模糊了 sprint 和 task 的界線
    - 不符合 agile 最佳實踐
 
@@ -49,21 +49,21 @@
 
 | 目前格式         | 新編號          | 新檔名                            | 說明                  |
 | ---------------- | --------------- | --------------------------------- | --------------------- |
-| Sprint 0.1       | Sprint 1        | `sprint-01-monorepo.md`           | 基礎 Monorepo         |
-| Sprint 0.2       | Sprint 2        | `sprint-02-prettier.md`           | Prettier 設定         |
-| Sprint 0.3       | Sprint 3        | `sprint-03-husky.md`              | Husky + lint-staged   |
-| Sprint 0.4       | Sprint 4        | `sprint-04-commitlint.md`         | commitlint            |
-| Sprint 0.5       | Sprint 5        | `sprint-05-prisma.md`             | Prisma（設計參考）    |
-| Sprint 0.6       | Sprint 6        | `sprint-06-nestjs.md`             | NestJS 應用程式       |
-| Sprint 0.7       | Sprint 7        | `sprint-07-apex.md`               | Apex 應用程式         |
-| Sprint 0.8       | Sprint 8        | `sprint-08-deployment.md`         | 部署評估              |
-| Sprint 0.9       | Sprint 9        | `sprint-09-supabase/`             | Supabase 遷移（目錄） |
+| Sprint 1         | Sprint 1        | `sprint-01-monorepo.md`           | 基礎 Monorepo         |
+| Sprint 2         | Sprint 2        | `sprint-02-prettier.md`           | Prettier 設定         |
+| Sprint 3         | Sprint 3        | `sprint-03-husky.md`              | Husky + lint-staged   |
+| Sprint 4         | Sprint 4        | `sprint-04-commitlint.md`         | commitlint            |
+| Sprint 5         | Sprint 5        | `sprint-05-prisma.md`             | Prisma（設計參考）    |
+| Sprint 6         | Sprint 6        | `sprint-06-nestjs.md`             | NestJS 應用程式       |
+| Sprint 7         | Sprint 7        | `sprint-07-apex.md`               | Apex 應用程式         |
+| Sprint 8         | Sprint 8        | `sprint-08-deployment.md`         | 部署評估              |
+| Sprint 9         | Sprint 9        | `sprint-09-supabase/`             | Supabase 遷移（目錄） |
 | Sprint 9, Task 1 | Sprint 9 Task 1 | `sprint-09/task-01-cli.md`        | CLI & 環境設定        |
 | Sprint 9, Task 2 | Sprint 9 Task 2 | `sprint-09/task-02-migrations.md` | 資料庫遷移            |
 | Sprint 9, Task 3 | Sprint 9 Task 3 | `sprint-09/task-03-client.md`     | Supabase Client 套件  |
 | Sprint 9, Task 4 | Sprint 9 Task 4 | `sprint-09/task-04-archive.md`    | NestJS 存檔           |
-| Sprint 0.10      | Sprint 10       | `sprint-10-docs.md`               | 文檔 & Agent 設定     |
-| Sprint 0.11      | Sprint 11       | `sprint-11-refactoring.md`        | 本次重構 sprint       |
+| Sprint 10        | Sprint 10       | `sprint-10-docs.md`               | 文檔 & Agent 設定     |
+| Sprint 11        | Sprint 11       | `sprint-11-refactoring.md`        | 本次重構 sprint       |
 
 ### 階段 2：資料夾結構
 
@@ -125,7 +125,7 @@ docs/sprints/
 3. **架構決策記錄（ADR）**：
    - `docs/decisions/001-architecture-simplification.md`
    - `docs/decisions/002-imperative-migrations.md`
-   - 更新 sprint 引用（例如「Sprint 0.8」→「Sprint 8」）
+   - 更新 sprint 引用（例如「Sprint 8」→「Sprint 8」）
 
 4. **指南文件**：
    - `docs/guides/supabase-migration-approaches.md`
@@ -212,17 +212,17 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 
 **具體取代項目**：
 
-- `Sprint 0.1` → `Sprint 1`
-- `Sprint 0.6` → `Sprint 6`
-- `Sprint 0.7` → `Sprint 7`
-- `Sprint 0.8` → `Sprint 8`
-- `Sprint 0.9` → `Sprint 9`
+- `Sprint 1` → `Sprint 1`
+- `Sprint 6` → `Sprint 6`
+- `Sprint 7` → `Sprint 7`
+- `Sprint 8` → `Sprint 8`
+- `Sprint 9` → `Sprint 9`
 - `Sprint 9, Task 1` → `Sprint 9 Task 1` 或 `Sprint 9.1`
 - `Sprint 9, Task 2` → `Sprint 9 Task 2` 或 `Sprint 9.2`
 - `Sprint 9, Task 3` → `Sprint 9 Task 3` 或 `Sprint 9.3`
 - `Sprint 9, Task 4` → `Sprint 9 Task 4` 或 `Sprint 9.4`
-- `Sprint 0.10` → `Sprint 10`
-- `Sprint 0.11` → `Sprint 11`
+- `Sprint 10` → `Sprint 10`
+- `Sprint 11` → `Sprint 11`
 
 ### 任務 4：建立慣例文件（15 分鐘）
 
@@ -285,7 +285,7 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 
 ```
 排序：sprint-0.1, sprint-0.10, sprint-0.2 ❌
-引用：Sprint 0.8, Sprint 9, Task 1（不一致）
+引用：Sprint 8, Sprint 9, Task 1（不一致）
 結構：扁平，難以導覽
 ```
 
@@ -307,7 +307,7 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 
 ---
 
-## 🎬 Sprint 0.11 之後
+## 🎬 Sprint 11 之後
 
 ### Phase 0 完成
 
@@ -348,5 +348,5 @@ Sprint 11 完成後：
 ---
 
 **建立日期**：2025-11-13
-**執行時機**：Sprint 0.10 完成後
+**執行時機**：Sprint 10 完成後
 **預估工作量**：1.5-2 小時

@@ -1,4 +1,4 @@
-# Sprint 0.9: Supabase Migration Plan
+# Sprint 9: Supabase Migration Plan
 
 **Status**: ✅ COMPLETED (Planning Phase)
 **Date**: 2025-11-12
@@ -22,7 +22,7 @@ This document outlines the comprehensive plan to migrate from NestJS + Render to
 
 ## 🎯 Project Overview
 
-### Current Status (Sprint 0.8 Complete)
+### Current Status (Sprint 8 Complete)
 
 ✅ **Phase 0: Foundation (100% Complete)**
 
@@ -833,10 +833,10 @@ You can restore the code and use it as a microservice template if needed.
 
 **File**: `docs/sprints/sprint-0-foundation/overview.md`
 
-Update the Sprint 0.9 section to show completion:
+Update the Sprint 9 section to show completion:
 
 ```markdown
-### Sprint 0.9: Supabase Migration
+### Sprint 9: Supabase Migration
 
 **Time**: ~9.5 hours
 **Status**: ✅ COMPLETED
@@ -980,7 +980,7 @@ Note: Production rollbacks require manual Supabase Dashboard intervention
 - [ ] All docs link to each other appropriately
 - [ ] No broken documentation links
 
-**Success Criteria**: Sprint 0.9 fully documented and archived
+**Success Criteria**: Sprint 9 fully documented and archived
 
 ---
 
@@ -1102,7 +1102,7 @@ Sprint 9, Task 4 (Cleanup) [depends on 0.9.3]
 
 ### Architecture
 - [ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
-- [Sprint 0.8 Evaluation](./08-deployment-evaluation.md)
+- [Sprint 8 Evaluation](./08-deployment-evaluation.md)
 - [Deployment README](../../deployment/README.md)
 
 ### Guides
@@ -1118,7 +1118,7 @@ Sprint 9, Task 4 (Cleanup) [depends on 0.9.3]
 
 ## 🎯 What's Next?
 
-After Sprint 0.9 completion:
+After Sprint 9 completion:
 
 **Sprint 1: Authentication**
 - Implement Supabase Auth in UI

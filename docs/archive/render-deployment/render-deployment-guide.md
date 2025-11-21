@@ -1,7 +1,7 @@
 # Render.com 部署指南
 
 > **專案**: Flourish (Flow + Apex)
-> **Sprint**: 0.8 - CI/CD & Deployment
+> **Sprint**: 8 - CI/CD & Deployment
 > **目標**: 部署 NestJS API 到 Render.com 免費版
 > **成本**: $0/月（永久免費）
 
@@ -632,9 +632,9 @@ pnpm dev
 
 部署成功後，你可以：
 
-1. **Sprint 0.8 完成標記**
+1. **Sprint 8 完成標記**
    - 更新 `docs/sprints/sprint-0-foundation/tasks.md`
-   - 標記 Sprint 0.8 為完成
+   - 標記 Sprint 8 為完成
 
 2. **創建 Git Tag**
 
@@ -643,7 +643,7 @@ pnpm dev
    git push origin v0.8.0
    ```
 
-3. **開始 Sprint 0.9 或 Phase 1**
+3. **開始 Sprint 9 或 Phase 1**
    - Flow 功能開發
    - Apex 功能開發
    - 或繼續優化基礎設施

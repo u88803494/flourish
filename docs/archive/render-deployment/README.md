@@ -6,7 +6,7 @@
 
 ### 為何存檔？
 
-在 Sprint 0.8 期間，我們完成了以下評估工作：
+在 Sprint 8 期間，我們完成了以下評估工作：
 
 1. ✅ 成功部署 Render Staging 環境
 2. ✅ 完成環境配置和健康檢查驗證
@@ -120,7 +120,7 @@
 
 ## 🚀 下一步
 
-**當前架構**（Sprint 0.9 起）：
+**當前架構**（Sprint 9 起）：
 
 ```
 Frontend (Flow/Apex) → Supabase (Database + Auth + API)

@@ -72,7 +72,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 本專案使用 PostgreSQL（透過 Supabase）作為資料庫，Prisma 作為 ORM。
 
-**重要更新 (2025-10-30)**: 基於實際使用者工作流程（PDF 對帳單批次處理），資料庫架構已調整為 **Statement-Centric Model**（對帳單為中心）。本文件包含階段式開發的完整設計，Sprint 0.5 將實作核心 MVP 模型。
+**重要更新 (2025-10-30)**: 基於實際使用者工作流程（PDF 對帳單批次處理），資料庫架構已調整為 **Statement-Centric Model**（對帳單為中心）。本文件包含階段式開發的完整設計，將實作核心 MVP 模型。
 
 ---
 
@@ -80,7 +80,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 ### 需求轉變
 
-**原始假設** (Sprint 0.1-0.4):
+**原始假設** (Phase 1):
 
 - 使用者每日手動輸入交易
 - Transaction 為核心實體
@@ -100,7 +100,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 為了在 4-5 週內快速啟動，同時保留未來擴展能力，我們採用階段式設計：
 
-#### Sprint 0.5 - MVP Models (Must Have)
+#### Phase 1 - MVP Models (Must Have)
 
 核心對帳單處理流程
 
@@ -110,7 +110,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 - ✅ **Category** (分類) - 基礎分類
 - ✅ **User** (使用者) - Supabase Auth 同步
 
-#### Sprint 2 - Budget Enhancement Models (Should Have)
+#### Phase 2 - Budget Enhancement Models (Should Have)
 
 進階預算功能
 
@@ -120,7 +120,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 - 🔗 **TransactionMatch** (交易配對) - 預期 vs 實際
 - 📊 **MonthlyBudget** (月度預算) - 計算後總覽
 
-#### Sprint 3+ - Advanced Features (Nice to Have)
+#### Phase 3 - Advanced Features (Nice to Have)
 
 優化與分析
 
@@ -131,7 +131,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 ---
 
-## 🗂️ Sprint 0.5 MVP Schema
+## 🗂️ Phase 1 MVP Schema
 
 ### Statement-Centric Architecture
 
@@ -156,7 +156,7 @@ datasource db {
 }
 
 // ============================================
-// Sprint 0.5 MVP Models
+// Phase 1 MVP Models
 // ============================================
 
 // 使用者（同步 Supabase Auth）
@@ -326,15 +326,15 @@ PENDING → EXTRACTED → CONFIRMED → IMPORTED → ARCHIVED
 
 ---
 
-## 🚀 Sprint 2+ Enhancement Models
+## 🚀 Phase 2+ Enhancement Models
 
-以下模型會在 Sprint 2 實作，用於支援預扣系統和進階預算功能。
+以下模型會在 Phase 2 實作，用於支援預扣系統和進階預算功能。
 
-### 完整 Sprint 2+ Schema
+### 完整 Phase 2+ Schema
 
 ```prisma
 // ============================================
-// Sprint 2 - Budget Enhancement Models
+// Phase 2 - Budget Enhancement Models
 // ============================================
 
 // 固定支出（月費 + 年費分攤）
@@ -460,7 +460,7 @@ model MonthlyBudget {
 }
 ```
 
-### Sprint 2 預算計算邏輯
+### Phase 2 預算計算邏輯
 
 ```typescript
 async function calculateMonthlyBudget(userId: string, month: Date): Promise<MonthlyBudget> {

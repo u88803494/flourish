@@ -644,7 +644,7 @@ export function DataSourceSelector() {
 
 ## 📋 實作計畫
 
-### Phase 1：建立 chart-engine package（Sprint 4）
+### Phase 1：建立 chart-engine package
 
 - [ ] 建立 `packages/chart-engine` 結構
 - [ ] 實作 `TrendAnalyzer`
@@ -653,7 +653,7 @@ export function DataSourceSelector() {
 - [ ] 撰寫單元測試
 - [ ] 撰寫文檔
 
-### Phase 2：記帳應用整合（Sprint 5）
+### Phase 2：記帳應用整合
 
 - [ ] 實作 `FinancialAnalyzer`
 - [ ] 在儀表板顯示基本曲線
@@ -661,14 +661,14 @@ export function DataSourceSelector() {
 - [ ] 實作數據匯出 API
 - [ ] 測試整合
 
-### Phase 3：曲線圖工具遷移（Sprint 6）
+### Phase 3：曲線圖工具遷移
 
 - [ ] 將現有 curves_tool 遷移到 monorepo
 - [ ] 重構以使用 chart-engine
 - [ ] 實作數據匯入功能
 - [ ] 測試雙向整合
 
-### Phase 4：進階功能（Sprint 7+）
+### Phase 4：進階功能
 
 - [ ] 多維度分析（分類、帳戶、標籤）
 - [ ] 自訂統計項目

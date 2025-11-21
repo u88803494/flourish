@@ -1,4 +1,4 @@
-# Sprint 0.8: Deployment Evaluation & Architecture Decision
+# Sprint 8: Deployment Evaluation & Architecture Decision
 
 **Sprint 期間**：2025-11-06 ~ 2025-11-07
 **狀態**：✅ 已完成
@@ -8,7 +8,7 @@
 
 ## 執行摘要
 
-Sprint 0.8 原計劃為「CI/CD & Deployment Planning」，但經過完整的技術評估和部署測試後，演變為「Deployment Evaluation & Architecture Decision」。
+Sprint 8 原計劃為「CI/CD & Deployment Planning」，但經過完整的技術評估和部署測試後，演變為「Deployment Evaluation & Architecture Decision」。
 
 **關鍵成果**：
 
@@ -27,7 +27,7 @@ Sprint 0.8 原計劃為「CI/CD & Deployment Planning」，但經過完整的技
 ### 原始目標（2025-11-06）
 
 ```yaml
-Sprint 0.8: CI/CD & Testing Infrastructure
+Sprint 8: CI/CD & Testing Infrastructure
 目標:
   - 設定 GitHub Actions workflows
   - 配置自動化測試流程
@@ -37,7 +37,7 @@ Sprint 0.8: CI/CD & Testing Infrastructure
 ### 調整後目標（2025-11-07）
 
 ```yaml
-Sprint 0.8: Deployment Evaluation & Architecture Decision
+Sprint 8: Deployment Evaluation & Architecture Decision
 目標:
   - 評估後端部署方案（Render, Fly.io, Railway, OCI）
   - 完整測試 NestJS + Render 部署
@@ -320,17 +320,17 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 **原計劃**：
 
-- Sprint 0.8: CI/CD & Testing Infrastructure
-- Sprint 0.9: Security Foundations (NestJS)
+- Sprint 8: CI/CD & Testing Infrastructure
+- Sprint 9: Security Foundations (NestJS)
 
 **新計劃**：
 
-- Sprint 0.8: ✅ Deployment Evaluation & Architecture Decision（已完成）
-- Sprint 0.9: Supabase Migration
-- Sprint 0.10: Security Enhancement (RLS) - 可選
+- Sprint 8: ✅ Deployment Evaluation & Architecture Decision（已完成）
+- Sprint 9: Supabase Migration
+- Sprint 10: Security Enhancement (RLS) - 可選
 - Sprint 1: Authentication (使用 Supabase Auth，非從零實作)
 
-### Sprint 0.9 規劃
+### Sprint 9 規劃
 
 **目標**：實現 Supabase 架構遷移
 
@@ -350,7 +350,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 **進度調整**：
 
-- Phase 0 完成度：從 90% → 85%（因 Sprint 0.9 重新定義）
+- Phase 0 完成度：從 90% → 85%（因 Sprint 9 重新定義）
 - 預計完成日期：延後 1 週（2025-11-15 → 2025-11-22）
 
 **正面影響**：
@@ -436,7 +436,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 ## 下一步
 
-### 立即行動（Sprint 0.8 收尾）
+### 立即行動（Sprint 8 收尾）
 
 - [x] 創建 ADR 001 文檔
 - [x] 創建存檔目錄結構
@@ -446,7 +446,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 - [ ] Commit 所有變更
 - [ ] Merge 到 main 分支
 
-### Sprint 0.9 準備
+### Sprint 9 準備
 
 - [ ] 創建 `feat/sprint-0.9-supabase-migration` 分支
 - [ ] 研究 Supabase 客戶端庫最佳實踐
@@ -457,7 +457,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 ## 總結
 
-Sprint 0.8 從「CI/CD 規劃」演變為「部署評估與架構決策」，這是基於充分評估和測試後的理性調整。
+Sprint 8 從「CI/CD 規劃」演變為「部署評估與架構決策」，這是基於充分評估和測試後的理性調整。
 
 **核心成就**：
 
@@ -482,4 +482,4 @@ Sprint 0.8 從「CI/CD 規劃」演變為「部署評估與架構決策」，這
 
 **完成日期**：2025-11-07
 **狀態**：✅ 已完成
-**下一個 Sprint**：[Sprint 0.9 - Supabase Migration](./0.9-supabase-migration.md)（待建立）
+**下一個 Sprint**：[Sprint 9 - Supabase Migration](./0.9-supabase-migration.md)（待建立）

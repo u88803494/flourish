@@ -31,7 +31,7 @@
 
 **關鍵優勢**：
 
-- 成本：$0/月（vs NestJS + Render 的 $7+/月）
+- 成本：$0/月（vs NestJS + Render (已棄用) 的 $7+/月）
 - 維護：減少約 70%
 - 開發速度：快約 60%
 - 完美符合當前需求（CRUD + 統計）
@@ -254,11 +254,11 @@ git push origin feat/new-feature
 - **UI 元件**：React 19
 - **狀態管理**：React Context（Phase 1 規劃 Redux）
 
-### 後端（當前：NestJS，遷移至 Supabase）
+### 後端（已遷移至 Supabase）
 
-- **框架**：NestJS 11（Sprint 9 封存中）
-- **ORM**：Prisma（保留 schema 作為參考）
-- **測試**：Jest（單元測試）、Supertest（E2E）
+- **框架**：Supabase Edge Functions / PostgreSQL（根據需求選用）
+- **ORM**：Prisma (保留 schema 作為參考，實際使用 Supabase CLI 和 SQL)
+- **測試**：Jest (單元測試), Supertest (API，封存中)
 
 ### 資料庫
 
@@ -270,7 +270,7 @@ git push origin feat/new-feature
 ### 部署
 
 - **前端**：Vercel（從 main 自動部署）
-- **資料庫**：Supabase（託管式 PostgreSQL）
+- **資料庫**：Supabase (後端/資料庫)
 - **後端**：正在移除（Sprint 9）
 
 ---

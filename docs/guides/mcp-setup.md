@@ -332,7 +332,7 @@ vim ~/.claude.json
 
 ### Flourish 專案文檔
 
-- 📄 [Sprint 0.9 詳細規劃](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
+- 📄 [Sprint 9 詳細規劃](../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 - 📄 [ADR 001 - 架構簡化](../decisions/001-architecture-simplification.md)
 - 📄 [部署文檔](../deployment/README.md)
 

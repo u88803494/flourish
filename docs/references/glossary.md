@@ -46,7 +46,7 @@
 
 **定義**: 使用 Supabase 作為主要後端的架構模式，消除自訂 API 伺服器。
 
-**取代**: NestJS + Render 架構（Sprint 0.8 棄用）
+**取代**: NestJS + Render 架構（Sprint 8 棄用）
 
 **優點**: $0 成本，減少 70% 維護，開發速度快 60%
 

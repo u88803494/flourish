@@ -347,7 +347,7 @@ document.documentElement.classList.add('dark');
 
 ## 🔗 Related Documents
 
-- [Sprint 0.7 Overview](./07-overview.md)
+- [Sprint 7 Overview](./07-overview.md)
 - [Sprint 7, Task 1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
 - [Design System Configuration](../../decisions/design-system-configuration.md)
 

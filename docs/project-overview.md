@@ -142,9 +142,9 @@ Apex helps you plot statistical curves, track performance peaks, and achieve pow
 
 Setting up the development environment and tooling
 
-- Sprint 0.1: ✅ Basic monorepo structure
-- Sprint 0.2-0.4: Development tooling (Prettier, Husky, commitlint)
-- Sprint 0.5-0.7: Core infrastructure (Prisma, NestJS, Apex app)
+- Sprint 1: ✅ Basic monorepo structure
+- Sprint 2-4: Development tooling (Prettier, Husky, commitlint)
+- Sprint 5-7: Core infrastructure (Prisma, NestJS, Apex app)
 
 ### Phase 1: Core Features
 

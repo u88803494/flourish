@@ -1,4 +1,4 @@
-# Sprint 0.10: 文檔、治理與自動化
+# Sprint 10: 文檔、治理與自動化
 
 **狀態**: 📋 規劃中
 **預估時間**: ~3 小時
@@ -49,7 +49,7 @@ flourish/
 ├── apps/
 │   ├── flow/          # 財務追蹤（Next.js 15）
 │   ├── apex/          # 統計與分析（Next.js 15）
-│   └── api/           # 後端 API（Sprint 0.9 存檔中）
+│   └── api/           # 後端 API（Sprint 9 存檔中）
 └── packages/
     ├── database/      # Prisma schema（僅供參考）
     ├── supabase-client/  # Supabase JS client（Sprint 9, Task 3）
@@ -198,12 +198,12 @@ pnpm db:diff            # 檢查 schema 差異
 目前狀態：
 
 - **Phase 0**: 基礎建設（90% 完成）
-- **Sprint 0.9**: Supabase 遷移
+- **Sprint 9**: Supabase 遷移
   - 0.9.1: ✅ CLI 設置
   - 0.9.2: 🔄 資料庫遷移
   - 0.9.3: 待執行 - Client 套件
   - 0.9.4: 待執行 - 清理
-- **Sprint 0.10**: 📋 文檔與 Agent 設置（本 sprint）
+- **Sprint 10**: 📋 文檔與 Agent 設置（本 sprint）
 
 參考：[Sprint 總覽](./docs/sprints/sprint-0-foundation/overview.md)
 
@@ -305,7 +305,7 @@ ln -s AGENTS.md .windsurfrules
 
 #### docs/sprints/sprint-0-foundation/overview.md
 
-- 新增 Sprint 0.10 至 sprint 列表
+- 新增 Sprint 10 至 sprint 列表
 - 更新 Phase 0 完成百分比
 
 ---
@@ -366,7 +366,7 @@ ln -s AGENTS.md .windsurfrules
 
 1. 更新 `docs/README.md` 新增參考連結
 2. 更新 `docs/sprints/sprint-0-foundation/overview.md`
-3. 新增 Sprint 0.10 完成狀態
+3. 新增 Sprint 10 完成狀態
 
 ### 步驟 9：Commit 與 PR
 
@@ -381,7 +381,7 @@ git commit -m "feat(sprint-0.10): establish AI agent documentation system
 - Update documentation hub with new references
 - Follow AGENTS.md standard from my-website project
 
-Ref: Sprint 0.10 planning"
+Ref: Sprint 10 planning"
 ```
 
 ---
@@ -405,7 +405,7 @@ Ref: Sprint 0.10 planning"
 ### 文檔更新
 
 - [ ] `docs/README.md` 已更新，加入新參考連結
-- [ ] `docs/sprints/sprint-0-foundation/overview.md` 包含 Sprint 0.10
+- [ ] `docs/sprints/sprint-0-foundation/overview.md` 包含 Sprint 10
 
 ### 品質檢查
 

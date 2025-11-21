@@ -7,20 +7,20 @@
 
 ## 文件目的
 
-本文件列出 Flourish 的所有功能需求，按功能領域組織並按實作 sprint 排定優先級。
+本文件列出 Flourish 的所有功能需求，按功能領域組織並按實作 Phase 排定優先級。
 
 **優先級**:
 
-- **P0 (Must Have)**：MVP 核心功能 (Sprint 0.5)
-- **P1 (Should Have)**：Sprint 2 重要功能
-- **P2 (Nice to Have)**：未來增強功能 (Sprint 3+)
+- **P0 (Must Have)**：MVP 核心功能 (Phase 1)
+- **P1 (Should Have)**：Phase 2 重要功能
+- **P2 (Nice to Have)**：未來增強功能 (Phase 3+)
 
 ---
 
 ## FR-001: PDF 帳單上傳工作流程
 
 **優先級**: P0 (Must Have)
-**Sprint**: 0.5
+**Phase**: 1
 **Epic**: 帳單處理
 
 ### 描述
@@ -123,7 +123,7 @@ enum StatementStatus {
 ## FR-002: AI 交易提取
 
 **優先級**: P0 (Must Have)
-**Sprint**: 0.5
+**Phase**: 1
 **Epic**: 帳單處理
 
 ### 描述
@@ -254,7 +254,7 @@ model Transaction {
 ## FR-003: 批次交易匯入
 
 **優先級**: P0 (Must Have)
-**Sprint**: 0.5
+**Phase**: 1
 **Epic**: 帳單處理
 
 ### 描述
@@ -328,7 +328,7 @@ async function findDuplicates(transaction: Transaction): Promise<boolean> {
 ## FR-004: 多卡管理
 
 **優先級**: P0 (Must Have)
-**Sprint**: 0.5
+**Phase**: 1
 **Epic**: 卡片管理
 
 ### 描述
@@ -417,7 +417,7 @@ model Card {
 ## FR-005: 預扣預算系統
 
 **優先級**: P1 (Should Have)
-**Sprint**: 2
+**Phase**: 2
 **Epic**: 預算管理
 
 ### 描述
@@ -635,7 +635,7 @@ async function calculateMonthlyBudget(userId: string, month: Date): Promise<Mont
 ## FR-006: 交易匹配
 
 **優先級**: P1 (Should Have)
-**Sprint**: 2
+**Phase**: 2
 **Epic**: 預算管理
 
 ### 描述
@@ -689,7 +689,7 @@ enum MatchType {
 ## FR-007: 歷史資料匯入
 
 **優先級**: P1 (Should Have)
-**Sprint**: 2
+**Phase**: 2
 **Epic**: 資料遷移
 
 ### 描述
@@ -732,7 +732,7 @@ POST   /api/import/historical
 ## FR-008: 分類管理
 
 **優先級**: P0 (Must Have)
-**Sprint**: 0.5
+**Phase**: 1
 **Epic**: 交易組織
 
 ### 描述
@@ -780,16 +780,16 @@ model Category {
 
 ## 摘要表格
 
-| Req ID | 功能     | 優先級 | Sprint | 複雜度 |
-| ------ | -------- | ------ | ------ | ------ |
-| FR-001 | PDF 上傳 | P0     | 0.5    | 中     |
-| FR-002 | AI 提取  | P0     | 0.5    | 高     |
-| FR-003 | 批次匯入 | P0     | 0.5    | 中     |
-| FR-004 | 多卡管理 | P0     | 0.5    | 低     |
-| FR-005 | 預扣預算 | P1     | 2      | 高     |
-| FR-006 | 交易匹配 | P1     | 2      | 中     |
-| FR-007 | 歷史匯入 | P1     | 2      | 中     |
-| FR-008 | 分類管理 | P0     | 0.5    | 低     |
+| Req ID | 功能     | 優先級 | Phase | 複雜度 |
+| ------ | -------- | ------ | ----- | ------ |
+| FR-001 | PDF 上傳 | P0     | 1     | 中     |
+| FR-002 | AI 提取  | P0     | 1     | 高     |
+| FR-003 | 批次匯入 | P0     | 1     | 中     |
+| FR-004 | 多卡管理 | P0     | 1     | 低     |
+| FR-005 | 預扣預算 | P1     | 2     | 高     |
+| FR-006 | 交易匹配 | P1     | 2     | 中     |
+| FR-007 | 歷史匯入 | P1     | 2     | 中     |
+| FR-008 | 分類管理 | P0     | 1     | 低     |
 
 ---
 

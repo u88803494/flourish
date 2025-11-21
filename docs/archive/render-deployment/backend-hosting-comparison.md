@@ -1,6 +1,6 @@
 # Backend Hosting Platform Comparison (2025)
 
-> **Sprint 0.8 研究文件**
+> **Sprint 8 研究文件**
 > 比較各種免費/低成本的 Node.js/NestJS 後端部署方案
 
 ## Executive Summary
@@ -308,7 +308,7 @@ export default async function handler(req, res) {
 
 ### For This Project (Flourish - Flow/Apex)
 
-#### Phase 0 - Sprint 0.8 (現在)
+#### Phase 0 - Sprint 8 (現在)
 
 **推薦: Render 免費版**
 
@@ -394,7 +394,7 @@ export default async function handler(req, res) {
 
 ---
 
-## Action Plan for Sprint 0.8
+## Action Plan for Sprint 8
 
 ### Immediate (本週)
 
@@ -559,7 +559,7 @@ jobs:
 - **後端**: Render + Cron-Job（$0 成本，基本不 sleep）
 - **總成本**: $0/月
 
-詳細決策過程和理由請參考：[Sprint 0.8 Deployment Decision](./sprint-0.8-deployment-decision.md)
+詳細決策過程和理由請參考：[Sprint 8 Deployment Decision](./sprint-0.8-deployment-decision.md)
 
 ---
 

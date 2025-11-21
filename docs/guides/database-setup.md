@@ -1,8 +1,8 @@
 # 資料庫設置指南
 
-> ⚠️ **已棄用**: 本指南描述舊的 Prisma 為主的設置（Phase 0，Sprint 0.8 之前）。
+> ⚠️ **已棄用**: 本指南描述舊的 Prisma 為主的設置（Phase 0，Sprint 8 之前）。
 >
-> **目前架構（Sprint 0.8+）**：Flourish **直接使用 Supabase**，不使用 Prisma 或 NestJS。
+> **目前架構（Sprint 8+）**：Flourish **直接使用 Supabase**，不使用 Prisma 或 NestJS。
 >
 > **目前的資料庫設置**，請參考：
 >
@@ -322,13 +322,13 @@ datasource db {
 
 ## 📚 相關文檔
 
-### Current Documentation (Sprint 0.8+)
+### Current Documentation (Sprint 8+)
 
 - **[Supabase Migration Approaches](./supabase-migration-approaches.md)** ⭐ - Comprehensive guide to migration methods
 - **[ADR 002 - Imperative Migrations](../decisions/002-imperative-migrations.md)** - Why we chose Imperative over Declarative
 - [Sprint 9, Task 2 Documentation](../sprints/sprint-0-foundation/09-supabase-migration-plan.md) - Implementation details
 
-### Historical Documentation (Pre-Sprint 0.8)
+### Historical Documentation (Pre-Sprint 8)
 
 - [Database Design](../architecture/database-design.md) - 詳細的 schema 設計說明
 - [Prisma Guide](../references/prisma-guide.md) - Prisma ORM 使用指南
@@ -351,6 +351,6 @@ datasource db {
 
 下一步：
 
-- 查看 [Sprint 0.5 requirements](../sprints/sprint-0-foundation/requirements.md)
+- 查看 [Sprint 5 requirements](../sprints/sprint-0-foundation/requirements.md)
 - 開始實現 PDF 上傳功能
 - 集成 AI 交易辨識
