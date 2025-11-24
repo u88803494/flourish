@@ -88,7 +88,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 - 50,000 月活躍用戶
 - 社交 OAuth providers
 
-對 Phase 0-1 完全足夠。
+對 Release 0-1 完全足夠。
 
 ### 3. 維護簡化
 
@@ -193,7 +193,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 **緩解**：
 
-- Phase 0-1 無第三方整合需求
+- Release 0-1 無第三方整合需求
 - 未來可用 Supabase Edge Functions
 - 或回退到獨立 API server
 
@@ -297,12 +297,12 @@ export async function handler(req: Request) {
 ### 下次審查時機
 
 - Sprint 1 完成後（評估 Authentication 實作經驗）
-- Phase 1 完成後（評估整體開發體驗）
+- Release 1 完成後（評估整體開發體驗）
 - 需要複雜業務邏輯時（重新評估架構需求）
 
 ### 預期調整
 
-此決策預期在 Phase 0-1 期間保持穩定。Phase 2 後可能需要重新評估。
+此決策預期在 Release 0-1 期間保持穩定。Release 2 後可能需要重新評估。
 
 ---
 

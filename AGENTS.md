@@ -96,7 +96,7 @@
 
 **Agent 行動**:
 
-1. 從 `docs/sprints/sprint-X-*/overview.md` 讀取 Sprint 需求
+1. 從 `docs/sprints/sprint-X-*/README.md` 讀取 Sprint 需求
 2. 審查相關 ADR 以了解架構限制
 3. 使用 Sequential MCP 分解任務
 4. 創建詳細實作計劃
@@ -190,7 +190,7 @@ Closes #20"
 ## Sprint X: [標題]
 
 **Issue**: Closes #XX
-**Sprint Doc**: `docs/sprints/sprint-X-*/overview.md`
+**Sprint Doc**: `docs/sprints/sprint-X-*/README.md`
 
 ---
 
@@ -307,7 +307,7 @@ Closes #20"
 
 1. 閱讀 CLAUDE.md（永遠是第一個）
 2. 閱讀 ARCHITECTURE.md（如果與架構相關）
-3. 閱讀 Sprint overview (`docs/sprints/sprint-X-*/overview.md`)
+3. 閱讀 Sprint overview (`docs/sprints/sprint-X-*/README.md`)
 4. 如有引用則閱讀 ADR
 5. 閱讀 glossary 以了解不熟悉的術語
 
@@ -496,7 +496,7 @@ git checkout -b feat/correct-branch
 
 **規劃文檔**:
 
-- `docs/sprints/sprint-0-foundation/overview.md` - 當前階段狀態
+- `docs/sprints/sprint-0-foundation/README.md` - 當前階段狀態
 - `docs/decisions/` - 架構決策記錄
 
 ---

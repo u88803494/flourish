@@ -644,7 +644,7 @@ export function DataSourceSelector() {
 
 ## 📋 實作計畫
 
-### Phase 1：建立 chart-engine package
+### Release 1：建立 chart-engine package
 
 - [ ] 建立 `packages/chart-engine` 結構
 - [ ] 實作 `TrendAnalyzer`

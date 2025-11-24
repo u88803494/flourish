@@ -17,7 +17,7 @@ Set up a professional-grade development environment with:
 
 ---
 
-## 📋 Sub-Sprints
+## 📋 Tasks
 
 ### Sprint 1: Basic Monorepo Structure ✅ COMPLETED
 
@@ -161,15 +161,15 @@ Set up a professional-grade development environment with:
 
 Sprint 0 完成後的發展路徑（已根據 Sprint 8 架構決策調整）：
 
-**Phase 0+: Supabase Migration & Security** (建議在 Sprint 1 之前完成)
+**Release 0+: Supabase Migration & Security** (建議在 Sprint 1 之前完成)
 
 - **Sprint 9**: Supabase Migration & Integration (Planning Sprint)
 
-  **總時間**: ~10 小時 (分為 4 個 sub-sprints)
+  **總時間**: ~10 小時 (分為 4 個 tasks)
 
   **核心目標**：建立完整的 Supabase 架構，替代 NestJS + Render
 
-  **Sub-Sprints**:
+  **Tasks**:
   - **Sprint 9, Task 1** (2 小時) - Supabase CLI & Environment Setup
     - Supabase CLI 安裝與項目連接
     - MCP (Model Context Protocol) 配置
@@ -231,7 +231,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 8 架構決策調整）：
   - 建立 symlinks 相容 Cursor/Windsurf
   - 📄 詳細計劃：[Sprint 10 詳細規劃](./10-documentation-agent-setup.md)
 
-**Phase 1: Core Features**
+**Release 1: Core Features**
 
 - **Sprint 1**: Authentication
   - 使用 Supabase Auth（非從零實作）
@@ -243,7 +243,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 8 架構決策調整）：
   - 分類管理
   - 數據視覺化
 
-**Phase 2: Production Readiness** (Sprint 4 之後)
+**Release 2: Production Readiness** (Sprint 4 之後)
 
 - Observability & Operations
 - 結構化日誌、錯誤追蹤
@@ -262,7 +262,7 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 8 架構決策調整）：
 
 ## 📊 Progress Tracking
 
-**Overall Progress**: 11/14 (79%) → **Phase 0 完成度: 79%**
+**Overall Progress**: 11/14 (79%) → **Release 0 完成度: 79%**
 
 - [x] Sprint 1: Basic Monorepo ✅
 - [x] Sprint 2: Prettier ✅
@@ -279,14 +279,14 @@ Sprint 0 完成後的發展路徑（已根據 Sprint 8 架構決策調整）：
 - [ ] Sprint 10: Documentation & Agent Setup 📋 (Planned)
 - [ ] Sprint 11: Sprint Numbering Refactoring 📋 (Planned)
 
-**Phase 0 Status**: 🔄 **進行中** (完成 Sprint 9, Task 4, 準備進行 Sprint 10)
+**Release 0 Status**: 🔄 **進行中** (完成 Sprint 9, Task 4, 準備進行 Sprint 10)
 
 **Remaining Sprints**:
 
 - Sprint 10: Documentation & Agent Setup (預估 3 小時)
 - Sprint 11: Sprint Numbering Refactoring (預估 1.5-2 小時)
 
-**Sprint 9 (Supabase Migration) 已 100% 完成！** Phase 0 的核心目標（基礎架構 + Supabase 遷移）已完成，剩餘文檔系統優化和編號重構。
+**Sprint 9 (Supabase Migration) 已 100% 完成！** Release 0 的核心目標（基礎架構 + Supabase 遷移）已完成，剩餘文檔系統優化和編號重構。
 
 ---
 

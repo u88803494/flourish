@@ -80,7 +80,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 ### 需求轉變
 
-**原始假設** (Phase 1):
+**原始假設** (Release 1):
 
 - 使用者每日手動輸入交易
 - Transaction 為核心實體
@@ -100,7 +100,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 為了在 4-5 週內快速啟動，同時保留未來擴展能力，我們採用階段式設計：
 
-#### Phase 1 - MVP Models (Must Have)
+#### Release 1 - MVP Models (Must Have)
 
 核心對帳單處理流程
 
@@ -131,7 +131,7 @@ DATABASE_URL=postgresql://postgres:password@db.fstcioczrehqtcbdzuij.supabase.co:
 
 ---
 
-## 🗂️ Phase 1 MVP Schema
+## 🗂️ Release 1 MVP Schema
 
 ### Statement-Centric Architecture
 
@@ -156,7 +156,7 @@ datasource db {
 }
 
 // ============================================
-// Phase 1 MVP Models
+// Release 1 MVP Models
 // ============================================
 
 // 使用者（同步 Supabase Auth）

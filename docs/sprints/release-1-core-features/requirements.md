@@ -6,7 +6,7 @@
 
 ## 📋 Sprint 總覽
 
-### Phase 0: 專案基礎建設（預計 1-2 週）
+### Release 0: 專案基礎建設（預計 1-2 週）
 
 | Sprint | 名稱                | 時間   | 重要性     | 狀態               |
 | ------ | ------------------- | ------ | ---------- | ------------------ |
@@ -18,7 +18,7 @@
 | 6      | NestJS 應用建立     | 1小時  | ⭐⭐⭐⭐⭐ | ✅ 已完成 (已封存) |
 | 0.7    | Apex 應用建立       | 30分鐘 | ⭐⭐⭐⭐   | 📦 待執行          |
 
-### Phase 1: 核心功能開發（預計 4-6 週）
+### Release 1: 核心功能開發（預計 4-6 週）
 
 | Sprint | 名稱       | 時間  | 狀態      |
 | ------ | ---------- | ----- | --------- |
@@ -842,13 +842,13 @@ Sprint 1: 認證系統 (可開始)
 
 ---
 
-## 🔧 Phase 0+: Infrastructure Hardening (Optional)
+## 🔧 Release 0+: Infrastructure Hardening (Optional)
 
 ### Sprint 8: CI/CD & Testing Infrastructure
 
 **時間**: 2-3 週
 **目標**: 建立自動化測試和部署流程，提升測試覆蓋率至 70%+
-**優先級**: P1（建議在 Phase 1 之前完成）
+**優先級**: P1（建議在 Release 1 之前完成）
 **前置需求**: Sprint 6 完成
 
 **來源**: Quality Engineer 審查建議 + 原規劃
@@ -1250,14 +1250,14 @@ Sprint 1: 認證系統 (可開始)
 
 ## 🎓 學習重點總結
 
-### Phase 0 學習重點
+### Release 0 學習重點
 
 - **Monorepo 架構**: 理解 workspace、共享 packages
 - **開發工具鏈**: 自動化、程式碼品質
 - **資料庫設計**: Prisma schema、migrations
 - **後端架構**: NestJS 模組化設計
 
-### Phase 1 學習重點
+### Release 1 學習重點
 
 - **認證流程**: OAuth、JWT
 - **前後端分離**: API 設計、狀態管理
@@ -1268,13 +1268,13 @@ Sprint 1: 認證系統 (可開始)
 
 ## 📅 時間估算總結
 
-### Phase 0（基礎建設）
+### Release 0（基礎建設）
 
 - Sprint 1-0.4: 約 1.5 小時（可分多次）
 - Sprint 5-0.7: 約 2 小時
 - **總計**: 約 3.5 小時
 
-### Phase 1（核心功能）
+### Release 1（核心功能）
 
 - Sprint 1-4: 約 4-6 週
 - 依個人時間彈性調整
@@ -1291,7 +1291,7 @@ Sprint 1: 認證系統 (可開始)
 
 ---
 
-## 📊 Phase 2: Production Readiness (Optional)
+## 📊 Release 2: Production Readiness (Optional)
 
 **時間**: 2 週
 **目標**: 建立生產環境的可觀測性和運營準備

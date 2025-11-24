@@ -150,7 +150,7 @@ If you restore this API, refer to:
 
 ### Migration Documentation
 
-- [Sprint 9 Overview](../../sprints/sprint-0-foundation/overview.md)
+- [Sprint 9 Overview](../../sprints/sprint-0-foundation/README.md)
 - [Supabase Migration Plan](../../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
 
 ### Deployment Archive

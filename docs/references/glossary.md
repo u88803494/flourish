@@ -36,7 +36,7 @@
 - Flow（財務追蹤）
 - Apex（效能統計）
 
-**狀態**: 積極開發中，Phase 0 已完成
+**狀態**: 積極開發中，Release 0 已完成
 
 ---
 
@@ -158,9 +158,11 @@
 
 **編號**: 將從 0.1-0.11 重新編號為 01-11（Sprint 11）
 
-### Phase
+### Release
 
 **定義**: 由多個 Sprint 組成的主要開發里程碑
+
+**範例**: Release 0 (Foundation), Release 1 (Core Features)
 
 ### MCP (Model Context Protocol)
 

@@ -1,6 +1,6 @@
-# Phase 1: Core Features
+# Release 1: Core Features
 
-This phase focuses on developing the core functionalities of the Flourish platform, including user authentication, transaction management, and basic data visualization.
+This release focuses on developing the core functionalities of the Flourish platform, including user authentication, transaction management, and basic data visualization.
 
 ## Sprints
 

@@ -50,7 +50,7 @@
 
 ---
 
-## Phase 1: 準備 Render 帳號
+## Release 1: 準備 Render 帳號
 
 **預計時間**: 2 分鐘
 
@@ -643,7 +643,7 @@ pnpm dev
    git push origin v0.8.0
    ```
 
-3. **開始 Sprint 9 或 Phase 1**
+3. **開始 Sprint 9 或 Release 1**
    - Flow 功能開發
    - Apex 功能開發
    - 或繼續優化基礎設施

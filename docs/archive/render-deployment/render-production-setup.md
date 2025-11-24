@@ -116,7 +116,7 @@ Key: DATABASE_URL
 Value: postgresql://postgres.fstcioczrehqtcbdzuij:YbYkJd2EILWNCt3@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
 ```
 
-⚠️ **注意**：目前與 staging 使用相同資料庫。Phase 1 時考慮使用獨立資料庫。
+⚠️ **注意**：目前與 staging 使用相同資料庫。Release 1 時考慮使用獨立資料庫。
 
 #### 4. SUPABASE_JWT_SECRET
 

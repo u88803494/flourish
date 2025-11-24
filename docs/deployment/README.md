@@ -261,7 +261,7 @@ export async function handler(req: Request) {
 
 ### Sprint 文檔
 
-- [Sprint 0 Overview](../sprints/sprint-0-foundation/overview.md)
+- [Sprint 0 Overview](../sprints/sprint-0-foundation/README.md)
 - [Sprint 9 - Supabase Migration](../sprints/sprint-0-foundation/0.9-supabase-migration.md)（待建立）
 
 ---
@@ -306,4 +306,4 @@ Supabase 預設允許所有來源，但如需調整：
 
 **維護者**：Henry Lee
 **最後更新**：2025-11-07
-**狀態**：✅ Phase 0 完成，準備進入 Sprint 9（Supabase Migration）
+**狀態**：✅ Release 0 完成，準備進入 Sprint 9（Supabase Migration）

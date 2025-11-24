@@ -13,7 +13,7 @@
 
 ---
 
-## 📋 Sub-Sprints
+## 📋 Tasks
 
 ### ✅ Sprint 7.0: Apex App 基礎建立
 
@@ -219,7 +219,7 @@ Sprint 7 完成條件:
 ### 技術文檔
 
 - [Port Configuration](../../configuration/ports.md)
-- [Sprint 0 Overview](./overview.md)
+- [Sprint 0 Overview](./README.md)
 
 ---
 
