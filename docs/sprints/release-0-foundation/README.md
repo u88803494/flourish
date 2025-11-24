@@ -1,19 +1,19 @@
-# Sprint 0: Foundation - Overview
+# Release 0: Foundation - 總覽
 
-**Duration**: 1-2 weeks  
-**Status**: 🟢 In Progress  
-**Goal**: Establish a solid foundation for the Flourish project with proper tooling and infrastructure
+**持續時間**: 2025-10-28 ~ 2025-11-24
+**狀態**: ✅ 已完成（100%）
+**目標**: 建立 Flourish 專案的堅實基礎與基礎設施
 
 ---
 
-## 🎯 Sprint Goal
+## 🎯 Release 目標
 
-Set up a professional-grade development environment with:
+建立專業級的開發環境，包含：
 
-- Turborepo monorepo structure
-- Development tooling (Prettier, Husky, lint-staged, commitlint)
-- Core infrastructure (Prisma, NestJS, Apex app)
-- Complete documentation system
+- Turborepo monorepo 結構
+- 開發工具鏈（Prettier, Husky, lint-staged, commitlint）
+- 核心基礎設施（Prisma, Supabase, Apex app）
+- 完整的文檔系統
 
 ---
 

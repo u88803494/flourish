@@ -75,7 +75,7 @@
 
 - [專案總覽](../../project-overview.md)
 - [Release 0 總覽](./README.md)
-- [開發工具規劃](../../05-dev-tooling-plan.md)
+- [開發工具設定](./02-05-dev-tooling.md)
 
 ---
 
