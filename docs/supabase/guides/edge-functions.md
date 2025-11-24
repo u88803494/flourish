@@ -76,4 +76,4 @@ Supabase Edge Functions 是基於 Deno 的 serverless functions。
 
 **最後更新**: 2025-11-24
 **Task 3 將補充**: 詳細使用指南、實際範例、最佳實踐
-**狀態**: 未來功能，Phase 1 可能不會使用
+**狀態**: 未來功能，Release 1 可能不會使用
