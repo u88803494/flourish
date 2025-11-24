@@ -101,7 +101,7 @@ apps/api/
 
 ### Migration Details
 
-See: [Sprint 9 - Supabase Migration Plan](../../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
+See: [Sprint 9 - Supabase Migration Plan](../../sprints/release-0-foundation/09-supabase-migration-plan.md)
 
 ---
 
@@ -146,12 +146,12 @@ If you restore this API, refer to:
 ### Architecture Decisions
 
 - [ADR 001 - Architecture Simplification](../../decisions/001-architecture-simplification.md)
-- [Sprint 8 Deployment Evaluation](../../sprints/sprint-0-foundation/08-deployment-evaluation.md)
+- [Sprint 8 Deployment Evaluation](../../sprints/release-0-foundation/08-deployment-evaluation.md)
 
 ### Migration Documentation
 
-- [Sprint 9 Overview](../../sprints/sprint-0-foundation/README.md)
-- [Supabase Migration Plan](../../sprints/sprint-0-foundation/09-supabase-migration-plan.md)
+- [Sprint 9 Overview](../../sprints/release-0-foundation/README.md)
+- [Supabase Migration Plan](../../sprints/release-0-foundation/09-supabase-migration-plan.md)
 
 ### Deployment Archive
 
