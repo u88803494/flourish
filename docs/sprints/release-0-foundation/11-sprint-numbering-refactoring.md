@@ -13,7 +13,7 @@
 
 - 使用連續序號編號（Sprint 1, 2, 3... 而不是 0.1, 0.2, 0.3）
 - 確保檔案系統排序正確（檔名補零）
-- 為 Phase 1 及未來做好文檔結構準備
+- 為 Release 1 及未來做好文檔結構準備
 
 ---
 
@@ -106,7 +106,7 @@ docs/sprints/
 │   └── sprint-11-refactoring.md（本文件）
 └── phase-1-core-features/
     ├── overview.md（待建立）
-    └── sprint-12-authentication.md（Phase 1 從這裡開始）
+    └── sprint-12-authentication.md（Release 1 從這裡開始）
 ```
 
 ### 階段 3：內容更新
@@ -118,7 +118,7 @@ docs/sprints/
    - 更新 sprint 之間的交叉引用
 
 2. **總覽文件**：
-   - `docs/sprints/phase-0-foundation/overview.md`
+   - `docs/sprints/release-0-foundation/README.md`
    - 更新 Progress Tracking 區段
    - 更新內容中的所有 sprint 引用
 
@@ -145,10 +145,10 @@ docs/sprints/
 
 ```bash
 # 建立新的 phase-1 資料夾
-mkdir -p docs/sprints/phase-1-core-features
+mkdir -p docs/sprints/release-1-core-features
 
 # 建立 phase-1 總覽
-touch docs/sprints/phase-1-core-features/overview.md
+touch docs/sprints/release-1-core-features/README.md
 
 # 建立 sprints README
 touch docs/sprints/README.md
@@ -160,18 +160,18 @@ touch docs/sprints/README.md
 
 ```bash
 mv docs/sprints/sprint-0-foundation/08-deployment-evaluation.md \
-   docs/sprints/phase-0-foundation/sprint-08-deployment.md
+   docs/sprints/release-0-foundation/sprint-08-deployment.md
 ```
 
 **Sprint 9（Supabase 遷移）**：
 
 ```bash
 # 建立 sprint-09 資料夾
-mkdir -p docs/sprints/phase-0-foundation/sprint-09-supabase
+mkdir -p docs/sprints/release-0-foundation/sprint-09-supabase
 
 # 移動並重新命名規劃文件
 mv docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md \
-   docs/sprints/phase-0-foundation/sprint-09-supabase/overview.md
+   docs/sprints/release-0-foundation/sprint-09-supabase/README.md
 
 # 注意：Task 檔案（0.9.1-0.9.4）目前還不存在
 # 會在執行 Sprint 9 各 task 時建立
@@ -181,14 +181,14 @@ mv docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md \
 
 ```bash
 mv docs/sprints/sprint-0-foundation/10-documentation-agent-setup.md \
-   docs/sprints/phase-0-foundation/sprint-10-docs.md
+   docs/sprints/release-0-foundation/sprint-10-docs.md
 ```
 
 **Sprint 11（本文件）**：
 
 ```bash
 mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
-   docs/sprints/phase-0-foundation/sprint-11-refactoring.md
+   docs/sprints/release-0-foundation/sprint-11-refactoring.md
 ```
 
 ### 任務 3：更新內容引用（30 分鐘）
@@ -200,10 +200,10 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 # 需要手動檢查上下文
 
 # 需要更新的檔案：
-# - docs/sprints/phase-0-foundation/overview.md
-# - docs/sprints/phase-0-foundation/sprint-08-deployment.md
-# - docs/sprints/phase-0-foundation/sprint-09-supabase/overview.md
-# - docs/sprints/phase-0-foundation/sprint-10-docs.md
+# - docs/sprints/release-0-foundation/README.md
+# - docs/sprints/release-0-foundation/sprint-08-deployment.md
+# - docs/sprints/release-0-foundation/sprint-09-supabase/README.md
+# - docs/sprints/release-0-foundation/sprint-10-docs.md
 # - docs/decisions/001-architecture-simplification.md
 # - docs/decisions/002-imperative-migrations.md
 # - docs/guides/supabase-migration-approaches.md
@@ -238,7 +238,7 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 
 ### 任務 5：更新總覽文件（20 分鐘）
 
-**Phase 0 總覽**（`docs/sprints/phase-0-foundation/overview.md`）：
+**Release 0 總覽**（`docs/sprints/release-0-foundation/README.md`）：
 
 - 更新 Progress Tracking 使用新 sprint 編號
 - 更新內文所有 sprint 引用
@@ -250,11 +250,11 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 - 連結到 phase 資料夾
 - 說明編號系統
 
-**Phase 1 總覽**（`docs/sprints/phase-1-core-features/overview.md`）：
+**Release 1 總覽**（`docs/sprints/release-1-core-features/README.md`）：
 
 - 建立初始總覽
 - Sprint 12+ 會列在這裡
-- 參照回 Phase 0 完成狀態
+- 參照回 Release 0 完成狀態
 
 ### 任務 6：更新 CLAUDE.md（10 分鐘）
 
@@ -273,7 +273,7 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 - [ ] 文檔中所有 sprint 引用都已更新
 - [ ] 文檔中沒有損壞的連結
 - [ ] 慣例文件已建立且完整
-- [ ] Phase 1 資料夾已準備好含總覽
+- [ ] Release 1 資料夾已準備好含總覽
 - [ ] 可以順暢瀏覽文檔
 - [ ] 檔案系統排序正確（sprint-01, sprint-02, sprint-10）
 
@@ -303,27 +303,27 @@ mv docs/sprints/sprint-0-foundation/11-sprint-numbering-refactoring.md \
 
 - **研究基礎**：基於 agile 最佳實踐的深度研究
 - **ADR 002**：遷移方法類似的重構考量
-- **Phase 0 總覽**：會在本 sprint 中更新
+- **Release 0 總覽**：會在本 sprint 中更新
 
 ---
 
 ## 🎬 Sprint 11 之後
 
-### Phase 0 完成
+### Release 0 完成
 
 Sprint 11 完成後：
 
 - ✅ 全部 11 個 sprints 完成
-- ✅ Phase 0 基礎穩固
+- ✅ Release 0 基礎穩固
 - ✅ 文檔組織良好
-- ✅ 準備好進入 Phase 1
+- ✅ 準備好進入 Release 1
 
-### Phase 1 開始
+### Release 1 開始
 
 下一個 sprint：
 
 - **Sprint 12: Authentication（認證系統）**
-- 位置：`docs/sprints/phase-1-core-features/sprint-12-authentication.md`
+- 位置：`docs/sprints/release-1-core-features/sprint-12-authentication.md`
 - 繼續序號編號（12, 13, 14...）
 
 ---

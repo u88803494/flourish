@@ -161,7 +161,7 @@ flourish/
 
 ## 📅 Development Roadmap
 
-### Phase 0: Foundation ✅ (100% Complete)
+### Release 0: Foundation ✅ (100% Complete)
 
 - [x] Sprint 1: Basic monorepo structure ✅ (2025-10-28)
 - [x] Sprint 2: Prettier setup ✅ (2025-10-30)
@@ -175,24 +175,35 @@ flourish/
   - Next.js 16 statistics tracking tool
   - Beautiful landing page with "Coming soon" features preview
   - Port 3200 configuration complete
-  - Ready for feature development in Phase 1
+  - Ready for feature development in Release 1
 
-### Phase 0+: Infrastructure Hardening (In Progress)
+### Release 0+: Infrastructure Hardening ✅ (100% Complete)
 
-- [x] Sprint 8: Deployment & CI/CD Setup ✅ (2025-01-07)
+- [x] Sprint 8: Deployment & CI/CD Setup ✅ (2025-11-07)
   - Dual environment deployment (Staging + Production)
   - Render hosting configuration
   - Vercel frontend deployment
   - Git workflow established (feat → staging → main)
   - Complete deployment documentation
   - Keep-alive monitoring setup
-- [ ] Sprint 9: Security Foundations _(2-3 weeks)_
+- [x] Sprint 9: Supabase Migration ✅ (2025-11-21)
+  - Complete migration to Supabase-first architecture
+  - Database schema with RLS policies
+  - Supabase client package
+  - MCP integration
+- [x] Sprint 10: Documentation Agent Setup ✅ (2025-11-22)
+  - AGENTS.md, CLAUDE.md, ARCHITECTURE.md created
+  - Project glossary and terminology
+  - MCP setup guide
+- [x] Sprint 11: Sprint Numbering Refactoring ✅ (2025-11-23)
+  - Standardized Sprint numbering (0.X → X)
+  - Updated all documentation references
 
-### Phase 1: Core Features
+### Release 1: Core Features (In Progress)
 
 - [ ] Sprint 12: Authentication system
 - [ ] Sprint 13: Transaction CRUD
-- [ ] Sprint 14: Categories and statistics
+- [x] Sprint 14: Documentation Standardization ✅ (In Progress)
 - [ ] Sprint 15: Chart integration
 
 ## 🤝 Contributing

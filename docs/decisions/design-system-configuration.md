@@ -230,7 +230,7 @@ apps/apex/components/        # Apex 專屬
 
 ### 4. Component 範圍
 
-#### Phase 1: 必要 Component (Sprint 7 / 1)
+#### Release 1: 必要 Component (Sprint 7 / 1)
 
 **Authentication & Forms**（Sprint 1 立即需求）:
 
@@ -258,7 +258,7 @@ apps/apex/components/        # Apex 專屬
 
 **預估**: 15-20 個 component
 
-**決策**: 立即安裝 Phase 1 component，Phase 2 按需求安裝
+**決策**: 立即安裝 Release 1 component，Phase 2 按需求安裝
 
 ---
 
@@ -352,7 +352,7 @@ export default {
 
 ### 步驟 3: Component 整合
 
-- 安裝 Phase 1 component
+- 安裝 Release 1 component
 - 建立 component 文件
 - 在 Flow 和 Apex 中測試
 

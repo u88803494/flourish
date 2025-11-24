@@ -123,7 +123,7 @@
 
 ## 📋 具體實施計劃
 
-### Phase 1: Sprint 7（Apex App）
+### Release 1: Sprint 7（Apex App）
 
 - ✅ 不創建 UML（專注 Apex 實現）
 - 📝 記錄需求（為後續 UML 準備）
@@ -257,7 +257,7 @@ erDiagram
 
 ## 📚 相關文檔
 
-- [Sprint 0 Overview](./overview.md)
+- [Sprint 0 Overview](./README.md)
 - [Sprint 0 Tasks](./tasks.md)
 - [Architecture Documentation](../architecture/README.md)
 - [Development Setup Guide](../guides/development-setup.md)

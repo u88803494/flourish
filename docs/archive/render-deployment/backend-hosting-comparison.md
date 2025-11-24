@@ -308,7 +308,7 @@ export default async function handler(req, res) {
 
 ### For This Project (Flourish - Flow/Apex)
 
-#### Phase 0 - Sprint 8 (現在)
+#### Release 0 - Sprint 8 (現在)
 
 **推薦: Render 免費版**
 
@@ -323,7 +323,7 @@ export default async function handler(req, res) {
 時間: 10 分鐘
 ```
 
-#### Phase 1 - 功能開發 (3-6 個月後)
+#### Release 1 - 功能開發 (3-6 個月後)
 
 **推薦: 升級到 Fly.io 或開始設定 OCI**
 
@@ -447,7 +447,7 @@ Option B: 分開 dev 與 prod Supabase projects（推薦）
 ### Preview/Staging
 
 ```
-不建議在 Phase 0-1 設定
+不建議在 Release 0-1 設定
 - 增加複雜度
 - PR preview 可以共用 prod DB（小心 migration）
 - Phase 2 有真實用戶再考慮
@@ -457,7 +457,7 @@ Option B: 分開 dev 與 prod Supabase projects（推薦）
 
 ## Monitoring & Observability
 
-### Phase 0-1: 內建工具就夠
+### Release 0-1: 內建工具就夠
 
 ```
 ✅ Vercel Analytics (Flow/Apex)
@@ -483,7 +483,7 @@ Option B: 分開 dev 與 prod Supabase projects（推薦）
 
 ## GitHub Actions Strategy
 
-### Phase 0-1: 不需要
+### Release 0-1: 不需要
 
 ```
 理由:

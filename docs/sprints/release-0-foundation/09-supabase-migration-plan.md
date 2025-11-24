@@ -2,14 +2,14 @@
 
 **Status**: ✅ COMPLETED (Planning Phase)
 **Date**: 2025-11-12
-**Total Duration**: ~9.5 hours (split across 4 sub-sprints)
+**Total Duration**: ~9.5 hours (split across 4 tasks)
 **Architecture**: Pure Supabase (ADR 001)
 
 ---
 
 ## 📋 Executive Summary
 
-This document outlines the comprehensive plan to migrate from NestJS + Render to pure Supabase architecture. The migration is broken into 4 manageable sub-sprints (0.9.1-0.9.4), each with clear objectives, deliverables, and success criteria.
+This document outlines the comprehensive plan to migrate from NestJS + Render to pure Supabase architecture. The migration is broken into 4 manageable tasks (0.9.1-0.9.4), each with clear objectives, deliverables, and success criteria.
 
 **Key Metrics:**
 
@@ -24,7 +24,7 @@ This document outlines the comprehensive plan to migrate from NestJS + Render to
 
 ### Current Status (Sprint 8 Complete)
 
-✅ **Phase 0: Foundation (100% Complete)**
+✅ **Release 0: Foundation (100% Complete)**
 
 - Monorepo structure established
 - Development tooling configured
@@ -60,7 +60,7 @@ From **ADR 001 - Architecture Simplification**:
 
 ---
 
-## 📊 Sub-Sprint Structure
+## 📊 Task Structure
 
 ### Sprint 9, Task 1: Supabase Basic Setup ⏱️ ~2 hours
 
@@ -831,7 +831,7 @@ You can restore the code and use it as a microservice template if needed.
 
 #### 4.3 Update Overview.md
 
-**File**: `docs/sprints/sprint-0-foundation/overview.md`
+**File**: `docs/sprints/sprint-0-foundation/README.md`
 
 Update the Sprint 9 section to show completion:
 
@@ -846,7 +846,7 @@ Update the Sprint 9 section to show completion:
 #### Planning Phase (Completed)
 
 - ✅ Created comprehensive migration plan (this document)
-- ✅ Defined 4 sub-sprints with clear objectives
+- ✅ Defined 4 tasks with clear objectives
 - ✅ Set up secure MCP configuration
 - ✅ Documented all technical steps
 
@@ -888,7 +888,7 @@ Update the Sprint 9 section to show completion:
 
 **Lessons Learned**:
 
-- Breaking large sprints into smaller sub-sprints improves execution
+- Breaking large sprints into smaller tasks improves execution
 - MCP setup requires careful environment variable management
 - Supabase's auto-generated REST API eliminates significant API layer development
 - TypeScript type generation from database schema is powerful
@@ -1081,7 +1081,7 @@ Sprint 9, Task 4 (Cleanup) [depends on 0.9.3]
 
 ### Documentation Verification
 
-- [ ] All 4 sub-sprints fully documented
+- [ ] All 4 tasks fully documented
 - [ ] MCP setup guide complete
 - [ ] Migration workflow documented
 - [ ] NestJS archival documented

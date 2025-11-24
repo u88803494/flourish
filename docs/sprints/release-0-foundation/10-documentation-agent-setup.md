@@ -197,7 +197,7 @@ pnpm db:diff            # 檢查 schema 差異
 
 目前狀態：
 
-- **Phase 0**: 基礎建設（90% 完成）
+- **Release 0**: 基礎建設（90% 完成）
 - **Sprint 9**: Supabase 遷移
   - 0.9.1: ✅ CLI 設置
   - 0.9.2: 🔄 資料庫遷移
@@ -205,7 +205,7 @@ pnpm db:diff            # 檢查 schema 差異
   - 0.9.4: 待執行 - 清理
 - **Sprint 10**: 📋 文檔與 Agent 設置（本 sprint）
 
-參考：[Sprint 總覽](./docs/sprints/sprint-0-foundation/overview.md)
+參考：[Sprint 總覽](./docs/sprints/sprint-0-foundation/README.md)
 
 ````
 
@@ -303,10 +303,10 @@ ln -s AGENTS.md .windsurfrules
 - 連結至 CLAUDE.md
 - 連結至 ARCHITECTURE.md
 
-#### docs/sprints/sprint-0-foundation/overview.md
+#### docs/sprints/sprint-0-foundation/README.md
 
 - 新增 Sprint 10 至 sprint 列表
-- 更新 Phase 0 完成百分比
+- 更新 Release 0 完成百分比
 
 ---
 
@@ -365,7 +365,7 @@ ln -s AGENTS.md .windsurfrules
 ### 步驟 8：更新現有文檔
 
 1. 更新 `docs/README.md` 新增參考連結
-2. 更新 `docs/sprints/sprint-0-foundation/overview.md`
+2. 更新 `docs/sprints/sprint-0-foundation/README.md`
 3. 新增 Sprint 10 完成狀態
 
 ### 步驟 9：Commit 與 PR
@@ -405,7 +405,7 @@ Ref: Sprint 10 planning"
 ### 文檔更新
 
 - [ ] `docs/README.md` 已更新，加入新參考連結
-- [ ] `docs/sprints/sprint-0-foundation/overview.md` 包含 Sprint 10
+- [ ] `docs/sprints/sprint-0-foundation/README.md` 包含 Sprint 10
 
 ### 品質檢查
 
@@ -446,4 +446,4 @@ Ref: Sprint 10 planning"
 
 **最後更新**: 2025-11-13
 **狀態**: 規劃中
-**下一個 Sprint**: Phase 1.0 - 功能開發
+**下一個 Sprint**: Release 1.0 - 功能開發

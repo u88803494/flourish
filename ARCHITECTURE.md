@@ -128,7 +128,7 @@
 - 框架: Next.js 15 (App Router)
 - 語言: TypeScript 5 (strict mode)
 - 樣式: Tailwind CSS
-- 圖表: 待定（Phase 1）
+- 圖表: 待定（Release 1）
 - 資料獲取: Supabase Client (@repo/supabase-client)
 
 **核心功能**（規劃中）:
@@ -490,7 +490,7 @@ npx supabase db push
 - 分析
 - 環境管理
 
-**未來整合**（Phase 2+）:
+**未來整合**（Release 2+）:
 
 - 支付閘道（Stripe）
 - 電子郵件服務（SendGrid/Postmark）

@@ -1,6 +1,6 @@
 # Sprint 0: Foundation - Tasks
 
-Track the implementation progress of Sprint 0 sub-sprints.
+Track the implementation progress of Sprint 0 tasks.
 
 ---
 
@@ -253,7 +253,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 **Status**: 📦 Planned (Based on Quality Engineer Review)
 **Estimated Time**: 2-3 weeks
-**Priority**: P1 (Before Phase 1)
+**Priority**: P1 (Before Release 1)
 
 **Key Tasks**:
 
@@ -284,7 +284,7 @@ Track the implementation progress of Sprint 0 sub-sprints.
 **Notes**:
 
 - Addresses Quality Engineer assessment (3.6/10, 18.96% coverage)
-- Must complete before Phase 1 to ensure stable CI/CD
+- Must complete before Release 1 to ensure stable CI/CD
 - Estimated effort: 23-27 hours spread over 2-3 weeks
 
 ---
@@ -346,10 +346,10 @@ Track the implementation progress of Sprint 0 sub-sprints.
 
 ## 📊 Overall Progress
 
-**Sprint 0 Completion**: 6/7 sub-sprints (86%) - including planning for Phase 0+
+**Sprint 0 Completion**: 6/7 tasks (86%) - including planning for Release 0+
 
 **Time Spent**: ~2.5 hours (Sprint 1-0.6)
-**Time Remaining for Phase 0+**: ~4-6 weeks
+**Time Remaining for Release 0+**: ~4-6 weeks
 
 **Expert Review Summary**:
 
@@ -447,13 +447,13 @@ Sprint 0 is complete when:
   - Added comprehensive "Sprint 6 Expert Review Summary" section to requirements.md
   - Created detailed Sprint 8 (CI/CD & Testing) tasks based on Quality Engineer recommendations
   - Created detailed Sprint 9 (Security Foundations) tasks based on Security Engineer recommendations
-  - Clear roadmap now exists for Phase 0+ improvements
+  - Clear roadmap now exists for Release 0+ improvements
   - Time estimates provided: Sprint 8 (23-27 hrs), Sprint 9 (14-18 hrs)
 
 - Key Learnings
   - Architecture decisions were sound (Backend Architect: 8.2/10)
   - Security hardening deferred to Sprint 9 is appropriate approach
-  - Test coverage requires dedicated effort (Sprint 8) before Phase 1
+  - Test coverage requires dedicated effort (Sprint 8) before Release 1
   - Expert review process provides valuable structured feedback
   - Improvements properly sequenced without blocking merge to main
 

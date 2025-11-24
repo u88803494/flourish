@@ -127,7 +127,7 @@ npx supabase db reset                 # 重置本地資料庫
 
 - 框架：Next.js 15（App Router）
 - Port：3200（開發環境）
-- 狀態：基礎完成，功能將在 Phase 1 推出
+- 狀態：基礎完成，功能將在 Release 1 推出
 - URL：https://flourish-apex.vercel.app
 
 **api** - ⚠️ **已封存**（2025-11-21）
@@ -162,7 +162,7 @@ npx supabase db reset                 # 重置本地資料庫
 **chart-engine**
 
 - 圖表渲染邏輯
-- 狀態：Phase 1 規劃中
+- 狀態：Release 1 規劃中
 
 **typescript-config, eslint-config**
 
@@ -252,7 +252,7 @@ git push origin feat/new-feature
 - **語言**：TypeScript（strict mode）
 - **樣式**：Tailwind CSS
 - **UI 元件**：React 19
-- **狀態管理**：React Context（Phase 1 規劃 Redux）
+- **狀態管理**：React Context（Release 1 規劃 Redux）
 
 ### 後端（已遷移至 Supabase）
 
@@ -284,7 +284,7 @@ git push origin feat/new-feature
 
 ### Sprint 規劃
 
-- `docs/sprints/sprint-0-foundation/overview.md` - Phase 0 進度追蹤
+- `docs/sprints/sprint-0-foundation/README.md` - Release 0 進度追蹤
 - `docs/sprints/sprint-0-foundation/09-supabase-migration-plan.md` - Sprint 9 詳細計劃
 
 ### 開發指南
@@ -299,7 +299,7 @@ git push origin feat/new-feature
 
 ---
 
-## 🎯 當前階段：Phase 0 Foundation
+## 🎯 當前階段：Release 0 Foundation
 
 **狀態**：✅ 完成（100% - 11 個 Sprint 已完成）
 
@@ -314,7 +314,7 @@ git push origin feat/new-feature
 - Sprint 10：文檔與 Agent 設定 ✅
 - Sprint 11：Sprint 編號重構 ✅
 
-**下一個階段**：Phase 1 - 認證與核心功能
+**下一個階段**：Release 1 - 認證與核心功能
 
 ---
 
@@ -392,7 +392,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 ### 尚未實作
 
 - **認證** - Sprint 1 將推出（Supabase Auth）
-- **圖表** - Phase 1 規劃圖表引擎
+- **圖表** - Release 1 規劃圖表引擎
 - **Realtime** - Supabase Realtime 訂閱（未來）
 
 ### 架構假設
@@ -443,5 +443,5 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>   # 用於前端
 ---
 
 **最後更新**：2025-11-21
-**當前階段**：Phase 0 Foundation（100% 完成）
-**下一步**：Phase 1 - 認證與核心功能
+**當前階段**：Release 0 Foundation（100% 完成）
+**下一步**：Release 1 - 認證與核心功能

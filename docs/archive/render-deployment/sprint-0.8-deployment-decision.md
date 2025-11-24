@@ -163,7 +163,7 @@
 ```yaml
 直接跳 OCI:
   難度: 😰😰😰 (10/10)
-  - Phase 0 → 自己管 VM
+  - Release 0 → 自己管 VM
   - 梯度太陡，容易卡關
 
 漸進式學習:
@@ -410,7 +410,7 @@ AI/ML: Workers AI, Vectorize, AI Gateway
 
 ## 行動計畫
 
-### Phase 1: 後端部署 (預計 30 分鐘)
+### Release 1: 後端部署 (預計 30 分鐘)
 
 #### 1. 部署 API 到 Render (20 分鐘)
 
@@ -533,4 +533,4 @@ AI/ML: Workers AI, Vectorize, AI Gateway
 ---
 
 **最後更新**: 2025-11-06
-**下次審查**: 2026-02-06 (3 個月後，Phase 1 完成時)
+**下次審查**: 2026-02-06 (3 個月後，Release 1 完成時)

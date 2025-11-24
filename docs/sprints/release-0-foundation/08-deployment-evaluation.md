@@ -232,7 +232,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 - ❌ 複雜的背景任務
 - ❌ 多步驟工作流程
 
-**結論**：Supabase 完美適合 Flourish Phase 0-1 需求。
+**結論**：Supabase 完美適合 Flourish Release 0-1 需求。
 
 ### 風險緩解
 
@@ -243,7 +243,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 **風險 2：第三方整合挑戰**
 
-- **緩解**：Phase 0-1 無第三方整合需求
+- **緩解**：Release 0-1 無第三方整合需求
 - **未來**：可用 Edge Functions 或回退到 NestJS
 
 **風險 3：學習曲線**
@@ -346,16 +346,16 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 **預估時間**：8-12 小時
 
-### Phase 0 整體影響
+### Release 0 整體影響
 
 **進度調整**：
 
-- Phase 0 完成度：從 90% → 85%（因 Sprint 9 重新定義）
+- Release 0 完成度：從 90% → 85%（因 Sprint 9 重新定義）
 - 預計完成日期：延後 1 週（2025-11-15 → 2025-11-22）
 
 **正面影響**：
 
-- 大幅簡化 Phase 1-2 的開發
+- 大幅簡化 Release 1-2 的開發
 - 減少長期維護負擔
 - 降低運營成本
 
