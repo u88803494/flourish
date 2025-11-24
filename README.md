@@ -24,12 +24,9 @@ This monorepo includes:
   - Continuously climb upward
   - _(Coming soon)_
 
-- **`api`** 🔧 - Backend API service (NestJS) ✅
-  - Business logic processing
-  - Database operations with Prisma
-  - Health check endpoints (liveness, readiness)
-  - TypeScript strict mode enabled
-  - Runs on `http://localhost:6888`
+- **`api`** 🔧 - Backend API service (Archived, Supabase-first) ✅
+  - Logic handled by Supabase (RLS, Edge Functions)
+  - Database operations via Supabase CLI and SQL
 
 ### Shared Packages
 
@@ -39,14 +36,14 @@ This monorepo includes:
 - **`@repo/eslint-config`** - ESLint configurations
 - **`@repo/typescript-config`** - TypeScript configurations
 
-All packages and applications are 100% [TypeScript](https://www.typescriptlang.org/).
+All packages and applications are 100% [TypeScript](https://www.typescript.org/).
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 15 (App Router) + React 19 + TypeScript
-- **Backend**: NestJS 11 + TypeScript (Strict mode) ✅
+- **Backend**: Supabase (Edge Functions / PostgreSQL) ✅
 - **Database**: Supabase PostgreSQL + Prisma ✅
-- **Auth**: Supabase Auth _(Sprint 1)_
+- **Auth**: Supabase Auth _(Sprint 12)_
 - **Monorepo**: Turborepo + pnpm ✅
 - **Styling**: Tailwind CSS ✅
 - **Linting**: ESLint + Prettier ✅
@@ -66,15 +63,11 @@ pnpm install
 
 # Start all applications in development mode
 pnpm dev
-# flow (3100), apex (3200), api (6888)
+# flow (3100), apex (3200)
 
 # Start a specific application
 pnpm dev --filter=flow        # Financial tracking app
-pnpm dev --filter=api         # Backend API
 pnpm dev --filter=apex        # Statistics tracking (coming soon)
-
-# Check API health
-curl http://localhost:6888/health
 ```
 
 ### Build
@@ -132,7 +125,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 
 - [00-discussion-summary.md](./docs/00-discussion-summary.md) - Complete project discussion and decisions
 - [01-tech-comparison.md](./docs/01-tech-comparison.md) - Technology selection analysis
-- [02-nestjs-quick-ref.md](./docs/02-nestjs-quick-ref.md) - NestJS quick reference
+- [NestJS Quick Reference (Archived)](./docs/archive/nestjs-references/nestjs-quick-ref.md)
 - [05-dev-tooling-plan.md](./docs/05-dev-tooling-plan.md) - Development tooling plan
 - [06-complete-sprint-plan.md](./docs/06-complete-sprint-plan.md) - Complete sprint planning
 - [07-git-workflow-and-commit-guidelines.md](./docs/07-git-workflow-and-commit-guidelines.md) - Git workflow and commit message guidelines
@@ -153,7 +146,7 @@ flourish/
 ├── apps/
 │   ├── flow/              # 💰 Financial tracking app (Next.js)
 │   ├── apex/              # 📈 Statistics curve tool (placeholder)
-│   └── api/               # 🔧 Backend API (NestJS, port 6888) ✅
+│   └── api/               # 🔧 Backend API (Archived, Supabase-first) ✅
 ├── packages/
 │   ├── ui/                # 🎨 Shared UI components
 │   ├── database/          # 🗄️ Prisma + Supabase client ✅
@@ -175,12 +168,9 @@ flourish/
 - [x] Sprint 3: Husky + lint-staged ✅ (2025-10-30)
 - [x] Sprint 4: commitlint ✅ (2025-10-30)
 - [x] Sprint 5: Prisma setup ✅ (2025-10-31)
-- [x] Sprint 6: NestJS application ✅ (2025-11-04)
-  - NestJS backend with Prisma integration
-  - Health check endpoints (liveness, readiness, full)
-  - TypeScript strict mode enabled
-  - ESLint & Prettier configured
-  - Unit & E2E tests passing
+- [x] Sprint 6: NestJS application (Archived) ✅ (2025-11-04)
+  - Backend with Prisma integration (Archived)
+  - Health check endpoints (liveness, readiness, full) (Archived)
 - [x] Sprint 7: Apex application ✅ (2025-11-04)
   - Next.js 16 statistics tracking tool
   - Beautiful landing page with "Coming soon" features preview
@@ -200,10 +190,10 @@ flourish/
 
 ### Phase 1: Core Features
 
-- [ ] Sprint 1: Authentication system
-- [ ] Sprint 2: Transaction CRUD
-- [ ] Sprint 3: Categories and statistics
-- [ ] Sprint 4: Chart integration
+- [ ] Sprint 12: Authentication system
+- [ ] Sprint 13: Transaction CRUD
+- [ ] Sprint 14: Categories and statistics
+- [ ] Sprint 15: Chart integration
 
 ## 🤝 Contributing
 
