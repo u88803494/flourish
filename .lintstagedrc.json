@@ -1,3 +1,4 @@
 {
-  "**/*.{js,jsx,ts,tsx,json,md,yml,yaml}": ["prettier --write"]
+  "**/*.md": ["markdownlint-cli2 --fix", "prettier --write"],
+  "**/*.{js,jsx,ts,tsx,json,yml,yaml}": ["prettier --write"]
 }
