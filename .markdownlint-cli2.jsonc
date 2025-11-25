@@ -42,6 +42,7 @@
     ".idea/**",
     ".serena/**",
     "**/.serena/**",
+    "docs/templates/**",
     "pnpm-lock.yaml"
   ]
 }
