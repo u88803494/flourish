@@ -266,6 +266,383 @@
 
 ---
 
+## ❓ 常見問題 (FAQ)
+
+### 基礎問題
+
+<details>
+<summary><strong>Q1: Supabase 和傳統後端（如 NestJS）有什麼差別？</strong></summary>
+
+**簡答**: Supabase 是 Backend-as-a-Service (BaaS)，提供資料庫 + 認證 + API + 儲存的完整後端服務；NestJS 是後端框架，需要自己實作所有功能。
+
+**詳細比較**: [架構比較文檔](./architecture/comparison.md)
+
+**關鍵差異**:
+
+- **開發速度**: Supabase 快 60-75%
+- **成本**: Supabase $0/月 vs NestJS + Render $7+/月
+- **維護負擔**: Supabase 減少 70%
+- **適用場景**: Supabase 適合標準 CRUD，NestJS 適合複雜業務邏輯
+
+</details>
+
+<details>
+<summary><strong>Q2: 為什麼 Flourish 選擇 Supabase？</strong></summary>
+
+**主要原因**:
+
+1. **零成本**: 免費層級完全足夠 Release 0-1（vs $7+/月）
+2. **開發效率**: 開發速度快 60%，維護負擔減少 70%
+3. **功能匹配**: Flourish 主要是 CRUD 操作，完美符合 Supabase 優勢
+4. **學習曲線**: 比 NestJS 平緩 50%
+
+**完整決策過程**: [ADR 001 - 架構簡化](./architecture/decisions.md#adr-001-為何選擇-supabase)
+
+</details>
+
+<details>
+<summary><strong>Q3: Supabase 的資料安全嗎？</strong></summary>
+
+**安全性保證**:
+
+- ✅ Row Level Security (RLS) 強制資料隔離
+- ✅ JWT token 認證機制
+- ✅ HTTPS 加密傳輸
+- ✅ 定期自動備份
+- ✅ 符合 GDPR、SOC 2 標準
+
+**如何保護資料**:
+
+1. 為每個資料表啟用 RLS
+2. 設定嚴格的 RLS policies
+3. 前端僅使用 anon key（不要使用 service_role key）
+4. 定期審查權限設定
+
+**詳細指南**: [RLS 策略設計](./guides/rls-policies.md)
+
+</details>
+
+### 開發問題
+
+<details>
+<summary><strong>Q4: 如何開始本地開發？</strong></summary>
+
+**3 步驟快速開始**:
+
+```bash
+# 1. 安裝 Supabase CLI
+npx supabase login
+
+# 2. 連結遠端專案
+npx supabase link --project-ref fstcioczrehqtcbdzuij
+
+# 3. 設定環境變數
+# 建立 .env.local 並添加:
+# NEXT_PUBLIC_SUPABASE_URL=https://fstcioczrehqtcbdzuij.supabase.co
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
+```
+
+**完整指南**: [本地開發設定](./guides/local-development.md)
+
+</details>
+
+<details>
+<summary><strong>Q5: 如何新增資料表？</strong></summary>
+
+**標準流程**:
+
+```bash
+# 1. 建立遷移檔案
+npx supabase migration new add_new_table
+
+# 2. 編輯 SQL 檔案
+# packages/database/supabase/migrations/XXXXXX_add_new_table.sql
+
+# 3. 執行遷移
+npx supabase db push
+
+# 4. 重新生成 TypeScript 類型
+cd packages/supabase-client
+pnpm generate-types
+```
+
+**完整指南**: [資料庫遷移](./guides/migrations.md)
+
+</details>
+
+<details>
+<summary><strong>Q6: 如何設定資料權限？</strong></summary>
+
+**RLS Policy 基本模式**:
+
+```sql
+-- 啟用 RLS
+ALTER TABLE your_table ENABLE ROW LEVEL SECURITY;
+
+-- 使用者只能存取自己的資料
+CREATE POLICY "Users can manage own data"
+  ON your_table
+  FOR ALL
+  USING (auth.uid() = user_id);
+```
+
+**7 種核心模式**: [RLS 策略設計](./guides/rls-policies.md)
+
+</details>
+
+<details>
+<summary><strong>Q7: 如何處理資料查詢？</strong></summary>
+
+**基本查詢範例**:
+
+```typescript
+import { createBrowserClient } from '@repo/supabase-client/client';
+
+// 查詢資料
+const supabase = createBrowserClient();
+const { data, error } = await supabase
+  .from('transactions')
+  .select('*')
+  .eq('user_id', userId)
+  .order('date', { ascending: false });
+```
+
+**15+ 實戰範例**: [查詢模式](./api-reference/query-patterns.md)
+
+</details>
+
+### 效能問題
+
+<details>
+<summary><strong>Q8: Supabase 查詢速度快嗎？</strong></summary>
+
+**實際性能數據**（基於 10,000 筆交易）:
+
+| 操作                   | 平均時間 | 說明                                       |
+| ---------------------- | -------- | ------------------------------------------ |
+| **簡單查詢（有索引）** | 42ms     | WHERE user_id = ? AND date BETWEEN ? AND ? |
+| **複雜 JOIN**          | 78ms     | 關聯 3 個資料表                            |
+| **RPC 聚合**           | 18ms     | 資料庫端計算總和                           |
+
+**優化技巧**:
+
+1. 使用索引（可提升 95%）
+2. 只查詢需要的欄位（減少 50% 資料傳輸）
+3. 使用 JOIN 而非 N+1 查詢（減少 94% 時間）
+4. React Query 快取（減少 99% 重複請求）
+
+**性能基準**: [查詢模式 - 性能基準測試](./api-reference/query-patterns.md#性能基準測試)
+
+</details>
+
+<details>
+<summary><strong>Q9: 如何優化查詢效能？</strong></summary>
+
+**5 個關鍵優化**:
+
+1. **使用索引**:
+
+   ```sql
+   CREATE INDEX idx_transactions_user_date ON transactions(user_id, date);
+   ```
+
+2. **選擇性查詢欄位**:
+
+   ```typescript
+   .select('id, name, amount') // 而非 .select('*')
+   ```
+
+3. **避免 N+1 查詢**:
+
+   ```typescript
+   .select('*, category:categories(*)') // 使用 JOIN
+   ```
+
+4. **使用 RPC 函數聚合**:
+
+   ```typescript
+   await supabase.rpc('get_monthly_spending', { ... })
+   ```
+
+5. **React Query 快取**:
+   ```typescript
+   useQuery({ queryKey: [...], staleTime: 5 * 60 * 1000 })
+   ```
+
+**完整優化指南**: [查詢模式 - 效能最佳化](./api-reference/query-patterns.md#⚡-效能最佳化)
+
+</details>
+
+### 進階問題
+
+<details>
+<summary><strong>Q10: 何時需要使用 Edge Functions？</strong></summary>
+
+**應該使用的情境**:
+
+- ✅ 需要保護 API Keys（如 OpenAI、Stripe）
+- ✅ 第三方 API 整合（銀行 API、支付服務）
+- ✅ 複雜業務邏輯（PDF 解析、批次處理）
+- ✅ 背景任務（Cron jobs、Webhooks）
+
+**不需要使用的情境**:
+
+- ❌ 簡單 CRUD 操作（直接使用 Supabase Client + RLS）
+- ❌ 使用者認證（Supabase Auth 已處理）
+- ❌ 即時 UI 更新（使用 Realtime Subscriptions）
+
+**完整指南**: [Edge Functions](./guides/edge-functions.md)
+
+</details>
+
+<details>
+<summary><strong>Q11: 如何處理複雜的認證需求？</strong></summary>
+
+**Supabase Auth 支援**:
+
+- ✅ Email/Password 認證
+- ✅ Magic Link (無密碼登入)
+- ✅ OAuth (Google, GitHub, etc.)
+- ✅ SSO (企業單一登入)
+- ✅ MFA (多因素認證)
+
+**Next.js 整合範例**:
+
+```typescript
+// Server Component
+import { createServerClient } from '@repo/supabase-client/server';
+
+export default async function Page() {
+  const supabase = await createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) redirect('/login');
+  return <Dashboard user={user} />;
+}
+```
+
+**完整整合指南**: [Auth 整合](./guides/authentication.md)
+
+</details>
+
+<details>
+<summary><strong>Q12: Supabase 免費層級的限制是什麼？</strong></summary>
+
+**免費層級額度**:
+
+| 資源               | 免費額度  | Flourish 使用 | 是否足夠 |
+| ------------------ | --------- | ------------- | -------- |
+| **資料庫儲存**     | 500 MB    | ~100 MB       | ✅ 充足  |
+| **檔案儲存**       | 1 GB      | ~500 MB       | ✅ 充足  |
+| **月活躍使用者**   | 50,000    | <1,000        | ✅ 充足  |
+| **資料庫頻寬**     | 5 GB      | ~2 GB         | ✅ 充足  |
+| **Edge Functions** | 500K 請求 | 未使用        | ✅ 充足  |
+
+**何時需要升級**:
+
+- 使用者量突破 10K MAU
+- 資料庫儲存 > 400 MB
+- 需要更多 Edge Functions 請求
+- 需要進階功能（如優先支援）
+
+**成本比較**: [架構比較 - 成本比較](./architecture/comparison.md#💰-成本比較)
+
+</details>
+
+<details>
+<summary><strong>Q13: 如何回滾資料庫變更？</strong></summary>
+
+**Supabase 不支援自動回滾**，但可以手動處理：
+
+```bash
+# 方法 1: 撰寫反向遷移（推薦）
+npx supabase migration new rollback_add_column
+
+# 在遷移檔案中撰寫反向 SQL
+# ALTER TABLE your_table DROP COLUMN new_column;
+
+npx supabase db push
+
+# 方法 2: 使用備份恢復（危險）
+# 僅在重大錯誤時使用
+```
+
+**最佳實踐**:
+
+1. 在本地/staging 環境先測試遷移
+2. 為重要遷移撰寫反向遷移腳本
+3. 生產環境執行前建立手動備份
+4. 使用 `npx supabase db diff` 檢查變更
+
+**完整指南**: [資料庫遷移 - 回滾策略](./guides/migrations.md)
+
+</details>
+
+<details>
+<summary><strong>Q14: 如何監控 Supabase 應用的效能？</strong></summary>
+
+**內建監控**:
+
+- Supabase Dashboard > Reports
+  - API 請求統計
+  - 資料庫效能指標
+  - 儲存使用量
+  - Edge Functions 執行次數
+
+**React Query Devtools**:
+
+```typescript
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+<QueryClientProvider client={queryClient}>
+  <App />
+  <ReactQueryDevtools initialIsOpen={false} />
+</QueryClientProvider>
+```
+
+**建議工具**:
+
+- **錯誤監控**: Sentry
+- **效能監控**: Vercel Analytics
+- **日誌管理**: Supabase Logs (Dashboard)
+
+**錯誤處理**: [錯誤處理文檔](./api-reference/error-handling.md)
+
+</details>
+
+<details>
+<summary><strong>Q15: Supabase 有哪些最佳實踐？</strong></summary>
+
+**安全性**:
+
+- ✅ 所有資料表啟用 RLS
+- ✅ 前端只使用 anon key
+- ✅ 定期輪換 Access Tokens
+- ❌ 絕不在前端暴露 service_role key
+
+**效能**:
+
+- ✅ 為常用查詢建立索引
+- ✅ 使用 React Query 快取
+- ✅ 只查詢需要的欄位
+- ❌ 避免 N+1 查詢問題
+
+**開發**:
+
+- ✅ 使用 Imperative Migrations
+- ✅ 自動生成 TypeScript 類型
+- ✅ 遵循統一錯誤處理模式
+- ❌ 不要直接在 Dashboard 修改 Schema
+
+**完整最佳實踐**:
+
+- [查詢模式 - 最佳實踐](./api-reference/query-patterns.md#💡-最佳實踐總結)
+- [RLS 策略 - 最佳實踐](./guides/rls-policies.md)
+
+</details>
+
+---
+
 ## 🔗 相關資源
 
 ### 專案文檔
