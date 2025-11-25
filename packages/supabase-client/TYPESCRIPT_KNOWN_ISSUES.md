@@ -16,9 +16,9 @@ The Supabase PostgREST-js library generates deeply nested conditional types for 
 
 ### Tracking Issues
 
-- https://github.com/supabase/postgrest-js/issues/568
-- https://github.com/supabase/supabase/issues/20562
-- https://github.com/orgs/supabase/discussions/28490
+- <https://github.com/supabase/postgrest-js/issues/568>
+- <https://github.com/supabase/supabase/issues/20562>
+- <https://github.com/orgs/supabase/discussions/28490>
 
 ### Current Workaround
 

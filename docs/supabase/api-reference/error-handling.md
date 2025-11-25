@@ -1002,7 +1002,7 @@ FROM pg_tables
 WHERE tablename = 'transactions';
 ```
 
-2. **測試策略**:
+1. **測試策略**:
 
 ```sql
 -- 以特定使用者身份測試查詢
@@ -1010,7 +1010,7 @@ SET request.jwt.claim.sub = 'user-uuid-here';
 SELECT * FROM transactions WHERE user_id = 'user-uuid-here';
 ```
 
-3. **暫時停用 RLS（僅開發環境）**:
+1. **暫時停用 RLS（僅開發環境）**:
 
 ```sql
 -- 停用 RLS 測試查詢

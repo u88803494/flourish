@@ -394,6 +394,7 @@ $$ LANGUAGE SQL STABLE;
 
 - Release 0-1 **無第三方整合需求**（不是立即問題）
 - 未來可用 **Supabase Edge Functions**:
+
   ```typescript
   // supabase/functions/call-third-party/index.ts
   export async function handler(req: Request) {
@@ -404,6 +405,7 @@ $$ LANGUAGE SQL STABLE;
     return new Response(JSON.stringify(await response.json()));
   }
   ```
+
 - 或回退到**獨立 API server**（NestJS 文檔已存檔）
 
 #### 3. 學習曲線

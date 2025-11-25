@@ -410,7 +410,7 @@ ALTER TABLE transactions ADD COLUMN notes TEXT;
 -- ALTER TABLE transactions DROP COLUMN notes;
 ```
 
-2. **使用版本化欄位**：而非刪除舊欄位，標記為已棄用
+1. **使用版本化欄位**：而非刪除舊欄位，標記為已棄用
 
 ```sql
 -- ❌ 不好：直接刪除欄位（資料遺失）
@@ -421,7 +421,7 @@ ALTER TABLE transactions RENAME COLUMN old_field TO deprecated_old_field;
 COMMENT ON COLUMN transactions.deprecated_old_field IS 'DEPRECATED: Use new_field instead';
 ```
 
-3. **分階段遷移**：大型變更拆分為多個小遷移
+1. **分階段遷移**：大型變更拆分為多個小遷移
 
 ```sql
 -- Migration 1: Add new column
@@ -694,14 +694,14 @@ Error: Migration failed: syntax error at or near "FRON"
 npx supabase db execute -f supabase/migrations/20251124103045_add_notes.sql --local
 ```
 
-2. **回滾失敗的遷移**：Supabase 會自動回滾失敗的遷移，但需要修復 SQL 後重新執行
+1. **回滾失敗的遷移**：Supabase 會自動回滾失敗的遷移，但需要修復 SQL 後重新執行
 
 ```bash
 # 修正 SQL 後重新執行
 npx supabase db reset
 ```
 
-3. **檢查遷移狀態**：
+1. **檢查遷移狀態**：
 
 ```bash
 npx supabase migration list
@@ -721,7 +721,7 @@ mv supabase/migrations/20251124103045_feature_a.sql \
    supabase/migrations/20251124103046_feature_a.sql
 ```
 
-2. **使用分支合併策略**：在合併前確保遷移順序正確
+1. **使用分支合併策略**：在合併前確保遷移順序正確
 
 ### 3. 本地與遠端不同步
 
@@ -794,7 +794,7 @@ CREATE INDEX CONCURRENTLY idx_transactions_user_date
 ON transactions(user_id, date);
 ```
 
-2. **分批處理**：
+1. **分批處理**：
 
 ```sql
 -- 分批更新避免長時間鎖定
@@ -826,7 +826,7 @@ BEGIN
 END $$;
 ```
 
-3. **在離峰時間執行**：重大遷移應在使用者活動較少時執行
+1. **在離峰時間執行**：重大遷移應在使用者活動較少時執行
 
 ### 6. RLS 策略錯誤
 
@@ -848,7 +848,7 @@ SELECT * FROM pg_policies WHERE tablename = 'transactions';
 ALTER TABLE transactions DISABLE ROW LEVEL SECURITY;
 ```
 
-2. **驗證策略邏輯**：
+1. **驗證策略邏輯**：
 
 ```sql
 -- 測試策略是否正確
@@ -858,7 +858,7 @@ SET LOCAL request.jwt.claims TO '{"sub": "test-user-id"}';
 SELECT * FROM transactions;  -- 應該只返回該使用者的資料
 ```
 
-3. **修正策略**：
+1. **修正策略**：
 
 ```bash
 # 建立新遷移修正 RLS 策略

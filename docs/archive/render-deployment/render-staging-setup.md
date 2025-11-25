@@ -218,9 +218,11 @@ STAGING_API_URL=https://flourish-api-staging.onrender.com
 
 1. 前往 Service Settings
 2. 新增環境變數：
+
    ```
    ENABLE_PNPM=true
    ```
+
 3. 重新部署
 
 ### 建置失敗："Prisma Client not generated"
@@ -246,6 +248,7 @@ pnpm --filter @flourish/database prisma:generate
 1. 驗證 `CORS_ORIGIN` 包含萬用字元模式
 2. 檢查 `apps/api/src/main.ts` 實作了基於正則表達式的 CORS 驗證
 3. 測試：
+
    ```bash
    curl -H "Origin: https://flourish-flow-abc123.vercel.app" \
      https://flourish-api-staging.onrender.com/health/liveness

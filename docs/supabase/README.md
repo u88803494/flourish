@@ -465,6 +465,7 @@ const { data, error } = await supabase
    ```
 
 5. **React Query 快取**:
+
    ```typescript
    useQuery({ queryKey: [...], staleTime: 5 * 60 * 1000 })
    ```

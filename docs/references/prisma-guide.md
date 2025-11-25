@@ -268,14 +268,14 @@ postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
 postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true
 ```
 
-2. **設定環境變數**
+1. **設定環境變數**
 
 ```bash
 # .env
 DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
 ```
 
-3. **初始化 Prisma**
+1. **初始化 Prisma**
 
 ```bash
 # 初始化（如果還沒有）
@@ -286,7 +286,7 @@ npx prisma init
 # - .env 檔案
 ```
 
-4. **設定 schema.prisma**
+1. **設定 schema.prisma**
 
 ```prisma
 datasource db {
@@ -295,7 +295,7 @@ datasource db {
 }
 ```
 
-5. **測試連接**
+1. **測試連接**
 
 ```bash
 npx prisma db pull  # 從資料庫拉取現有結構（如果有）

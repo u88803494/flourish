@@ -59,8 +59,8 @@ pnpm dev
 
 開啟瀏覽器：
 
-- **Flow** (財務追蹤): http://localhost:3100
-- **Apex** (效能統計): http://localhost:3200
+- **Flow** (財務追蹤): <http://localhost:3100>
+- **Apex** (效能統計): <http://localhost:3200>
 
 看到應用程式畫面即表示成功！🎉
 

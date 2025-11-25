@@ -74,7 +74,7 @@
 
 **Port**: 3100（開發）
 
-**URL**: https://flourish-flow.vercel.app
+**URL**: <https://flourish-flow.vercel.app>
 
 ### Apex
 
@@ -82,7 +82,7 @@
 
 **Port**: 3200（開發）
 
-**URL**: https://flourish-apex.vercel.app
+**URL**: <https://flourish-apex.vercel.app>
 
 ---
 
@@ -252,7 +252,7 @@
 
 **定義**: 具 4 個類別的文檔結構框架（Tutorials、How-to、Reference、Explanation）
 
-**參考**: https://diataxis.fr/
+**參考**: <https://diataxis.fr/>
 
 ### CLAUDE.md
 
