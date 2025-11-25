@@ -116,7 +116,7 @@ Key: DATABASE_URL
 Value: postgresql://postgres.fstcioczrehqtcbdzuij:YbYkJd2EILWNCt3@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
 ```
 
-⚠️ **注意**：目前與 staging 使用相同資料庫。Phase 1 時考慮使用獨立資料庫。
+⚠️ **注意**：目前與 staging 使用相同資料庫。Release 1 時考慮使用獨立資料庫。
 
 #### 4. SUPABASE_JWT_SECRET
 
@@ -268,9 +268,11 @@ PRODUCTION_API_URL=https://flourish-api-production.onrender.com
 
 1. 前往 Service Settings
 2. 新增環境變數：
+
    ```
    ENABLE_PNPM=true
    ```
+
 3. 重新部署
 
 ### 建置失敗："Prisma Client not generated"
@@ -297,6 +299,7 @@ pnpm --filter @flourish/database prisma:generate
 2. 如果 URLs 變更，更新 `CORS_ORIGIN`
 3. 檢查 `apps/api/src/main.ts` 的 CORS 實作
 4. 使用確切的 URL 測試：
+
    ```bash
    curl -H "Origin: https://flourish-flow.vercel.app" \
      https://flourish-api-production.onrender.com/health/liveness

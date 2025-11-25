@@ -36,7 +36,7 @@
 - Flow（財務追蹤）
 - Apex（效能統計）
 
-**狀態**: 積極開發中，Phase 0 已完成
+**狀態**: 積極開發中，Release 0 已完成
 
 ---
 
@@ -74,7 +74,7 @@
 
 **Port**: 3100（開發）
 
-**URL**: https://flourish-flow.vercel.app
+**URL**: <https://flourish-flow.vercel.app>
 
 ### Apex
 
@@ -82,7 +82,7 @@
 
 **Port**: 3200（開發）
 
-**URL**: https://flourish-apex.vercel.app
+**URL**: <https://flourish-apex.vercel.app>
 
 ---
 
@@ -158,9 +158,11 @@
 
 **編號**: 將從 0.1-0.11 重新編號為 01-11（Sprint 11）
 
-### Phase
+### Release
 
 **定義**: 由多個 Sprint 組成的主要開發里程碑
+
+**範例**: Release 0 (Foundation), Release 1 (Core Features)
 
 ### MCP (Model Context Protocol)
 
@@ -250,7 +252,7 @@
 
 **定義**: 具 4 個類別的文檔結構框架（Tutorials、How-to、Reference、Explanation）
 
-**參考**: https://diataxis.fr/
+**參考**: <https://diataxis.fr/>
 
 ### CLAUDE.md
 

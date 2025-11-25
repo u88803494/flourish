@@ -4,11 +4,11 @@
 
 All applications in the Flourish monorepo use the following port configuration:
 
-| Application | Framework | Port | Status    |
-| ----------- | --------- | ---- | --------- |
-| Flow        | Next.js   | 3100 | ✅ Active |
-| Apex        | Next.js   | 3200 | ✅ Active |
-| API         | NestJS    | 6888 | ✅ Active |
+| Application | Framework  | Port  | Status      |
+| ----------- | ---------- | ----- | ----------- |
+| Flow        | Next.js    | 3100  | ✅ Active   |
+| Apex        | Next.js    | 3200  | ✅ Active   |
+| API         | (Archived) | (N/A) | ⚠️ Inactive |
 
 ## Running All Applications
 
@@ -20,9 +20,8 @@ pnpm dev
 
 This will start:
 
-- Flow at http://localhost:3100 (Financial tracking)
-- Apex at http://localhost:3200 (Statistics tracking)
-- API at http://localhost:6888 (Backend API)
+- Flow at <http://localhost:3100> (Financial tracking)
+- Apex at <http://localhost:3200> (Statistics tracking)
 
 ## Running Individual Applications
 
@@ -32,9 +31,6 @@ pnpm dev --filter=flow
 
 # Apex only
 pnpm dev --filter=apex
-
-# API only
-pnpm dev --filter=api
 ```
 
 ## Port Range Strategy
@@ -44,8 +40,7 @@ pnpm dev --filter=api
   - Provides flexibility for future frontend apps
 
 - **Backend services**: 6000-6999
-  - Reserved for NestJS and other backend services
-  - 6888 chosen for Flourish API for clarity and distinction
+  - Reserved for backend services (e.g., Supabase Edge Functions)
 
 ## Why Centralized Configuration is Not Used
 
@@ -53,9 +48,8 @@ This monorepo does **not** use centralized port configuration. Here's why:
 
 1. **Technical Limitations**: Next.js's HTTP server initialization happens before the application code can read environment variables, making runtime port configuration impractical.
 
-2. **Framework Differences**: Next.js and NestJS have different mechanisms for port configuration:
+2. **Framework Differences**: Frontend (Next.js) has different mechanisms for port configuration:
    - Next.js: Via `--port` CLI flag
-   - NestJS: Via ConfigService or environment variables
 
 3. **Industry Standard**: Most monorepos (Turborepo, Nx, Lerna-based) do not centralize port configuration. Port values are typically managed in each app's build scripts.
 
@@ -85,7 +79,7 @@ Port values are defined in each application's `package.json`:
 
 - **Flow**: `apps/flow/package.json` - `"dev": "next dev --turbopack --port 3100"`
 - **Apex**: `apps/apex/package.json` - `"dev": "next dev -p 3200"`
-- **API**: `apps/api/package.json` - Configured via `ConfigModule` in `main.ts`
+- **API**: (Archived) `apps/api/package.json`
 
 ---
 

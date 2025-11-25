@@ -8,7 +8,7 @@
 ## 📋 目錄
 
 - [前置條件](#前置條件)
-- [Phase 1: 準備 Render 帳號](#phase-1-準備-render-帳號)
+- [Release 1: 準備 Render 帳號](#release-1-準備-render-帳號)
 - [Phase 2: 創建 Web Service](#phase-2-創建-web-service)
 - [Phase 3: 驗證部署](#phase-3-驗證部署)
 - [Phase 4: 設定 Cron-Job 保持喚醒](#phase-4-設定-cron-job-保持喚醒)
@@ -50,7 +50,7 @@
 
 ---
 
-## Phase 1: 準備 Render 帳號
+## Release 1: 準備 Render 帳號
 
 **預計時間**: 2 分鐘
 
@@ -118,6 +118,7 @@
 
 1. 點擊 **"Logs"** 查看即時日誌
 2. 確認看到以下訊息：
+
    ```
    🚀 Starting Flourish API build for Render...
    📦 Installing dependencies with pnpm...
@@ -126,7 +127,9 @@
    🏗️  Building NestJS API...
    ✅ Build completed successfully!
    ```
+
 3. 最後應該看到:
+
    ```
    🚀 API is running on: http://0.0.0.0:10000
    ```
@@ -257,9 +260,11 @@ Render 免費版會在 15 分鐘無活動後進入 sleep 狀態。使用 Cron-Jo
 3. 進入 **"Environment"**
 4. 找到 `CORS_ORIGIN` 變數
 5. 更新為實際的前端 URLs:
+
    ```
    https://flourish-flow.vercel.app,https://flourish-apex.vercel.app,http://localhost:3100,http://localhost:3200
    ```
+
 6. 點擊 **"Save Changes"**（會自動觸發重新部署）
 
 ---
@@ -326,9 +331,11 @@ Error: @prisma/client did not initialize yet
 **解決方案**:
 
 1. 確認 `render.yaml` 的 buildCommand 包含:
+
    ```bash
    pnpm --filter @flourish/database prisma:generate
    ```
+
 2. 或在 Render Dashboard → **"Manual Deploy"** → **"Clear build cache & deploy"**
 
 ### ❌ 問題 3: Database Connection Failed
@@ -643,7 +650,7 @@ pnpm dev
    git push origin v0.8.0
    ```
 
-3. **開始 Sprint 9 或 Phase 1**
+3. **開始 Sprint 9 或 Release 1**
    - Flow 功能開發
    - Apex 功能開發
    - 或繼續優化基礎設施

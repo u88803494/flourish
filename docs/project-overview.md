@@ -138,7 +138,7 @@ Apex helps you plot statistical curves, track performance peaks, and achieve pow
 
 ## 🗓️ Development Phases
 
-### Phase 0: Foundation (Current)
+### Release 0: Foundation (Current)
 
 Setting up the development environment and tooling
 
@@ -146,7 +146,7 @@ Setting up the development environment and tooling
 - Sprint 2-4: Development tooling (Prettier, Husky, commitlint)
 - Sprint 5-7: Core infrastructure (Prisma, NestJS, Apex app)
 
-### Phase 1: Core Features
+### Release 1: Core Features
 
 Building the essential functionality
 

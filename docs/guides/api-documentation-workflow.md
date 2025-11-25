@@ -11,9 +11,9 @@
 
 ## 核心工具
 
-1.  **Supabase CLI**: 用於從資料庫生成規格與型別。
-2.  **OpenAPI Specification**: 作為 API 的「說明書」。
-3.  **TypeScript Types**: 作為資料庫結構在程式碼中的「強型別對映」。
+1. **Supabase CLI**: 用於從資料庫生成規格與型別。
+2. **OpenAPI Specification**: 作為 API 的「說明書」。
+3. **TypeScript Types**: 作為資料庫結構在程式碼中的「強型別對映」。
 
 ---
 
@@ -28,25 +28,25 @@
 
 ### 如何執行？
 
-1.  **產生 OpenAPI 規格**
+1. **產生 OpenAPI 規格**
 
-    ```bash
-    # 使用 Supabase CLI 產生 OpenAPI 規格
-    npx supabase gen types typescript --local > docs/references/api/supabase-openapi-spec.yaml
-    ```
+   ```bash
+   # 使用 Supabase CLI 產生 OpenAPI 規格
+   npx supabase gen types typescript --local > docs/references/api/supabase-openapi-spec.yaml
+   ```
 
-    **注意**：
-    - 這需要本地 Supabase 服務正在運行（`npx supabase start`）
-    - 或者連接到遠端專案（`npx supabase link`）
-    - 產生的是 TypeScript 型別，OpenAPI spec 需要從 Supabase Dashboard 下載
+   **注意**：
+   - 這需要本地 Supabase 服務正在運行（`npx supabase start`）
+   - 或者連接到遠端專案（`npx supabase link`）
+   - 產生的是 TypeScript 型別，OpenAPI spec 需要從 Supabase Dashboard 下載
 
-2.  **替代方案：從 Supabase Dashboard 下載**
-    - 前往 Supabase Dashboard → API → API docs
-    - 下載 OpenAPI specification
-    - 儲存到 `docs/references/api/supabase-openapi-spec.yaml`
+2. **替代方案：從 Supabase Dashboard 下載**
+   - 前往 Supabase Dashboard → API → API docs
+   - 下載 OpenAPI specification
+   - 儲存到 `docs/references/api/supabase-openapi-spec.yaml`
 
-3.  **提交變更**
-    將更新後的規格檔案 commit 到 Git。
+3. **提交變更**
+   將更新後的規格檔案 commit 到 Git。
 
 ### 如何使用？
 

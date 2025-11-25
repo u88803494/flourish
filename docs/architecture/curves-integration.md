@@ -517,7 +517,7 @@ export class LedgerController {
 }
 ```
 
-2. 曲線圖工具匯入數據：
+1. 曲線圖工具匯入數據：
 
 ```typescript
 // 在曲線圖工具中
@@ -553,7 +553,7 @@ model Statistic {
 }
 ```
 
-2. 記帳應用自動寫入統計數據：
+1. 記帳應用自動寫入統計數據：
 
 ```typescript
 // 每次有新交易時，更新統計
@@ -569,7 +569,7 @@ await prisma.statistic.create({
 });
 ```
 
-3. 曲線圖工具直接讀取：
+1. 曲線圖工具直接讀取：
 
 ```typescript
 // 從共享資料庫讀取統計數據
@@ -644,7 +644,7 @@ export function DataSourceSelector() {
 
 ## 📋 實作計畫
 
-### Phase 1：建立 chart-engine package
+### Release 1：建立 chart-engine package
 
 - [ ] 建立 `packages/chart-engine` 結構
 - [ ] 實作 `TrendAnalyzer`

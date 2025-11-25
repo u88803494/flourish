@@ -1,0 +1,356 @@
+# Sprint 7, Task 2: Lofi Theme (Apex)
+
+**預估時間**: 45 分鐘
+**狀態**: 📋 規劃中
+**依賴**: Sprint 7, Task 1 完成
+
+---
+
+## 🎯 目標
+
+將 daisyUI Lofi 主題轉換為 shadcn/ui 格式，並套用到 Apex 應用程式。
+
+---
+
+## 🎨 Lofi Theme 設計理念
+
+**風格**: 黑白極簡主義 (Minimalist Black & White)
+
+**適用場景**: Apex 統計追蹤工具
+
+- 專注數據可視化
+- 避免色彩干擾
+- 專業、精準感
+- 高對比度，易於閱讀
+
+---
+
+## 📦 交付成果
+
+- [ ] `packages/ui/styles/themes/lofi.css` 建立完成
+- [ ] Apex 使用 Lofi 主題
+- [ ] Light/dark mode 正常運作
+- [ ] 所有 component 顏色正確顯示
+
+---
+
+## 🔄 顏色轉換
+
+### daisyUI Lofi 原始配色 (OKLCH)
+
+```css
+/* daisyUI Lofi 來源 */
+--color-base-100: oklch(100% 0 0); /* 純白背景 */
+--color-base-200: oklch(97% 0 0); /* 淺灰背景 */
+--color-base-300: oklch(94% 0 0); /* 灰色邊框 */
+--color-base-content: oklch(0% 0 0); /* 純黑文字 */
+--color-primary: oklch(15.906% 0 0); /* 深灰 primary */
+--color-secondary: oklch(21.455% 0.001 17.278);
+--color-accent: oklch(26.861% 0 0);
+--color-neutral: oklch(23.282% 0 0);
+--color-success: oklch(64.802% 0.158 160.472);
+--color-warning: oklch(74.08% 0.151 70.08);
+--color-error: oklch(54.385% 0.227 21.546);
+```
+
+### 轉換為 shadcn/ui 格式 (HSL)
+
+**轉換工具**: <https://oklch.com> 或 <https://colorjs.io>
+
+**變數對應表**:
+
+| daisyUI      | shadcn/ui   | HSL 值        |
+| ------------ | ----------- | ------------- |
+| base-100     | background  | `0 0% 100%`   |
+| base-200     | muted       | `0 0% 97%`    |
+| base-300     | border      | `0 0% 94%`    |
+| base-content | foreground  | `0 0% 0%`     |
+| primary      | primary     | `0 0% 16%`    |
+| secondary    | secondary   | `0 0% 21%`    |
+| accent       | accent      | `0 0% 27%`    |
+| success      | (保留原樣)  | `160 79% 46%` |
+| warning      | (保留原樣)  | `45 93% 58%`  |
+| error        | destructive | `10 91% 43%`  |
+
+---
+
+## 🔧 實作步驟
+
+### Step 1: 建立 lofi.css
+
+**檔案**: `packages/ui/styles/themes/lofi.css`
+
+```css
+@import '../base-theme.css';
+
+/**
+ * Lofi Theme - Minimalist Black & White
+ *
+ * 設計理念: 極簡主義、專注數據、無干擾
+ * 適用於: Apex 統計追蹤應用
+ *
+ * Color System: 黑白灰階 + 功能性色彩（success, warning, error）
+ */
+
+:root {
+  /* ========================================
+     Background & Foreground
+     ======================================== */
+  --background: 0 0% 100%; /* 純白 */
+  --foreground: 0 0% 0%; /* 純黑 */
+
+  /* ========================================
+     Muted (次要背景與文字)
+     ======================================== */
+  --muted: 0 0% 97%; /* 淺灰背景 */
+  --muted-foreground: 0 0% 40%; /* 中灰文字 */
+
+  /* ========================================
+     Card
+     ======================================== */
+  --card: 0 0% 100%; /* 白色卡片 */
+  --card-foreground: 0 0% 0%; /* 黑色文字 */
+
+  /* ========================================
+     Popover
+     ======================================== */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+
+  /* ========================================
+     Border & Input
+     ======================================== */
+  --border: 0 0% 94%; /* 灰色邊框 */
+  --input: 0 0% 94%; /* 輸入框邊框 */
+
+  /* ========================================
+     Primary (深灰)
+     ======================================== */
+  --primary: 0 0% 16%; /* 深灰 */
+  --primary-foreground: 0 0% 100%; /* 白色文字 */
+
+  /* ========================================
+     Secondary
+     ======================================== */
+  --secondary: 0 0% 21%; /* 次深灰 */
+  --secondary-foreground: 0 0% 100%; /* 白色文字 */
+
+  /* ========================================
+     Accent
+     ======================================== */
+  --accent: 0 0% 97%; /* 淺灰（hover 背景） */
+  --accent-foreground: 0 0% 16%; /* 深灰文字 */
+
+  /* ========================================
+     Destructive (錯誤色)
+     ======================================== */
+  --destructive: 10 91% 43%; /* 紅色 */
+  --destructive-foreground: 0 0% 100%;
+
+  /* ========================================
+     Success, Warning (功能性色彩)
+     ======================================== */
+  --success: 160 79% 46%; /* 綠色 */
+  --warning: 45 93% 58%; /* 黃色 */
+
+  /* ========================================
+     Ring (focus indicator)
+     ======================================== */
+  --ring: 0 0% 16%; /* 深灰 */
+}
+
+.dark {
+  /* ========================================
+     Dark Mode: 反轉黑白
+     ======================================== */
+  --background: 0 0% 0%; /* 純黑背景 */
+  --foreground: 0 0% 100%; /* 純白文字 */
+
+  --muted: 0 0% 10%; /* 深灰背景 */
+  --muted-foreground: 0 0% 60%; /* 中灰文字 */
+
+  --card: 0 0% 3%; /* 深色卡片 */
+  --card-foreground: 0 0% 100%;
+
+  --popover: 0 0% 3%;
+  --popover-foreground: 0 0% 100%;
+
+  --border: 0 0% 15%; /* 深灰邊框 */
+  --input: 0 0% 15%;
+
+  --primary: 0 0% 100%; /* 白色 primary */
+  --primary-foreground: 0 0% 0%; /* 黑色文字 */
+
+  --secondary: 0 0% 90%; /* 淺灰 */
+  --secondary-foreground: 0 0% 0%;
+
+  --accent: 0 0% 10%; /* 深灰 hover */
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 10 91% 43%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 160 79% 46%;
+  --warning: 45 93% 58%;
+
+  --ring: 0 0% 100%;
+}
+
+@theme {
+  /* ========================================
+     註冊到 Tailwind
+     ======================================== */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+}
+```
+
+---
+
+### Step 2: 更新 Apex globals.css
+
+**檔案**: `apps/apex/app/globals.css`
+
+**完全替換為**:
+
+```css
+@import '@repo/ui/styles/themes/lofi.css';
+
+/* Apex 專屬覆寫（如果需要）可以寫在這裡 */
+```
+
+**移除**: 所有舊的 theme 定義和 `@import "tailwindcss"`（已在 lofi.css 引入）
+
+---
+
+### Step 3: 測試 Apex
+
+```bash
+cd apps/apex
+pnpm dev
+```
+
+開啟 <http://localhost:3200>
+
+**檢查項目**:
+
+- [ ] 背景是純白色
+- [ ] 文字是純黑色
+- [ ] 邊框是淺灰色
+- [ ] Primary 按鈕是深灰色
+- [ ] Hover 效果正常
+- [ ] 沒有 build 錯誤
+
+---
+
+### Step 4: 測試 Dark Mode
+
+在瀏覽器 console 測試：
+
+```javascript
+document.documentElement.classList.add('dark');
+```
+
+**檢查項目**:
+
+- [ ] 背景變成純黑色
+- [ ] 文字變成純白色
+- [ ] 所有顏色正確反轉
+
+---
+
+## ✅ 驗證清單
+
+- [ ] lofi.css 檔案建立完成
+- [ ] Apex globals.css 更新完成
+- [ ] Light mode 顯示正確
+- [ ] Dark mode 顯示正確
+- [ ] 所有 CSS variables 正常運作
+- [ ] 沒有 console 錯誤
+- [ ] 沒有 build 錯誤
+
+---
+
+## 🎨 Tailwind 類別對應
+
+完成後，Apex 可以使用這些 semantic classes：
+
+| Class             | 對應顏色  | 用途         |
+| ----------------- | --------- | ------------ |
+| `bg-background`   | 純白/純黑 | 頁面背景     |
+| `text-foreground` | 純黑/純白 | 主要文字     |
+| `bg-primary`      | 深灰/白   | Primary 按鈕 |
+| `text-primary`    | 深灰/白   | Primary 文字 |
+| `bg-muted`        | 淺灰/深灰 | 次要背景     |
+| `border-border`   | 灰色      | 邊框         |
+| `bg-card`         | 白/深灰   | 卡片背景     |
+| `hover:bg-accent` | 淺灰/深灰 | Hover 效果   |
+
+---
+
+## 📝 注意事項
+
+### 不要硬編碼顏色
+
+```css
+/* ❌ 錯誤 */
+.my-component {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ✅ 正確 */
+.my-component {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+```
+
+### 使用 Tailwind Classes
+
+```tsx
+/* ✅ 推薦 */
+<div className="bg-background text-foreground">
+
+/* ⚠️ 避免 */
+<div style={{ background: 'white', color: 'black' }}>
+```
+
+---
+
+## 🚀 Next Steps
+
+完成 Sprint 7, Task 2 後：
+
+**Sprint 7, Task 3**: 建立 Corporate theme 並套用到 Flow
+
+---
+
+## 🔗 Related Documents
+
+- [Sprint 7 Overview](./07-overview.md)
+- [Sprint 7, Task 1: packages/ui Setup](./07-task-1-packages-ui-setup.md)
+- [Design System Configuration](../../decisions/design-system-configuration.md)
+
+---
+
+**Last Updated**: 2025-11-05

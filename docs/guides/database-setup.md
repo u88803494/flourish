@@ -1,6 +1,6 @@
 # 資料庫設置指南
 
-> ⚠️ **已棄用**: 本指南描述舊的 Prisma 為主的設置（Phase 0，Sprint 8 之前）。
+> ⚠️ **已棄用**: 本指南描述舊的 Prisma 為主的設置（Release 0，Sprint 8 之前）。
 >
 > **目前架構（Sprint 8+）**：Flourish **直接使用 Supabase**，不使用 Prisma 或 NestJS。
 >
@@ -23,7 +23,7 @@
 
 ## 📋 概述
 
-> **Historical Note**: This describes the Phase 0 architecture before ADR 001.
+> **Historical Note**: This describes the Release 0 architecture before ADR 001.
 
 Flourish 使用 **Supabase** (PostgreSQL) 作為數據庫，**Prisma ORM** 作為數據訪問層。
 
@@ -39,7 +39,7 @@ Flourish 使用 **Supabase** (PostgreSQL) 作為數據庫，**Prisma ORM** 作�
 
 ## 📦 前置要求
 
-- Supabase 帳戶 (免費) - https://supabase.com
+- Supabase 帳戶 (免費) - <https://supabase.com>
 - Node.js 18+ 和 pnpm 9+
 - 文本編輯器（能編輯 `.env` 文件）
 
@@ -49,7 +49,7 @@ Flourish 使用 **Supabase** (PostgreSQL) 作為數據庫，**Prisma ORM** 作�
 
 ### 1.1 登入 Supabase
 
-1. 前往 https://supabase.com
+1. 前往 <https://supabase.com>
 2. 點 "Sign In" 或 "Start Your Project"
 3. 使用 GitHub 或其他方式註冊/登入
 

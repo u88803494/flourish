@@ -42,3 +42,6 @@ supabase/.temp/
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Serena MCP memories (AI agent internal notes)
+.serena/memories/
