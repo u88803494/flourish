@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+.next/
+.turbo/
+dist/
+build/
+
+# IDE and tooling
+.cursor/
+.windsurf/
+.vscode/
+.idea/
+
+# AI agents (Serena memories - managed by AI, not project docs)
+.serena/
+
+# Package manager
+pnpm-lock.yaml
+
+# Git
+.git/
+
+# Temporary files
+*.tmp
+*.temp

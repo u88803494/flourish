@@ -90,9 +90,9 @@ pnpm dev --filter=apex
 
 ### 5. Access Applications
 
-- **Flow** (財務追蹤): http://localhost:3000
-- **API** (後端): http://localhost:3001
-- **Apex** (統計曲線): http://localhost:3002
+- **Flow** (財務追蹤): <http://localhost:3000>
+- **API** (後端): <http://localhost:3001>
+- **Apex** (統計曲線): <http://localhost:3002>
 
 ---
 
@@ -141,6 +141,7 @@ flourish/
    See [Git Workflow](./git-workflow.md) for commit conventions.
 
 4. **Push your branch**
+
    ```bash
    git push origin feature/sprint-X-feature-name
    ```
@@ -343,7 +344,7 @@ pnpm test:watch
 
 If you encounter issues:
 
-1. Check the [Troubleshooting](#troubleshooting) section
+1. Check the [Troubleshooting](#-troubleshooting) section
 2. Review the [Implementation docs](../sprints/sprint-0-foundation/implementation.md)
 3. Check Git commit history for recent changes
 4. Search existing issues in the repository

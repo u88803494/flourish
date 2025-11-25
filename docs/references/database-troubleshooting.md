@@ -70,9 +70,11 @@ postgresql://postgres.YOUR_PROJECT_ID:PASSWORD@aws-1-ap-northeast-1.pooler.supab
 1. 去 Supabase Dashboard → Settings → API
 2. 確認你的 Project ID
 3. 在 `.env` 中更新 `DATABASE_URL`：
+
    ```env
    DATABASE_URL=postgresql://postgres.YOUR_PROJECT_ID:PASSWORD@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
    ```
+
 4. 重試連接
 
 ---
@@ -135,7 +137,7 @@ datasource db {
 }
 ```
 
-4. **重新啟動** - 中止遷移（Ctrl+C），檢查數據庫狀態後重試
+1. **重新啟動** - 中止遷移（Ctrl+C），檢查數據庫狀態後重試
 
 ---
 
@@ -158,7 +160,7 @@ Please make sure all migrations are fully applied.
 npx prisma migrate status --schema=packages/database/prisma/schema.prisma
 ```
 
-2. **如果只是本地開發，可以重置**:
+1. **如果只是本地開發，可以重置**:
 
 ```bash
 npx prisma migrate reset --schema=packages/database/prisma/schema.prisma
@@ -166,7 +168,7 @@ npx prisma migrate reset --schema=packages/database/prisma/schema.prisma
 
 ⚠️ **警告**: `migrate reset` 會刪除所有數據！僅在開發環境使用。
 
-3. **如果是生產環境，需要手動修復**（請聯繫 DBA）
+1. **如果是生產環境，需要手動修復**（請聯繫 DBA）
 
 ---
 

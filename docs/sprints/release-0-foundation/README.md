@@ -34,7 +34,7 @@
 
 **Key Achievements**:
 
-- ✅ Flow app runs successfully at http://localhost:3100
+- ✅ Flow app runs successfully at <http://localhost:3100>
 - ✅ 13 documentation files organized
 - ✅ 7 clean Git commits following Conventional Commits
 - ✅ Project structure ready for expansion

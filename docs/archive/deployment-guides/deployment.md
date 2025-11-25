@@ -154,10 +154,13 @@ npx prisma studio
 2. 點擊「Settings」
 3. 設定 **Root Directory**：`apps/api`（NestJS 後端的位置）
 4. 設定 **Build Command**：
+
    ```bash
    npm install && npm run build
    ```
+
 5. 設定 **Start Command**：
+
    ```bash
    npm run start:prod
    ```
@@ -180,6 +183,7 @@ PORT=3001
 1. Railway 會自動偵測到環境變數變更並重新部署
 2. 等待部署完成（約 2-3 分鐘）
 3. 部署成功後，會獲得一個 URL：
+
    ```
    https://your-app-production.up.railway.app
    ```
@@ -201,6 +205,7 @@ curl https://your-app-production.up.railway.app/api/version
 1. Railway Dashboard → Settings → Domains
 2. 點擊「Generate Domain」或「Add Custom Domain」
 3. 如果使用自訂網域，設定 DNS：
+
    ```
    CNAME api.yourdomain.com → your-app-production.up.railway.app
    ```
@@ -238,11 +243,14 @@ Railway 預設會在 Git push 時自動部署。
 1. **Root Directory**：選擇 `apps/ledger`（記帳應用）
 2. **Framework Preset**：Next.js（自動偵測）
 3. **Build Command**：
+
    ```bash
    cd ../.. && npx turbo run build --filter=ledger
    ```
+
 4. **Output Directory**：`.next`（預設）
 5. **Install Command**：
+
    ```bash
    npm install
    ```
@@ -270,6 +278,7 @@ NEXT_PUBLIC_API_URL=https://your-app-production.up.railway.app
 1. 點擊「Deploy」
 2. 等待部署完成（約 2-3 分鐘）
 3. 部署成功後，獲得 URL：
+
    ```
    https://your-app.vercel.app
    ```
@@ -279,10 +288,12 @@ NEXT_PUBLIC_API_URL=https://your-app-production.up.railway.app
 1. Vercel Dashboard → Settings → Domains
 2. 輸入你的網域：`yourdomain.com`
 3. Vercel 會提供 DNS 設定指示：
+
    ```
    A Record:    @ → 76.76.21.21
    CNAME:       www → cname.vercel-dns.com
    ```
+
 4. 到你的網域註冊商設定 DNS
 5. 等待 DNS 生效（可能需要 24-48 小時）
 

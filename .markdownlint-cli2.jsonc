@@ -1,0 +1,48 @@
+{
+  // markdownlint-cli2 configuration
+  "config": {
+    // Load rules from .markdownlint.jsonc
+    "$schema": "./.markdownlint.jsonc"
+  },
+  "globs": [
+    // Include all markdown files
+    "**/*.md",
+    // Exclude patterns
+    "!node_modules",
+    "!**/node_modules/**",
+    "!.next",
+    "!**/.next/**",
+    "!.turbo",
+    "!**/.turbo/**",
+    "!dist",
+    "!**/dist/**",
+    "!build",
+    "!**/build/**",
+    "!.cursor",
+    "!.windsurf",
+    "!.vscode",
+    "!.idea",
+    "!.serena",
+    "!**/.serena/**"
+  ],
+  "ignores": [
+    "node_modules/**",
+    "**/node_modules/**",
+    ".next/**",
+    "**/.next/**",
+    ".turbo/**",
+    "**/.turbo/**",
+    "dist/**",
+    "**/dist/**",
+    "build/**",
+    "**/build/**",
+    ".cursor/**",
+    ".windsurf/**",
+    ".vscode/**",
+    ".idea/**",
+    ".serena/**",
+    "**/.serena/**",
+    "docs/templates/**",
+    "pnpm-lock.yaml"
+  ]
+}

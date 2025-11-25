@@ -1045,13 +1045,13 @@ model Transaction {
 }
 ```
 
-2. 建立 migration：
+1. 建立 migration：
 
 ```bash
 npx prisma migrate dev --name add_tags_to_transactions
 ```
 
-3. 生成的 SQL：
+1. 生成的 SQL：
 
 ```sql
 -- migrations/20251015120000_add_tags_to_transactions/migration.sql

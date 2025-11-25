@@ -1186,6 +1186,7 @@ serve(async (req) => {
    ```
 
 3. **監控使用量**:
+
    ```typescript
    // 使用 Supabase Dashboard 監控
    // 或設置自訂監控

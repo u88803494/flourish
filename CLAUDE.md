@@ -121,14 +121,14 @@ npx supabase db reset                 # 重置本地資料庫
 - 框架：Next.js 15（App Router）
 - Port：3100（開發環境）
 - 狀態：核心功能就緒
-- URL：https://flourish-flow.vercel.app
+- URL：<https://flourish-flow.vercel.app>
 
 **apex** - 統計與效能追蹤
 
 - 框架：Next.js 15（App Router）
 - Port：3200（開發環境）
 - 狀態：基礎完成，功能將在 Release 1 推出
-- URL：https://flourish-apex.vercel.app
+- URL：<https://flourish-apex.vercel.app>
 
 **api** - ⚠️ **已封存**（2025-11-21）
 

@@ -20,8 +20,8 @@ pnpm dev
 
 This will start:
 
-- Flow at http://localhost:3100 (Financial tracking)
-- Apex at http://localhost:3200 (Statistics tracking)
+- Flow at <http://localhost:3100> (Financial tracking)
+- Apex at <http://localhost:3200> (Statistics tracking)
 
 ## Running Individual Applications
 

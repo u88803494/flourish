@@ -28,7 +28,7 @@ Track the implementation progress of Sprint 0 tasks.
   - Create `project-overview.md`
 - [x] Test flow app
   - Run `pnpm dev --filter=flow`
-  - Verify app loads at http://localhost:3100
+  - Verify app loads at <http://localhost:3100>
 - [x] Git commits
   - Commit 1: Rename web to flow
   - Commit 2: Add placeholder directories

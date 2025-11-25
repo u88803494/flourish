@@ -1,3 +1,16 @@
+---
+title: 'Sprint 6: NestJS 應用程式與最佳化'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 6
+duration: '1.5 小時'
+start_date: '2025-11-04'
+completed_date: '2025-11-04'
+status: 'completed'
+priority: 'P1'
+tags: ['nestjs', 'backend', 'archived']
+---
+
 # Sprint 6: NestJS 應用程式與最佳化
 
 **持續時間**: 1.5 小時
@@ -70,7 +83,7 @@
 
 ### 技術成果
 
-- ✅ NestJS API 成功執行於 http://localhost:3000
+- ✅ NestJS API 成功執行於 <http://localhost:3000>
 - ✅ 所有測試（unit + E2E）通過
 - ✅ Prisma 整合完成
 - ✅ TypeScript strict mode 啟用

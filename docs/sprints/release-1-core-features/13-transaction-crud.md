@@ -1,3 +1,16 @@
+---
+title: 'Sprint 13: 交易 CRUD 功能'
+type: 'sprint'
+release: 'Release 1'
+sprint_number: 13
+duration: 'TBD'
+start_date: ''
+completed_date: ''
+status: 'planning'
+priority: 'P1'
+tags: ['crud', 'transactions', 'frontend', 'supabase']
+---
+
 # Sprint 13: 交易 CRUD 功能
 
 **持續時間**: TBD

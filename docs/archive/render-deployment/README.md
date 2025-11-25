@@ -102,7 +102,7 @@
 
 ### 成功完成的工作
 
-- ✅ Render Staging 部署：https://flourish-api-v35o.onrender.com
+- ✅ Render Staging 部署：<https://flourish-api-v35o.onrender.com>
 - ✅ 健康檢查驗證：`/health/liveness` 和 `/health/readiness`
 - ✅ 環境變數配置：6 個變數正確設定
 - ✅ CORS 配置：支援萬用字元模式
@@ -140,5 +140,5 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 **存檔原因**：架構簡化決策（ADR 001）
 **狀態**：完整評估後存檔，保留作為歷史記錄
 
-**最後部署 URL**：https://flourish-api-v35o.onrender.com（Staging）
+**最後部署 URL**：<https://flourish-api-v35o.onrender.com（Staging）>
 **部署狀態**：成功運行，待停用

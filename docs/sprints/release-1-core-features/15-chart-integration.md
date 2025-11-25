@@ -1,3 +1,16 @@
+---
+title: 'Sprint 15: 圖表整合'
+type: 'sprint'
+release: 'Release 1'
+sprint_number: 15
+duration: 'TBD'
+start_date: ''
+completed_date: ''
+status: 'planning'
+priority: 'P2'
+tags: ['charts', 'visualization', 'apex', 'analytics']
+---
+
 # Sprint 15: 圖表整合
 
 **持續時間**: TBD

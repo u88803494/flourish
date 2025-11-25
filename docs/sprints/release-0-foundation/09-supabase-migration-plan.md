@@ -1,3 +1,16 @@
+---
+title: 'Sprint 9: Supabase Migration Plan'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 9
+duration: '9.5 小時'
+start_date: '2025-11-12'
+completed_date: '2025-11-14'
+status: 'completed'
+priority: 'P0'
+tags: ['supabase', 'migration', 'architecture', 'database']
+---
+
 # Sprint 9: Supabase Migration Plan
 
 **Status**: ✅ COMPLETED (Planning Phase)
@@ -154,9 +167,11 @@ For detailed MCP setup instructions, see: [`docs/guides/mcp-setup.md`](../../gui
 1. Restart Claude Code
 2. Check available tools (should see `mcp__supabase__*` tools)
 3. Test basic Supabase query via MCP:
+
    ```
    list_tables() → Should return 8 tables
    ```
+
 4. Verify access to project information
 
 **Deliverable**: MCP tools available and functional (verified by listing database tables)

@@ -1,3 +1,16 @@
+---
+title: 'Sprint 1: Monorepo 基礎架構'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 1
+duration: '20 分鐘'
+start_date: '2025-10-28'
+completed_date: '2025-10-28'
+status: 'completed'
+priority: 'P0'
+tags: ['monorepo', 'turborepo', 'foundation', 'documentation']
+---
+
 # Sprint 1: Monorepo 基礎架構
 
 **持續時間**: 20 分鐘
@@ -44,7 +57,7 @@
 
 ### 技術成果
 
-- ✅ Flow app 成功執行於 http://localhost:3100
+- ✅ Flow app 成功執行於 <http://localhost:3100>
 - ✅ 專案結構準備好擴展
 - ✅ 基礎架構已建立
 
