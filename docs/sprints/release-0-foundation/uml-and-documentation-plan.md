@@ -102,12 +102,12 @@
 
 #### 🥈 中優先級（Sprint 1 時創建）
 
-3. **認證流程序列圖** `docs/guides/authentication-flow.md`
+1. **認證流程序列圖** `docs/guides/authentication-flow.md`
    - Supabase Auth → NestJS API
    - JWT Token 驗證
    - 錯誤處理
 
-4. **記帳交易流程** `docs/guides/transaction-flow.md`
+2. **記帳交易流程** `docs/guides/transaction-flow.md`
    - 使用者提交
    - API 驗證
    - 資料庫儲存
@@ -115,9 +115,9 @@
 
 #### 🥉 低優先級（按需創建）
 
-5. **API 路由文檔** `docs/architecture/api-routes.md`
-6. **部署架構** `docs/architecture/deployment-architecture.md`
-7. **安全流程** `docs/architecture/security-architecture.md`
+1. **API 路由文檔** `docs/architecture/api-routes.md`
+2. **部署架構** `docs/architecture/deployment-architecture.md`
+3. **安全流程** `docs/architecture/security-architecture.md`
 
 ---
 

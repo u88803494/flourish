@@ -1,3 +1,16 @@
+---
+title: 'Sprint 14: 文檔標準化'
+type: 'sprint'
+release: 'Release 1'
+sprint_number: 14
+duration: '79-117 小時'
+start_date: '2025-11-24'
+completed_date: ''
+status: 'in_progress'
+priority: 'P1'
+tags: ['documentation', 'standardization', 'markdown', 'templates']
+---
+
 # Sprint 14: 文檔標準化
 
 **持續時間**: 79-117 小時（估計）

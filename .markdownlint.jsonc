@@ -38,7 +38,7 @@
     // Multiple headings with the same content
     "siblings_only": true // Allow duplicate headings in different sections
   },
-  "MD025": true, // Multiple top-level headings in the same document
+  "MD025": false, // Multiple top-level headings - Disabled for documents with frontmatter
 
   // ========================================
   // List Rules

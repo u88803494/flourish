@@ -1,3 +1,16 @@
+---
+title: 'Sprint 10: 文檔、治理與自動化'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 10
+duration: '3 小時'
+start_date: '2025-11-15'
+completed_date: '2025-11-16'
+status: 'completed'
+priority: 'P1'
+tags: ['documentation', 'governance', 'automation', 'agents']
+---
+
 # Sprint 10: 文檔、治理與自動化
 
 **狀態**: 📋 規劃中
@@ -112,6 +125,7 @@ pnpm db:diff            # 檢查 schema 差異
   4. Workspace 套件（`@repo/`）
   5. 本地絕對路徑（`@/`）
 - **元件模式**:
+
   ```typescript
   const MyComponent: React.FC<Props> = (props) => {
     // 1. Hooks
@@ -120,6 +134,7 @@ pnpm db:diff            # 檢查 schema 差異
     // 4. Main render
   };
   ```
+
 - **布林值命名**: `isLoading`、`hasData`、`canEdit`
 
 #### Git 慣例

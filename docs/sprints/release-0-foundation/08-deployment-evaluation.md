@@ -1,3 +1,16 @@
+---
+title: 'Sprint 8: Deployment Evaluation & Architecture Decision'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 8
+duration: '2 天'
+start_date: '2025-11-06'
+completed_date: '2025-11-07'
+status: 'completed'
+priority: 'P0'
+tags: ['deployment', 'architecture', 'evaluation', 'supabase']
+---
+
 # Sprint 8: Deployment Evaluation & Architecture Decision
 
 **Sprint 期間**：2025-11-06 ~ 2025-11-07
@@ -430,7 +443,7 @@ Frontend (Flow/Apex) → Supabase (Database + Auth + API)
 
 ### Render 部署
 
-- ✅ Staging 環境：https://flourish-api-v35o.onrender.com（待停用）
+- ✅ Staging 環境：<https://flourish-api-v35o.onrender.com（待停用）>
 
 ---
 

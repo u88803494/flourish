@@ -1,3 +1,16 @@
+---
+title: 'Sprint 2-5: 開發工具設定'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 2
+duration: '80 分鐘'
+start_date: '2025-10-29'
+completed_date: '2025-10-30'
+status: 'completed'
+priority: 'P0'
+tags: ['tooling', 'eslint', 'prettier', 'commitlint', 'husky']
+---
+
 # Sprint 2-5: 開發工具設定
 
 **持續時間**: Sprint 2 (15分鐘) + Sprint 3 (20分鐘) + Sprint 4 (15分鐘) + Sprint 5 (30分鐘) = 80 分鐘

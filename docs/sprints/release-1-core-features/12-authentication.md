@@ -1,3 +1,16 @@
+---
+title: 'Sprint 12: 認證系統'
+type: 'sprint'
+release: 'Release 1'
+sprint_number: 12
+duration: '1-2 週'
+start_date: ''
+completed_date: ''
+status: 'planning'
+priority: 'P0'
+tags: ['authentication', 'supabase-auth', 'security']
+---
+
 ## 🔐 Sprint 12: 認證系統
 
 **時間**: 1-2 週

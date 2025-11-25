@@ -1,3 +1,16 @@
+---
+title: 'Sprint 11: Sprint 編號重構'
+type: 'sprint'
+release: 'Release 0'
+sprint_number: 11
+duration: '1.5-2 小時'
+start_date: '2025-11-17'
+completed_date: '2025-11-18'
+status: 'completed'
+priority: 'P1'
+tags: ['refactoring', 'documentation', 'standardization']
+---
+
 # Sprint 11: Sprint 編號重構
 
 **狀態**: 📋 規劃中

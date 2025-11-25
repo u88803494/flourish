@@ -57,7 +57,7 @@
 
 ### 轉換為 shadcn/ui 格式 (HSL)
 
-**轉換工具**: https://oklch.com
+**轉換工具**: <https://oklch.com>
 
 **變數對應表**:
 
@@ -312,7 +312,7 @@ cd apps/flow
 pnpm dev
 ```
 
-開啟 http://localhost:3100
+開啟 <http://localhost:3100>
 
 **檢查項目**:
 

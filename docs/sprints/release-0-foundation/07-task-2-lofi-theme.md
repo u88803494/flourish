@@ -55,7 +55,7 @@
 
 ### 轉換為 shadcn/ui 格式 (HSL)
 
-**轉換工具**: https://oklch.com 或 https://colorjs.io
+**轉換工具**: <https://oklch.com> 或 <https://colorjs.io>
 
 **變數對應表**:
 
@@ -249,7 +249,7 @@ cd apps/apex
 pnpm dev
 ```
 
-開啟 http://localhost:3200
+開啟 <http://localhost:3200>
 
 **檢查項目**:
 

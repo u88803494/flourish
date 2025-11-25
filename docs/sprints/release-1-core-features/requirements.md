@@ -211,6 +211,7 @@ flourish/
   ```
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "chore: add prettier for code formatting"
@@ -283,6 +284,7 @@ flourish/
   - 確認自動執行格式化和 lint
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "chore: add husky and lint-staged for pre-commit checks"
@@ -356,6 +358,7 @@ flourish/
   - 嘗試符合規範的 commit（應該成功）
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "chore: add commitlint for commit message validation"
@@ -490,7 +493,7 @@ chore(deps): upgrade next.js to 15.0.0
   ```
 
 - [ ] 建立 Supabase 專案（或本地 PostgreSQL）
-  - 訪問 https://supabase.com
+  - 訪問 <https://supabase.com>
   - 建立新專案
   - 取得連接字串
 
@@ -522,6 +525,7 @@ chore(deps): upgrade next.js to 15.0.0
   ```
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "feat(database): set up prisma with shared database package"
@@ -633,6 +637,7 @@ chore(deps): upgrade next.js to 15.0.0
   ```
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "feat(api): set up nestjs backend with prisma integration"
@@ -650,7 +655,7 @@ chore(deps): upgrade next.js to 15.0.0
 - ✅ NestJS 應用已建立在 apps/api
 - ✅ Prisma 已整合
 - ✅ 可以從根目錄啟動所有應用
-- ✅ API 在 http://localhost:3001 運行
+- ✅ API 在 <http://localhost:3001> 運行
 - ✅ 基本的健康檢查 endpoint 可用
 
 ---
@@ -712,6 +717,7 @@ chore(deps): upgrade next.js to 15.0.0
   ```
 
 - [ ] Git commit
+
   ```bash
   git add .
   git commit -m "feat(apex): set up apex app for statistics tracking"
