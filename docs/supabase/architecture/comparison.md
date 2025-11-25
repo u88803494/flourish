@@ -33,112 +33,80 @@
 
 ## 🏗️ 架構對比
 
-### Supabase 架構
+### 視覺化對比
 
+```mermaid
+graph TB
+    subgraph Supabase["🟢 Supabase-first 架構 ($0/月)"]
+        direction TB
+        SB_FE["Frontend (Next.js)<br/>部署於 Vercel"]
+        SB_Client["Supabase JS Client<br/>(@repo/supabase-client)"]
+
+        subgraph SB_Backend["Supabase (Backend as a Service)"]
+            direction TB
+            SB_DB["PostgreSQL<br/>+ RLS + Triggers"]
+            SB_API["Auto-generated<br/>REST API<br/>(PostgREST)"]
+            SB_Auth["Auth<br/>(GoTrue)"]
+            SB_Other["Storage +<br/>Edge Functions"]
+        end
+
+        SB_FE --> SB_Client
+        SB_Client --> SB_DB
+        SB_Client --> SB_API
+        SB_Client --> SB_Auth
+        SB_Client --> SB_Other
+    end
+
+    subgraph NestJS["🔵 NestJS + Render 架構 ($7+/月)"]
+        direction TB
+        NS_FE["Frontend (Next.js)<br/>部署於 Vercel"]
+        NS_Client["NestJS Client"]
+
+        subgraph NS_API["NestJS API (Render)"]
+            direction TB
+            NS_Ctrl["Controllers<br/>(Endpoints)"]
+            NS_Svc["Services<br/>(Business Logic)"]
+            NS_Prisma["Prisma ORM"]
+
+            NS_Ctrl --> NS_Svc
+            NS_Svc --> NS_Prisma
+        end
+
+        NS_DB["PostgreSQL Database<br/>(Supabase)"]
+
+        NS_FE --> NS_Client
+        NS_Client -->|HTTP/REST| NS_API
+        NS_Prisma --> NS_DB
+    end
+
+    style SB_Backend fill:#c8e6c9
+    style SB_Client fill:#fff3e0
+    style NS_API fill:#bbdefb
+    style NS_Client fill:#fff3e0
 ```
-┌──────────────────────────────────────────────────────────┐
-│                  Frontend (Next.js)                       │
-│                       ↓                                   │
-│              Supabase JS Client                           │
-│            (@repo/supabase-client)                        │
-└────────────────────┬─────────────────────────────────────┘
-                     │
-                     ▼
-┌──────────────────────────────────────────────────────────┐
-│                   Supabase                                │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  PostgreSQL + RLS + Triggers + Functions           │  │
-│  └────────────────────────────────────────────────────┘  │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Auto-generated REST API (PostgREST)               │  │
-│  └────────────────────────────────────────────────────┘  │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Supabase Auth (GoTrue)                            │  │
-│  └────────────────────────────────────────────────────┘  │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Storage + Edge Functions (optional)               │  │
-│  └────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────┘
 
-部署: Vercel (Frontend) + Supabase (Backend)
-成本: $0/月 (免費層級)
-```
+**部署與成本對比**：
 
-**優勢**：
-
-- ✅ **零成本**：Supabase 免費層級完全足夠 Release 0-1
-- ✅ **自動 API**：PostgreSQL schema 自動生成 REST API
-- ✅ **內建認證**：Supabase Auth 處理所有認證邏輯
-- ✅ **資料庫層級安全**：RLS policies 強制執行權限控制
-- ✅ **快速開發**：無需手寫 Controllers、Services、DTOs
-- ✅ **自動類型**：Supabase CLI 自動生成 TypeScript types
-- ✅ **Realtime**：內建 WebSocket 支援
-- ✅ **簡化部署**：無需管理後端伺服器
-
-**限制**：
-
-- ❌ **業務邏輯限制**：複雜邏輯需放在前端或 Database Functions
-- ❌ **第三方整合**：需使用 Edge Functions（未來功能）
-- ❌ **控制度較低**：依賴 Supabase 的實作與限制
-- ❌ **客製化受限**：API 結構由 schema 決定，無法完全自訂
-- ❌ **學習 SQL**：需熟悉 PostgreSQL 和 RLS
+| 架構     | 部署環境                                         | 月成本  | 管理複雜度 |
+| -------- | ------------------------------------------------ | ------- | ---------- |
+| Supabase | Vercel (Frontend) + Supabase (Backend)           | **$0**  | 低 ⭐      |
+| NestJS   | Vercel (Frontend) + Render (API) + Supabase (DB) | **$7+** | 高 ⭐⭐⭐  |
 
 ---
 
-### NestJS 架構
+### 架構特性摘要
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                  Frontend (Next.js)                       │
-│                       ↓                                   │
-│                 NestJS Client                             │
-└────────────────────┬─────────────────────────────────────┘
-                     │ HTTP/REST
-                     ▼
-┌──────────────────────────────────────────────────────────┐
-│                NestJS API (Render)                        │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Controllers (Endpoints)                           │  │
-│  └──────────┬─────────────────────────────────────────┘  │
-│             ▼                                             │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Services (Business Logic)                         │  │
-│  └──────────┬─────────────────────────────────────────┘  │
-│             ▼                                             │
-│  ┌────────────────────────────────────────────────────┐  │
-│  │  Prisma ORM                                        │  │
-│  └──────────┬─────────────────────────────────────────┘  │
-└─────────────┼─────────────────────────────────────────────┘
-              │
-              ▼
-┌──────────────────────────────────────────────────────────┐
-│              PostgreSQL Database (Supabase)               │
-└──────────────────────────────────────────────────────────┘
+**詳細的架構比較請參閱**: [ADR 001 - 為何選擇 Supabase](./decisions.md#adr-001-為何選擇-supabase)
 
-部署: Vercel (Frontend) + Render (Backend) + Supabase (Database)
-成本: $7+/月 (Render Starter + Supabase)
-```
+**關鍵差異**：
 
-**優勢**：
-
-- ✅ **完全控制**：可實作任何業務邏輯
-- ✅ **模組化**：Controllers、Services、Modules 清晰分離
-- ✅ **企業級**：適合大型、複雜的專案
-- ✅ **成熟生態**：豐富的 NestJS 套件與社群支援
-- ✅ **自訂 API**：完全控制 endpoint 設計
-- ✅ **測試友善**：內建測試框架與 DI 系統
-- ✅ **背景任務**：內建 Queue、Scheduler 支援
-- ✅ **TypeScript 原生**：完整的型別安全
-
-**限制**：
-
-- ❌ **開發時間長**：需手寫所有 endpoints、services、DTOs
-- ❌ **維護負擔重**：需管理 Render 環境、Keep-Alive 監控
-- ❌ **成本較高**：$7+/月 + 未來可能增加
-- ❌ **學習曲線陡**：需學習 NestJS、Prisma、Dependency Injection
-- ❌ **重複性工作**：每個功能都需完整的 CRUD 實作
-- ❌ **手動型別維護**：需同步維護 Prisma schema 和 DTOs
-- ❌ **部署複雜度**：需管理多個環境（staging + production）
+| 特性         | Supabase            | NestJS              |
+| ------------ | ------------------- | ------------------- |
+| **開發速度** | ✅ 快速（自動 API） | ❌ 較慢（手寫代碼） |
+| **成本**     | ✅ $0/月            | ❌ $7+/月           |
+| **控制度**   | ⚠️ 中等             | ✅ 完全控制         |
+| **學習曲線** | ✅ 平緩             | ❌ 陡峭             |
+| **適合場景** | 標準 CRUD           | 複雜業務邏輯        |
 
 ---
 
@@ -162,416 +130,60 @@
 
 ### 範例：新增「交易」CRUD 功能
 
-**Supabase 實作**：
+**完整程式碼範例請參閱**: [ADR 001 - 實作比較](./decisions.md#實作範例比較)
 
-```typescript
-// 步驟 1: 建立 migration（30 分鐘）
-// supabase/migrations/20241124000000_create_transactions.sql
+**開發時間對比**：
 
-CREATE TABLE transactions (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  merchant_name TEXT NOT NULL,
-  amount DECIMAL(10, 2) NOT NULL,
-  date DATE NOT NULL,
-  type TEXT NOT NULL CHECK (type IN ('EXPENSE', 'INCOME', 'REFUND')),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+| 步驟                | Supabase          | NestJS                                |
+| ------------------- | ----------------- | ------------------------------------- |
+| **Database Schema** | 30 分鐘（含 RLS） | 15 分鐘                               |
+| **API 實作**        | ✅ 自動生成       | 80 分鐘（DTO + Service + Controller） |
+| **權限控制**        | ✅ RLS 內建       | 20 分鐘（Guards）                     |
+| **前端整合**        | 15 分鐘           | 20 分鐘                               |
+| **測試撰寫**        | 可選              | 60 分鐘                               |
+| **部署**            | ✅ 自動           | 15 分鐘                               |
+| **總計**            | **45 分鐘**       | **3 小時 5 分鐘**                     |
+| **時間節省**        | **基準**          | **-75%**                              |
 
--- RLS policies
-ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+**關鍵差異**：
 
-CREATE POLICY "Users can manage own transactions"
-  ON transactions
-  FOR ALL
-  USING (auth.uid() = user_id);
-
--- 步驟 2: 生成 TypeScript types（1 分鐘）
--- supabase gen types typescript --local > types.ts
-
--- 步驟 3: 前端使用（15 分鐘）
-// Server Action
-'use server';
-
-export async function getTransactions(userId: string) {
-  const supabase = await createServerClient();
-
-  const { data, error } = await supabase
-    .from('transactions')
-    .select('*')
-    .eq('user_id', userId)
-    .order('date', { ascending: false });
-
-  if (error) throw error;
-  return data;
-}
-
-export async function createTransaction(data: TransactionInsert) {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) throw new Error('Unauthorized');
-
-  const { data: transaction, error } = await supabase
-    .from('transactions')
-    .insert({ ...data, user_id: user.id })
-    .select()
-    .single();
-
-  if (error) throw error;
-  return transaction;
-}
-
-// 總計：約 45 分鐘
-```
-
-**NestJS 實作**：
-
-```typescript
-// 步驟 1: 定義 Prisma schema（15 分鐘）
-// packages/database/prisma/schema.prisma
-
-model Transaction {
-  id            String   @id @default(uuid())
-  userId        String   @map("user_id")
-  merchantName  String   @map("merchant_name")
-  amount        Decimal  @db.Decimal(10, 2)
-  date          DateTime @db.Date
-  type          TransactionType
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("transactions")
-}
-
-enum TransactionType {
-  EXPENSE
-  INCOME
-  REFUND
-}
-
-// 步驟 2: 生成 migration（5 分鐘）
-// pnpm prisma migrate dev --name create_transactions
-
-// 步驟 3: 定義 DTO（20 分鐘）
-// apps/api/src/transactions/dto/create-transaction.dto.ts
-
-import { IsString, IsNumber, IsEnum, IsDateString } from 'class-validator';
-
-export class CreateTransactionDto {
-  @IsString()
-  merchantName: string;
-
-  @IsNumber()
-  amount: number;
-
-  @IsDateString()
-  date: string;
-
-  @IsEnum(['EXPENSE', 'INCOME', 'REFUND'])
-  type: string;
-}
-
-// apps/api/src/transactions/dto/query-transaction.dto.ts
-export class QueryTransactionDto {
-  @IsString()
-  userId: string;
-
-  @IsEnum(['EXPENSE', 'INCOME', 'REFUND'])
-  @IsOptional()
-  type?: string;
-}
-
-// 步驟 4: 實作 Service（30 分鐘）
-// apps/api/src/transactions/transactions.service.ts
-
-@Injectable()
-export class TransactionsService {
-  constructor(private prisma: PrismaService) {}
-
-  async findAll(userId: string, query: QueryTransactionDto) {
-    return this.prisma.transaction.findMany({
-      where: {
-        userId,
-        ...(query.type && { type: query.type }),
-      },
-      orderBy: { date: 'desc' },
-    });
-  }
-
-  async create(userId: string, dto: CreateTransactionDto) {
-    return this.prisma.transaction.create({
-      data: {
-        ...dto,
-        userId,
-      },
-    });
-  }
-
-  async update(id: string, userId: string, dto: UpdateTransactionDto) {
-    // 驗證權限
-    const transaction = await this.prisma.transaction.findFirst({
-      where: { id, userId },
-    });
-
-    if (!transaction) {
-      throw new NotFoundException('Transaction not found');
-    }
-
-    return this.prisma.transaction.update({
-      where: { id },
-      data: dto,
-    });
-  }
-
-  async remove(id: string, userId: string) {
-    // 驗證權限
-    const transaction = await this.prisma.transaction.findFirst({
-      where: { id, userId },
-    });
-
-    if (!transaction) {
-      throw new NotFoundException('Transaction not found');
-    }
-
-    return this.prisma.transaction.delete({
-      where: { id },
-    });
-  }
-}
-
-// 步驟 5: 實作 Controller（30 分鐘）
-// apps/api/src/transactions/transactions.controller.ts
-
-@Controller('transactions')
-@UseGuards(JwtAuthGuard)
-export class TransactionsController {
-  constructor(private readonly service: TransactionsService) {}
-
-  @Get()
-  findAll(@GetUser('id') userId: string, @Query() query: QueryTransactionDto) {
-    return this.service.findAll(userId, query);
-  }
-
-  @Post()
-  create(@GetUser('id') userId: string, @Body() dto: CreateTransactionDto) {
-    return this.service.create(userId, dto);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @GetUser('id') userId: string,
-    @Body() dto: UpdateTransactionDto
-  ) {
-    return this.service.update(id, userId, dto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string, @GetUser('id') userId: string) {
-    return this.service.remove(id, userId);
-  }
-}
-
-// 步驟 6: 註冊 Module（10 分鐘）
-// apps/api/src/transactions/transactions.module.ts
-
-@Module({
-  imports: [DatabaseModule],
-  controllers: [TransactionsController],
-  providers: [TransactionsService],
-  exports: [TransactionsService],
-})
-export class TransactionsModule {}
-
-// 步驟 7: 撰寫測試（60 分鐘）
-// apps/api/src/transactions/transactions.service.spec.ts
-// apps/api/src/transactions/transactions.controller.spec.ts
-// apps/api/src/transactions/transactions.e2e-spec.ts
-
-// 步驟 8: 部署至 Render（15 分鐘）
-// git push origin main → 自動部署
-
-// 總計：約 3 小時 5 分鐘 (vs Supabase 45 分鐘)
-// 時間節省：約 76%
-```
-
-**總結**：
-
-| 步驟            | Supabase 時間 | NestJS 時間 |
-| --------------- | ------------- | ----------- |
-| Schema 定義     | 30 分鐘       | 15 分鐘     |
-| Migration       | 包含在 schema | 5 分鐘      |
-| RLS/Auth 設定   | 包含在 schema | N/A         |
-| DTO 定義        | 自動生成      | 20 分鐘     |
-| Service 實作    | N/A           | 30 分鐘     |
-| Controller 實作 | N/A           | 30 分鐘     |
-| Module 註冊     | N/A           | 10 分鐘     |
-| 權限驗證        | RLS 自動      | 20 分鐘     |
-| 前端整合        | 15 分鐘       | 20 分鐘     |
-| 測試撰寫        | N/A           | 60 分鐘     |
-| 部署            | N/A           | 15 分鐘     |
-| **總計**        | **45 分鐘**   | **3 小時**  |
-| **節省時間**    | **-**         | **-75%**    |
+- **Supabase**: Schema → 自動 API → 前端使用（3 步驟）
+- **NestJS**: Schema → Migration → DTO → Service → Controller → Module → 測試 → 部署（8 步驟）
 
 ---
 
 ## 💰 成本比較
 
-### 免費層級
+**詳細成本分析請參閱**: [ADR 001 - 成本考量](./decisions.md#成本考量)
 
-**Supabase Free**：
+### 方案對比
 
-| 資源               | 免費額度         | Flourish 使用 | 是否足夠 |
-| ------------------ | ---------------- | ------------- | -------- |
-| 資料庫儲存         | 500 MB           | ~100 MB       | ✅ 充足  |
-| 檔案儲存           | 1 GB             | ~500 MB       | ✅ 充足  |
-| 月活躍使用者 (MAU) | 50,000           | <1,000        | ✅ 充足  |
-| 資料庫頻寬         | 5 GB             | ~2 GB         | ✅ 充足  |
-| Edge Functions     | 500K invocations | 未使用        | ✅ 充足  |
+| 方案     | Supabase                  | NestJS + Render |
+| -------- | ------------------------- | --------------- |
+| **免費** | $0/月（✅ Flourish 當前） | ❌ 無           |
+| **入門** | Pro $25/月                | Starter $7/月   |
+| **進階** | Team $599/月              | Standard $25/月 |
+| **企業** | Enterprise (客製)         | Pro $85/月      |
 
-**Render Free**：
-
-- ❌ **無免費方案**：Web Service 必須付費
-- ⚠️ **Free tier 已移除**：2023 年後不再提供免費 Web Service
-
-**NestJS + Render 最低成本**：
-
-- Render Starter Plan: $7/月
-- Supabase Free: $0/月
-- **總計**: $7/月
-
-### 付費方案
-
-| 方案              | Supabase               | NestJS + Render            |
-| ----------------- | ---------------------- | -------------------------- |
-| **免費**          | $0/月                  | ❌ 無                      |
-| **入門**          | Pro $25/月             | Starter $7/月              |
-| **進階**          | Team $599/月           | Standard $25/月            |
-| **企業**          | Enterprise (客製)      | Pro $85/月                 |
-| **Flourish 選擇** | **Free** (Release 0-1) | ~~Starter $7/月~~ (已棄用) |
-
-**成本節省**：
-
-- Release 0-1: $7/月 → $0/月 = **100% 節省**
-- Release 1 (假設升級 Pro): $25/月 vs $7/月 = **額外 $18/月**
-  - 但獲得：8GB 儲存、100GB 檔案、100K MAU、2M Edge Functions
-  - 價值遠超過 Render Starter Plan
+**成本節省**: Release 0-1 節省 **$7/月（100%）**
 
 ---
 
 ## 🎓 學習曲線
 
-### Supabase
+### 學習時間對比
 
-**必學知識**：
+| 技術棧       | 必學知識                                           | 學習時間 | 難度            |
+| ------------ | -------------------------------------------------- | -------- | --------------- |
+| **Supabase** | PostgreSQL + RLS + Client API + Next.js 整合       | 3-4 週   | ⭐⭐⭐ 中等     |
+| **NestJS**   | NestJS 核心 + Prisma + Auth + Testing + Deployment | 6-8 週   | ⭐⭐⭐⭐⭐ 困難 |
 
-1. **PostgreSQL 基礎**（⭐⭐⭐）
-   - SQL 查詢語法（SELECT、INSERT、UPDATE、DELETE）
-   - JOIN、聚合函數（SUM、COUNT、AVG）
-   - 索引與效能優化
-   - 學習時間：1-2 週
+**學習曲線差異**: Supabase 平緩 **~50%**
 
-2. **Row Level Security (RLS)**（⭐⭐⭐⭐）
-   - RLS policy 語法
-   - `auth.uid()` 使用方式
-   - Policy 除錯技巧
-   - 學習時間：3-5 天
+**關鍵差異**：
 
-3. **Supabase Client API**（⭐⭐）
-   - `.from()`, `.select()`, `.insert()` 等 API
-   - 查詢建構器語法
-   - 錯誤處理
-   - 學習時間：2-3 天
-
-4. **Next.js + Supabase 整合**（⭐⭐⭐）
-   - Server Components vs Client Components
-   - Server Actions
-   - Middleware 認證
-   - 學習時間：1 週
-
-**總學習時間**：約 3-4 週
-
-**學習資源**：
-
-- ✅ Supabase 官方文檔（完善）
-- ✅ 社群活躍（Discord、GitHub Discussions）
-- ✅ 範例專案豐富
-- ✅ Video Tutorials（YouTube）
-
----
-
-### NestJS
-
-**必學知識**：
-
-1. **NestJS 核心概念**（⭐⭐⭐⭐⭐）
-   - Modules、Controllers、Services
-   - Dependency Injection
-   - Providers、Guards、Interceptors
-   - Decorators
-   - 學習時間：2-3 週
-
-2. **Prisma ORM**（⭐⭐⭐⭐）
-   - Schema 定義
-   - Migration 管理
-   - Query 語法
-   - Relations 處理
-   - 學習時間：1-2 週
-
-3. **Authentication & Authorization**（⭐⭐⭐⭐）
-   - Passport.js 整合
-   - JWT 策略
-   - Guards 實作
-   - Role-based access control
-   - 學習時間：1 週
-
-4. **Testing**（⭐⭐⭐）
-   - Jest 單元測試
-   - Supertest E2E 測試
-   - Mocking strategies
-   - 學習時間：1 週
-
-5. **Deployment**（⭐⭐⭐）
-   - Render 設定
-   - 環境變數管理
-   - Keep-Alive 監控
-   - CI/CD pipeline
-   - 學習時間：3-5 天
-
-**總學習時間**：約 6-8 週
-
-**學習資源**：
-
-- ✅ NestJS 官方文檔（詳細）
-- ⚠️ 學習曲線陡峭
-- ✅ 範例專案多
-- ⚠️ 需同時學習多個技術（NestJS + Prisma + Passport + Jest）
-
----
-
-### 學習曲線比較
-
-```
-難度曲線（1-10）:
-
-Supabase:
-Week 1: ██████ 6/10 (SQL 基礎)
-Week 2: ████ 4/10 (RLS 理解)
-Week 3: ███ 3/10 (Client API)
-Week 4: ██ 2/10 (實戰應用)
-
-NestJS:
-Week 1-2: █████████ 9/10 (核心概念)
-Week 3-4: ████████ 8/10 (Prisma + Auth)
-Week 5-6: ███████ 7/10 (Testing + Deployment)
-Week 7-8: █████ 5/10 (實戰應用)
-
-結論: Supabase 學習曲線平緩約 50%
-```
+- **Supabase**: 專注於 SQL 與 RLS，其他功能內建
+- **NestJS**: 需學習完整的後端架構（DI、Guards、Interceptors、Testing）
 
 ---
 

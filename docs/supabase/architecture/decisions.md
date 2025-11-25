@@ -36,22 +36,39 @@
 
 ### 2025-11 - 架構基礎決策
 
+```mermaid
+gitGraph
+    commit id: "Sprint 7 開始"
+    commit id: "11-05: ADR 003 Design System"
+    branch sprint-8
+    checkout sprint-8
+    commit id: "11-06: Sprint 8 - 部署評估"
+    commit id: "11-07: Render Staging 測試"
+    commit id: "11-07: Supabase vs NestJS 分析"
+    commit id: "11-07: ✅ ADR 001 決定採用 Supabase" type: HIGHLIGHT
+    checkout main
+    merge sprint-8
+    branch sprint-9
+    checkout sprint-9
+    commit id: "11-13: Sprint 9 - 遷移開始"
+    commit id: "11-13: ADR 002 Imperative Migrations"
+    commit id: "11-15~21: 實作遷移"
+    commit id: "11-21: ✅ Sprint 9 完成" type: HIGHLIGHT
+    checkout main
+    merge sprint-9
+    commit id: "Sprint 10-11: 文檔與工具"
 ```
-11-05  └─ ADR 003: Design System 配置
-11-06  └─ Sprint 8: 開始後端部署評估
-11-07  ├─ 完成 Render Staging 部署測試
-       ├─ 完成 NestJS vs Supabase 比較分析
-       └─ ADR 001: 決定採用 Supabase 架構
-11-13  ├─ Sprint 9: Supabase 遷移開始
-       └─ ADR 002: 決定使用 Imperative Migrations
-11-21  └─ Sprint 9: Supabase 遷移完成
-```
+
+**視覺化時間軸說明**：
+
+- 🔵 藍點：一般任務與決策
+- 🟢 綠點：重大里程碑
 
 ### 關鍵里程碑
 
-1. **Sprint 7 (2025-11-05)**: 建立設計系統基礎
-2. **Sprint 8 (2025-11-06~07)**: 完整評估並決定架構方向
-3. **Sprint 9 (2025-11-13~21)**: 實現 Supabase 架構遷移
+1. **Sprint 7 (2025-11-05)**: 建立設計系統基礎（ADR 003）
+2. **Sprint 8 (2025-11-06~07)**: 完整評估並決定架構方向（ADR 001）
+3. **Sprint 9 (2025-11-13~21)**: 實現 Supabase 架構遷移（ADR 002）
 4. **Sprint 10-11**: 文檔與工具完善
 
 ---
@@ -1025,22 +1042,50 @@ docker-compose up -d
 
 ### 遷移決策樹
 
+```mermaid
+flowchart TD
+    Start([開始評估]) --> Q1{使用者量或<br/>資料量超限？}
+
+    Q1 -->|是| Sol1[升級 Supabase 方案<br/>Pro $25/月]
+    Q1 -->|否| Q2{需要複雜<br/>業務邏輯？}
+
+    Q2 -->|少量<br/>1-5 個功能| Sol2[使用 Edge Functions<br/>保持 Supabase-first]
+    Q2 -->|中量<br/>5-10 個功能| Sol3[混合架構<br/>Supabase + NestJS]
+    Q2 -->|大量<br/>10+ 個功能| Sol4[完全遷移到 NestJS<br/>自訂 API 架構]
+    Q2 -->|否| Q3{Supabase 定價<br/>或服務有問題？}
+
+    Q3 -->|定價問題| Sol5[考慮自行部署<br/>Supabase Docker]
+    Q3 -->|服務問題| Sol6[評估遷移到<br/>NestJS 或其他 BaaS]
+    Q3 -->|否| Sol7[✅ 繼續使用<br/>Supabase Free Tier]
+
+    Sol1 --> Review
+    Sol2 --> Review
+    Sol3 --> Review
+    Sol4 --> Review
+    Sol5 --> Review
+    Sol6 --> Review
+    Sol7 --> Review
+
+    Review([📅 每季度審查一次])
+
+    style Sol7 fill:#c8e6c9
+    style Sol1 fill:#fff3e0
+    style Sol2 fill:#e3f2fd
+    style Sol3 fill:#ffe0b2
+    style Sol4 fill:#ffccbc
+    style Sol5 fill:#f3e5f5
+    style Sol6 fill:#ffcdd2
+    style Review fill:#e0e0e0
 ```
-使用者量或資料量超限？
-├─ 是 → 升級 Supabase 方案（Pro $25/月）
-└─ 否 → 繼續使用 Free Tier
 
-需要複雜業務邏輯？
-├─ 少量（1-5 個功能）→ 使用 Edge Functions
-├─ 中量（5-10 個功能）→ 考慮 Supabase + NestJS 混合
-└─ 大量（10+ 個功能）→ 完全遷移到 NestJS
+**決策指南**：
 
-Supabase 定價或服務有問題？
-├─ 定價問題 → 考慮自行部署 Supabase（Docker）
-└─ 服務問題 → 評估遷移到 NestJS 或其他 BaaS
+- 🟢 **繼續 Supabase Free Tier**：當前最優解（成本 $0，符合需求）
+- 🟡 **升級或擴充**：使用量增長時考慮（Pro 方案或 Edge Functions）
+- 🟠 **混合架構**：複雜業務邏輯增加時過渡方案
+- 🔴 **完全遷移**：業務邏輯複雜度顯著增加時長期解決方案
 
-預期評估週期：每季度審查一次
-```
+**預期評估週期**：每季度審查一次（或當使用量/功能需求有顯著變化時）
 
 ---
 

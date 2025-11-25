@@ -27,6 +27,49 @@
 
 ### Edge Functions vs 前端邏輯
 
+```mermaid
+graph TB
+    subgraph Client["前端（Client-side）"]
+        Browser["使用者瀏覽器"]
+        Frontend["Next.js App"]
+        ClientLogic["❌ 業務邏輯<br/>（暴露給使用者）"]
+    end
+
+    subgraph EdgeFunc["Edge Functions（Server-side）"]
+        EdgeNode["Supabase 邊緣節點<br/>（全球分布）"]
+        ServerLogic["✅ 業務邏輯<br/>（安全執行）"]
+        EnvVars["✅ API Keys<br/>（環境變數）"]
+    end
+
+    subgraph External["第三方服務"]
+        APIs["外部 APIs<br/>（OpenAI, Stripe, etc.）"]
+    end
+
+    subgraph Supabase["Supabase"]
+        DB["PostgreSQL Database"]
+        Auth["Supabase Auth"]
+        Storage["Supabase Storage"]
+    end
+
+    Browser --> Frontend
+    Frontend --> ClientLogic
+    ClientLogic -.->|❌ CORS 問題<br/>❌ API Key 暴露| APIs
+
+    Frontend -->|調用| EdgeFunc
+    EdgeNode --> ServerLogic
+    ServerLogic --> EnvVars
+    ServerLogic -->|✅ 無 CORS 限制<br/>✅ 安全| APIs
+
+    EdgeFunc --> DB
+    EdgeFunc --> Auth
+    EdgeFunc --> Storage
+
+    style Client fill:#ffebee
+    style EdgeFunc fill:#e8f5e9
+    style External fill:#e3f2fd
+    style Supabase fill:#fff3e0
+```
+
 | 項目           | 前端（Client-side） | Edge Functions（Server-side） |
 | -------------- | ------------------- | ----------------------------- |
 | **執行位置**   | 使用者瀏覽器        | Supabase 邊緣節點             |
@@ -38,6 +81,40 @@
 | **成本**       | 免費（使用者資源）  | 按使用量計費                  |
 
 ### 使用時機
+
+```mermaid
+flowchart TD
+    Start([需要實作功能]) --> Q1{需要保護<br/>API Keys？}
+
+    Q1 -->|是| EdgeYes1[✅ 使用 Edge Function<br/>範例: OpenAI API, Stripe]
+    Q1 -->|否| Q2{第三方 API<br/>整合？}
+
+    Q2 -->|是| EdgeYes2[✅ 使用 Edge Function<br/>範例: 銀行 API, 郵件服務]
+    Q2 -->|否| Q3{複雜業務<br/>邏輯？}
+
+    Q3 -->|是| Q4{需要多步驟<br/>工作流程？}
+    Q4 -->|是| EdgeYes3[✅ 使用 Edge Function<br/>範例: PDF 解析, 批次處理]
+    Q4 -->|否| Q5{背景任務或<br/>Webhooks？}
+
+    Q5 -->|是| EdgeYes4[✅ 使用 Edge Function<br/>範例: Cron jobs, 支付通知]
+    Q5 -->|否| Q3No
+
+    Q3 -->|否| Q6{簡單 CRUD<br/>操作？}
+
+    Q6 -->|是| FrontendYes1[❌ 不需要 Edge Function<br/>✅ 使用 Supabase Client + RLS]
+    Q6 -->|否| Q7{即時 UI<br/>更新？}
+
+    Q7 -->|是| FrontendYes2[❌ 不需要 Edge Function<br/>✅ 使用 Realtime Subscriptions]
+    Q7 -->|否| Q3No[⚠️ 評估具體需求]
+
+    style EdgeYes1 fill:#c8e6c9
+    style EdgeYes2 fill:#c8e6c9
+    style EdgeYes3 fill:#c8e6c9
+    style EdgeYes4 fill:#c8e6c9
+    style FrontendYes1 fill:#ffebee
+    style FrontendYes2 fill:#ffebee
+    style Q3No fill:#fff3e0
+```
 
 #### ✅ 應該使用 Edge Functions
 

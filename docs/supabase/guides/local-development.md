@@ -111,22 +111,88 @@ touch .env.local
 編輯 `.env.local`，加入以下內容：
 
 ```bash
-# Supabase 配置
-NEXT_PUBLIC_SUPABASE_URL=https://fstcioczrehqtcbdzuij.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
+# ==========================================
+# Supabase 配置（必要）
+# ==========================================
 
-# 專案參考 ID（用於 CLI）
+# Supabase API URL
+# 來源: Supabase Dashboard > Settings > API > Project URL
+# 用途: 前端與後端連接至 Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://fstcioczrehqtcbdzuij.supabase.co
+
+# Supabase Anon Key（公開金鑰）
+# 來源: Supabase Dashboard > Settings > API > anon public key
+# 用途: 前端存取 Supabase（受 RLS 保護）
+# ⚠️ 注意: 這是公開金鑰，會暴露給前端，使用 RLS 保護資料
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdGNpb2N6cmVocXRjYmR6dWlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2NTg2NzUsImV4cCI6MjA0NzIzNDY3NX0.YOUR_ACTUAL_KEY
+
+# ==========================================
+# Supabase CLI 配置（選用）
+# ==========================================
+
+# 專案參考 ID
+# 來源: Supabase Dashboard > Settings > General > Reference ID
+# 用途: Supabase CLI 連接至專案
 SUPABASE_PROJECT_REF=fstcioczrehqtcbdzuij
 
-# 存取令牌（用於 Supabase CLI，選用）
-SUPABASE_ACCESS_TOKEN=<your-access-token>
+# Supabase Access Token（個人存取令牌）
+# 來源: Supabase Dashboard > Account > Access Tokens > Generate new token
+# 用途: Supabase CLI 認證（生成類型、執行遷移）
+# ⚠️ 注意: 這是個人令牌，絕不提交至 Git
+# ℹ️ 提示: 如果不使用 CLI，可以省略此變數
+SUPABASE_ACCESS_TOKEN=sbp_1234567890abcdef1234567890abcdef
+
+# ==========================================
+# Edge Functions 配置（未來使用）
+# ==========================================
+
+# Service Role Key（僅用於 Edge Functions）
+# 來源: Supabase Dashboard > Settings > API > service_role key
+# 用途: Edge Functions 中的管理權限操作（繞過 RLS）
+# ⚠️ 危險: 絕不在前端使用，僅用於 Edge Functions
+# ℹ️ 提示: Release 0-1 不使用 Edge Functions，可以省略
+# SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# ==========================================
+# 應用程式配置（選用）
+# ==========================================
+
+# Next.js 環境模式
+# 用途: 區分開發/正式環境
+NODE_ENV=development
+
+# 應用程式 Port（選用，預設值已在 package.json 中）
+# Flow app: 3100
+# Apex app: 3200
+# PORT=3100
+
+# ==========================================
+# 第三方服務配置（未來使用）
+# ==========================================
+
+# OpenAI API Key（未來 AI 功能使用）
+# OPENAI_API_KEY=sk-...
+
+# Stripe API Key（未來付費功能使用）
+# STRIPE_SECRET_KEY=sk_test_...
 ```
 
-**重要**：
+**重要提示**：
+
+| 變數                            | 前端可見？ | 必要？    | 說明                              |
+| ------------------------------- | ---------- | --------- | --------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | ✅ 是      | ✅ 必要   | Supabase API URL                  |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ 是      | ✅ 必要   | 前端公開金鑰（RLS 保護）          |
+| `SUPABASE_PROJECT_REF`          | ❌ 否      | ⚠️ 選用   | CLI 使用，不使用 CLI 可省略       |
+| `SUPABASE_ACCESS_TOKEN`         | ❌ 否      | ⚠️ 選用   | CLI 認證，登入後可省略            |
+| `SUPABASE_SERVICE_ROLE_KEY`     | ❌ 否      | ❌ 不需要 | **危險！** 僅 Edge Functions 使用 |
+
+**安全性警告**：
 
 - ❌ **絕不提交 `.env.local` 至 Git**（已在 `.gitignore` 中）
+- ❌ **絕不在前端使用 Service Role Key**
 - ✅ 使用 `NEXT_PUBLIC_` 前綴的變數會暴露給前端
-- ❌ Service role key 應僅用於後端，絕不暴露
+- ✅ Anon Key 是公開的，安全性由 RLS policies 保證
 
 #### 4.4 驗證環境變數
 

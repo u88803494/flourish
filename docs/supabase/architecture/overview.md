@@ -38,77 +38,82 @@ Flourish 採用 **Supabase-first 架構**，使用 Supabase 作為主要後端�
 
 ### 整體架構
 
-```
-┌─────────────────────────────────────────────┐
-│           Frontend (Vercel)                  │
-│  ┌─────────┐            ┌─────────┐        │
-│  │  Flow   │            │  Apex   │        │
-│  │ (3100)  │            │ (3200)  │        │
-│  └────┬────┘            └────┬────┘        │
-│       │                      │              │
-│       └──────────┬───────────┘              │
-└──────────────────┼──────────────────────────┘
-                   │
-                   │ Supabase JS Client
-                   │ (@repo/supabase-client)
-                   │
-┌──────────────────▼──────────────────────────┐
-│            Supabase                          │
-│  ┌──────────────────────────────────────┐  │
-│  │  PostgreSQL Database                  │  │
-│  │  + Row Level Security (RLS)          │  │
-│  │  + Triggers & Functions               │  │
-│  │  + Indexes                            │  │
-│  └──────────────────────────────────────┘  │
-│  ┌──────────────────────────────────────┐  │
-│  │  Auto-generated REST API             │  │
-│  │  (PostgREST)                         │  │
-│  └──────────────────────────────────────┘  │
-│  ┌──────────────────────────────────────┐  │
-│  │  Supabase Auth                        │  │
-│  │  (GoTrue)                            │  │
-│  └──────────────────────────────────────┘  │
-│  ┌──────────────────────────────────────┐  │
-│  │  Storage                              │  │
-│  │  (S3-compatible)                     │  │
-│  └──────────────────────────────────────┘  │
-│  ┌──────────────────────────────────────┐  │
-│  │  Edge Functions (Deno)                │  │
-│  │  (未來使用)                           │  │
-│  └──────────────────────────────────────┘  │
-└─────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph Frontend["Frontend (Vercel)"]
+        Flow["Flow<br/>Port: 3100<br/>(財務追蹤)"]
+        Apex["Apex<br/>Port: 3200<br/>(統計工具)"]
+    end
+
+    Client["Supabase JS Client<br/>@repo/supabase-client"]
+
+    subgraph Supabase["Supabase (Backend as a Service)"]
+        direction TB
+        DB["PostgreSQL Database<br/>+ Row Level Security (RLS)<br/>+ Triggers & Functions<br/>+ Indexes"]
+        API["Auto-generated REST API<br/>(PostgREST)"]
+        Auth["Supabase Auth<br/>(GoTrue)"]
+        Storage["Storage<br/>(S3-compatible)"]
+        Edge["Edge Functions<br/>(Deno Runtime)<br/>(未來使用)"]
+    end
+
+    Flow --> Client
+    Apex --> Client
+    Client --> DB
+    Client --> API
+    Client --> Auth
+    Client --> Storage
+    Client --> Edge
+
+    style Frontend fill:#e3f2fd
+    style Supabase fill:#f3e5f5
+    style Client fill:#fff3e0
+    style DB fill:#c8e6c9
+    style Edge fill:#ffccbc
 ```
 
 ### 資料流程
 
-```
-1. 使用者操作
-   │
-   ▼
-2. Next.js App Router
-   │
-   ├─ Server Components     (SSR, getUser from server)
-   │  └─ createServerClient() → Supabase
-   │
-   └─ Client Components     (CSR, useUser from client)
-      └─ createBrowserClient() → Supabase
-         │
-         ▼
-3. Supabase JS Client
-   │
-   ├─ Auth: signIn, signUp, signOut
-   ├─ Database: .from('table').select()
-   ├─ Storage: .from('bucket').upload()
-   └─ Realtime: .channel().on()
-         │
-         ▼
-4. Supabase Backend
-   │
-   ├─ Auth (GoTrue)         → 驗證 JWT token
-   ├─ API (PostgREST)       → 轉換為 SQL query
-   ├─ RLS Policies          → 檢查權限
-   ├─ Database (PostgreSQL) → 執行查詢
-   └─ Response              → 返回結果
+```mermaid
+sequenceDiagram
+    actor User as 使用者
+    participant Next as Next.js App Router
+    participant SC as Server Component
+    participant CC as Client Component
+    participant Client as Supabase JS Client
+    participant Auth as Supabase Auth<br/>(GoTrue)
+    participant API as PostgREST API
+    participant RLS as RLS Policies
+    participant DB as PostgreSQL
+
+    User->>Next: 操作 (點擊、輸入等)
+
+    alt Server-Side Rendering (SSR)
+        Next->>SC: 渲染 Server Component
+        SC->>Client: createServerClient()
+        Client->>Auth: 驗證 JWT token from cookies
+        Auth-->>Client: 驗證成功
+        Client->>API: .from('table').select()
+        API->>RLS: 檢查 RLS Policies
+        RLS->>DB: 執行 SQL query
+        DB-->>Client: 返回結果
+        Client-->>SC: data
+        SC-->>Next: HTML with data
+        Next-->>User: 完整頁面 (SSR)
+    else Client-Side Rendering (CSR)
+        Next->>CC: 渲染 Client Component
+        CC->>Client: createBrowserClient()
+        Client->>Auth: 驗證 JWT token from localStorage
+        Auth-->>Client: 驗證成功
+        CC->>Client: .from('table').select()
+        Client->>API: REST API 請求
+        API->>RLS: 檢查 RLS Policies
+        RLS->>DB: 執行 SQL query
+        DB-->>Client: 返回結果
+        Client-->>CC: data
+        CC-->>User: 更新 UI (CSR)
+    end
+
+    Note over Client,DB: 所有操作都透過 RLS 權限控制<br/>確保資料安全
 ```
 
 ---

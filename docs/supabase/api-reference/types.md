@@ -12,6 +12,38 @@
 
 ## 🔧 類型生成
 
+### 類型生成流程
+
+```mermaid
+flowchart LR
+    subgraph Supabase["Supabase"]
+        DB["PostgreSQL Database<br/>（Schema 定義）"]
+        API["Supabase API"]
+    end
+
+    subgraph CLI["Supabase CLI"]
+        Gen["supabase gen types<br/>typescript"]
+    end
+
+    subgraph Project["Flourish Project"]
+        Types["database.ts<br/>（自動生成）"]
+        Custom["自定義類型<br/>（features/*/types.ts）"]
+        App["應用程式代碼"]
+    end
+
+    DB -->|讀取 Schema| Gen
+    Gen -->|生成 TypeScript 類型| Types
+    Types -->|匯入| App
+    Custom -->|匯入| App
+    API -.->|類型安全查詢| App
+
+    style DB fill:#c8e6c9
+    style Gen fill:#e3f2fd
+    style Types fill:#fff3e0
+    style Custom fill:#ffebee
+    style App fill:#f3e5f5
+```
+
 ### 自動生成指令
 
 Flourish 專案使用 Supabase CLI 自動生成 TypeScript 類型：
