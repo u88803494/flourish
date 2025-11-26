@@ -4,11 +4,11 @@ This release focuses on developing the core functionalities of the Flourish plat
 
 ## Sprints
 
-| Sprint                              | Name                    | Status   |
-| ----------------------------------- | ----------------------- | -------- |
-| [Sprint 12](./12-authentication.md) | Authentication          | 📦 To Do |
-| Sprint 13                           | Transaction CRUD        | 📦 To Do |
-| Sprint 14                           | Categories & Statistics | 📦 To Do |
-| Sprint 15                           | Charting Basics         | 📦 To Do |
+| Sprint                                             | Name              | Status       |
+| -------------------------------------------------- | ----------------- | ------------ |
+| [Sprint 12](./12-authentication.md)                | Authentication    | 📦 To Do     |
+| [Sprint 13](./13-transaction-crud.md)              | Transaction CRUD  | 📦 To Do     |
+| [Sprint 14](./14-documentation-standardization.md) | 文檔標準化        | ✅ Completed |
+| [Sprint 15](./15-chart-integration.md)             | Chart Integration | 📦 To Do     |
 
 For detailed historical planning, see the [requirements file](./requirements.md).
