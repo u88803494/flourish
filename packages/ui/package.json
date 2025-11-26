@@ -4,7 +4,11 @@
   "private": true,
   "exports": {
     "./styles/*": "./styles/*",
-    "./components/*": "./src/components/*",
+    "./button": "./src/components/ui/button.tsx",
+    "./card": "./src/components/ui/card.tsx",
+    "./input": "./src/components/ui/input.tsx",
+    "./label": "./src/components/ui/label.tsx",
+    "./form": "./src/components/ui/form.tsx",
     "./lib/*": "./src/lib/*"
   },
   "scripts": {},
