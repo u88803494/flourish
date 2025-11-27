@@ -47,20 +47,20 @@ tags: ['authentication', 'supabase-auth', 'security']
 
 ---
 
-### 任務 12.1: Supabase Auth 伺服器/客戶端設定
+### 任務 12.1: Supabase Auth 伺服器/客戶端設定 ✅
 
-**GitHub Issue**: [#44](https://github.com/u88803494/flourish/issues/44)
-**預估時間**: 30-45 分鐘
-**依賴**: PR #43 已合併
+**GitHub Issue**: [#44](https://github.com/u88803494/flourish/issues/44) (已關閉)
+**狀態**: 完成（程式碼在 Sprint 9 已實作，手動設定已完成）
 
 #### 子任務
 
-- [ ] 安裝 `@supabase/ssr` 到 `packages/supabase-client`
-- [ ] 建立 `server.ts`，使用 `createServerClient`
-- [ ] 建立 `browser.ts`，使用 `createBrowserClient`
-- [ ] 更新套件導出設定
-- [ ] 確認環境變數已配置
-- [ ] 在 Supabase Dashboard 啟用 Email/Password 認證
+- [x] 安裝 `@supabase/ssr` 到 `packages/supabase-client`（Sprint 9）
+- [x] 建立 `server.ts`，使用 `createServerClient`（Sprint 9）
+- [x] 建立 `browser.ts`，使用 `createBrowserClient`（Sprint 9）
+- [x] 更新套件導出設定（Sprint 9）
+- [x] 確認環境變數已配置
+- [x] 在 Supabase Dashboard 啟用 Email/Password 認證
+- [x] 配置 Site URL 和 Redirect URLs
 
 ---
 
@@ -164,12 +164,12 @@ main
 | 任務               | Issue | 狀態      | PR  |
 | ------------------ | ----- | --------- | --- |
 | shadcn/ui 設定     | #48   | ✅ 完成   | #43 |
-| Supabase Auth 設定 | #44   | ⏳ 待處理 | -   |
+| Supabase Auth 設定 | #44   | ✅ 完成   | -   |
 | Middleware         | #45   | ⏳ 待處理 | -   |
 | 登入/註冊 UI       | #46   | ⏳ 待處理 | -   |
 | RLS 策略           | #47   | ⏳ 待處理 | -   |
 
 ---
 
-**最後更新**: 2025-11-26
-**Sprint 狀態**: 進行中（1/5 任務完成）
+**最後更新**: 2025-11-27
+**Sprint 狀態**: 進行中（2/5 任務完成）
