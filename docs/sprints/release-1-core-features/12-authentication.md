@@ -8,26 +8,30 @@ start_date: '2025-11-26'
 completed_date: ''
 status: 'in_progress'
 priority: 'P0'
-tags: ['authentication', 'supabase-auth', 'security']
+tags: ['authentication', 'supabase-auth', 'google-oauth', 'security']
 ---
 
 ## 🔐 Sprint 12: 認證系統
 
 **時間**: 1-2 週
-**目標**: 使用 Supabase Auth 實現完整的使用者認證流程
+**目標**: 使用 Supabase Auth + Google OAuth 實現使用者認證流程
 **優先級**: P0（最高優先 - 核心基礎）
 **前置需求**: Sprint 11 已完成
 
 ### 架構決策
 
-本 Sprint 遵循 **ADR 003: 認證策略**，選擇 Supabase Auth 而非 Clerk 或 NextAuth.js。
+本 Sprint 遵循 **ADR 003: 認證策略**，選擇 Supabase Auth + **Google OAuth** 作為主要認證方式。
 
 **主要原因**：
 
 - 與現有 Supabase 基礎設施原生整合（ADR 001）
 - $0/月成本（50K MAU 免費額度）
 - 與 RLS 無縫整合，可直接使用 `auth.uid()`
-- 若未來需要，有清晰的 Clerk 遷移路徑
+- **Google OAuth 優勢**：
+  - 不需要 SMTP 設定（省去 email 寄送問題）
+  - 一鍵登入，更好的用戶體驗
+  - Google 處理 email 驗證和安全性
+  - 未來可擴展支援 Email/Password
 
 **參考文件**: `docs/decisions/003-authentication-strategy.md`
 
@@ -47,20 +51,32 @@ tags: ['authentication', 'supabase-auth', 'security']
 
 ---
 
-### 任務 12.1: Supabase Auth 伺服器/客戶端設定
+### 任務 12.1: Supabase Auth 設定 + Google OAuth ✅
 
-**GitHub Issue**: [#44](https://github.com/u88803494/flourish/issues/44)
-**預估時間**: 30-45 分鐘
-**依賴**: PR #43 已合併
+**GitHub Issue**: [#44](https://github.com/u88803494/flourish/issues/44) (已關閉)
+**狀態**: 完成
 
 #### 子任務
 
-- [ ] 安裝 `@supabase/ssr` 到 `packages/supabase-client`
-- [ ] 建立 `server.ts`，使用 `createServerClient`
-- [ ] 建立 `browser.ts`，使用 `createBrowserClient`
-- [ ] 更新套件導出設定
-- [ ] 確認環境變數已配置
-- [ ] 在 Supabase Dashboard 啟用 Email/Password 認證
+**程式碼（Sprint 9 已完成）**：
+
+- [x] 安裝 `@supabase/ssr` 到 `packages/supabase-client`
+- [x] 建立 `server.ts`，使用 `createServerClient`
+- [x] 建立 `browser.ts`，使用 `createBrowserClient`
+- [x] 更新套件導出設定
+
+**Supabase Dashboard 設定**：
+
+- [x] 確認環境變數已配置
+- [x] 配置 Site URL：`http://localhost:3100`
+- [x] 配置 Redirect URLs（localhost + production）
+
+**Google OAuth 設定**：
+
+- [ ] 建立 Google Cloud Console 專案
+- [ ] 設定 OAuth 2.0 憑證
+- [ ] 在 Supabase Dashboard 啟用 Google Provider
+- [ ] 配置 Client ID 和 Client Secret
 
 ---
 
@@ -82,20 +98,21 @@ tags: ['authentication', 'supabase-auth', 'security']
 
 ---
 
-### 任務 12.3: 登入/註冊 UI 頁面
+### 任務 12.3: 登入 UI 頁面（Google OAuth）
 
 **GitHub Issue**: [#46](https://github.com/u88803494/flourish/issues/46)
-**預估時間**: 1-1.5 小時
+**預估時間**: 30-45 分鐘
 **依賴**: PR #43 已合併、任務 12.2 完成
 
 #### 子任務
 
-- [ ] 建立 `app/(auth)/login/page.tsx`
-- [ ] 建立 `app/(auth)/register/page.tsx`
-- [ ] 使用 zod 實現表單驗證
+- [ ] 建立 `app/(auth)/login/page.tsx`（Google 登入按鈕）
+- [ ] 實現 `signInWithOAuth` 呼叫
 - [ ] 新增 loading 狀態和錯誤處理
 - [ ] 實現登出功能
-- [ ] 建立 `app/(protected)/profile/page.tsx`
+- [ ] 建立 `app/(protected)/profile/page.tsx`（顯示用戶資訊）
+
+**注意**：使用 Google OAuth 不需要註冊頁面，用戶首次登入自動建立帳號。
 
 ---
 
@@ -140,7 +157,7 @@ main
 
 ## ✅ 完成標準
 
-- [ ] 使用者可以透過 Email/Password 註冊和登入
+- [ ] 使用者可以透過 Google 帳號一鍵登入
 - [ ] JWT token 自動管理和刷新
 - [ ] 受保護路由將未認證用戶重定向到登入頁
 - [ ] 已認證用戶在登入頁會重定向到 dashboard
@@ -154,6 +171,8 @@ main
 
 - **ADR**: `docs/decisions/003-authentication-strategy.md`
 - **Supabase Auth 文件**: <https://supabase.com/docs/guides/auth>
+- **Supabase Google OAuth**: <https://supabase.com/docs/guides/auth/social-login/auth-google>
+- **Google Cloud Console**: <https://console.cloud.google.com/>
 - **Supabase SSR**: <https://supabase.com/docs/guides/auth/server-side-rendering>
 - **Next.js 認證**: <https://nextjs.org/docs/app/building-your-application/authentication>
 
@@ -164,12 +183,12 @@ main
 | 任務               | Issue | 狀態      | PR  |
 | ------------------ | ----- | --------- | --- |
 | shadcn/ui 設定     | #48   | ✅ 完成   | #43 |
-| Supabase Auth 設定 | #44   | ⏳ 待處理 | -   |
+| Supabase Auth 設定 | #44   | ✅ 完成   | -   |
 | Middleware         | #45   | ⏳ 待處理 | -   |
 | 登入/註冊 UI       | #46   | ⏳ 待處理 | -   |
 | RLS 策略           | #47   | ⏳ 待處理 | -   |
 
 ---
 
-**最後更新**: 2025-11-26
-**Sprint 狀態**: 進行中（1/5 任務完成）
+**最後更新**: 2025-11-27
+**Sprint 狀態**: 進行中（2/5 任務完成）

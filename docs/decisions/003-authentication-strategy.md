@@ -3,6 +3,7 @@
 ## 狀態
 
 ✅ **已採納** - 2025-11-26
+📝 **補充** - 2025-11-27：選擇 Google OAuth 作為初期認證方式（詳見下方「認證方式補充」）
 
 ## 背景
 
@@ -331,11 +332,33 @@ pnpm add next@15.2.3
 - [2025 Next.js App Router 完整認證指南](https://clerk.com/articles/complete-authentication-guide-for-nextjs-app-router)
 - [2025 認證提供者比較](https://kinde.com/comparisons/top-authentication-providers-2025/)
 
+## 認證方式補充（2025-11-27）
+
+在 Supabase Auth 框架下，我們選擇 **Google OAuth** 作為初期認證方式，而非 Email/Password。
+
+### 為什麼選擇 Google OAuth？
+
+| 考量       | Email/Password                | Google OAuth  |
+| ---------- | ----------------------------- | ------------- |
+| SMTP 設定  | 需要（Supabase 內建僅限團隊） | 不需要        |
+| 用戶體驗   | 需記住密碼                    | 一鍵登入      |
+| Email 驗證 | 需寄送確認信                  | Google 已驗證 |
+| 設定時間   | 30-60 分鐘（含 SMTP）         | 15 分鐘       |
+
+### 未來擴展
+
+- 可隨時加入 Email/Password 作為備選方案
+- 可加入其他 OAuth Provider（GitHub、Apple 等）
+- 此選擇不影響 Clerk 遷移路徑
+
+---
+
 ## 決策者
 
 - **提議者**：Henry Lee
 - **日期**：2025-11-26
 - **背景**：Sprint 12 認證規劃
+- **補充**：2025-11-27 - 選擇 Google OAuth
 
 ## 審查時程
 
@@ -352,5 +375,5 @@ pnpm add next@15.2.3
 
 ---
 
-**最後更新**：2025-11-26
-**狀態**：已採納，待實作
+**最後更新**：2025-11-27
+**狀態**：已採納，Google OAuth 設定中
