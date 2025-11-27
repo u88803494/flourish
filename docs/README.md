@@ -56,9 +56,9 @@ Technical references and quick guides:
 Sprint specifications following the requirements → implementation → tasks pattern:
 
 - [Sprint 0: Foundation](./sprints/sprint-0-foundation/) - Basic monorepo setup and tooling
-- Sprint 1: Authentication _(Coming soon)_
-- Sprint 2: Transactions _(Coming soon)_
-- Sprint 3: Statistics _(Coming soon)_
+- Sprint 1: Authentication *(Coming soon)*
+- Sprint 2: Transactions *(Coming soon)*
+- Sprint 3: Statistics *(Coming soon)*
 
 ---
 

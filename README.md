@@ -22,7 +22,7 @@ This monorepo includes:
   - Plot statistical curves
   - Track performance peaks
   - Continuously climb upward
-  - _(Coming soon)_
+  - *(Coming soon)*
 
 - **`api`** 🔧 - Backend API service (Archived, Supabase-first) ✅
   - Logic handled by Supabase (RLS, Edge Functions)
@@ -32,7 +32,7 @@ This monorepo includes:
 
 - **`@repo/ui`** - Shared React component library
 - **`@repo/database`** - Prisma schema and client ✅
-- **`@repo/chart-engine`** - Curve chart core logic _(Coming soon)_
+- **`@repo/chart-engine`** - Curve chart core logic *(Coming soon)*
 - **`@repo/eslint-config`** - ESLint configurations
 - **`@repo/typescript-config`** - TypeScript configurations
 
@@ -43,7 +43,7 @@ All packages and applications are 100% [TypeScript](https://www.typescript.org/)
 - **Frontend**: Next.js 15 (App Router) + React 19 + TypeScript
 - **Backend**: Supabase (Edge Functions / PostgreSQL) ✅
 - **Database**: Supabase PostgreSQL + Prisma ✅
-- **Auth**: Supabase Auth _(Sprint 12)_
+- **Auth**: Supabase Auth *(Sprint 12)*
 - **Monorepo**: Turborepo + pnpm ✅
 - **Styling**: Tailwind CSS ✅
 - **Linting**: ESLint + Prettier ✅
