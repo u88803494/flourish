@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@repo/supabase-client/client';
 import { Button } from '@repo/ui/button';
@@ -11,6 +11,7 @@ export function LoginContent() {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const errorAlertRef = useRef<HTMLDivElement>(null);
 
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const errorParam = searchParams.get('error');
@@ -23,6 +24,13 @@ export function LoginContent() {
       );
     }
   }, [errorParam]);
+
+  // Focus error alert when it appears
+  useEffect(() => {
+    if (error && errorAlertRef.current) {
+      errorAlertRef.current.focus();
+    }
+  }, [error]);
 
   async function handleGoogleSignIn() {
     setIsLoading(true);
@@ -50,21 +58,32 @@ export function LoginContent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 px-4 py-8">
+    <div
+      className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 px-4 py-8"
+      role="main"
+      aria-label="登入頁面"
+    >
       {/* Decorative gradient elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative">
-        <Card className="w-full max-w-md backdrop-blur-sm bg-card/95 border border-border/50 shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md px-6">
+        <Card
+          className="w-full backdrop-blur-sm bg-card/95 border border-border/50 shadow-2xl overflow-hidden"
+          role="region"
+          aria-labelledby="login-title"
+        >
           {/* Top accent bar */}
-          <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+          <div
+            className="h-1 bg-gradient-to-r from-primary via-accent to-primary"
+            aria-hidden="true"
+          />
 
-          <CardHeader className="space-y-4 text-center pt-8 pb-6">
+          <CardHeader className="space-y-4 text-center pt-10 pb-8 px-8">
             {/* Logo circle with glow effect */}
-            <div className="mx-auto relative w-20 h-20">
+            <div className="mx-auto relative w-20 h-20" aria-hidden="true">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full blur-lg opacity-75" />
               <div className="relative w-20 h-20 bg-gradient-to-br from-primary via-primary to-accent rounded-full flex items-center justify-center text-4xl shadow-lg">
                 💰
@@ -72,18 +91,29 @@ export function LoginContent() {
             </div>
 
             <div className="space-y-2">
-              <CardTitle className="text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <CardTitle
+                id="login-title"
+                className="text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+              >
                 歡迎使用 Flow
               </CardTitle>
-              <CardDescription className="text-sm font-medium">
+              <CardDescription id="login-subtitle" className="text-sm font-medium">
                 您的個人財務追蹤助手
               </CardDescription>
             </div>
           </CardHeader>
 
-          <CardContent className="space-y-5 pb-8">
+          <CardContent className="space-y-6 pb-10 px-8">
+            {/* Error alert with aria-live region */}
             {error && (
-              <div className="p-4 bg-destructive/15 border border-destructive/30 rounded-lg text-sm text-destructive font-medium animate-in fade-in">
+              <div
+                ref={errorAlertRef}
+                className="p-4 bg-destructive/15 border border-destructive/30 rounded-lg text-sm text-destructive font-medium animate-in fade-in"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+                tabIndex={-1}
+              >
                 {error}
               </div>
             )}
@@ -94,10 +124,16 @@ export function LoginContent() {
               disabled={isLoading}
               className="w-full h-14 text-base font-semibold bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-900 border border-gray-200 shadow-md hover:shadow-lg transition-all duration-200 group"
               variant="outline"
+              aria-label={isLoading ? '正在啟動 Google 登入' : '使用 Google 帳號登入'}
+              aria-busy={isLoading}
             >
               {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin" />
+                <span className="flex items-center gap-2" aria-live="polite">
+                  <span
+                    className="w-4 h-4 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"
+                    role="status"
+                    aria-label="加載中"
+                  />
                   正在啟動 Google 登入...
                 </span>
               ) : (
@@ -105,6 +141,8 @@ export function LoginContent() {
                   <svg
                     className="w-5 h-5 group-hover:scale-110 transition-transform"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
                   >
                     <path
                       fill="currentColor"
@@ -129,7 +167,7 @@ export function LoginContent() {
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" aria-hidden="true">
               <div className="flex-1 h-px bg-border" />
               <span className="text-xs text-muted-foreground font-medium">或</span>
               <div className="flex-1 h-px bg-border" />
@@ -140,10 +178,27 @@ export function LoginContent() {
               <p className="text-center text-xs text-muted-foreground leading-relaxed">
                 通過登入，您同意我們的
                 <br />
-                <span className="text-primary hover:underline cursor-pointer">服務條款</span>和
-                <span className="text-primary hover:underline cursor-pointer">隱私政策</span>
+                <a
+                  href="/terms"
+                  className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-1"
+                  aria-label="服務條款"
+                >
+                  服務條款
+                </a>
+                和
+                <a
+                  href="/privacy"
+                  className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded px-1"
+                  aria-label="隱私政策"
+                >
+                  隱私政策
+                </a>
               </p>
-              <div className="p-3 bg-primary/5 rounded-lg border border-primary/10">
+              <div
+                className="p-3 bg-primary/5 rounded-lg border border-primary/10"
+                role="status"
+                aria-live="polite"
+              >
                 <p className="text-xs text-muted-foreground text-center">
                   🔒 您的資料安全由 Supabase 認證保護
                 </p>
