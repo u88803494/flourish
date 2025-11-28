@@ -1,4 +1,5 @@
 import { createServerClient } from '@repo/supabase-client/server';
+import { sanitizeRedirectPath } from '@repo/supabase-client/lib/utils/url-validator';
 import { NextResponse } from 'next/server';
 
 /**
@@ -7,6 +8,10 @@ import { NextResponse } from 'next/server';
  * This route handles the callback from OAuth providers (e.g., Google).
  * After successful authentication, Supabase redirects here with an auth code.
  * We exchange the code for a session and redirect the user to their destination.
+ *
+ * Security:
+ * - Validates redirect path to prevent Open Redirect attacks
+ * - Only allows redirects to whitelisted internal paths
  *
  * Flow:
  * 1. User clicks "Sign in with Google"
@@ -21,16 +26,31 @@ export async function GET(request: Request) {
   const code = searchParams.get('code');
   const next = searchParams.get('next') ?? '/dashboard';
 
+  // Validate and sanitize redirect path to prevent Open Redirect attacks
+  const safeRedirectPath = sanitizeRedirectPath(next);
+
   if (code) {
     const supabase = await createServerClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (!error) {
-      // Successful authentication - redirect to destination
-      return NextResponse.redirect(`${origin}${next}`);
+    if (error) {
+      // Log error for debugging (do not expose details to user)
+      console.error('[Auth Callback Error]', {
+        error: error.message,
+        code: error.code,
+        timestamp: new Date().toISOString(),
+      });
+      return NextResponse.redirect(`${origin}/login?error=auth_callback_error`);
     }
+
+    // Successful authentication - redirect to safe destination
+    return NextResponse.redirect(`${origin}${safeRedirectPath}`);
   }
 
-  // Authentication failed - redirect to login with error
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_error`);
+  // Missing auth code
+  console.error('[Auth Callback Error]', {
+    error: 'Missing authorization code',
+    timestamp: new Date().toISOString(),
+  });
+  return NextResponse.redirect(`${origin}/login?error=missing_code`);
 }
