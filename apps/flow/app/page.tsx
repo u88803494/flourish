@@ -1,9 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useAuthQuery } from '@repo/supabase-client/auth';
+import { SignOutButton } from '@/components/auth/sign-out-button';
+import { Button } from '@repo/ui/button';
 
 export default function Home() {
   const [apiStatus, setApiStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+  const { data: user, isLoading } = useAuthQuery(null);
 
   useEffect(() => {
     const checkApi = async () => {
@@ -26,11 +31,32 @@ export default function Home() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             💰 Flow
           </h1>
-          <div className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground">API:</span>
-            {apiStatus === 'checking' && <span className="text-muted-foreground">⏳</span>}
-            {apiStatus === 'connected' && <span className="text-green-500">✅ Connected</span>}
-            {apiStatus === 'disconnected' && <span className="text-red-500">❌ Offline</span>}
+          <div className="flex items-center gap-4">
+            {/* API Status */}
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-muted-foreground">API:</span>
+              {apiStatus === 'checking' && <span className="text-muted-foreground">⏳</span>}
+              {apiStatus === 'connected' && <span className="text-green-500">✅ Connected</span>}
+              {apiStatus === 'disconnected' && <span className="text-red-500">❌ Offline</span>}
+            </div>
+
+            {/* Auth Buttons */}
+            {isLoading ? (
+              <div className="h-9 w-20 bg-muted animate-pulse rounded-md" />
+            ) : user ? (
+              <div className="flex items-center gap-3">
+                <Link href="/profile">
+                  <Button variant="ghost" size="sm">
+                    個人資料
+                  </Button>
+                </Link>
+                <SignOutButton variant="outline" />
+              </div>
+            ) : (
+              <Link href="/login">
+                <Button variant="default">登入</Button>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
