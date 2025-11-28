@@ -4,6 +4,7 @@ import {
 } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '../../shared/types/database';
+import { getSupabaseEnv } from '../utils/env-validator';
 
 // Use a generic type to avoid version conflicts in monorepo
 type MiddlewareRequest = {
@@ -20,6 +21,10 @@ type MiddlewareRequest = {
  *
  * This client is specifically designed for use in middleware where
  * cookies need to be read from the request and set on the response.
+ *
+ * Security Features:
+ * - Validates environment variables at runtime
+ * - Sets secure Cookie attributes in production (Secure, HttpOnly, SameSite)
  *
  * @param request - The incoming Next.js request
  * @returns Object containing the Supabase client, response, and user getter
@@ -42,6 +47,12 @@ type MiddlewareRequest = {
  * ```
  */
 export function createMiddlewareClient(request: MiddlewareRequest) {
+  // Validate environment variables (throws descriptive error if missing)
+  const { url, anonKey } = getSupabaseEnv();
+
+  // Determine if we're in production for Cookie security
+  const isProduction = process.env.NODE_ENV === 'production';
+
   // Create a response that we can modify
   let response = NextResponse.next({
     request: {
@@ -49,35 +60,37 @@ export function createMiddlewareClient(request: MiddlewareRequest) {
     },
   });
 
-  const supabase = createSupabaseServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          // Update request cookies
-          cookiesToSet.forEach(({ name, value }) => {
-            request.cookies.set(name, value);
-          });
-
-          // Create a new response with updated cookies
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-
-          // Set cookies on the response
-          cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options as CookieOptions);
-          });
-        },
+  const supabase = createSupabaseServerClient<Database>(url, anonKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
       },
-    }
-  );
+      setAll(cookiesToSet) {
+        // Update request cookies
+        cookiesToSet.forEach(({ name, value }) => {
+          request.cookies.set(name, value);
+        });
+
+        // Create a new response with updated cookies
+        response = NextResponse.next({
+          request: {
+            headers: request.headers,
+          },
+        });
+
+        // Set cookies on the response with secure attributes
+        cookiesToSet.forEach(({ name, value, options }) => {
+          response.cookies.set(name, value, {
+            ...(options as CookieOptions),
+            // Security: Force secure Cookie attributes in production
+            secure: isProduction,
+            httpOnly: true,
+            sameSite: 'lax',
+          });
+        });
+      },
+    },
+  });
 
   /**
    * Get the currently authenticated user
