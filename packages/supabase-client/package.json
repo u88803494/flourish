@@ -26,7 +26,10 @@
     "./client": "./src/lib/client/index.ts",
     "./server": "./src/lib/server/index.ts",
     "./middleware": "./src/lib/middleware/index.ts",
-    "./provider": "./src/lib/client/provider.tsx"
+    "./provider": "./src/lib/client/provider.tsx",
+    "./lib/utils/url-validator": "./src/lib/utils/url-validator.ts",
+    "./lib/utils/env-validator": "./src/lib/utils/env-validator.ts",
+    "./lib/utils": "./src/lib/utils/index.ts"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
