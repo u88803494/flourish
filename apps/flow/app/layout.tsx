@@ -26,10 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Sign-In SDK for popup-based authentication */}
-        <script src="https://accounts.google.com/gsi/client" async defer />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers>{children}</Providers>
       </body>

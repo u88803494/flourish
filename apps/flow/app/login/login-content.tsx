@@ -4,38 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@repo/supabase-client/client';
 
-declare global {
-  interface Window {
-    google?: {
-      accounts: {
-        id: {
-          initialize: (config: {
-            client_id: string;
-            callback: (response: CredentialResponse) => void;
-          }) => void;
-          renderButton: (
-            element: HTMLElement,
-            options: { type: string; theme: string; size: string; text: string }
-          ) => void;
-          prompt: () => void;
-        };
-      };
-    };
-  }
-}
-
-interface CredentialResponse {
-  credential?: string;
-  clientId?: string;
-}
-
 export function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const errorAlertRef = useRef<HTMLDivElement>(null);
-  const googleButtonRef = useRef<HTMLDivElement>(null);
 
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const errorParam = searchParams.get('error');
@@ -56,59 +30,23 @@ export function LoginContent() {
     }
   }, [error]);
 
-  // Initialize Google Sign-In with popup mode
-  useEffect(() => {
-    const initializeGoogleSignIn = () => {
-      if (!window.google) {
-        // Retry if Google SDK not yet loaded
-        setTimeout(initializeGoogleSignIn, 100);
-        return;
-      }
-
-      window.google.accounts.id.initialize({
-        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
-        callback: handleGoogleSignInCallback,
-      });
-
-      // Render Google button in popup mode
-      if (googleButtonRef.current) {
-        window.google.accounts.id.renderButton(googleButtonRef.current, {
-          type: 'standard',
-          theme: 'outline',
-          size: 'large',
-          text: 'signin',
-        });
-      }
-    };
-
-    initializeGoogleSignIn();
-  }, []);
-
-  async function handleGoogleSignInCallback(response: CredentialResponse) {
-    if (!response.credential) {
-      setError('無法取得 Google 認證，請重試');
-      return;
-    }
-
+  async function handleGoogleSignIn() {
     setIsLoading(true);
     setError(null);
 
     try {
       const supabase = createBrowserClient();
 
-      const { data, error: signInError } = await supabase.auth.signInWithIdToken({
+      const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        token: response.credential,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(callbackUrl)}`,
+        },
       });
 
       if (signInError) {
         setError('Google 登入失敗，請重試');
         setIsLoading(false);
-        return;
-      }
-
-      if (data.session) {
-        router.push(callbackUrl);
       }
     } catch (err) {
       setError('發生未知錯誤，請重試');
@@ -173,18 +111,15 @@ export function LoginContent() {
             </div>
           )}
 
-          {/* Google Sign-In Button (Popup Mode) */}
-          <div
-            ref={googleButtonRef}
-            className="flex justify-center"
-            role="button"
+          {/* Google Sign-In Button */}
+          <button
+            onClick={handleGoogleSignIn}
+            disabled={isLoading}
+            className="w-full py-3 px-4 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-all"
             aria-label="使用 Google 帳號登入"
-          />
-
-          {/* Fallback message if Google Sign-In fails to load */}
-          <p className="text-center text-slate-500 text-xs mt-4">
-            如果 Google 按鈕未顯示，請檢查您的網路連線或刷新頁面
-          </p>
+          >
+            {isLoading ? '登入中...' : '使用 Google 帳號登入'}
+          </button>
 
           {/* Divider */}
           <div className="relative my-8">
