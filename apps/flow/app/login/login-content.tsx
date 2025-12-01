@@ -40,7 +40,10 @@ export function LoginContent() {
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(callbackUrl)}`,
+          queryParams: {
+            redirect_to: `${window.location.origin}/auth/callback?next=${encodeURIComponent(callbackUrl)}`,
+          },
+          skipBrowserRedirect: true,
         },
       });
 
@@ -48,7 +51,8 @@ export function LoginContent() {
         setError('無法啟動 Google 登入，請重試');
         setIsLoading(false);
       }
-      // Success will auto redirect to Google, no need to handle
+      // Note: With skipBrowserRedirect, user will need to handle the response manually if needed
+      // For now, the default redirect should work via popup flow
     } catch {
       setError('發生未知錯誤，請重試');
       setIsLoading(false);
