@@ -1,17 +1,23 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@repo/supabase-client/client';
 
+// Validate callback URL to prevent open redirect attacks
+function isInternalUrl(url: string): boolean {
+  return url.startsWith('/') && !url.startsWith('//');
+}
+
 export function LoginContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const errorAlertRef = useRef<HTMLDivElement>(null);
 
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  // Validate callbackUrl with whitelist
+  const rawCallbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const callbackUrl = isInternalUrl(rawCallbackUrl) ? rawCallbackUrl : '/dashboard';
   const errorParam = searchParams.get('error');
 
   // Display error from URL
@@ -30,7 +36,7 @@ export function LoginContent() {
     }
   }, [error]);
 
-  async function handleGoogleSignIn() {
+  async function handleGoogleSignIn(): Promise<void> {
     setIsLoading(true);
     setError(null);
 
@@ -41,15 +47,31 @@ export function LoginContent() {
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(callbackUrl)}`,
+          // Note: PKCE is enabled by default in Supabase
         },
       });
 
       if (signInError) {
-        setError('Google 登入失敗，請重試');
-        setIsLoading(false);
+        throw signInError;
       }
+
+      // OAuth will automatically redirect, no manual redirect needed
     } catch (err) {
-      setError('發生未知錯誤，請重試');
+      console.error('登入失敗:', err);
+
+      // Provide specific error messages based on error type
+      if (err instanceof Error) {
+        if (err.message.includes('popup_closed')) {
+          setError('登入已取消');
+        } else if (err.message.includes('network')) {
+          setError('網路連線異常，請檢查網路後重試');
+        } else {
+          setError('Google 登入失敗，請重試');
+        }
+      } else {
+        setError('發生未知錯誤，請重試');
+      }
+    } finally {
       setIsLoading(false);
     }
   }
@@ -115,8 +137,9 @@ export function LoginContent() {
           <button
             onClick={handleGoogleSignIn}
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-all"
+            aria-busy={isLoading}
             aria-label="使用 Google 帳號登入"
+            className="w-full py-3 px-4 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-all"
           >
             {isLoading ? '登入中...' : '使用 Google 帳號登入'}
           </button>
