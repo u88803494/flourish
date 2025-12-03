@@ -295,14 +295,49 @@ ORDER BY tablename, policyname;
 
 ---
 
+## 🔒 額外安全修復
+
+### Prisma Migrations 表 RLS
+
+**問題**: `_prisma_migrations` 表未啟用 RLS
+**影響**: Supabase Security Advisor 警告
+**修復**: Migration `20251203010000_enable_rls_prisma_migrations.sql`
+
+- 啟用 RLS: `ALTER TABLE _prisma_migrations ENABLE ROW LEVEL SECURITY`
+- 拒絕訪問策略: `CREATE POLICY "no_public_access" ... USING (false)`
+- **狀態**: ✅ 已部署
+
+### 函數 Search Path 保護
+
+**問題**: 5 個函數缺少 `search_path` 設定，存在注入風險
+**影響**: Supabase Security Advisor 警告（中等風險）
+**修復**: Migration `20251203020000_fix_function_search_path.sql`
+
+**修復的函數**:
+
+1. `handle_new_user()` - SECURITY DEFINER（最高優先級）
+2. `update_updated_at_column()`
+3. `get_monthly_spending()`
+4. `get_category_total()`
+5. `get_category_spending_by_range()`
+
+**修復方式**: 所有函數添加 `SET search_path = ''`
+
+- **狀態**: ✅ 已部署
+
+---
+
 ## 🔗 相關文件
 
 - **測試計劃**: `docs/sprints/release-1-core-features/12-rls-testing-plan.md`
 - **Migration 檔案**: `supabase/migrations/20251203000000_enable_rls_policies.sql`
+- **安全修復**:
+  - `supabase/migrations/20251203010000_enable_rls_prisma_migrations.sql`
+  - `supabase/migrations/20251203020000_fix_function_search_path.sql`
 - **驗證腳本**: `scripts/verify-rls.sql`
 
 ---
 
 **建立時間**: 2025-12-03 11:30
-**最後更新**: 2025-12-03 11:30
-**狀態**: Migration 完成，等待手動驗證
+**最後更新**: 2025-12-03 14:00
+**狀態**: ✅ RLS 完成 + 額外安全修復，等待手動驗證
