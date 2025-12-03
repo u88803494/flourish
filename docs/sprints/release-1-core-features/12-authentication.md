@@ -115,39 +115,71 @@ tags: ['authentication', 'supabase-auth', 'google-oauth', 'security']
 
 ---
 
-### 任務 12.3: 登入 UI 頁面（Google OAuth）
+### 任務 12.3: 登入 UI 頁面（Google OAuth）✅
 
 **GitHub Issue**: [#46](https://github.com/u88803494/flourish/issues/46)
+**狀態**: ✅ 完成（2025-12-03）
 **預估時間**: 30-45 分鐘
 **依賴**: PR #43 已合併、任務 12.2 完成
 
 #### 子任務
 
-- [ ] 建立 `app/(auth)/login/page.tsx`（Google 登入按鈕）
-- [ ] 實現 `signInWithOAuth` 呼叫
-- [ ] 新增 loading 狀態和錯誤處理
-- [ ] 實現登出功能
-- [ ] 建立 `app/(protected)/profile/page.tsx`（顯示用戶資訊）
+- [x] 建立 `app/(auth)/login/page.tsx`（Google 登入按鈕）
+- [x] 實現 `signInWithOAuth` 呼叫
+- [x] 新增 loading 狀態和錯誤處理
+- [x] 實現登出功能（SignOutButton 元件）
+- [x] 建立 `app/(protected)/profile/page.tsx`（顯示用戶資訊）
+
+**完成項目**：
+
+- Google OAuth 登入流程（簡化版，移除 Google SDK 依賴）
+- 安全修復：Open Redirect 防護、URL 白名單驗證
+- 可訪問性改進：`aria-busy`、`aria-label` 屬性
+- 錯誤處理：細緻的錯誤訊息分類
+- TypeScript 類型安全：明確的返回類型
 
 **注意**：使用 Google OAuth 不需要註冊頁面，用戶首次登入自動建立帳號。
 
 ---
 
-### 任務 12.4: RLS 策略 + 測試
+### 任務 12.4: RLS 策略 + 測試 🔄
 
 **GitHub Issue**: [#47](https://github.com/u88803494/flourish/issues/47)
+**狀態**: 🔄 進行中（Migration 已完成，等待推送與測試）
 **預估時間**: 30-45 分鐘
 **依賴**: 任務 12.1 完成（可與 12.3 平行進行）
 
 #### 子任務
 
-- [ ] 在所有資料表啟用 RLS（users, cards, transactions, categories, statements, recurring_expenses, saving_rules）
-- [ ] 建立 SELECT 策略，使用 `auth.uid()` 檢查
-- [ ] 建立 INSERT/UPDATE/DELETE 策略
-- [ ] 建立 Supabase migration 檔案
+- [x] 在所有資料表啟用 RLS（users, cards, transactions, categories, statements, recurring_expenses, saving_rules）
+- [x] 建立 SELECT 策略，使用 `auth.uid()` 檢查
+- [x] 建立 INSERT/UPDATE/DELETE 策略
+- [x] 建立 Supabase migration 檔案（`supabase/migrations/20251203000000_enable_rls_policies.sql`）
+- [ ] 推送 migration 至 Supabase（待執行）
 - [ ] 測試：用戶 A 無法存取用戶 B 的資料
 - [ ] 測試：未認證用戶無法存取任何資料
-- [ ] 記錄所有 RLS 策略
+- [x] 記錄所有 RLS 策略（測試計劃：`docs/sprints/release-1-core-features/12-rls-testing-plan.md`）
+
+#### 已建立檔案
+
+| 檔案                                                          | 用途                   |
+| ------------------------------------------------------------- | ---------------------- |
+| `supabase/migrations/20251203000000_enable_rls_policies.sql`  | RLS 策略 SQL migration |
+| `docs/sprints/release-1-core-features/12-rls-testing-plan.md` | 詳細測試計劃與驗證指令 |
+
+#### 推送 Migration 指令
+
+```bash
+# 1. 確認已連結 Supabase 專案
+npx supabase link --project-ref fstcioczrehqtcbdzuij
+
+# 2. 推送 migration
+npx supabase db push
+
+# 3. 驗證 RLS 已啟用
+# 在 Supabase Dashboard SQL Editor 執行：
+# SELECT schemaname, tablename, rowsecurity FROM pg_tables WHERE schemaname = 'public';
+```
 
 ---
 
@@ -197,18 +229,18 @@ main
 
 ## 📊 進度追蹤
 
-| 任務                  | Issue | 狀態      | PR  |
-| --------------------- | ----- | --------- | --- |
-| shadcn/ui 設定        | #48   | ✅ 完成   | #43 |
-| Supabase Auth 設定    | #44   | ✅ 完成   | #49 |
-| Middleware + 安全修復 | #45   | 🔄 進行中 | #50 |
-| 登入/註冊 UI          | #46   | ⏳ 待處理 | -   |
-| RLS 策略              | #47   | ⏳ 待處理 | -   |
+| 任務                  | Issue | 狀態      | PR  | 完成日期   |
+| --------------------- | ----- | --------- | --- | ---------- |
+| shadcn/ui 設定        | #48   | ✅ 完成   | #43 | 2025-11-26 |
+| Supabase Auth 設定    | #44   | ✅ 完成   | #49 | 2025-11-27 |
+| Middleware + 安全修復 | #45   | ✅ 完成   | #50 | 2025-11-28 |
+| 登入/註冊 UI          | #46   | ✅ 完成   | #51 | 2025-12-03 |
+| RLS 策略              | #47   | 🔄 進行中 | -   | 進行中     |
 
 ---
 
-**最後更新**: 2025-11-28
-**Sprint 狀態**: 進行中（2.5/5 任務完成，安全修復已完成待合併）
+**最後更新**: 2025-12-03
+**Sprint 狀態**: 進行中（4/5 任務完成，RLS migration 已完成待推送與測試）
 
 ### 技術堆疊更新
 
