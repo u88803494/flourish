@@ -2,6 +2,18 @@
 -- RLS (Row Level Security) Policies for Flourish
 -- Sprint 12.4: Authentication & Authorization
 -- ============================================================================
+--
+-- ⚠️  KNOWN ISSUE (FIXED)
+-- ============================================================================
+-- This migration contains a column naming error: uses "userId" (camelCase)
+-- but actual database columns are user_id (snake_case).
+--
+-- FIX: See migration 20251204000000_fix_rls_column_names.sql
+--      which drops and recreates all policies with correct column names.
+--
+-- DO NOT modify this file - migrations should remain immutable history.
+-- ============================================================================
+--
 -- This migration enables RLS on all user-facing tables and creates policies
 -- to ensure users can only access their own data.
 --
